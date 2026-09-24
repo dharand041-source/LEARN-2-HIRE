@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 99%;
+    --midnight-navy: 222 55% 22%;
+    --champagne: 41 85% 77%;
+    --dusty-rose: 2 64% 78%;
+  }
+
+  * {
+    border-color: rgba(252, 251, 251, 0.08);
+  }
+
+  body {
+    background-color: #000000;
+    color: #FCFBFB;
+    font-feature-settings: "rlig" 1, "calt" 1, "cv02" 1;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Custom refined scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #192A56;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F7D794;
+  }
+}
+
+@layer utilities {
+  .bg-subtle-pattern {
+    background-image: radial-gradient(rgba(247, 215, 148, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .border-subtle {
+    border: 1px solid rgba(252, 251, 251, 0.08);
+  }
+
+  .border-champagne-subtle {
+    border: 1px solid rgba(247, 215, 148, 0.22);
+  }
+
+  .border-rose-subtle {
+    border: 1px solid rgba(237, 166, 163, 0.22);
+  }
+
+  .glow-champagne {
+    box-shadow: 0 0 25px -5px rgba(247, 215, 148, 0.18);
+  }
+
+  .glass-navy {
+    background: rgba(25, 42, 86, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
