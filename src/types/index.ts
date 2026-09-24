@@ -43,12 +43,17 @@ export interface Question {
   skillTested: string;
 }
 
+export * from "./assessment";
+
 export interface AssessmentResult {
   score: number;
   totalQuestions: number;
   completedAt: string;
   roleId: string;
   roleTitle: string;
+  correctCount?: number;
+  wrongCount?: number;
+  skippedCount?: number;
   skillBreakdown: {
     skill: string;
     score: number;
@@ -57,6 +62,7 @@ export interface AssessmentResult {
   strongAreas: string[];
   needsImprovement: string[];
   recommendations: string[];
+  questionResults?: any[];
 }
 
 export interface LearningResource {

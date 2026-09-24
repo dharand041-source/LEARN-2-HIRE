@@ -81,7 +81,7 @@ interface CareerContextType {
 
 const DEFAULT_USER_PROFILE: UserProfile = {
   name: "Hamenath",
-  email: "hamenath.v@example.com",
+  email: "demo@skillforge.local",
   targetRole: "Full Stack Developer",
   targetCategory: "Software Development & Engineering",
   readinessScore: 76,
