@@ -62,26 +62,26 @@ export default function ProjectWorkspacePage() {
   };
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in bg-white">
       {/* Top Header */}
-      <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-start gap-3">
           <Link
             href="/projects"
-            className="p-2 rounded-lg bg-surface-card hover:bg-navy-800 border border-surface-border text-pearl-muted hover:text-pearl-primary transition-colors mt-1"
+            className="p-2 rounded-lg bg-white hover:bg-surface-subtle border border-border text-night transition-colors mt-1"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Badge variant="champagne" size="sm">Workspace</Badge>
-              <Badge variant="navy" size="sm">{project.difficulty}</Badge>
-              <span className="text-xs text-pearl-muted font-mono">{project.estimatedDuration}</span>
+              <Badge variant="imperial" size="sm">Workspace</Badge>
+              <Badge variant="night" size="sm">{project.difficulty}</Badge>
+              <span className="text-xs text-muted font-mono font-semibold">{project.estimatedDuration}</span>
             </div>
-            <h1 className="text-2xl font-bold text-pearl-primary">
+            <h1 className="text-2xl font-extrabold text-night uppercase">
               {project.title}
             </h1>
-            <p className="text-xs text-pearl-muted mt-1 max-w-2xl leading-relaxed">
+            <p className="text-xs text-muted mt-1 max-w-2xl leading-relaxed font-medium">
               {project.tagline}
             </p>
           </div>
@@ -90,8 +90,8 @@ export default function ProjectWorkspacePage() {
         <div className="flex items-center gap-3">
           {project.evaluation ? (
             <Link href={`/projects/${project.id}/evaluation`}>
-              <Button size="sm" variant="secondary" className="gap-2 text-champagne border-champagne/30">
-                <Award className="w-3.5 h-3.5" />
+              <Button size="sm" variant="secondary" className="gap-2 text-night font-bold">
+                <Award className="w-3.5 h-3.5 text-imperial" />
                 <span>View Evaluation ({project.evaluation.overallScore}/100)</span>
               </Button>
             </Link>
@@ -99,7 +99,7 @@ export default function ProjectWorkspacePage() {
             <Button
               onClick={() => setIsSubmitModalOpen(true)}
               size="sm"
-              className="gap-2"
+              className="gap-2 font-bold shadow-sm"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Submit for Evaluation</span>
@@ -109,12 +109,12 @@ export default function ProjectWorkspacePage() {
       </div>
 
       {/* 5-Phase Project Progress Pipeline Tracker */}
-      <div className="p-5 rounded-xl bg-surface-card border border-surface-border">
+      <div className="p-5 rounded-xl bg-white border border-border shadow-card">
         <div className="flex items-center justify-between mb-3 text-xs">
-          <span className="font-semibold text-pearl-primary uppercase tracking-wider text-[11px]">
+          <span className="font-bold text-night uppercase tracking-wider text-[11px]">
             Project Lifecycle Phase
           </span>
-          <span className="font-mono text-champagne font-bold">{project.progressPercentage}% Completed</span>
+          <span className="font-mono text-imperial font-extrabold">{project.progressPercentage}% Completed</span>
         </div>
 
         {/* Pipeline Step Indicators */}
@@ -129,15 +129,15 @@ export default function ProjectWorkspacePage() {
                 key={phase}
                 className={`p-2.5 rounded-lg border text-center transition-all ${
                   isCurrent
-                    ? "bg-navy-800 border-champagne text-champagne font-bold shadow-sm ring-1 ring-champagne/30"
+                    ? "bg-imperial border-imperial text-white font-bold shadow-sm"
                     : isPassed
-                    ? "bg-navy-950 border-white/10 text-pearl-primary"
-                    : "bg-surface-subtle border-white/5 text-pearl-muted opacity-60"
+                    ? "bg-night border-night text-white font-medium"
+                    : "bg-surface-subtle border-border text-muted opacity-60"
                 }`}
               >
                 <div className="flex items-center justify-center gap-1 text-[11px]">
                   {isPassed ? (
-                    <Check className="w-3 h-3 text-champagne" />
+                    <Check className={`w-3 h-3 ${isCurrent ? "text-white" : "text-white"}`} />
                   ) : (
                     <span className="text-[10px] font-mono">0{idx + 1}</span>
                   )}
@@ -154,25 +154,25 @@ export default function ProjectWorkspacePage() {
         {/* Left Column: Problem & Requirements */}
         <div className="lg:col-span-7 space-y-6">
           {/* Problem Statement Card */}
-          <div className="p-6 rounded-xl bg-surface-card border border-surface-border space-y-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary flex items-center gap-2">
-              <FolderGit2 className="w-4 h-4 text-champagne" />
+          <div className="p-6 rounded-xl bg-white border border-border space-y-3 shadow-card">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-night flex items-center gap-2">
+              <FolderGit2 className="w-4 h-4 text-imperial" />
               Industry Problem Statement
             </h2>
-            <p className="text-xs text-pearl-muted leading-relaxed">
+            <p className="text-xs text-muted leading-relaxed font-medium">
               {project.problemStatement}
             </p>
           </div>
 
           {/* Functional Requirements Checklist */}
-          <div className="p-6 rounded-xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary">
+          <div className="p-6 rounded-xl bg-white border border-border space-y-4 shadow-card">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-night">
               Functional & Technical Requirements
             </h2>
             <div className="space-y-2.5">
               {project.requirements.map((req, i) => (
-                <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-navy-950/80 border border-white/5 text-xs text-pearl-muted leading-relaxed">
-                  <span className="w-5 h-5 rounded-full bg-navy-800 border border-white/10 flex items-center justify-center font-mono text-[10px] text-champagne shrink-0 mt-0.5">
+                <div key={i} className="flex items-start gap-3 p-3.5 rounded-lg bg-surface-subtle border border-border text-xs text-night leading-relaxed font-medium">
+                  <span className="w-5 h-5 rounded-full bg-night text-white flex items-center justify-center font-mono text-[10px] font-bold shrink-0 mt-0.5">
                     {i + 1}
                   </span>
                   <span>{req}</span>
@@ -182,26 +182,26 @@ export default function ProjectWorkspacePage() {
           </div>
 
           {/* Suggested Architecture & Tech Stack */}
-          <div className="p-6 rounded-xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary">
+          <div className="p-6 rounded-xl bg-white border border-border space-y-4 shadow-card">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-night">
               Recommended Architectural Stack
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3.5 rounded-lg bg-navy-950 border border-white/5 space-y-1">
-                <span className="text-[10px] uppercase font-semibold text-champagne">Frontend Layer:</span>
-                <p className="text-pearl-primary font-medium">{project.suggestedStack.frontend}</p>
+              <div className="p-3.5 rounded-lg bg-surface-subtle border border-border space-y-1">
+                <span className="text-[10px] uppercase font-bold text-imperial">Frontend Layer:</span>
+                <p className="text-night font-bold">{project.suggestedStack.frontend}</p>
               </div>
-              <div className="p-3.5 rounded-lg bg-navy-950 border border-white/5 space-y-1">
-                <span className="text-[10px] uppercase font-semibold text-champagne">Backend Layer:</span>
-                <p className="text-pearl-primary font-medium">{project.suggestedStack.backend}</p>
+              <div className="p-3.5 rounded-lg bg-surface-subtle border border-border space-y-1">
+                <span className="text-[10px] uppercase font-bold text-imperial">Backend Layer:</span>
+                <p className="text-night font-bold">{project.suggestedStack.backend}</p>
               </div>
-              <div className="p-3.5 rounded-lg bg-navy-950 border border-white/5 space-y-1">
-                <span className="text-[10px] uppercase font-semibold text-champagne">Database & Caching:</span>
-                <p className="text-pearl-primary font-medium">{project.suggestedStack.database}</p>
+              <div className="p-3.5 rounded-lg bg-surface-subtle border border-border space-y-1">
+                <span className="text-[10px] uppercase font-bold text-imperial">Database & Caching:</span>
+                <p className="text-night font-bold">{project.suggestedStack.database}</p>
               </div>
-              <div className="p-3.5 rounded-lg bg-navy-950 border border-white/5 space-y-1">
-                <span className="text-[10px] uppercase font-semibold text-champagne">DevOps & CI/CD:</span>
-                <p className="text-pearl-primary font-medium">{project.suggestedStack.devops}</p>
+              <div className="p-3.5 rounded-lg bg-surface-subtle border border-border space-y-1">
+                <span className="text-[10px] uppercase font-bold text-imperial">DevOps & CI/CD:</span>
+                <p className="text-night font-bold">{project.suggestedStack.devops}</p>
               </div>
             </div>
           </div>
@@ -210,12 +210,12 @@ export default function ProjectWorkspacePage() {
         {/* Right Column: Milestones Checklist & Submission Form */}
         <div className="lg:col-span-5 space-y-6">
           {/* Milestones Checklist */}
-          <div className="p-6 rounded-xl bg-surface-card border border-surface-border space-y-4">
-            <div className="flex items-center justify-between border-b border-surface-border pb-3">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-pearl-primary">
+          <div className="p-6 rounded-xl bg-white border border-border space-y-4 shadow-card">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-night">
                 Milestone Verification
               </h2>
-              <span className="text-xs font-mono text-champagne font-bold">
+              <span className="text-xs font-mono text-imperial font-extrabold">
                 {completedMilestones} / {project.milestones.length}
               </span>
             </div>
@@ -225,26 +225,26 @@ export default function ProjectWorkspacePage() {
                 <div
                   key={m.id}
                   onClick={() => updateProjectMilestone(project.id, m.id, !m.completed)}
-                  className={`p-3 rounded-lg border transition-all cursor-pointer flex items-start gap-3 ${
+                  className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-start gap-3 ${
                     m.completed
-                      ? "bg-navy-900/90 border-champagne/30 text-pearl-primary"
-                      : "bg-surface-subtle border-white/5 text-pearl-muted hover:border-pearl/20"
+                      ? "bg-surface-subtle border-night text-night"
+                      : "bg-white border-border text-muted hover:border-night"
                   }`}
                 >
                   <div
                     className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
                       m.completed
-                        ? "bg-champagne border-champagne text-black"
-                        : "border-pearl-muted/40"
+                        ? "bg-night border-night text-white"
+                        : "border-border"
                     }`}
                   >
                     {m.completed && <Check className="w-3 h-3 stroke-[3]" />}
                   </div>
                   <div>
-                    <h3 className={`text-xs font-semibold leading-tight ${m.completed ? "text-pearl-primary" : "text-pearl-muted"}`}>
+                    <h3 className={`text-xs font-bold leading-tight ${m.completed ? "text-night" : "text-muted"}`}>
                       {m.title}
                     </h3>
-                    <p className="text-[11px] text-pearl-muted mt-1 leading-relaxed">
+                    <p className="text-[11px] text-muted mt-1 leading-relaxed font-medium">
                       {m.description}
                     </p>
                   </div>
@@ -254,53 +254,53 @@ export default function ProjectWorkspacePage() {
           </div>
 
           {/* Submission Form Card */}
-          <div className="p-6 rounded-xl bg-surface-card border border-champagne/30 shadow-card-navy space-y-5">
+          <div className="p-6 rounded-xl bg-white border border-border shadow-card space-y-5">
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-pearl-primary">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-night">
                 Production Artifacts & Links
               </h2>
-              <p className="text-[11px] text-pearl-muted mt-0.5">
+              <p className="text-[11px] text-muted mt-0.5 font-medium">
                 Provide public URLs for automated rubric and test pipeline evaluation.
               </p>
             </div>
 
             <div className="space-y-3.5 text-xs">
               <div className="space-y-1">
-                <label className="text-[11px] text-pearl-muted flex items-center gap-1.5 font-medium">
-                  <Github className="w-3.5 h-3.5 text-champagne" /> GitHub Repository URL
+                <label className="text-[11px] text-night flex items-center gap-1.5 font-bold">
+                  <Github className="w-3.5 h-3.5 text-imperial" /> GitHub Repository URL
                 </label>
                 <input
                   type="url"
                   value={repoUrl}
                   onChange={(e) => setRepoUrl(e.target.value)}
                   placeholder="https://github.com/username/project"
-                  className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne font-mono"
+                  className="w-full p-2.5 rounded-lg bg-surface-subtle border border-border text-xs text-night focus:outline-none focus:border-imperial font-mono font-medium"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] text-pearl-muted flex items-center gap-1.5 font-medium">
-                  <Globe className="w-3.5 h-3.5 text-champagne" /> Live Deployment URL
+                <label className="text-[11px] text-night flex items-center gap-1.5 font-bold">
+                  <Globe className="w-3.5 h-3.5 text-imperial" /> Live Deployment URL
                 </label>
                 <input
                   type="url"
                   value={liveUrl}
                   onChange={(e) => setLiveUrl(e.target.value)}
                   placeholder="https://project-demo.vercel.app"
-                  className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne font-mono"
+                  className="w-full p-2.5 rounded-lg bg-surface-subtle border border-border text-xs text-night focus:outline-none focus:border-imperial font-mono font-medium"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] text-pearl-muted flex items-center gap-1.5 font-medium">
-                  <FileText className="w-3.5 h-3.5 text-champagne" /> Architecture Documentation
+                <label className="text-[11px] text-night flex items-center gap-1.5 font-bold">
+                  <FileText className="w-3.5 h-3.5 text-imperial" /> Architecture Documentation
                 </label>
                 <input
                   type="url"
                   value={docsUrl}
                   onChange={(e) => setDocsUrl(e.target.value)}
                   placeholder="https://github.com/username/project/wiki"
-                  className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne font-mono"
+                  className="w-full p-2.5 rounded-lg bg-surface-subtle border border-border text-xs text-night focus:outline-none focus:border-imperial font-mono font-medium"
                 />
               </div>
             </div>
@@ -308,7 +308,7 @@ export default function ProjectWorkspacePage() {
             <Button
               onClick={() => setIsSubmitModalOpen(true)}
               size="lg"
-              className="w-full gap-2 text-xs font-semibold"
+              className="w-full gap-2 text-xs font-bold shadow-sm"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Submit Project for Evaluation</span>
@@ -326,34 +326,34 @@ export default function ProjectWorkspacePage() {
         maxWidth="md"
       >
         <div className="space-y-4 text-xs">
-          <div className="p-4 rounded-lg bg-navy-950 border border-white/5 space-y-2">
+          <div className="p-4 rounded-lg bg-surface-subtle border border-border space-y-2">
             <div className="flex justify-between">
-              <span className="text-pearl-muted">Project:</span>
-              <span className="text-pearl-primary font-semibold">{project.title}</span>
+              <span className="text-muted font-medium">Project:</span>
+              <span className="text-night font-bold">{project.title}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-pearl-muted">Milestones Done:</span>
-              <span className="text-champagne font-bold font-mono">{completedMilestones} of {project.milestones.length}</span>
+              <span className="text-muted font-medium">Milestones Done:</span>
+              <span className="text-imperial font-bold font-mono">{completedMilestones} of {project.milestones.length}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-pearl-muted">Repository:</span>
-              <span className="text-pearl-primary font-mono truncate max-w-[200px]">{repoUrl}</span>
+              <span className="text-muted font-medium">Repository:</span>
+              <span className="text-night font-mono font-semibold truncate max-w-[200px]">{repoUrl}</span>
             </div>
           </div>
 
-          <p className="text-pearl-muted leading-relaxed text-[11px]">
+          <p className="text-muted leading-relaxed text-[11px] font-medium">
             Submitting this project increases your global career readiness score by up to <strong>+5%</strong> and generates a detailed rubric breakdown.
           </p>
 
           <div className="flex items-center justify-end gap-3 pt-2">
-            <Button variant="outline" size="sm" onClick={() => setIsSubmitModalOpen(false)}>
+            <Button variant="secondary" size="sm" onClick={() => setIsSubmitModalOpen(false)} className="font-bold">
               Cancel
             </Button>
             <Button
               size="sm"
               isLoading={isSubmitting}
               onClick={handleSubmitEvaluation}
-              className="gap-1.5"
+              className="gap-1.5 font-bold shadow-sm"
             >
               <span>Confirm & Evaluate</span>
               <ArrowRight className="w-3.5 h-3.5" />

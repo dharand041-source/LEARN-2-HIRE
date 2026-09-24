@@ -37,27 +37,27 @@ export default function ProjectsDashboardPage() {
   });
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in bg-white">
       {/* Header */}
-      <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Badge variant="champagne" size="sm">Phase 06</Badge>
-            <span className="text-xs text-pearl-muted font-mono uppercase tracking-wider">
+            <Badge variant="imperial" size="sm">Phase 06</Badge>
+            <span className="text-xs text-muted font-mono uppercase tracking-wider font-bold">
               Verifiable Evidence Marketplace
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-bold text-pearl-primary tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-night tracking-tight uppercase">
             Production-Grade Real-World Projects
           </h1>
-          <p className="text-xs sm:text-sm text-pearl-muted mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-muted mt-1 max-w-2xl">
             Build, deploy, and defend production-quality full-stack applications. Completed projects undergo strict rubric grading and feed directly into your verified ATS resume.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link href="/problem-solving">
-            <Button variant="secondary" size="sm" className="gap-1.5">
+            <Button variant="secondary" size="sm" className="gap-1.5 font-bold">
               <span>Problem Solving Hub</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Button>
@@ -67,36 +67,36 @@ export default function ProjectsDashboardPage() {
 
       {/* Project Portfolio Stats Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-xl bg-surface-card border border-surface-border flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-navy-800 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-            <CheckCircle2 className="w-5 h-5" />
+        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
+          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-night">
+            <CheckCircle2 className="w-5 h-5 text-imperial" />
           </div>
           <div>
-            <p className="text-xs text-pearl-muted">Verified Completed Projects</p>
-            <p className="text-lg font-bold text-pearl-primary">{completedCount} Production Apps</p>
-            <p className="text-[10px] text-champagne">Average Score: 92/100</p>
+            <p className="text-xs text-muted font-medium">Verified Completed Projects</p>
+            <p className="text-lg font-extrabold text-night">{completedCount} Production Apps</p>
+            <p className="text-[10px] text-imperial font-bold">Average Score: 92/100</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-surface-card border border-surface-border flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-navy-800 border border-champagne/30 flex items-center justify-center text-champagne">
+        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
+          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-imperial">
             <FolderGit2 className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs text-pearl-muted">Active In-Development</p>
-            <p className="text-lg font-bold text-pearl-primary">{inProgressCount} Projects Active</p>
-            <p className="text-[10px] text-pearl-muted">Escrow Marketplace (65%)</p>
+            <p className="text-xs text-muted font-medium">Active In-Development</p>
+            <p className="text-lg font-extrabold text-night">{inProgressCount} Projects Active</p>
+            <p className="text-[10px] text-muted font-semibold">Escrow Marketplace (65%)</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-surface-card border border-surface-border flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-navy-800 border border-rose/30 flex items-center justify-center text-rose">
+        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
+          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-imperial">
             <Award className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs text-pearl-muted">Portfolio Readiness Weight</p>
-            <p className="text-lg font-bold text-pearl-primary">{userProfile.readinessBreakdown.projects}%</p>
-            <p className="text-[10px] text-emerald-400">+8% boost upon submission</p>
+            <p className="text-xs text-muted font-medium">Portfolio Readiness Weight</p>
+            <p className="text-lg font-extrabold text-night">{userProfile.readinessBreakdown.projects}%</p>
+            <p className="text-[10px] text-night font-bold">+8% boost upon submission</p>
           </div>
         </div>
       </div>
@@ -114,8 +114,8 @@ export default function ProjectsDashboardPage() {
           onChange={setActiveFilter}
         />
 
-        <span className="text-xs text-pearl-muted">
-          Showing <strong className="text-pearl-primary">{filteredProjects.length}</strong> project specifications
+        <span className="text-xs text-muted font-medium">
+          Showing <strong className="text-night">{filteredProjects.length}</strong> project specifications
         </span>
       </div>
 
@@ -129,12 +129,12 @@ export default function ProjectsDashboardPage() {
           return (
             <div
               key={proj.id}
-              className={`p-6 rounded-2xl border flex flex-col justify-between transition-all duration-200 hover:shadow-card-hover ${
+              className={`p-6 rounded-2xl border flex flex-col justify-between transition-all duration-200 hover:shadow-card-hover bg-white ${
                 isCompleted
-                  ? "bg-surface-card border-emerald-500/30"
+                  ? "border-border"
                   : isInProgress
-                  ? "bg-surface-card border-champagne/40"
-                  : "bg-surface-card border-surface-border hover:border-pearl/30"
+                  ? "border-imperial/50 hover:border-imperial shadow-sm"
+                  : "border-border hover:border-imperial"
               }`}
             >
               <div className="space-y-4">
@@ -145,10 +145,10 @@ export default function ProjectsDashboardPage() {
                       <Badge
                         variant={
                           isCompleted
-                            ? "success"
+                            ? "night"
                             : isInProgress
-                            ? "champagne"
-                            : "navy"
+                            ? "imperial"
+                            : "neutral"
                         }
                         size="sm"
                       >
@@ -156,49 +156,49 @@ export default function ProjectsDashboardPage() {
                       </Badge>
                       <Badge variant="neutral" size="sm">{proj.difficulty}</Badge>
                     </div>
-                    <h3 className="text-base font-bold text-pearl-primary leading-snug">
+                    <h3 className="text-base font-extrabold text-night leading-snug">
                       {proj.title}
                     </h3>
                   </div>
 
-                  <span className="text-xs text-pearl-muted font-mono flex items-center gap-1 shrink-0">
-                    <Clock className="w-3.5 h-3.5 text-champagne" /> {proj.estimatedDuration}
+                  <span className="text-xs text-muted font-mono flex items-center gap-1 shrink-0 font-semibold">
+                    <Clock className="w-3.5 h-3.5 text-imperial" /> {proj.estimatedDuration}
                   </span>
                 </div>
 
-                <p className="text-xs text-pearl-muted leading-relaxed">
+                <p className="text-xs text-muted leading-relaxed font-medium">
                   {proj.description}
                 </p>
 
                 {/* Progress Bar & Phase */}
-                <div className="space-y-1.5 p-3 rounded-lg bg-navy-950 border border-white/5">
+                <div className="space-y-1.5 p-3.5 rounded-lg bg-surface-subtle border border-border">
                   <div className="flex justify-between text-xs">
-                    <span className="text-pearl-muted">Current Phase: <strong className="text-pearl-primary">{proj.currentPhase}</strong></span>
-                    <span className="font-mono text-champagne font-bold">{proj.progressPercentage}%</span>
+                    <span className="text-muted font-medium">Current Phase: <strong className="text-night">{proj.currentPhase}</strong></span>
+                    <span className="font-mono text-imperial font-extrabold">{proj.progressPercentage}%</span>
                   </div>
                   <ProgressBar
                     value={proj.progressPercentage}
                     size="sm"
-                    variant={isCompleted ? "success" : "champagne"}
+                    variant="imperial"
                   />
-                  <div className="flex items-center justify-between text-[10px] text-pearl-subtle pt-1">
+                  <div className="flex items-center justify-between text-[10px] text-muted pt-1 font-semibold">
                     <span>{proj.milestones.filter((m) => m.completed).length} of {proj.milestones.length} milestones done</span>
                     {hasEvaluation && (
-                      <span className="text-emerald-400 font-bold font-mono">Score: {proj.evaluation?.overallScore}/100</span>
+                      <span className="text-night font-bold font-mono">Score: {proj.evaluation?.overallScore}/100</span>
                     )}
                   </div>
                 </div>
 
                 {/* Tech Stack Badges */}
                 <div className="space-y-1.5">
-                  <p className="text-[10px] uppercase font-semibold text-pearl-muted">
+                  <p className="text-[10px] uppercase font-bold text-night">
                     Technologies & Architecture:
                   </p>
                   <div className="flex flex-wrap gap-1.5">
                     {proj.technologies.map((t, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded bg-navy-900 border border-white/5 text-[10px] font-mono text-pearl-muted"
+                        className="px-2 py-0.5 rounded bg-surface-subtle border border-border text-[10px] font-mono font-semibold text-night"
                       >
                         {t}
                       </span>
@@ -208,12 +208,12 @@ export default function ProjectsDashboardPage() {
               </div>
 
               {/* Action Links */}
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between gap-3">
+              <div className="mt-6 pt-4 border-t border-border flex items-center justify-between gap-3">
                 <Link href={`/projects/${proj.id}`} className="flex-1">
                   <Button
-                    variant={isInProgress ? "primary" : isCompleted ? "secondary" : "outline"}
+                    variant={isInProgress ? "primary" : isCompleted ? "secondary" : "secondary"}
                     size="sm"
-                    className="w-full gap-2 text-xs"
+                    className="w-full gap-2 text-xs font-bold shadow-sm"
                   >
                     <span>{isInProgress ? "Open Workspace" : isCompleted ? "View Submission Specs" : "Start Project"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -222,8 +222,8 @@ export default function ProjectsDashboardPage() {
 
                 {hasEvaluation && (
                   <Link href={`/projects/${proj.id}/evaluation`}>
-                    <Button variant="outline" size="sm" className="gap-1.5 text-xs text-champagne border-champagne/30 hover:bg-champagne/10">
-                      <Award className="w-3.5 h-3.5" />
+                    <Button variant="secondary" size="sm" className="gap-1.5 text-xs text-night font-bold">
+                      <Award className="w-3.5 h-3.5 text-imperial" />
                       <span>Evaluation ({proj.evaluation?.overallScore})</span>
                     </Button>
                   </Link>

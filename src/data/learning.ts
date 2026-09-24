@@ -78,7 +78,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       title: "Construct an Accessible Responsive Navigation Bar",
       problem: "Write semantic HTML and modern CSS flexbox rules that support keyboard focus navigation, ARIA expanded state, and mobile burger toggle.",
       initialCode: `<nav aria-label="Main Navigation">\n  <ul class="nav-list">\n    <!-- Add navigation items with accessible links -->\n  </ul>\n</nav>`,
-      solutionCode: `<nav aria-label="Main Navigation" class="flex items-center justify-between p-4 bg-navy-800 border-b border-pearl/10">\n  <a href="/" class="text-champagne font-bold text-lg">SkillForge</a>\n  <ul class="flex gap-6 text-pearl-primary">\n    <li><a href="/learning" class="hover:text-champagne transition-colors">Learning</a></li>\n    <li><a href="/projects" class="hover:text-champagne transition-colors">Projects</a></li>\n  </ul>\n</nav>`,
+      solutionCode: `<nav aria-label="Main Navigation" class="flex items-center justify-between p-4 bg-night text-white border-b border-border">\n  <a href="/" class="text-imperial font-bold text-lg">SkillForge</a>\n  <ul class="flex gap-6 text-white">\n    <li><a href="/learning" class="hover:text-imperial transition-colors">Learning</a></li>\n    <li><a href="/projects" class="hover:text-imperial transition-colors">Projects</a></li>\n  </ul>\n</nav>`,
       hints: ["Always provide an `aria-label` for multiple `<nav>` landmarks.", "Use `:focus-visible` for accessible keyboard focus outlines."],
     },
   },

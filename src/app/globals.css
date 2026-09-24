@@ -2,22 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 99%;
-    --midnight-navy: 222 55% 22%;
-    --champagne: 41 85% 77%;
-    --dusty-rose: 2 64% 78%;
-  }
+:root {
+  --color-night: #000F08;
+  --color-imperial: #FB3640;
+  --color-white: #FFFFFF;
+  --color-soft-gray: #F5F5F5;
+  --color-border: #E5E7EB;
+  --color-muted: #52605A;
+}
 
+@layer base {
   * {
-    border-color: rgba(252, 251, 251, 0.08);
+    border-color: #E5E7EB;
   }
 
   body {
-    background-color: #000000;
-    color: #FCFBFB;
+    background-color: #FFFFFF;
+    color: #000F08;
     font-feature-settings: "rlig" 1, "calt" 1, "cv02" 1;
     overflow-x: hidden;
     min-height: 100vh;
@@ -29,42 +30,32 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #000000;
+    background: #F5F5F5;
   }
   ::-webkit-scrollbar-thumb {
-    background: #192A56;
+    background: #E5E7EB;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #F7D794;
+    background: #000F08;
   }
 }
 
 @layer utilities {
   .bg-subtle-pattern {
-    background-image: radial-gradient(rgba(247, 215, 148, 0.04) 1px, transparent 1px);
-    background-size: 32px 32px;
+    background-image: radial-gradient(rgba(0, 15, 8, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   .border-subtle {
-    border: 1px solid rgba(252, 251, 251, 0.08);
+    border: 1px solid #E5E7EB;
   }
 
-  .border-champagne-subtle {
-    border: 1px solid rgba(247, 215, 148, 0.22);
+  .border-imperial-subtle {
+    border: 1px solid rgba(251, 54, 64, 0.25);
   }
 
-  .border-rose-subtle {
-    border: 1px solid rgba(237, 166, 163, 0.22);
-  }
-
-  .glow-champagne {
-    box-shadow: 0 0 25px -5px rgba(247, 215, 148, 0.18);
-  }
-
-  .glass-navy {
-    background: rgba(25, 42, 86, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+  .shadow-soft {
+    box-shadow: 0 4px 20px rgba(0, 15, 8, 0.05);
   }
 }

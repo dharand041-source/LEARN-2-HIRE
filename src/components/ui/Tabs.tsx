@@ -19,7 +19,7 @@ export interface TabsProps {
 
 export function Tabs({ tabs, activeTab, onChange, className }: TabsProps) {
   return (
-    <div className={cn("flex items-center gap-1.5 p-1 bg-navy-950/80 border border-pearl/10 rounded-lg overflow-x-auto", className)}>
+    <div className={cn("flex items-center gap-1.5 p-1 bg-surface-subtle border border-surface-border rounded-lg overflow-x-auto", className)}>
       {tabs.map((tab) => {
         const isActive = activeTab === tab.id;
         return (
@@ -27,10 +27,10 @@ export function Tabs({ tabs, activeTab, onChange, className }: TabsProps) {
             key={tab.id}
             onClick={() => onChange(tab.id)}
             className={cn(
-              "flex items-center gap-2 px-3.5 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap select-none",
+              "flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-md transition-all whitespace-nowrap select-none cursor-pointer",
               isActive
-                ? "bg-navy-800 text-champagne border border-champagne/30 shadow-sm"
-                : "text-pearl-muted hover:text-pearl-primary hover:bg-navy-900/60"
+                ? "bg-imperial text-white shadow-sm"
+                : "text-night-muted hover:text-night hover:bg-white"
             )}
           >
             {tab.icon}
@@ -39,7 +39,7 @@ export function Tabs({ tabs, activeTab, onChange, className }: TabsProps) {
               <span
                 className={cn(
                   "px-1.5 py-0.2 rounded-full text-[10px] font-mono",
-                  isActive ? "bg-champagne/20 text-champagne" : "bg-white/10 text-pearl-muted"
+                  isActive ? "bg-white/20 text-white" : "bg-surface-border text-night-muted"
                 )}
               >
                 {tab.count}

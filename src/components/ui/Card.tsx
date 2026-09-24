@@ -2,18 +2,20 @@ import React from "react";
 import { cn } from "@/lib/constants";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "navy" | "interactive" | "subtle";
+  variant?: "default" | "navy" | "dark" | "interactive" | "subtle" | "highlighted";
   glowing?: boolean;
 }
 
 export function Card({ className, variant = "default", glowing = false, children, ...props }: CardProps) {
-  const baseStyles = "rounded-lg transition-all duration-200";
+  const baseStyles = "rounded-xl transition-all duration-200";
 
   const variants = {
-    default: "bg-surface-card border border-surface-border shadow-card-subtle",
-    navy: "bg-navy-800/90 border border-pearl/10 shadow-card-navy",
-    interactive: "bg-surface-card border border-surface-border hover:border-champagne/40 hover:shadow-card-hover cursor-pointer",
-    subtle: "bg-surface-subtle/80 border border-white/5",
+    default: "bg-white border border-surface-border shadow-card-subtle",
+    navy: "bg-night text-white border border-night shadow-card-dark",
+    dark: "bg-night text-white border border-night shadow-card-dark",
+    interactive: "bg-white border border-surface-border hover:border-imperial/40 hover:shadow-card-hover cursor-pointer",
+    subtle: "bg-surface-subtle border border-surface-border",
+    highlighted: "bg-imperial-50 border border-imperial-200 shadow-card-subtle",
   };
 
   return (
@@ -21,7 +23,7 @@ export function Card({ className, variant = "default", glowing = false, children
       className={cn(
         baseStyles,
         variants[variant],
-        glowing && "border-champagne-subtle shadow-gold-btn/20",
+        glowing && "border-imperial shadow-imperial-btn",
         className
       )}
       {...props}
@@ -41,7 +43,7 @@ export function CardHeader({ className, children, ...props }: React.HTMLAttribut
 
 export function CardTitle({ className, children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h3 className={cn("text-base font-semibold text-pearl-primary tracking-tight", className)} {...props}>
+    <h3 className={cn("text-base font-semibold text-night tracking-tight", className)} {...props}>
       {children}
     </h3>
   );
@@ -49,7 +51,7 @@ export function CardTitle({ className, children, ...props }: React.HTMLAttribute
 
 export function CardDescription({ className, children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p className={cn("text-xs text-pearl-muted mt-1 leading-relaxed", className)} {...props}>
+    <p className={cn("text-xs text-night-muted mt-1 leading-relaxed", className)} {...props}>
       {children}
     </p>
   );

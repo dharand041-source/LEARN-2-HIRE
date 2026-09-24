@@ -50,7 +50,7 @@ export function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity animate-fade-in"
+        className="fixed inset-0 bg-night/60 backdrop-blur-sm transition-opacity animate-fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -58,7 +58,7 @@ export function Modal({
       {/* Modal Dialog */}
       <div
         className={cn(
-          "relative w-full bg-surface-card border border-pearl/15 rounded-xl shadow-2xl z-10 overflow-hidden animate-slide-up flex flex-col max-h-[90vh]",
+          "relative w-full bg-white border border-surface-border rounded-xl shadow-2xl z-10 overflow-hidden animate-slide-up flex flex-col max-h-[90vh] text-night",
           maxWidthClasses[maxWidth]
         )}
         role="dialog"
@@ -66,14 +66,14 @@ export function Modal({
       >
         {/* Header */}
         {(title || description) && (
-          <div className="flex items-start justify-between p-5 border-b border-surface-border">
+          <div className="flex items-start justify-between p-5 border-b border-surface-border bg-white">
             <div>
-              {title && <h3 className="text-lg font-semibold text-pearl-primary">{title}</h3>}
-              {description && <p className="text-xs text-pearl-muted mt-1">{description}</p>}
+              {title && <h3 className="text-lg font-bold text-night">{title}</h3>}
+              {description && <p className="text-xs text-night-muted mt-1">{description}</p>}
             </div>
             <button
               onClick={onClose}
-              className="text-pearl-muted hover:text-pearl-primary p-1.5 rounded-lg hover:bg-navy-800 transition-colors"
+              className="text-night-muted hover:text-night p-1.5 rounded-lg hover:bg-surface-subtle transition-colors"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />

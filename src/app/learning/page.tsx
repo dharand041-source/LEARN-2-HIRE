@@ -47,36 +47,36 @@ export default function LearningDashboardPage() {
   const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === userProfile.selectedLanguage) || SUPPORTED_LANGUAGES[0];
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in bg-white">
       {/* Header with Track Overview */}
-      <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Badge variant="champagne" size="sm">Phase 04</Badge>
-            <span className="text-xs text-pearl-muted font-mono uppercase tracking-wider">
+            <Badge variant="imperial" size="sm">Phase 04</Badge>
+            <span className="text-xs text-muted font-mono uppercase tracking-wider font-bold">
               Curated Training Track
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-bold text-pearl-primary tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-night tracking-tight uppercase">
             Personalized Learning Dashboard
           </h1>
-          <p className="text-xs sm:text-sm text-pearl-muted mt-1">
-            Target Track: <strong className="text-pearl-primary">{selectedRole.title}</strong> • Curated with NPTEL, IITs & Official Documentation.
+          <p className="text-xs sm:text-sm text-muted mt-1">
+            Target Track: <strong className="text-night font-bold">{selectedRole.title}</strong> • Curated with NPTEL, IITs & Official Documentation.
           </p>
         </div>
 
         {/* Language Quick Selector */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-card border border-surface-border text-xs">
-            <Globe className="w-3.5 h-3.5 text-champagne" />
-            <span className="text-pearl-muted">Language:</span>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-border text-xs shadow-sm">
+            <Globe className="w-3.5 h-3.5 text-imperial" />
+            <span className="text-muted font-medium">Language:</span>
             <select
               value={userProfile.selectedLanguage}
               onChange={(e) => setLanguage(e.target.value as any)}
-              className="bg-transparent text-pearl-primary font-semibold text-xs focus:outline-none cursor-pointer"
+              className="bg-transparent text-night font-bold text-xs focus:outline-none cursor-pointer"
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
-                <option key={lang.code} value={lang.code} className="bg-navy-900 text-pearl-primary">
+                <option key={lang.code} value={lang.code} className="bg-white text-night">
                   {lang.nativeName} ({lang.name})
                 </option>
               ))}
@@ -84,7 +84,7 @@ export default function LearningDashboardPage() {
           </div>
 
           <Link href="/advanced-assessment">
-            <Button variant="secondary" size="sm" className="gap-1.5">
+            <Button variant="secondary" size="sm" className="gap-1.5 font-bold">
               <span>Advanced Assessment</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Button>
@@ -94,47 +94,47 @@ export default function LearningDashboardPage() {
 
       {/* Track Metric Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-xl bg-surface-card border border-surface-border space-y-2">
-          <div className="flex justify-between items-center text-xs text-pearl-muted">
+        <div className="p-5 rounded-xl bg-white border border-border space-y-2 shadow-sm">
+          <div className="flex justify-between items-center text-xs text-muted font-medium">
             <span>Overall Curriculum Progress</span>
-            <span className="text-champagne font-mono font-bold">{totalTrackProgress}%</span>
+            <span className="text-imperial font-mono font-extrabold">{totalTrackProgress}%</span>
           </div>
-          <ProgressBar value={totalTrackProgress} size="sm" variant="champagne" />
-          <p className="text-[11px] text-pearl-muted mt-1">
+          <ProgressBar value={totalTrackProgress} size="sm" variant="imperial" />
+          <p className="text-[11px] text-muted mt-1 font-semibold">
             {completedModules.length} of {learningModules.length} modules completed
           </p>
         </div>
 
-        <div className="p-5 rounded-xl bg-surface-card border border-surface-border flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-navy-800 border border-champagne/30 flex items-center justify-center text-champagne">
+        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
+          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-imperial">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs text-pearl-muted">Current Proficiency Level</p>
-            <p className="text-sm font-bold text-pearl-primary">Intermediate</p>
-            <p className="text-[10px] text-champagne">3 modules to Advanced</p>
+            <p className="text-xs text-muted font-medium">Current Proficiency Level</p>
+            <p className="text-sm font-extrabold text-night">Intermediate</p>
+            <p className="text-[10px] text-imperial font-bold">3 modules to Advanced</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-surface-card border border-surface-border flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-navy-800 border border-rose/30 flex items-center justify-center text-rose">
+        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
+          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-imperial">
             <GraduationCap className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs text-pearl-muted">Priority Recommended Focus</p>
-            <p className="text-sm font-bold text-pearl-primary">SQL & PostgreSQL</p>
-            <p className="text-[10px] text-rose">Addresses 48% gap</p>
+            <p className="text-xs text-muted font-medium">Priority Recommended Focus</p>
+            <p className="text-sm font-extrabold text-night">SQL & PostgreSQL</p>
+            <p className="text-[10px] text-imperial font-bold">Addresses 48% gap</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-surface-card border border-surface-border flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-navy-800 border border-amber-500/30 flex items-center justify-center text-amber-400">
+        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
+          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-imperial">
             <Flame className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs text-pearl-muted">Learning Streak</p>
-            <p className="text-sm font-bold text-pearl-primary">{userProfile.streakDays} Days Continuous</p>
-            <p className="text-[10px] text-emerald-400">+150 XP bonus active</p>
+            <p className="text-xs text-muted font-medium">Learning Streak</p>
+            <p className="text-sm font-extrabold text-night">{userProfile.streakDays} Days Continuous</p>
+            <p className="text-[10px] text-night font-bold">+150 XP bonus active</p>
           </div>
         </div>
       </div>
@@ -152,8 +152,8 @@ export default function LearningDashboardPage() {
           onChange={setActiveTab}
         />
 
-        <div className="text-xs text-pearl-muted">
-          Showing <strong className="text-pearl-primary">{filteredModules.length}</strong> modules
+        <div className="text-xs text-muted font-medium">
+          Showing <strong className="text-night">{filteredModules.length}</strong> modules
         </div>
       </div>
 
@@ -167,12 +167,12 @@ export default function LearningDashboardPage() {
           return (
             <div
               key={mod.id}
-              className={`p-5 rounded-xl border flex flex-col justify-between transition-all duration-200 hover:shadow-card-hover ${
+              className={`p-5 rounded-xl border flex flex-col justify-between transition-all duration-200 hover:shadow-card-hover bg-white ${
                 isRecommended
-                  ? "bg-surface-card border-rose/40 hover:border-rose"
+                  ? "border-imperial/50 hover:border-imperial shadow-sm"
                   : isCompleted
-                  ? "bg-surface-card border-emerald-500/20"
-                  : "bg-surface-card border-surface-border hover:border-champagne/40"
+                  ? "border-border"
+                  : "border-border hover:border-imperial"
               }`}
             >
               <div>
@@ -181,38 +181,38 @@ export default function LearningDashboardPage() {
                   <Badge
                     variant={
                       isCompleted
-                        ? "success"
+                        ? "night"
                         : isRecommended
-                        ? "rose"
-                        : "navy"
+                        ? "imperial"
+                        : "neutral"
                     }
                     size="sm"
                   >
                     {mod.status}
                   </Badge>
 
-                  <span className="text-[11px] text-pearl-muted font-mono flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-champagne" /> {mod.estimatedTime}
+                  <span className="text-[11px] text-muted font-mono font-semibold flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-imperial" /> {mod.estimatedTime}
                   </span>
                 </div>
 
-                <h3 className="text-sm font-semibold text-pearl-primary leading-snug mb-1">
+                <h3 className="text-sm font-bold text-night leading-snug mb-1">
                   {mod.title}
                 </h3>
-                <p className="text-[11px] text-pearl-muted line-clamp-2 leading-relaxed">
+                <p className="text-[11px] text-muted line-clamp-2 leading-relaxed">
                   {mod.description}
                 </p>
 
                 {/* Progress Bar */}
                 <div className="mt-4 space-y-1">
                   <div className="flex justify-between text-[11px]">
-                    <span className="text-pearl-muted">Progress</span>
-                    <span className="font-mono text-pearl-primary font-bold">{mod.progress}%</span>
+                    <span className="text-muted font-medium">Progress</span>
+                    <span className="font-mono text-night font-bold">{mod.progress}%</span>
                   </div>
                   <ProgressBar
                     value={mod.progress}
                     size="sm"
-                    variant={isCompleted ? "success" : isRecommended ? "rose" : "champagne"}
+                    variant="imperial"
                   />
                 </div>
 
@@ -221,28 +221,28 @@ export default function LearningDashboardPage() {
                   {mod.skillsCovered.slice(0, 3).map((skill, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 rounded bg-navy-950 border border-white/5 text-[10px] font-mono text-pearl-muted"
+                      className="px-2 py-0.5 rounded bg-surface-subtle border border-border text-[10px] font-mono font-semibold text-night"
                     >
                       {skill}
                     </span>
                   ))}
                   {mod.skillsCovered.length > 3 && (
-                    <span className="px-1.5 py-0.5 text-[10px] text-pearl-muted">
+                    <span className="px-1.5 py-0.5 text-[10px] text-muted font-semibold">
                       +{mod.skillsCovered.length - 3}
                     </span>
                   )}
                 </div>
 
                 {/* Resource Providers */}
-                <div className="mt-4 pt-3 border-t border-white/5 space-y-1.5">
-                  <p className="text-[10px] uppercase font-semibold text-pearl-muted">
+                <div className="mt-4 pt-3 border-t border-border space-y-1.5">
+                  <p className="text-[10px] uppercase font-bold text-night">
                     Curated Materials:
                   </p>
                   <div className="space-y-1">
                     {mod.resources.slice(0, 2).map((res) => (
-                      <div key={res.id} className="flex items-center justify-between text-[11px] text-pearl-muted">
-                        <span className="truncate max-w-[190px]">{res.title}</span>
-                        <span className="text-[10px] text-champagne font-mono shrink-0">[{res.provider}]</span>
+                      <div key={res.id} className="flex items-center justify-between text-[11px] text-muted">
+                        <span className="truncate max-w-[190px] font-medium">{res.title}</span>
+                        <span className="text-[10px] text-imperial font-mono font-bold shrink-0">[{res.provider}]</span>
                       </div>
                     ))}
                   </div>
@@ -250,12 +250,12 @@ export default function LearningDashboardPage() {
               </div>
 
               {/* Action Button */}
-              <div className="mt-5 pt-3 border-t border-white/5">
+              <div className="mt-5 pt-3 border-t border-border">
                 <Link href={`/learning/${mod.id}`}>
                   <Button
-                    variant={isCompleted ? "secondary" : isRecommended ? "rose" : "primary"}
+                    variant={isCompleted ? "secondary" : isRecommended ? "primary" : "primary"}
                     size="sm"
-                    className="w-full gap-2 text-xs"
+                    className="w-full gap-2 text-xs font-bold shadow-sm"
                   >
                     <span>{isCompleted ? "Review Curriculum" : isRecommended ? "Start Required Module" : "Continue Learning"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />

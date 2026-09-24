@@ -73,20 +73,20 @@ export default function AssessmentPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-pearl-primary flex flex-col">
+    <div className="min-h-screen bg-white text-night flex flex-col">
       {/* Top Assessment Header */}
-      <header className="h-16 border-b border-surface-border bg-navy-950 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30">
+      <header className="h-16 border-b border-border bg-white px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <Link href="/onboarding" className="text-xs text-pearl-muted hover:text-pearl-primary flex items-center gap-1.5">
+          <Link href="/onboarding" className="text-xs text-muted hover:text-night font-semibold flex items-center gap-1.5">
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Exit</span>
           </Link>
-          <div className="h-4 w-px bg-white/10 mx-1 hidden sm:block" />
+          <div className="h-4 w-px bg-border mx-1 hidden sm:block" />
           <div className="flex items-center gap-2">
-            <h1 className="text-xs sm:text-sm font-semibold text-pearl-primary">
+            <h1 className="text-xs sm:text-sm font-bold text-night">
               {selectedRole.title} Diagnostic Assessment
             </h1>
-            <Badge variant="navy" size="sm">
+            <Badge variant="night" size="sm">
               Standard Technical Evaluation
             </Badge>
           </div>
@@ -94,14 +94,14 @@ export default function AssessmentPage() {
 
         <div className="flex items-center gap-4">
           {/* Integrity Badge */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-navy-900 border border-emerald-500/30 text-emerald-400 text-[11px] font-mono">
-            <Eye className="w-3.5 h-3.5" />
-            <span>Focus Monitoring Active</span>
+          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-subtle border border-border text-night text-[11px] font-mono font-semibold">
+            <Eye className="w-3.5 h-3.5 text-imperial" />
+            <span>Focus Active</span>
           </div>
 
           {/* Timer Display */}
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded bg-surface-card border border-champagne/30 text-champagne font-mono text-xs font-bold shadow-gold-btn/10">
-            <Clock className="w-3.5 h-3.5" />
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded bg-surface-subtle border border-border text-night font-mono text-xs font-extrabold shadow-sm">
+            <Clock className="w-3.5 h-3.5 text-imperial" />
             <span>{formatTimer(secondsRemaining)}</span>
           </div>
 
@@ -110,7 +110,7 @@ export default function AssessmentPage() {
             onClick={() => setIsSubmitModalOpen(true)}
             variant="primary"
             size="sm"
-            className="text-xs font-semibold"
+            className="text-xs font-bold shadow-sm"
           >
             Submit Assessment
           </Button>
@@ -120,17 +120,17 @@ export default function AssessmentPage() {
       {/* Main 3-Column Assessment Body */}
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Question Navigator Matrix (3 cols) */}
-        <div className="lg:col-span-3 rounded-xl bg-surface-card border border-surface-border p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-surface-border pb-3">
-            <h3 className="text-xs font-semibold text-pearl-primary uppercase tracking-wider">
+        <div className="lg:col-span-3 rounded-xl bg-white border border-border p-5 space-y-4 shadow-card">
+          <div className="flex items-center justify-between border-b border-border pb-3">
+            <h3 className="text-xs font-bold text-night uppercase tracking-wider">
               Question Navigator
             </h3>
-            <span className="text-xs font-mono text-champagne">
+            <span className="text-xs font-mono font-bold text-imperial">
               {answeredCount} / {questions.length} Solved
             </span>
           </div>
 
-          <ProgressBar value={progressPercentage} size="sm" variant="champagne" />
+          <ProgressBar value={progressPercentage} size="sm" variant="imperial" />
 
           {/* 10 Question Navigation Grid */}
           <div className="grid grid-cols-5 gap-2 pt-2">
@@ -139,13 +139,13 @@ export default function AssessmentPage() {
               const isAnswered = !!localAnswers[q.id];
               const isFlagged = !!flaggedQuestions[q.id];
 
-              let buttonStyles = "bg-surface-subtle border-white/10 text-pearl-muted hover:border-pearl/30";
+              let buttonStyles = "bg-surface-subtle border-border text-muted hover:border-night hover:text-night";
               if (isCurrent) {
-                buttonStyles = "bg-navy-700 border-champagne text-champagne ring-1 ring-champagne font-bold";
+                buttonStyles = "bg-imperial border-imperial text-white font-bold shadow-sm";
               } else if (isFlagged) {
-                buttonStyles = "bg-rose/20 border-rose text-rose font-semibold";
+                buttonStyles = "bg-imperial-50 border-imperial text-imperial font-bold";
               } else if (isAnswered) {
-                buttonStyles = "bg-navy-900 border-champagne/40 text-pearl-primary";
+                buttonStyles = "bg-night border-night text-white font-semibold";
               }
 
               return (
@@ -156,10 +156,10 @@ export default function AssessmentPage() {
                 >
                   <span>0{idx + 1}</span>
                   {isAnswered && !isCurrent && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-champagne absolute bottom-1" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-imperial absolute bottom-1" />
                   )}
-                  {isFlagged && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose absolute top-1 right-1" />
+                  {isFlagged && !isCurrent && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-imperial absolute top-1 right-1" />
                   )}
                 </button>
               );
@@ -167,17 +167,17 @@ export default function AssessmentPage() {
           </div>
 
           {/* Legend */}
-          <div className="pt-4 border-t border-surface-border space-y-2 text-[11px] text-pearl-muted">
+          <div className="pt-4 border-t border-border space-y-2 text-[11px] text-muted font-medium">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded bg-navy-700 border border-champagne ring-1 ring-champagne" />
-              <span>Current Question</span>
+              <span className="w-2.5 h-2.5 rounded bg-imperial" />
+              <span className="text-night font-semibold">Current Question</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded bg-navy-900 border border-champagne/40" />
+              <span className="w-2.5 h-2.5 rounded bg-night" />
               <span>Answered</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded bg-rose/20 border border-rose" />
+              <span className="w-2.5 h-2.5 rounded bg-imperial-50 border border-imperial" />
               <span>Flagged for Review</span>
             </div>
           </div>
@@ -185,19 +185,19 @@ export default function AssessmentPage() {
 
         {/* Center Column: Question & Option Cards (6 cols) */}
         <div className="lg:col-span-6 space-y-5">
-          <div className="p-6 rounded-xl bg-surface-card border border-surface-border space-y-5 shadow-card-subtle">
+          <div className="p-6 rounded-xl bg-white border border-border space-y-5 shadow-card">
             {/* Question Header & Badges */}
-            <div className="flex items-center justify-between border-b border-surface-border pb-3">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
-                <Badge variant="champagne" size="sm">Question 0{currentIndex + 1} of 10</Badge>
-                <Badge variant="navy" size="sm">{currentQ.category}</Badge>
+                <Badge variant="imperial" size="sm">Question 0{currentIndex + 1} of 10</Badge>
+                <Badge variant="night" size="sm">{currentQ.category}</Badge>
               </div>
               <button
                 onClick={handleToggleFlag}
-                className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded transition-colors ${
+                className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded transition-colors font-semibold ${
                   flaggedQuestions[currentQ.id]
-                    ? "bg-rose/20 text-rose border border-rose/40"
-                    : "text-pearl-muted hover:text-pearl-primary bg-surface-subtle border border-white/5"
+                    ? "bg-imperial text-white border border-imperial"
+                    : "text-night hover:text-imperial bg-surface-subtle border border-border"
                 }`}
               >
                 <Flag className="w-3.5 h-3.5" />
@@ -206,14 +206,14 @@ export default function AssessmentPage() {
             </div>
 
             {/* Question Title */}
-            <h2 className="text-base font-semibold text-pearl-primary leading-relaxed">
+            <h2 className="text-base font-bold text-night leading-relaxed">
               {currentQ.title}
             </h2>
 
             {/* Code Snippet Box if available */}
             {currentQ.codeSnippet && (
-              <div className="rounded-lg bg-black border border-pearl/10 p-4 font-mono text-xs text-pearl-primary overflow-x-auto">
-                <pre className="text-pearl-primary leading-relaxed whitespace-pre-wrap">
+              <div className="rounded-lg bg-night border border-border p-4 font-mono text-xs text-white overflow-x-auto shadow-inner">
+                <pre className="text-white leading-relaxed whitespace-pre-wrap">
                   {currentQ.codeSnippet}
                 </pre>
               </div>
@@ -221,7 +221,7 @@ export default function AssessmentPage() {
 
             {/* Options List */}
             <div className="space-y-2.5 pt-2">
-              <p className="text-xs text-pearl-muted font-medium uppercase tracking-wider">
+              <p className="text-xs text-muted font-bold uppercase tracking-wider">
                 Select One Option:
               </p>
               {currentQ.options.map((opt) => {
@@ -232,20 +232,20 @@ export default function AssessmentPage() {
                     onClick={() => handleSelectOption(opt.id)}
                     className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-start gap-3 ${
                       isSelected
-                        ? "bg-navy-800 border-champagne text-pearl-primary ring-1 ring-champagne shadow-sm"
-                        : "bg-surface-subtle border-white/10 text-pearl-muted hover:border-pearl/30 hover:text-pearl-primary"
+                        ? "bg-imperial-50/50 border-imperial text-night shadow-sm"
+                        : "bg-surface-subtle border-border text-night hover:border-night"
                     }`}
                   >
                     <div
                       className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
                         isSelected
-                          ? "border-champagne bg-champagne text-black"
-                          : "border-pearl-muted/40 bg-transparent"
+                          ? "border-imperial bg-imperial text-white"
+                          : "border-border bg-white"
                       }`}
                     >
                       {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                     </div>
-                    <div className="text-xs text-pearl-primary leading-relaxed">
+                    <div className={`text-xs leading-relaxed font-medium ${isSelected ? "text-night font-bold" : "text-night"}`}>
                       {opt.text}
                     </div>
                   </div>
@@ -255,28 +255,28 @@ export default function AssessmentPage() {
           </div>
 
           {/* Bottom Pagination Controls */}
-          <div className="flex items-center justify-between p-4 rounded-xl bg-surface-card border border-surface-border">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-white border border-border shadow-sm">
             <Button
-              variant="outline"
+              variant="secondary"
               size="sm"
               onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
               disabled={currentIndex === 0}
-              className="gap-2"
+              className="gap-2 font-bold"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Previous</span>
             </Button>
 
-            <span className="text-xs text-pearl-muted font-mono">
+            <span className="text-xs text-muted font-mono font-bold">
               Question {currentIndex + 1} / {questions.length}
             </span>
 
             {currentIndex < questions.length - 1 ? (
               <Button
-                variant="secondary"
+                variant="dark"
                 size="sm"
                 onClick={() => setCurrentIndex((prev) => Math.min(questions.length - 1, prev + 1))}
-                className="gap-2"
+                className="gap-2 font-bold"
               >
                 <span>Next Question</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -286,7 +286,7 @@ export default function AssessmentPage() {
                 variant="primary"
                 size="sm"
                 onClick={() => setIsSubmitModalOpen(true)}
-                className="gap-2"
+                className="gap-2 font-bold shadow-sm"
               >
                 <span>Complete Assessment</span>
                 <CheckCircle2 className="w-3.5 h-3.5" />
@@ -296,43 +296,43 @@ export default function AssessmentPage() {
         </div>
 
         {/* Right Column: Assessment Rules & Integrity (3 cols) */}
-        <div className="lg:col-span-3 rounded-xl bg-surface-card border border-surface-border p-5 space-y-5">
+        <div className="lg:col-span-3 rounded-xl bg-white border border-border p-5 space-y-5 shadow-card">
           <div>
-            <h3 className="text-xs font-semibold text-pearl-primary uppercase tracking-wider">
+            <h3 className="text-xs font-bold text-night uppercase tracking-wider">
               Assessment Standards
             </h3>
-            <p className="text-[11px] text-pearl-muted mt-1 leading-relaxed">
+            <p className="text-[11px] text-muted mt-1 leading-relaxed">
               Technical diagnostics evaluate mental models, runtime nuances, and code comprehension.
             </p>
           </div>
 
-          <div className="space-y-3 p-3.5 rounded-lg bg-navy-950 border border-white/5 text-xs text-pearl-muted">
+          <div className="space-y-3 p-3.5 rounded-lg bg-surface-subtle border border-border text-xs text-muted">
             <div className="flex items-start gap-2">
-              <ShieldAlert className="w-4 h-4 text-champagne shrink-0 mt-0.5" />
+              <ShieldAlert className="w-4 h-4 text-imperial shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-pearl-primary">Honest Integrity</p>
-                <p className="text-[10px] text-pearl-muted mt-0.5">
+                <p className="font-bold text-night">Honest Integrity</p>
+                <p className="text-[10px] text-muted mt-0.5">
                   Leaving full screen or switching tabs is recorded in session telemetry.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-2">
-              <AlertTriangle className="w-4 h-4 text-rose shrink-0 mt-0.5" />
+              <AlertTriangle className="w-4 h-4 text-imperial shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-pearl-primary">No Penalty for Guessing</p>
-                <p className="text-[10px] text-pearl-muted mt-0.5">
+                <p className="font-bold text-night">No Guessing Penalty</p>
+                <p className="text-[10px] text-muted mt-0.5">
                   Answer every question to receive the most accurate personalized curriculum.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="pt-2 border-t border-surface-border">
-            <h4 className="text-[11px] uppercase tracking-wider font-semibold text-pearl-muted mb-2">
+          <div className="pt-2 border-t border-border">
+            <h4 className="text-[11px] uppercase tracking-wider font-bold text-night mb-2">
               Skill Tested in Current Question
             </h4>
-            <Badge variant="champagne" size="sm">{currentQ.skillTested}</Badge>
+            <Badge variant="imperial" size="sm">{currentQ.skillTested}</Badge>
           </div>
         </div>
       </div>
@@ -346,26 +346,26 @@ export default function AssessmentPage() {
         maxWidth="md"
       >
         <div className="space-y-4">
-          <div className="p-4 rounded-lg bg-navy-950 border border-white/5 space-y-2 text-xs">
+          <div className="p-4 rounded-lg bg-surface-subtle border border-border space-y-2 text-xs">
             <div className="flex justify-between">
-              <span className="text-pearl-muted">Questions Answered:</span>
-              <span className="text-pearl-primary font-bold">{answeredCount} of {questions.length}</span>
+              <span className="text-muted font-medium">Questions Answered:</span>
+              <span className="text-night font-bold">{answeredCount} of {questions.length}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-pearl-muted">Flagged for Review:</span>
-              <span className="text-rose font-bold">{Object.values(flaggedQuestions).filter(Boolean).length}</span>
+              <span className="text-muted font-medium">Flagged for Review:</span>
+              <span className="text-imperial font-bold">{Object.values(flaggedQuestions).filter(Boolean).length}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-pearl-muted">Time Remaining:</span>
-              <span className="text-champagne font-bold font-mono">{formatTimer(secondsRemaining)}</span>
+              <span className="text-muted font-medium">Time Remaining:</span>
+              <span className="text-night font-bold font-mono">{formatTimer(secondsRemaining)}</span>
             </div>
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-2">
-            <Button variant="outline" size="sm" onClick={() => setIsSubmitModalOpen(false)}>
+            <Button variant="secondary" size="sm" onClick={() => setIsSubmitModalOpen(false)} className="font-bold">
               Continue Assessment
             </Button>
-            <Button variant="primary" size="sm" onClick={handleFinalSubmit} className="gap-1.5">
+            <Button variant="primary" size="sm" onClick={handleFinalSubmit} className="gap-1.5 font-bold shadow-sm">
               <span>Confirm & View Results</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Button>

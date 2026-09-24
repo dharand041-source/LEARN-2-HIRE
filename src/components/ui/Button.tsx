@@ -5,22 +5,23 @@ import { cn } from "@/lib/constants";
 import { Loader2 } from "lucide-react";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "rose";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "dark" | "danger" | "rose";
   size?: "sm" | "md" | "lg" | "icon";
   isLoading?: boolean;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", isLoading = false, children, disabled, ...props }, ref) => {
-    const baseStyles = "inline-flex items-center justify-center font-medium rounded-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer active:scale-[0.98]";
+    const baseStyles = "inline-flex items-center justify-center font-medium rounded-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-imperial focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer active:scale-[0.98]";
 
     const variants = {
-      primary: "bg-champagne text-black hover:bg-champagne-300 font-semibold shadow-gold-btn border border-champagne-400",
-      secondary: "bg-navy-800 text-pearl-primary hover:bg-navy-700 border border-pearl/15 hover:border-pearl/30",
-      outline: "bg-transparent text-pearl-primary border border-pearl/20 hover:border-champagne hover:text-champagne hover:bg-champagne/5",
-      ghost: "bg-transparent text-pearl-muted hover:text-pearl-primary hover:bg-navy-800/60",
-      rose: "bg-rose/15 text-rose border border-rose/30 hover:bg-rose/25",
-      danger: "bg-red-950/80 text-red-200 border border-red-800/40 hover:bg-red-900",
+      primary: "bg-imperial text-white hover:bg-imperial-600 font-semibold shadow-imperial-btn border border-imperial-600",
+      secondary: "bg-white text-night hover:bg-night hover:text-white border border-night",
+      outline: "bg-transparent text-night border border-surface-border hover:border-imperial hover:text-imperial hover:bg-imperial-50",
+      ghost: "bg-transparent text-night-muted hover:text-night hover:bg-surface-subtle",
+      dark: "bg-night text-white hover:bg-night-900 border border-night shadow-night-btn",
+      danger: "bg-imperial-50 text-imperial border border-imperial hover:bg-imperial hover:text-white",
+      rose: "bg-imperial-50 text-imperial border border-imperial-200 hover:bg-imperial-100",
     };
 
     const sizes = {
