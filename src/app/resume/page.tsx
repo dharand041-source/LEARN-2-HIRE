@@ -38,22 +38,22 @@ export default function ResumeBuilderPage() {
       <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Badge variant="champagne" size="sm">Phase 11</Badge>
-            <span className="text-xs text-pearl-muted font-mono uppercase tracking-wider">
+            <Badge variant="imperial" size="sm">Phase 11</Badge>
+            <span className="text-xs text-night-muted font-mono uppercase tracking-wider">
               ATS Standard Verification
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-bold text-pearl-primary tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-display font-bold text-night tracking-tight">
             ATS-Optimized Resume Builder
           </h1>
-          <p className="text-xs sm:text-sm text-pearl-muted mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-night-muted mt-1 max-w-2xl">
             Single-column, machine-readable resume format structured specifically for ATS scanners and senior technical hiring managers.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link href="/resume/analyze">
-            <Button variant="secondary" size="sm" className="gap-1.5 text-champagne border-champagne/30">
+            <Button variant="secondary" size="sm" className="gap-1.5 text-imperial border-imperial/30 hover:bg-imperial-50">
               <Sparkles className="w-3.5 h-3.5" />
               <span>ATS Score: {resumeAnalysis.atsCompatibilityScore}%</span>
             </Button>
@@ -68,17 +68,17 @@ export default function ResumeBuilderPage() {
       {/* Main Grid: Form Editor (5 cols) & Live ATS Preview (7 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Form Editor */}
-        <div className="lg:col-span-5 rounded-2xl bg-surface-card border border-surface-border p-5 space-y-5">
+        <div className="lg:col-span-5 rounded-2xl bg-white border border-surface-border p-5 sm:p-6 space-y-6 shadow-sm">
           {/* Section Navigation Pills */}
-          <div className="flex flex-wrap gap-1.5 p-1 bg-navy-950 rounded-lg border border-white/5 text-xs">
+          <div className="flex flex-wrap gap-1.5 p-1.5 bg-surface-subtle rounded-xl border border-surface-border text-xs">
             {(["personal", "summary", "skills", "experience", "projects", "education"] as const).map((sec) => (
               <button
                 key={sec}
                 onClick={() => setActiveSection(sec)}
-                className={`px-3 py-1.5 rounded-md capitalize font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-lg capitalize font-medium transition-all ${
                   activeSection === sec
-                    ? "bg-navy-800 text-champagne border border-champagne/30 font-semibold"
-                    : "text-pearl-muted hover:text-pearl-primary"
+                    ? "bg-white text-imperial font-bold shadow-sm border border-surface-border ring-1 ring-black/5"
+                    : "text-night-muted hover:text-night hover:bg-white/60"
                 }`}
               >
                 {sec}
@@ -88,12 +88,18 @@ export default function ResumeBuilderPage() {
 
           {/* Section 1: Personal Info */}
           {activeSection === "personal" && (
-            <div className="space-y-3.5 text-xs animate-fade-in">
-              <h3 className="font-semibold text-pearl-primary uppercase tracking-wider text-[11px]">
-                Personal & Contact Details
-              </h3>
-              <div className="space-y-1">
-                <label className="text-pearl-muted">Full Name</label>
+            <div className="space-y-4 text-xs animate-fade-in">
+              <div className="border-b border-surface-border pb-2">
+                <h3 className="font-bold text-night uppercase tracking-wider text-xs">
+                  Personal & Contact Details
+                </h3>
+                <p className="text-[11px] text-night-muted mt-0.5">
+                  Accurate details formatted to prevent ATS parsing errors.
+                </p>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-night/80">Full Name</label>
                 <input
                   type="text"
                   value={formData.personalInfo.fullName}
@@ -103,12 +109,13 @@ export default function ResumeBuilderPage() {
                       personalInfo: { ...formData.personalInfo, fullName: e.target.value },
                     })
                   }
-                  className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne"
+                  placeholder="e.g. Alex Morgan"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-surface-subtle/60 hover:bg-white focus:bg-white border border-surface-border text-xs text-night font-medium placeholder:text-night-muted/50 focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 transition-all shadow-sm"
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="text-pearl-muted">Target Professional Title</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-night/80">Target Professional Title</label>
                 <input
                   type="text"
                   value={formData.personalInfo.title}
@@ -118,13 +125,14 @@ export default function ResumeBuilderPage() {
                       personalInfo: { ...formData.personalInfo, title: e.target.value },
                     })
                   }
-                  className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne"
+                  placeholder="e.g. Senior Full Stack Engineer"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-surface-subtle/60 hover:bg-white focus:bg-white border border-surface-border text-xs text-night font-medium placeholder:text-night-muted/50 focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 transition-all shadow-sm"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <div className="space-y-1">
-                  <label className="text-pearl-muted">Email</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-night/80">Email</label>
                   <input
                     type="email"
                     value={formData.personalInfo.email}
@@ -134,11 +142,12 @@ export default function ResumeBuilderPage() {
                         personalInfo: { ...formData.personalInfo, email: e.target.value },
                       })
                     }
-                    className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne"
+                    placeholder="alex@example.com"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-surface-subtle/60 hover:bg-white focus:bg-white border border-surface-border text-xs text-night font-medium placeholder:text-night-muted/50 focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 transition-all shadow-sm"
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-pearl-muted">Phone</label>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-night/80">Phone</label>
                   <input
                     type="text"
                     value={formData.personalInfo.phone}
@@ -148,13 +157,14 @@ export default function ResumeBuilderPage() {
                         personalInfo: { ...formData.personalInfo, phone: e.target.value },
                       })
                     }
-                    className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne"
+                    placeholder="+1 (555) 019-2834"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-surface-subtle/60 hover:bg-white focus:bg-white border border-surface-border text-xs text-night font-medium placeholder:text-night-muted/50 focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 transition-all shadow-sm"
                   />
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-pearl-muted">Location</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-night/80">Location</label>
                 <input
                   type="text"
                   value={formData.personalInfo.location}
@@ -164,13 +174,14 @@ export default function ResumeBuilderPage() {
                       personalInfo: { ...formData.personalInfo, location: e.target.value },
                     })
                   }
-                  className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne"
+                  placeholder="City, State / Country"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-surface-subtle/60 hover:bg-white focus:bg-white border border-surface-border text-xs text-night font-medium placeholder:text-night-muted/50 focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 transition-all shadow-sm"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <div className="space-y-1">
-                  <label className="text-pearl-muted">GitHub Profile</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-night/80">GitHub Profile</label>
                   <input
                     type="text"
                     value={formData.personalInfo.github}
@@ -180,11 +191,12 @@ export default function ResumeBuilderPage() {
                         personalInfo: { ...formData.personalInfo, github: e.target.value },
                       })
                     }
-                    className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne font-mono text-[11px]"
+                    placeholder="github.com/username"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-surface-subtle/60 hover:bg-white focus:bg-white border border-surface-border text-xs text-night font-mono text-[11px] placeholder:text-night-muted/50 focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 transition-all shadow-sm"
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-pearl-muted">LinkedIn Profile</label>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-night/80">LinkedIn Profile</label>
                   <input
                     type="text"
                     value={formData.personalInfo.linkedin}
@@ -194,7 +206,8 @@ export default function ResumeBuilderPage() {
                         personalInfo: { ...formData.personalInfo, linkedin: e.target.value },
                       })
                     }
-                    className="w-full p-2.5 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne font-mono text-[11px]"
+                    placeholder="linkedin.com/in/username"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-surface-subtle/60 hover:bg-white focus:bg-white border border-surface-border text-xs text-night font-mono text-[11px] placeholder:text-night-muted/50 focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 transition-all shadow-sm"
                   />
                 </div>
               </div>
@@ -203,31 +216,40 @@ export default function ResumeBuilderPage() {
 
           {/* Section 2: Summary */}
           {activeSection === "summary" && (
-            <div className="space-y-3 text-xs animate-fade-in">
-              <h3 className="font-semibold text-pearl-primary uppercase tracking-wider text-[11px]">
-                Professional Summary
-              </h3>
-              <p className="text-[11px] text-pearl-muted leading-relaxed">
-                2-3 punchy sentences summarizing your engineering core, stack, and demonstrated impact.
-              </p>
+            <div className="space-y-3.5 text-xs animate-fade-in">
+              <div className="border-b border-surface-border pb-2">
+                <h3 className="font-bold text-night uppercase tracking-wider text-xs">
+                  Professional Summary
+                </h3>
+                <p className="text-[11px] text-night-muted mt-0.5 leading-relaxed">
+                  2-3 punchy sentences summarizing your engineering core, stack, and demonstrated business/system impact.
+                </p>
+              </div>
               <textarea
                 value={formData.summary}
                 onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-                rows={6}
-                className="w-full p-3 rounded-lg bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne resize-y leading-relaxed"
+                rows={7}
+                placeholder="Write your professional summary here..."
+                className="w-full p-3.5 rounded-lg bg-surface-subtle/60 hover:bg-white focus:bg-white border border-surface-border text-xs text-night font-normal placeholder:text-night-muted/50 focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 transition-all shadow-sm resize-y leading-relaxed"
               />
             </div>
           )}
 
           {/* Section 3: Skills */}
           {activeSection === "skills" && (
-            <div className="space-y-3.5 text-xs animate-fade-in">
-              <h3 className="font-semibold text-pearl-primary uppercase tracking-wider text-[11px]">
-                Technical Skills (Categorized)
-              </h3>
+            <div className="space-y-4 text-xs animate-fade-in">
+              <div className="border-b border-surface-border pb-2">
+                <h3 className="font-bold text-night uppercase tracking-wider text-xs">
+                  Technical Skills (Categorized)
+                </h3>
+                <p className="text-[11px] text-night-muted mt-0.5">
+                  Comma-separated skills grouped cleanly by domain for optimal ATS keyword scanning.
+                </p>
+              </div>
+
               {formData.skills.map((cat, idx) => (
-                <div key={idx} className="p-3 rounded-lg bg-navy-950 border border-white/5 space-y-1.5">
-                  <span className="font-bold text-champagne text-[11px]">{cat.category}</span>
+                <div key={idx} className="p-3.5 rounded-xl bg-surface-subtle border border-surface-border space-y-2">
+                  <span className="font-bold text-imperial text-xs tracking-wide">{cat.category}</span>
                   <input
                     type="text"
                     value={cat.items.join(", ")}
@@ -236,7 +258,8 @@ export default function ResumeBuilderPage() {
                       updated[idx].items = e.target.value.split(",").map((s) => s.trim());
                       setFormData({ ...formData, skills: updated });
                     }}
-                    className="w-full p-2 rounded bg-black border border-white/10 text-xs text-pearl-primary font-mono text-[11px] focus:outline-none focus:border-champagne"
+                    placeholder="Skill 1, Skill 2, Skill 3"
+                    className="w-full p-2.5 rounded-lg bg-white border border-surface-border text-xs text-night font-mono text-[11px] focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 shadow-sm transition-all"
                   />
                 </div>
               ))}
@@ -246,16 +269,22 @@ export default function ResumeBuilderPage() {
           {/* Section 4: Experience */}
           {activeSection === "experience" && (
             <div className="space-y-4 text-xs animate-fade-in">
-              <h3 className="font-semibold text-pearl-primary uppercase tracking-wider text-[11px]">
-                Work & Internship Experience
-              </h3>
+              <div className="border-b border-surface-border pb-2">
+                <h3 className="font-bold text-night uppercase tracking-wider text-xs">
+                  Work & Internship Experience
+                </h3>
+                <p className="text-[11px] text-night-muted mt-0.5">
+                  Action-verb bullet points emphasizing metrics, scale, and technological implementation.
+                </p>
+              </div>
+
               {formData.experience.map((exp, idx) => (
-                <div key={exp.id} className="p-3.5 rounded-lg bg-navy-950 border border-white/5 space-y-2">
-                  <div className="flex justify-between">
-                    <span className="font-bold text-pearl-primary">{exp.role}</span>
-                    <span className="text-champagne font-mono">{exp.period}</span>
+                <div key={exp.id} className="p-4 rounded-xl bg-surface-subtle border border-surface-border space-y-2.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="font-bold text-night text-xs">{exp.role}</span>
+                    <span className="text-imperial font-mono text-[10px] bg-imperial-50 border border-imperial-200 px-2 py-0.5 rounded-md self-start sm:self-auto">{exp.period}</span>
                   </div>
-                  <p className="text-pearl-muted text-[11px]">{exp.company} • {exp.location}</p>
+                  <p className="text-night-muted text-[11px]">{exp.company} • {exp.location}</p>
                   <textarea
                     value={exp.highlights.join("\n")}
                     onChange={(e) => {
@@ -265,7 +294,7 @@ export default function ResumeBuilderPage() {
                     }}
                     rows={4}
                     placeholder="Enter bullet points (one per line)..."
-                    className="w-full p-2 rounded bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne leading-relaxed"
+                    className="w-full p-2.5 rounded-lg bg-white border border-surface-border text-xs text-night focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 leading-relaxed shadow-sm transition-all placeholder:text-night-muted/50"
                   />
                 </div>
               ))}
@@ -275,14 +304,20 @@ export default function ResumeBuilderPage() {
           {/* Section 5: Projects */}
           {activeSection === "projects" && (
             <div className="space-y-4 text-xs animate-fade-in">
-              <h3 className="font-semibold text-pearl-primary uppercase tracking-wider text-[11px]">
-                Production Projects
-              </h3>
+              <div className="border-b border-surface-border pb-2">
+                <h3 className="font-bold text-night uppercase tracking-wider text-xs">
+                  Production Projects
+                </h3>
+                <p className="text-[11px] text-night-muted mt-0.5">
+                  High-signal repository or production projects with verifiable technical depth.
+                </p>
+              </div>
+
               {formData.projects.map((proj, idx) => (
-                <div key={proj.id} className="p-3.5 rounded-lg bg-navy-950 border border-white/5 space-y-2">
-                  <div className="flex justify-between">
-                    <span className="font-bold text-pearl-primary">{proj.name}</span>
-                    <span className="text-champagne font-mono text-[10px]">{proj.technologies.join(", ")}</span>
+                <div key={proj.id} className="p-4 rounded-xl bg-surface-subtle border border-surface-border space-y-2.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="font-bold text-night text-xs">{proj.name}</span>
+                    <span className="text-imperial font-mono text-[10px] bg-imperial-50 border border-imperial-200 px-2 py-0.5 rounded-md self-start sm:self-auto">{proj.technologies.join(", ")}</span>
                   </div>
                   <textarea
                     value={proj.highlights.join("\n")}
@@ -292,7 +327,8 @@ export default function ResumeBuilderPage() {
                       setFormData({ ...formData, projects: updated });
                     }}
                     rows={4}
-                    className="w-full p-2 rounded bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne leading-relaxed"
+                    placeholder="Enter project bullet points (one per line)..."
+                    className="w-full p-2.5 rounded-lg bg-white border border-surface-border text-xs text-night focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 leading-relaxed shadow-sm transition-all placeholder:text-night-muted/50"
                   />
                 </div>
               ))}
@@ -301,13 +337,19 @@ export default function ResumeBuilderPage() {
 
           {/* Section 6: Education */}
           {activeSection === "education" && (
-            <div className="space-y-3.5 text-xs animate-fade-in">
-              <h3 className="font-semibold text-pearl-primary uppercase tracking-wider text-[11px]">
-                Academic Background
-              </h3>
+            <div className="space-y-4 text-xs animate-fade-in">
+              <div className="border-b border-surface-border pb-2">
+                <h3 className="font-bold text-night uppercase tracking-wider text-xs">
+                  Academic Background
+                </h3>
+                <p className="text-[11px] text-night-muted mt-0.5">
+                  Institutions, verified degrees, academic dates, and honors.
+                </p>
+              </div>
+
               {formData.education.map((edu, idx) => (
-                <div key={edu.id} className="p-3 rounded-lg bg-navy-950 border border-white/5 space-y-1.5">
-                  <span className="font-bold text-pearl-primary">{edu.institution}</span>
+                <div key={edu.id} className="p-3.5 rounded-xl bg-surface-subtle border border-surface-border space-y-2">
+                  <span className="font-bold text-night text-xs">{edu.institution}</span>
                   <input
                     type="text"
                     value={edu.degree}
@@ -316,16 +358,17 @@ export default function ResumeBuilderPage() {
                       updated[idx].degree = e.target.value;
                       setFormData({ ...formData, education: updated });
                     }}
-                    className="w-full p-2 rounded bg-black border border-white/10 text-xs text-pearl-primary focus:outline-none focus:border-champagne"
+                    placeholder="Degree title..."
+                    className="w-full p-2.5 rounded-lg bg-white border border-surface-border text-xs text-night focus:outline-none focus:border-imperial focus:ring-2 focus:ring-imperial/10 shadow-sm transition-all"
                   />
                 </div>
               ))}
             </div>
           )}
 
-          <div className="pt-2 border-t border-white/5 flex items-center justify-between">
-            <Button onClick={handleSave} size="sm" className="w-full gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5" />
+          <div className="pt-2 border-t border-surface-border flex items-center justify-between">
+            <Button onClick={handleSave} size="md" className="w-full gap-2 font-semibold">
+              <CheckCircle2 className="w-4 h-4" />
               <span>{isSaved ? "Saved Successfully!" : "Save & Sync Resume Data"}</span>
             </Button>
           </div>
@@ -333,62 +376,66 @@ export default function ResumeBuilderPage() {
 
         {/* Right Column: Live ATS-Standard Resume Document (7 cols) */}
         <div className="lg:col-span-7 sticky top-20">
-          <div className="p-8 sm:p-10 rounded-xl bg-pearl text-black shadow-2xl space-y-6 font-sans border border-pearl/40 min-h-[750px]">
+          <div className="p-8 sm:p-10 rounded-2xl bg-white text-night shadow-lg space-y-6 font-sans border border-surface-border min-h-[750px]">
             {/* Candidate Header */}
-            <div className="text-center space-y-1 border-b border-black/20 pb-4">
-              <h2 className="text-2xl font-bold font-serif tracking-tight text-black uppercase">
-                {formData.personalInfo.fullName}
+            <div className="text-center space-y-1.5 border-b border-surface-border pb-5">
+              <h2 className="text-2xl font-bold font-serif tracking-tight text-night uppercase">
+                {formData.personalInfo.fullName || "Your Full Name"}
               </h2>
-              <p className="text-xs font-semibold text-black/80">{formData.personalInfo.title}</p>
-              <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-black/70 pt-1">
-                <span>{formData.personalInfo.location}</span>
-                <span>•</span>
-                <span>{formData.personalInfo.phone}</span>
-                <span>•</span>
-                <span className="underline">{formData.personalInfo.email}</span>
-                <span>•</span>
-                <span className="font-mono text-[10px]">{formData.personalInfo.github}</span>
+              <p className="text-xs font-semibold text-imperial tracking-wide">
+                {formData.personalInfo.title || "Target Professional Title"}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-night-muted pt-1">
+                {formData.personalInfo.location && <span>{formData.personalInfo.location}</span>}
+                {formData.personalInfo.phone && <span>•</span>}
+                {formData.personalInfo.phone && <span>{formData.personalInfo.phone}</span>}
+                {formData.personalInfo.email && <span>•</span>}
+                {formData.personalInfo.email && <span className="underline">{formData.personalInfo.email}</span>}
+                {formData.personalInfo.github && <span>•</span>}
+                {formData.personalInfo.github && <span className="font-mono text-[10px]">{formData.personalInfo.github}</span>}
+                {formData.personalInfo.linkedin && <span>•</span>}
+                {formData.personalInfo.linkedin && <span className="font-mono text-[10px]">{formData.personalInfo.linkedin}</span>}
               </div>
             </div>
 
             {/* Summary */}
             <div className="space-y-1.5">
-              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-black border-b border-black/20 pb-0.5">
+              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-night border-b border-surface-border pb-1">
                 Professional Summary
               </h3>
-              <p className="text-[11px] text-black/80 leading-relaxed text-justify">
+              <p className="text-[11px] text-night-muted leading-relaxed text-justify">
                 {formData.summary}
               </p>
             </div>
 
             {/* Technical Skills */}
             <div className="space-y-1.5">
-              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-black border-b border-black/20 pb-0.5">
+              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-night border-b border-surface-border pb-1">
                 Technical Skills
               </h3>
-              <div className="space-y-1 text-[11px]">
+              <div className="space-y-1.5 text-[11px]">
                 {formData.skills.map((cat, i) => (
                   <div key={i} className="flex items-baseline gap-2">
-                    <strong className="text-black font-semibold shrink-0">{cat.category}:</strong>
-                    <span className="text-black/80">{cat.items.join(", ")}</span>
+                    <strong className="text-night font-semibold shrink-0">{cat.category}:</strong>
+                    <span className="text-night-muted">{cat.items.join(", ")}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Experience */}
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-black border-b border-black/20 pb-0.5">
+            <div className="space-y-2.5">
+              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-night border-b border-surface-border pb-1">
                 Experience
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-3.5">
                 {formData.experience.map((exp) => (
                   <div key={exp.id} className="space-y-1 text-[11px]">
-                    <div className="flex justify-between font-semibold text-black">
-                      <span>{exp.role} — <em className="font-normal">{exp.company}</em></span>
-                      <span className="font-mono text-[10px] text-black/70">{exp.period}</span>
+                    <div className="flex justify-between font-semibold text-night">
+                      <span>{exp.role} — <em className="font-normal text-night-muted">{exp.company}</em></span>
+                      <span className="font-mono text-[10px] text-night-muted">{exp.period}</span>
                     </div>
-                    <ul className="list-disc list-outside pl-4 space-y-0.5 text-black/80 leading-relaxed">
+                    <ul className="list-disc list-outside pl-4 space-y-0.5 text-night-muted leading-relaxed">
                       {exp.highlights.map((h, idx) => (
                         <li key={idx}>{h}</li>
                       ))}
@@ -399,18 +446,18 @@ export default function ResumeBuilderPage() {
             </div>
 
             {/* Featured Projects */}
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-black border-b border-black/20 pb-0.5">
+            <div className="space-y-2.5">
+              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-night border-b border-surface-border pb-1">
                 Verified Production Projects
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-3.5">
                 {formData.projects.map((proj) => (
                   <div key={proj.id} className="space-y-1 text-[11px]">
-                    <div className="flex justify-between font-semibold text-black">
+                    <div className="flex justify-between font-semibold text-night">
                       <span>{proj.name}</span>
-                      <span className="font-mono text-[10px] text-black/70">[{proj.technologies.slice(0, 3).join(", ")}]</span>
+                      <span className="font-mono text-[10px] text-imperial">[{proj.technologies.slice(0, 3).join(", ")}]</span>
                     </div>
-                    <ul className="list-disc list-outside pl-4 space-y-0.5 text-black/80 leading-relaxed">
+                    <ul className="list-disc list-outside pl-4 space-y-0.5 text-night-muted leading-relaxed">
                       {proj.highlights.map((h, idx) => (
                         <li key={idx}>{h}</li>
                       ))}
@@ -422,16 +469,16 @@ export default function ResumeBuilderPage() {
 
             {/* Education */}
             <div className="space-y-1.5">
-              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-black border-b border-black/20 pb-0.5">
+              <h3 className="text-xs font-bold font-serif uppercase tracking-wider text-night border-b border-surface-border pb-1">
                 Education
               </h3>
               {formData.education.map((edu) => (
-                <div key={edu.id} className="flex justify-between text-[11px] text-black/80">
+                <div key={edu.id} className="flex justify-between text-[11px] text-night-muted">
                   <div>
-                    <strong className="text-black font-semibold">{edu.institution}</strong>
-                    <p className="text-[10px]">{edu.degree} ({edu.score})</p>
+                    <strong className="text-night font-semibold">{edu.institution}</strong>
+                    <p className="text-[10px] text-night-muted">{edu.degree} ({edu.score})</p>
                   </div>
-                  <span className="font-mono text-[10px]">{edu.year}</span>
+                  <span className="font-mono text-[10px] text-night-muted">{edu.year}</span>
                 </div>
               ))}
             </div>

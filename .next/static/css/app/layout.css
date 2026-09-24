@@ -1235,6 +1235,9 @@ video {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity, 1));
 }
+.self-start {
+  align-self: flex-start;
+}
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1386,6 +1389,15 @@ video {
 .border-white\/5 {
   border-color: rgb(255 255 255 / 0.05);
 }
+.border-imperial\/30 {
+  border-color: rgb(251 54 64 / 0.3);
+}
+.border-imperial\/25 {
+  border-color: rgb(251 54 64 / 0.25);
+}
+.border-emerald-200\/60 {
+  border-color: rgb(167 243 208 / 0.6);
+}
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
@@ -1463,6 +1475,12 @@ video {
 }
 .bg-white\/95 {
   background-color: rgb(255 255 255 / 0.95);
+}
+.bg-surface-subtle\/60 {
+  background-color: rgb(245 245 245 / 0.6);
+}
+.bg-imperial-50\/70 {
+  background-color: rgb(255 241 242 / 0.7);
 }
 .fill-amber-400\/20 {
   fill: rgb(251 191 36 / 0.2);
@@ -1650,6 +1668,12 @@ video {
 .pt-8 {
   padding-top: 2rem;
 }
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
 .text-left {
   text-align: left;
 }
@@ -1831,6 +1855,14 @@ video {
 .text-white\/90 {
   color: rgb(255 255 255 / 0.9);
 }
+.text-emerald-500 {
+  --tw-text-opacity: 1;
+  color: rgb(16 185 129 / var(--tw-text-opacity, 1));
+}
+.text-emerald-600 {
+  --tw-text-opacity: 1;
+  color: rgb(5 150 105 / var(--tw-text-opacity, 1));
+}
 .underline {
   text-decoration-line: underline;
 }
@@ -1916,6 +1948,12 @@ video {
 .ring-white {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity, 1));
+}
+.ring-black\/5 {
+  --tw-ring-color: rgb(0 0 0 / 0.05);
+}
+.ring-imperial\/20 {
+  --tw-ring-color: rgb(251 54 64 / 0.2);
 }
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -2013,6 +2051,14 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.placeholder\:text-night-muted\/50::-moz-placeholder {
+  color: rgb(82 96 90 / 0.5);
+}
+
+.placeholder\:text-night-muted\/50::placeholder {
+  color: rgb(82 96 90 / 0.5);
+}
+
 .hover\:-translate-y-0\.5:hover {
   --tw-translate-y: -0.125rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -2034,6 +2080,10 @@ video {
 
 .hover\:border-night\/40:hover {
   border-color: rgb(0 15 8 / 0.4);
+}
+
+.hover\:border-night\/20:hover {
+  border-color: rgb(0 15 8 / 0.2);
 }
 
 .hover\:bg-imperial:hover {
@@ -2076,6 +2126,10 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-white\/60:hover {
+  background-color: rgb(255 255 255 / 0.6);
+}
+
 .hover\:text-imperial:hover {
   --tw-text-opacity: 1;
   color: rgb(251 54 64 / var(--tw-text-opacity, 1));
@@ -2112,6 +2166,11 @@ video {
   border-color: rgb(251 54 64 / var(--tw-border-opacity, 1));
 }
 
+.focus\:bg-white:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -2123,9 +2182,19 @@ video {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
+.focus\:ring-2:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
 .focus\:ring-imperial:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(251 54 64 / var(--tw-ring-opacity, 1));
+}
+
+.focus\:ring-imperial\/10:focus {
+  --tw-ring-color: rgb(251 54 64 / 0.1);
 }
 
 .focus-visible\:outline-none:focus-visible {
@@ -2277,6 +2346,10 @@ video {
 
   .sm\:gap-4 {
     gap: 1rem;
+  }
+
+  .sm\:self-auto {
+    align-self: auto;
   }
 
   .sm\:border-l {
