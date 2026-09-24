@@ -1,9 +1,8 @@
 {
-  "/resume/page": "app/resume/page.js",
-  "/onboarding/page": "app/onboarding/page.js",
-  "/page": "app/page.js",
-  "/opportunities/page": "app/opportunities/page.js",
+  "/learning/page": "app/learning/page.js",
   "/assessment/results/page": "app/assessment/results/page.js",
-  "/assessment/page": "app/assessment/page.js",
-  "/learning/page": "app/learning/page.js"
+  "/page": "app/page.js",
+  "/interview/page": "app/interview/page.js",
+  "/applications/page": "app/applications/page.js",
+  "/interview/session/page": "app/interview/session/page.js"
 }
