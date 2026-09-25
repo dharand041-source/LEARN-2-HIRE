@@ -409,7 +409,7 @@ export default function IndividualSkillPage() {
               {showSolution && (
                 <div className="p-4 rounded-lg bg-night border border-border space-y-2 animate-slide-up shadow-lg">
                   <div className="flex items-center justify-between text-xs font-bold text-white">
-                    <span className="text-imperial">SkillForge Verified Solution:</span>
+                    <span className="text-imperial">Learn-2-Hire Verified Solution:</span>
                     <button
                       onClick={() => setUserCode(currentModule.practiceExercise.solutionCode)}
                       className="text-[11px] underline text-white hover:text-imperial"

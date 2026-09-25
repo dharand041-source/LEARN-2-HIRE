@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const PRODUCT_NAME = "SkillForge";
+export const PRODUCT_NAME = "Learn-2-Hire";
 export const PRODUCT_TAGLINE = "Build the skills. Prove your ability. Find your opportunity.";
 
 export const SUPPORTED_LANGUAGES = [

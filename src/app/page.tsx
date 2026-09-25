@@ -188,7 +188,7 @@ export default function LandingPage() {
           <div>
             <Badge variant="imperial" size="sm" className="mb-2">Structured Progression</Badge>
             <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-night tracking-tight">
-              HOW SKILLFORGE WORKS
+              HOW LEARN-2-HIRE WORKS
             </h2>
             <p className="text-xs sm:text-sm text-muted mt-1 max-w-xl">
               An evidence-based pipeline that continuously converts effort into verifiable technical readiness and job offers.
@@ -248,7 +248,7 @@ export default function LandingPage() {
                   TAILORED TO YOUR TECHNICAL TARGET
                 </h2>
                 <p className="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
-                  Select a target role below to see how SkillForge calculates expected skill weights, assessment benchmarks, and customized learning paths.
+                  Select a target role below to see how Learn-2-Hire calculates expected skill weights, assessment benchmarks, and customized learning paths.
                 </p>
               </div>
 

@@ -249,7 +249,7 @@ export default function OpportunityDetailsPage() {
             <div className="flex items-center justify-between border-b border-surface-border pb-4">
               <div>
                 <span className="text-[10px] uppercase font-mono tracking-wider text-pearl-muted">
-                  SkillForge Compatibility Formula
+                  Learn-2-Hire Compatibility Formula
                 </span>
                 <h3 className="text-xl font-bold font-mono text-champagne">{opp.matchPercentage}% Compatibility</h3>
               </div>
@@ -308,7 +308,7 @@ export default function OpportunityDetailsPage() {
                 <span>External Application Redirect</span>
               </p>
               <p>
-                When you click apply, SkillForge safely redirects you to the verified external career
+                When you click apply, Learn-2-Hire safely redirects you to the verified external career
                 destination. You will review and submit your application directly on the employer&apos;s site.
               </p>
             </div>

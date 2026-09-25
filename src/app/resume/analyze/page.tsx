@@ -179,7 +179,7 @@ export default function ResumeAnalyzerPage() {
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-display font-bold text-pearl-primary tracking-tight">
-              SkillForge ATS-Style Resume Analyzer
+              Learn-2-Hire ATS-Style Resume Analyzer
             </h1>
             <p className="text-xs sm:text-sm text-pearl-muted mt-1">
               Deterministic parsing, format validation, keyword coverage, and real-time employment matching for{" "}
@@ -213,10 +213,10 @@ export default function ResumeAnalyzerPage() {
         <ShieldCheck className="w-5 h-5 text-champagne shrink-0 mt-0.5" />
         <div className="space-y-1">
           <p className="font-semibold text-pearl-primary">
-            SkillForge ATS Compatibility Score
+            Learn-2-Hire ATS Compatibility Score
           </p>
           <p className="text-[11px] leading-relaxed text-pearl-muted">
-            This is SkillForge&apos;s compatibility estimate based on resume parsing, structure,
+            This is Learn-2-Hire&apos;s compatibility estimate based on resume parsing, structure,
             job-description alignment, keywords, skills, and content quality. It is not an official
             score from an employer&apos;s ATS (such as Workday, Greenhouse, or Lever).
           </p>
@@ -281,7 +281,7 @@ export default function ResumeAnalyzerPage() {
           <div className="p-6 rounded-2xl bg-surface-card border border-champagne/40 shadow-card-navy space-y-6">
             <div className="text-center space-y-1">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-pearl-muted font-mono">
-                SkillForge Compatibility Estimate
+                Learn-2-Hire Compatibility Estimate
               </span>
               <div className="flex items-baseline justify-center gap-1">
                 <span className="text-5xl font-extrabold font-mono text-champagne">{displayScore}</span>

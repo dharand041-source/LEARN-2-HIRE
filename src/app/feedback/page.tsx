@@ -63,7 +63,7 @@ export default function RejectionAnalysisPage() {
             Outcome Diagnostic & Retraining Engine
           </h1>
           <p className="text-xs sm:text-sm text-pearl-muted mt-1 max-w-2xl">
-            SkillForge turns rejections into structured engineering gains. We separate employer feedback from algorithmic system analysis to prescribe a daily recovery plan.
+            Learn-2-Hire turns rejections into structured engineering gains. We separate employer feedback from algorithmic system analysis to prescribe a daily recovery plan.
           </p>
         </div>
 
@@ -125,7 +125,7 @@ export default function RejectionAnalysisPage() {
             <div className="flex items-center justify-between border-b border-surface-border pb-3">
               <h3 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-champagne" />
-                SkillForge System Diagnostic Synthesis
+                Learn-2-Hire System Diagnostic Synthesis
               </h3>
               <Badge variant="champagne" size="sm">Algorithmic Correlation</Badge>
             </div>

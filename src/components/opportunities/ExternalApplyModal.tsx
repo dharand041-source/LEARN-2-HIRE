@@ -40,7 +40,7 @@ export function ExternalApplyModal() {
       isOpen={isApplyApprovalModalOpen}
       onClose={closeExternalApplyModal}
       title="External Application Redirect"
-      description="You are about to leave SkillForge to complete your application."
+      description="You are about to leave Learn-2-Hire to complete your application."
       maxWidth="md"
     >
       <div className="space-y-4 text-xs">
@@ -51,7 +51,7 @@ export function ExternalApplyModal() {
             <span>Official Application Notice</span>
           </div>
           <p className="text-[11px] text-pearl-muted leading-relaxed">
-            You are about to leave SkillForge and continue on the external application website:{" "}
+            You are about to leave Learn-2-Hire and continue on the external application website:{" "}
             <strong className="text-pearl-primary font-mono">{domain}</strong>.
           </p>
         </div>
@@ -107,7 +107,7 @@ export function ExternalApplyModal() {
             <span>Zero Automated Form-Filling</span>
           </div>
           <p>
-            SkillForge never automatically submits external employer applications. You will review and
+            Learn-2-Hire never automatically submits external employer applications. You will review and
             submit your application directly on the employer&apos;s verified portal.
           </p>
         </div>

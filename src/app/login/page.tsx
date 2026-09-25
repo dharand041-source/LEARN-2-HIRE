@@ -69,7 +69,7 @@ function LoginForm() {
         <div className="my-auto py-10 max-w-md w-full mx-auto">
           <div className="text-center sm:text-left mb-8">
             <h1 className="text-3xl sm:text-4xl font-display font-bold text-night tracking-tight mb-2.5">
-              Welcome to SkillForge
+              Welcome to Learn-2-Hire
             </h1>
             <p className="text-night-muted text-sm sm:text-base leading-relaxed">
               Sign in with your Google account to access technical assessments, AI mock interviews, and verified job matches.
@@ -209,7 +209,7 @@ function LoginForm() {
               {activeTab === "typescript" ? (
                 <>
                   <div className="text-night-muted">{"// 1. Initialize candidate skill assessment"}</div>
-                  <div><span className="text-purple-400">import</span> &#123; createClient &#125; <span className="text-purple-400">from</span> <span className="text-amber-300">&apos;@skillforge/sdk&apos;</span>;</div>
+                  <div><span className="text-purple-400">import</span> &#123; createClient &#125; <span className="text-purple-400">from</span> <span className="text-amber-300">&apos;@learn-2-hire/sdk&apos;</span>;</div>
                   <div className="mt-2"><span className="text-blue-400">const</span> client = <span className="text-yellow-300">createClient</span>();</div>
                   <div className="mt-2"><span className="text-blue-400">const</span> evaluation = <span className="text-purple-400">await</span> client.assessCandidate(&#123;</div>
                   <div className="pl-4">role: <span className="text-amber-300">&quot;Full Stack & Cloud Engineer&quot;</span>,</div>
@@ -221,7 +221,7 @@ function LoginForm() {
               ) : (
                 <>
                   <div className="text-night-muted">{"# 1. Initialize candidate skill assessment"}</div>
-                  <div><span className="text-purple-400">from</span> skillforge <span className="text-purple-400">import</span> SkillEngine</div>
+                  <div><span className="text-purple-400">from</span> learn2hire <span className="text-purple-400">import</span> SkillEngine</div>
                   <div className="mt-2">engine = SkillEngine(api_key=SUPABASE_SECRET)</div>
                   <div className="mt-2">result = <span className="text-purple-400">await</span> engine.evaluate_interview(</div>
                   <div className="pl-4">role=<span className="text-amber-300">&quot;AI & Data Engineer&quot;</span>,</div>
