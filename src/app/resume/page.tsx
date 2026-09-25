@@ -21,15 +21,58 @@ import { Badge } from "@/components/ui/Badge";
 import { ResumeData } from "@/types";
 
 export default function ResumeBuilderPage() {
-  const { resumeData, updateResume, resumeAnalysis } = useCareer();
+  const {
+    resumeData,
+    updateResume,
+    resumeAnalysis,
+    uploadAndAnalyzeResume,
+    reanalyzeResume,
+    isAnalyzingResume,
+  } = useCareer();
   const [formData, setFormData] = useState<ResumeData>(resumeData);
   const [activeSection, setActiveSection] = useState<"personal" | "summary" | "skills" | "experience" | "projects" | "education">("personal");
   const [isSaved, setIsSaved] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const handleSave = () => {
     updateResume(formData);
+    reanalyzeResume();
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 2000);
+  };
+
+  const handleUploadResume = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      try {
+        const { parsed } = await uploadAndAnalyzeResume(file);
+        const updated: ResumeData = {
+          ...formData,
+          personalInfo: {
+            fullName: parsed.personalInfo.fullName || formData.personalInfo.fullName,
+            title: parsed.jobTitles[0] || formData.personalInfo.title,
+            email: parsed.personalInfo.email || formData.personalInfo.email,
+            phone: parsed.personalInfo.phone || formData.personalInfo.phone,
+            location: parsed.personalInfo.location || formData.personalInfo.location,
+            linkedin: parsed.personalInfo.linkedin || formData.personalInfo.linkedin,
+            github: parsed.personalInfo.github || formData.personalInfo.github,
+            portfolio: parsed.personalInfo.portfolio || formData.personalInfo.portfolio,
+          },
+          summary: parsed.summary || formData.summary,
+          skills: [
+            {
+              category: "Extracted Technical Skills",
+              items: parsed.technicalSkills.length > 0 ? parsed.technicalSkills : formData.skills[0].items,
+            },
+          ],
+        };
+        setFormData(updated);
+        updateResume(updated);
+        reanalyzeResume();
+      } catch (err: any) {
+        alert(err.message || "Failed to parse resume document.");
+      }
+    }
   };
 
   return (
@@ -51,7 +94,24 @@ export default function ResumeBuilderPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".pdf,.docx,.txt"
+            onChange={handleUploadResume}
+            className="hidden"
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => fileInputRef.current?.click()}
+            isLoading={isAnalyzingResume}
+            className="gap-1.5 text-xs font-semibold"
+          >
+            <span>Import PDF / DOCX</span>
+          </Button>
+
           <Link href="/resume/analyze">
             <Button variant="secondary" size="sm" className="gap-1.5 text-imperial border-imperial/30 hover:bg-imperial-50">
               <Sparkles className="w-3.5 h-3.5" />

@@ -19,28 +19,64 @@ import {
   Briefcase,
   ChevronRight,
   Zap,
+  ExternalLink,
+  BookOpen,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { Modal } from "@/components/ui/Modal";
+import { ExternalApplyModal } from "@/components/opportunities/ExternalApplyModal";
+import { JobListing } from "@/types";
 
 export default function OpportunityDetailsPage() {
   const params = useParams();
   const router = useRouter();
-  const { opportunities, applyToOpportunity, userProfile, resumeData } = useCareer();
+  const {
+    opportunities,
+    userProfile,
+    openExternalApplyModal,
+    confirmExternalApplied,
+    applicationRecords,
+  } = useCareer();
 
   const oppId = params.id as string;
   const opp = opportunities.find((o) => o.id === oppId) || opportunities[0];
 
-  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
-  const [isApplied, setIsApplied] = useState(opp.applicationStatus === "Applied");
+  const appRecord = applicationRecords.find((r) => r.jobId === opp.id);
+  const isApplied = opp.applicationStatus === "Applied" || appRecord?.status === "Applied";
+  const isRedirected = appRecord?.status === "Redirected";
 
-  const handleApply = () => {
-    applyToOpportunity(opp.id);
-    setIsApplied(true);
-    setIsApplyModalOpen(false);
+  const handleApplyClick = () => {
+    const syntheticJob: JobListing = {
+      id: opp.id,
+      source: (opp.externalSource as any) || "verified_external",
+      sourceId: opp.id,
+      title: opp.role,
+      company: opp.company,
+      description: opp.description,
+      location: opp.location,
+      country: "India",
+      remoteType: opp.workMode === "Remote" ? "Remote" : opp.workMode === "Hybrid" ? "Hybrid" : "Onsite",
+      employmentType: "Full-time",
+      opportunityType:
+        opp.type === "Internship" || opp.type === "INTERNSHIP"
+          ? "INTERNSHIP"
+          : opp.type === "Startup" || opp.type === "STARTUP"
+          ? "STARTUP"
+          : "JOB",
+      experienceLevel: opp.experienceLevel || "Entry Level",
+      requiredSkills: opp.matchedSkills.concat(opp.skillGaps),
+      preferredSkills: [],
+      listingUrl: opp.externalListingUrl || opp.listingUrl || "https://jobicy.com",
+      applicationUrl: opp.externalApplicationUrl || opp.applicationUrl || opp.externalListingUrl || opp.listingUrl,
+      postedAt: opp.postedAt || new Date().toISOString(),
+      lastVerifiedAt: opp.lastVerifiedAt || new Date().toISOString(),
+      isActive: true,
+      sourceUrl: opp.externalListingUrl || opp.listingUrl || "https://jobicy.com",
+      attribution: opp.attribution || `Source: ${opp.externalSource || "Verified Employer Portal"}`,
+    };
+    openExternalApplyModal(syntheticJob);
   };
 
   return (
@@ -59,6 +95,26 @@ export default function OpportunityDetailsPage() {
               <span className="text-xs text-pearl-muted font-medium">{opp.company}</span>
               <Badge variant="champagne" size="sm">{opp.workMode}</Badge>
               <Badge variant="navy" size="sm">{opp.type}</Badge>
+              {opp.eligibilityStatus && (
+                <Badge
+                  variant={
+                    opp.eligibilityStatus === "eligible"
+                      ? "champagne"
+                      : opp.eligibilityStatus === "not_eligible"
+                      ? "rose"
+                      : "neutral"
+                  }
+                  size="sm"
+                >
+                  {opp.eligibilityStatus === "eligible"
+                    ? "✓ Compatible"
+                    : opp.eligibilityStatus === "possibly_eligible"
+                    ? "? Review Reqs"
+                    : opp.eligibilityStatus === "not_eligible"
+                    ? "✕ Gap Detected"
+                    : "Eligibility Unknown"}
+                </Badge>
+              )}
             </div>
             <h1 className="text-2xl font-bold text-pearl-primary">
               {opp.role}
@@ -71,8 +127,14 @@ export default function OpportunityDetailsPage() {
               <span className="font-mono text-champagne font-semibold flex items-center gap-1">
                 <DollarSign className="w-3.5 h-3.5 text-champagne" /> {opp.salary}
               </span>
-              <span>•</span>
-              <span>Deadline: {opp.deadline}</span>
+              {opp.lastVerifiedAt && (
+                <>
+                  <span>•</span>
+                  <span className="font-mono text-[11px] text-pearl-muted">
+                    Last verified: {new Date(opp.lastVerifiedAt).toLocaleDateString()}
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -85,10 +147,34 @@ export default function OpportunityDetailsPage() {
                 <span>Application Submitted • View Tracker</span>
               </Button>
             </Link>
+          ) : isRedirected ? (
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleApplyClick}
+                className="gap-1.5 text-xs font-semibold"
+              >
+                <span>Re-open Portal</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => confirmExternalApplied(opp.id)}
+                className="gap-1.5 font-semibold text-xs"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Mark as Applied</span>
+              </Button>
+            </div>
           ) : (
-            <Button onClick={() => setIsApplyModalOpen(true)} size="md" className="gap-2 font-semibold shadow-gold-btn">
-              <Send className="w-4 h-4 text-black" />
-              <span>Apply with Verified Profile</span>
+            <Button
+              onClick={handleApplyClick}
+              size="md"
+              className="gap-2 font-semibold shadow-gold-btn"
+            >
+              <span>Apply Externally</span>
+              <ExternalLink className="w-4 h-4" />
             </Button>
           )}
         </div>
@@ -100,17 +186,20 @@ export default function OpportunityDetailsPage() {
         <div className="lg:col-span-7 space-y-6">
           {/* Job Overview */}
           <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary font-mono">
               About the Role
             </h2>
             <p className="text-xs text-pearl-muted leading-relaxed">
               {opp.description}
             </p>
+            <div className="pt-2 text-[11px] text-pearl-muted font-mono">
+              <span>{opp.attribution || `Source: ${opp.externalSource || opp.source || "Verified Job Feed"}`}</span>
+            </div>
           </div>
 
           {/* Key Responsibilities */}
           <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary font-mono">
               Core Responsibilities
             </h2>
             <div className="space-y-2.5">
@@ -125,7 +214,7 @@ export default function OpportunityDetailsPage() {
 
           {/* Requirements */}
           <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary font-mono">
               Required Qualifications
             </h2>
             <div className="space-y-2.5">
@@ -140,7 +229,7 @@ export default function OpportunityDetailsPage() {
 
           {/* Benefits & Perks */}
           <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary font-mono">
               Perks & Compensation
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -160,11 +249,11 @@ export default function OpportunityDetailsPage() {
             <div className="flex items-center justify-between border-b border-surface-border pb-4">
               <div>
                 <span className="text-[10px] uppercase font-mono tracking-wider text-pearl-muted">
-                  Demonstrated Match
+                  SkillForge Compatibility Formula
                 </span>
-                <h3 className="text-xl font-bold font-mono text-champagne">{opp.matchPercentage}% Strong Match</h3>
+                <h3 className="text-xl font-bold font-mono text-champagne">{opp.matchPercentage}% Compatibility</h3>
               </div>
-              <Badge variant="champagne" size="sm">Verified Ready</Badge>
+              <Badge variant="champagne" size="sm">Verified Feed</Badge>
             </div>
 
             {/* Matched Skills */}
@@ -190,7 +279,7 @@ export default function OpportunityDetailsPage() {
               <div className="space-y-3 pt-3 border-t border-white/5">
                 <div className="flex items-center gap-2 text-xs text-rose font-semibold">
                   <AlertTriangle className="w-3.5 h-3.5" />
-                  <span>Remaining Skill Gaps ({opp.skillGaps.length})</span>
+                  <span>Missing Skills ({opp.skillGaps.length})</span>
                 </div>
                 <div className="space-y-2">
                   {opp.skillGaps.map((gap, i) => (
@@ -198,13 +287,13 @@ export default function OpportunityDetailsPage() {
                       key={i}
                       className="p-3 rounded-lg bg-navy-950 border border-rose/30 flex items-center justify-between text-xs"
                     >
-                      <span className="text-rose font-mono font-medium">{gap}</span>
+                      <span className="text-rose font-mono font-medium">+ {gap}</span>
                       <Link
-                        href="/learning"
+                        href={`/learning?skill=${encodeURIComponent(gap)}`}
                         className="text-[11px] text-champagne hover:underline flex items-center gap-1 font-semibold"
                       >
-                        <span>Learn Skill</span>
-                        <ChevronRight className="w-3 h-3" />
+                        <BookOpen className="w-3 h-3" />
+                        <span>Learn this skill</span>
                       </Link>
                     </div>
                   ))}
@@ -212,41 +301,38 @@ export default function OpportunityDetailsPage() {
               </div>
             )}
 
-            {/* Candidate Credentials Being Submitted */}
-            <div className="p-4 rounded-xl bg-navy-950 border border-white/5 space-y-2.5 text-xs text-pearl-muted">
-              <p className="font-semibold text-pearl-primary uppercase tracking-wider text-[11px]">
-                Submission Artifacts:
+            {/* Application Policy Notice */}
+            <div className="p-4 rounded-xl bg-navy-950 border border-white/5 space-y-2 text-[11px] text-pearl-muted leading-relaxed">
+              <p className="font-semibold text-pearl-primary uppercase tracking-wider text-[10px] font-mono flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>External Application Redirect</span>
               </p>
-              <div className="flex justify-between">
-                <span>Verified Diagnostic:</span>
-                <span className="font-mono text-champagne font-semibold">{userProfile.readinessScore}/100</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Production Projects:</span>
-                <span className="font-mono text-pearl-primary">2 Deployed Apps</span>
-              </div>
-              <div className="flex justify-between">
-                <span>ATS Resume:</span>
-                <span className="font-mono text-emerald-400">91% ATS Pass</span>
-              </div>
+              <p>
+                When you click apply, SkillForge safely redirects you to the verified external career
+                destination. You will review and submit your application directly on the employer&apos;s site.
+              </p>
             </div>
 
             {/* Application CTA */}
             <Button
-              onClick={() => setIsApplyModalOpen(true)}
-              disabled={isApplied}
+              onClick={handleApplyClick}
               size="lg"
-              className="w-full gap-2 text-sm font-semibold"
+              className="w-full gap-2 text-sm font-semibold shadow-gold-btn"
             >
               {isApplied ? (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Applied on {opp.appliedDate || "Today"}</span>
+                  <span>Applied on {opp.appliedDate || "Recently"}</span>
+                </>
+              ) : isRedirected ? (
+                <>
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Re-open Application Page</span>
                 </>
               ) : (
                 <>
-                  <Send className="w-4 h-4" />
-                  <span>Apply with Verified Profile</span>
+                  <span>Apply on Official Website</span>
+                  <ExternalLink className="w-4 h-4" />
                 </>
               )}
             </Button>
@@ -254,45 +340,8 @@ export default function OpportunityDetailsPage() {
         </div>
       </div>
 
-      {/* Confirmation Modal */}
-      <Modal
-        isOpen={isApplyModalOpen}
-        onClose={() => setIsApplyModalOpen(false)}
-        title="Confirm Application Submission"
-        description={`You are about to apply for ${opp.role} at ${opp.company}.`}
-        maxWidth="md"
-      >
-        <div className="space-y-4 text-xs">
-          <div className="p-4 rounded-lg bg-navy-950 border border-white/5 space-y-2">
-            <div className="flex justify-between">
-              <span className="text-pearl-muted">Applicant:</span>
-              <span className="text-pearl-primary font-bold">{userProfile.name} ({userProfile.email})</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-pearl-muted">Role Match:</span>
-              <span className="text-champagne font-bold font-mono">{opp.matchPercentage}% Match</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-pearl-muted">Location / Mode:</span>
-              <span className="text-pearl-primary">{opp.location} ({opp.workMode})</span>
-            </div>
-          </div>
-
-          <p className="text-pearl-muted text-[11px] leading-relaxed">
-            By applying, your verified skill diagnostics, GitHub projects, and ATS resume are securely delivered to {opp.company}'s engineering recruitment pipeline.
-          </p>
-
-          <div className="flex items-center justify-end gap-3 pt-2">
-            <Button variant="outline" size="sm" onClick={() => setIsApplyModalOpen(false)}>
-              Review Application
-            </Button>
-            <Button size="sm" onClick={handleApply} className="gap-1.5 font-semibold">
-              <Send className="w-3.5 h-3.5" />
-              <span>Confirm & Submit Application</span>
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      {/* External Application User Approval Modal */}
+      <ExternalApplyModal />
     </div>
   );
 }

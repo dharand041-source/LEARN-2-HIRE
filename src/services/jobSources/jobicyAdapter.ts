@@ -1,6 +1,7 @@
 import { JobListing, JobSearchQuery, OpportunityType } from "@/types";
 import { JobSourceAdapter, SourceFetchResult } from "./types";
 import { extractSkillsFromText } from "../resumeParser";
+import { matchesRoleQuery } from "./roleKeywords";
 
 // In-memory cache to prevent hammering the Jobicy API
 let cache: { timestamp: number; jobs: JobListing[] } | null = null;
@@ -135,15 +136,10 @@ export class JobicyAdapter implements JobSourceAdapter {
   private filterJobs(jobs: JobListing[], query: JobSearchQuery): JobListing[] {
     let result = jobs;
     if (query.role) {
-      const q = query.role.toLowerCase();
-      result = result.filter(
-        (j) =>
-          j.title.toLowerCase().includes(q) ||
-          j.requiredSkills.some((s) => s.toLowerCase().includes(q))
-      );
+      result = result.filter((j) => matchesRoleQuery(j.title, j.requiredSkills, query.role));
     }
     if (query.type && query.type !== "all") {
-      result = result.filter((j) => j.opportunityType === query.type);
+      result = result.filter((j) => j.opportunityType.toUpperCase() === query.type?.toUpperCase());
     }
     return result;
   }

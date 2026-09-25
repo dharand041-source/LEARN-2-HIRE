@@ -254,6 +254,7 @@ export interface ResumeAnalysisResult {
   recommendations: string[];
 }
 
+import { OpportunityType, WorkMode, EligibilityStatus } from "./resumeJob";
 export * from "./resumeJob";
 
 export interface OpportunityItem {

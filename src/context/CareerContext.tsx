@@ -865,11 +865,14 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
     const record: ApplicationRecord = {
       id: `app-rec-${Date.now()}`,
       jobId: job.id,
+      title: job.title,
       jobTitle: job.title,
       company: job.company,
+      opportunityType: job.opportunityType,
       source: job.source,
       externalUrl: targetUrl,
       timestamp: new Date().toISOString(),
+      lastUpdated: new Date().toISOString(),
       status: "Redirected",
     };
     setApplicationRecords((prev) => [record, ...prev]);
@@ -973,6 +976,7 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         remoteType: opp.workMode === "Remote" ? "Remote" : opp.workMode === "Hybrid" ? "Hybrid" : "Onsite",
         employmentType: "Full-time",
         opportunityType: opp.type === "Internship" ? "INTERNSHIP" : opp.type === "Startup" ? "STARTUP" : "JOB",
+        experienceLevel: opp.experienceLevel || "Entry Level",
         requiredSkills: opp.matchedSkills.concat(opp.skillGaps),
         preferredSkills: [],
         listingUrl: opp.externalListingUrl || "https://jobicy.com",

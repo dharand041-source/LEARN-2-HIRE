@@ -177,11 +177,13 @@ export interface ApplicationRecord {
   jobId: string;
   company: string;
   title: string;
+  jobTitle?: string;
   opportunityType: OpportunityType;
   source: string;
   externalUrl: string;
   status: ApplicationTrackingStatus;
   appliedDate?: string;
+  timestamp?: string;
   lastUpdated: string;
   salary?: string;
   matchScore?: number;

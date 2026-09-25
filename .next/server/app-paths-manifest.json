@@ -1,7 +1,9 @@
 {
   "/onboarding/page": "app/onboarding/page.js",
   "/applications/page": "app/applications/page.js",
+  "/api/jobs/search/route": "app/api/jobs/search/route.js",
+  "/opportunities/page": "app/opportunities/page.js",
   "/profile/page": "app/profile/page.js",
-  "/assessment/page": "app/assessment/page.js",
+  "/resume/page": "app/resume/page.js",
   "/feedback/page": "app/feedback/page.js"
 }

@@ -1,5 +1,6 @@
 import { JobListing, JobSearchQuery } from "@/types";
 import { JobSourceAdapter, SourceFetchResult } from "./types";
+import { matchesRoleQuery } from "./roleKeywords";
 
 /**
  * Verified Startup Opportunities from public startup hiring portfolios (YC / Wellfound)
@@ -85,12 +86,10 @@ export class StartupJobsAdapter implements JobSourceAdapter {
 
     let filtered = startupListings;
     if (query.role) {
-      const q = query.role.toLowerCase();
-      filtered = filtered.filter(
-        (j) =>
-          j.title.toLowerCase().includes(q) ||
-          j.requiredSkills.some((s) => s.toLowerCase().includes(q))
-      );
+      filtered = filtered.filter((j) => matchesRoleQuery(j.title, j.requiredSkills, query.role));
+    }
+    if (query.type && query.type !== "all") {
+      filtered = filtered.filter((j) => j.opportunityType.toUpperCase() === query.type?.toUpperCase());
     }
 
     return {
@@ -191,12 +190,10 @@ export class InternshipAdapter implements JobSourceAdapter {
 
     let filtered = internships;
     if (query.role) {
-      const q = query.role.toLowerCase();
-      filtered = filtered.filter(
-        (j) =>
-          j.title.toLowerCase().includes(q) ||
-          j.requiredSkills.some((s) => s.toLowerCase().includes(q))
-      );
+      filtered = filtered.filter((j) => matchesRoleQuery(j.title, j.requiredSkills, query.role));
+    }
+    if (query.type && query.type !== "all") {
+      filtered = filtered.filter((j) => j.opportunityType.toUpperCase() === query.type?.toUpperCase());
     }
 
     return {
