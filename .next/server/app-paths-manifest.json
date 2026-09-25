@@ -1,9 +1,11 @@
 {
   "/onboarding/page": "app/onboarding/page.js",
-  "/applications/page": "app/applications/page.js",
-  "/api/jobs/search/route": "app/api/jobs/search/route.js",
-  "/opportunities/page": "app/opportunities/page.js",
-  "/profile/page": "app/profile/page.js",
   "/resume/page": "app/resume/page.js",
-  "/feedback/page": "app/feedback/page.js"
+  "/page": "app/page.js",
+  "/assessment/page": "app/assessment/page.js",
+  "/opportunities/page": "app/opportunities/page.js",
+  "/api/jobs/search/route": "app/api/jobs/search/route.js",
+  "/assessment/results/page": "app/assessment/results/page.js",
+  "/learning/page": "app/learning/page.js",
+  "/learning/[skill]/page": "app/learning/[skill]/page.js"
 }
