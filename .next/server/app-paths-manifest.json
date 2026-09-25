@@ -1,6 +1,8 @@
 {
+  "/assessment/results/page": "app/assessment/results/page.js",
   "/page": "app/page.js",
   "/login/page": "app/login/page.js",
   "/onboarding/page": "app/onboarding/page.js",
+  "/assessment/page": "app/assessment/page.js",
   "/api/jobs/search/route": "app/api/jobs/search/route.js"
 }

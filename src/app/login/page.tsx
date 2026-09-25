@@ -4,6 +4,7 @@ import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { getOAuthRedirectURL } from "@/lib/utils/url";
 import { 
   Sparkles, 
   CheckCircle2, 
@@ -27,11 +28,12 @@ function LoginForm() {
       setLoading(true);
       setErrorMessage(null);
       const supabase = createClient();
+      const redirectTo = getOAuthRedirectURL("/auth/callback");
       
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo,
           queryParams: {
             access_type: "offline",
             prompt: "consent",
