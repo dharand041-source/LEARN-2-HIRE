@@ -49,16 +49,18 @@ export default function AssessmentPage() {
   // Initialize or reload technical questions when selectedRole changes
   useEffect(() => {
     const roleId = selectedRole.id;
-    const previouslyUsed = usedQuestionIds[roleId] || [];
-    const loaded = getQuestionsForRole(roleId, {
-      shuffle: true,
-      excludeIds: previouslyUsed,
+    setUsedQuestionIds((prev) => {
+      const previouslyUsed = prev[roleId] || [];
+      const loaded = getQuestionsForRole(roleId, {
+        shuffle: true,
+        excludeIds: previouslyUsed,
+      });
+      setTechnicalQuestions(loaded);
+      return {
+        ...prev,
+        [roleId]: [...previouslyUsed, ...loaded.map((q) => q.id)],
+      };
     });
-    setTechnicalQuestions(loaded);
-    setUsedQuestionIds((prev) => ({
-      ...prev,
-      [roleId]: [...(prev[roleId] || []), ...loaded.map((q) => q.id)],
-    }));
     setCurrentIndex(0);
   }, [selectedRole.id]);
 
