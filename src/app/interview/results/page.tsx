@@ -3,18 +3,16 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Award,
   ArrowRight,
   CheckCircle2,
   AlertTriangle,
   RotateCcw,
   Mic,
-  FileText,
-  Sparkles,
   Zap,
   MessageSquare,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
+import { RECENT_INTERVIEW_RESULT } from "@/data/interviews";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
@@ -22,10 +20,13 @@ import { getScoreColor } from "@/lib/constants";
 
 export default function InterviewResultsPage() {
   const { interviewSessions } = useCareer();
-  const session = interviewSessions[0];
+  const session = interviewSessions[0] || RECENT_INTERVIEW_RESULT;
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div
+      className="space-y-8 animate-fade-in bg-white text-night min-h-screen font-sans"
+      style={{ backgroundColor: "#FFFFFF" }}
+    >
       {/* Header */}
       <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -45,13 +46,13 @@ export default function InterviewResultsPage() {
 
         <div className="flex items-center gap-3">
           <Link href="/interview/session">
-            <Button variant="outline" size="sm" className="gap-1.5">
+            <Button variant="outline" size="sm" className="gap-1.5 font-semibold">
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Practice Again</span>
             </Button>
           </Link>
           <Link href="/opportunities">
-            <Button size="sm" className="gap-1.5 font-semibold">
+            <Button size="sm" className="gap-1.5 font-semibold shadow-imperial-btn">
               <span>View Matching Jobs</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Button>
@@ -63,22 +64,22 @@ export default function InterviewResultsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Overall Score & 5 Dimensions (4 cols) */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="p-6 rounded-2xl bg-surface-card border border-surface-border shadow-sm space-y-6 text-center">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-night-muted">
+          <div className="p-6 rounded-2xl bg-white border border-surface-border shadow-sm space-y-6 text-center">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-night-muted">
               Overall Practice Score
             </span>
 
             <div className="relative inline-flex items-center justify-center">
-              <div className="w-36 h-36 rounded-full border-4 border-surface-border flex flex-col items-center justify-center bg-surface-subtle shadow-sm">
+              <div className="w-36 h-36 rounded-full border-4 border-surface-border flex flex-col items-center justify-center bg-surface-subtle shadow-xs">
                 <span className={`text-4xl font-display font-extrabold font-mono ${getScoreColor(session.overallScore)}`}>
                   {session.overallScore}
                 </span>
-                <span className="text-[11px] text-night-muted uppercase font-mono font-medium">/ 100</span>
+                <span className="text-[11px] text-night-muted uppercase font-mono font-bold">/ 100</span>
               </div>
             </div>
 
             {/* Scorecard Breakdown */}
-            <div className="space-y-3 text-left">
+            <div className="space-y-3.5 text-left">
               <div className="space-y-1">
                 <div className="flex justify-between text-xs">
                   <span className="text-night-muted font-medium">Technical Knowledge</span>
@@ -121,7 +122,7 @@ export default function InterviewResultsPage() {
             </div>
 
             <Link href="/interview/session" className="block w-full">
-              <Button size="lg" className="w-full gap-2 text-xs font-semibold">
+              <Button size="lg" className="w-full gap-2 text-xs font-semibold shadow-imperial-btn">
                 <Mic className="w-4 h-4" />
                 <span>Re-Take Voice Simulation</span>
               </Button>
@@ -133,8 +134,8 @@ export default function InterviewResultsPage() {
         <div className="lg:col-span-8 space-y-6">
           {/* Strengths & Improvement Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-5 rounded-2xl bg-surface-card border border-emerald-200/60 shadow-sm space-y-3">
-              <div className="flex items-center gap-2 text-emerald-600">
+            <div className="p-5 rounded-2xl bg-white border border-emerald-200 shadow-sm space-y-3">
+              <div className="flex items-center gap-2 text-emerald-700">
                 <CheckCircle2 className="w-4 h-4" />
                 <h3 className="text-xs font-bold uppercase tracking-wider">
                   What Went Well
@@ -150,7 +151,7 @@ export default function InterviewResultsPage() {
               </ul>
             </div>
 
-            <div className="p-5 rounded-2xl bg-surface-card border border-imperial-200 shadow-sm space-y-3">
+            <div className="p-5 rounded-2xl bg-white border border-imperial-200 shadow-sm space-y-3">
               <div className="flex items-center gap-2 text-imperial">
                 <AlertTriangle className="w-4 h-4" />
                 <h3 className="text-xs font-bold uppercase tracking-wider">
@@ -169,7 +170,7 @@ export default function InterviewResultsPage() {
           </div>
 
           {/* Question by Question Breakdown */}
-          <div className="p-6 rounded-2xl bg-surface-card border border-surface-border shadow-sm space-y-5">
+          <div className="p-6 rounded-2xl bg-white border border-surface-border shadow-sm space-y-5">
             <h3 className="text-sm font-bold uppercase tracking-wider text-night flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-imperial" />
               Detailed Question Critiques
@@ -177,16 +178,16 @@ export default function InterviewResultsPage() {
 
             <div className="space-y-4">
               {session.questionsAsked.map((qa, i) => (
-                <div key={i} className="p-5 rounded-xl bg-surface-subtle/60 border border-surface-border space-y-3 text-xs">
+                <div key={i} className="p-5 rounded-xl bg-surface-subtle border border-surface-border space-y-3 text-xs shadow-xs">
                   <div className="flex items-start justify-between gap-2">
                     <h4 className="font-bold text-night leading-relaxed">
-                      Q{i + 1}: "{qa.question}"
+                      Q{i + 1}: &ldquo;{qa.question}&rdquo;
                     </h4>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-white border border-surface-border shadow-sm space-y-1">
+                  <div className="p-3.5 rounded-xl bg-white border border-surface-border shadow-xs space-y-1">
                     <span className="text-[10px] uppercase font-bold text-night-muted tracking-wider">Your Response:</span>
-                    <p className="text-night italic leading-relaxed text-xs">"{qa.candidateAnswer}"</p>
+                    <p className="text-night italic leading-relaxed text-xs">&ldquo;{qa.candidateAnswer}&rdquo;</p>
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-imperial-50/70 border border-imperial-200 space-y-1">
@@ -210,7 +211,7 @@ export default function InterviewResultsPage() {
           </div>
 
           {/* Recommended Practice Actions */}
-          <div className="p-6 rounded-2xl bg-surface-card border border-surface-border shadow-sm space-y-4">
+          <div className="p-6 rounded-2xl bg-white border border-surface-border shadow-sm space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-imperial flex items-center gap-2">
               <Zap className="w-3.5 h-3.5" />
               Targeted Practice Next Steps

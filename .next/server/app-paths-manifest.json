@@ -1,11 +1,8 @@
 {
-  "/projects/page": "app/projects/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/resume/page": "app/resume/page.js",
-  "/assessment/page": "app/assessment/page.js",
   "/page": "app/page.js",
-  "/learning/page": "app/learning/page.js",
+  "/opportunities/page": "app/opportunities/page.js",
   "/interview/page": "app/interview/page.js",
-  "/settings/page": "app/settings/page.js",
-  "/opportunities/page": "app/opportunities/page.js"
+  "/onboarding/page": "app/onboarding/page.js",
+  "/interview/session/page": "app/interview/session/page.js",
+  "/interview/results/page": "app/interview/results/page.js"
 }
