@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -15,29 +15,125 @@ import {
   Eye,
   Check,
   Flag,
+  Calculator,
+  Brain,
+  Code2,
+  HelpCircle as QuestionIcon,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
-import { INITIAL_ASSESSMENT_QUESTIONS } from "@/data/assessments";
+import {
+  getQuestionsForRole,
+  TechnicalQuestion,
+  APTITUDE_QUESTION_BANK,
+  LOGICAL_QUESTION_BANK,
+  AptitudeQuestion,
+  LogicalReasoningQuestion,
+} from "@/data/questions";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Modal } from "@/components/ui/Modal";
 
+type AssessmentTrack = "technical" | "aptitude" | "logical";
+
 export default function AssessmentPage() {
   const router = useRouter();
   const { selectedRole, assessmentAnswers, setAssessmentAnswer, submitAssessment } = useCareer();
 
-  const questions = INITIAL_ASSESSMENT_QUESTIONS;
+  const [activeTrack, setActiveTrack] = useState<AssessmentTrack>("technical");
+
+  // Track session questions stably so they do not regenerate during answering
+  const [technicalQuestions, setTechnicalQuestions] = useState<TechnicalQuestion[]>([]);
+  const [usedQuestionIds, setUsedQuestionIds] = useState<Record<string, string[]>>({});
+
+  // Initialize or reload technical questions when selectedRole changes
+  useEffect(() => {
+    const roleId = selectedRole.id;
+    const previouslyUsed = usedQuestionIds[roleId] || [];
+    const loaded = getQuestionsForRole(roleId, {
+      shuffle: true,
+      excludeIds: previouslyUsed,
+    });
+    setTechnicalQuestions(loaded);
+    setUsedQuestionIds((prev) => ({
+      ...prev,
+      [roleId]: [...(prev[roleId] || []), ...loaded.map((q) => q.id)],
+    }));
+    setCurrentIndex(0);
+  }, [selectedRole.id]);
+
+  // Current active question set depending on track
+  const currentQuestionSet: TechnicalQuestion[] = useMemo(() => {
+    if (activeTrack === "aptitude") {
+      return APTITUDE_QUESTION_BANK.map((aq) => ({
+        id: aq.id,
+        roleId: "aptitude",
+        role: "Quantitative Aptitude",
+        skill: aq.category,
+        subSkill: "Arithmetic & Logic",
+        topic: aq.category,
+        difficulty: aq.difficulty,
+        type: "mcq" as const,
+        question: aq.question,
+        codeSnippet: undefined,
+        options: aq.options,
+        correctAnswer: aq.correctAnswer,
+        explanation: aq.solution || aq.explanation,
+        source: aq.source,
+        sourceUrl: aq.sourceUrl,
+        sourceType: aq.sourceType,
+        version: aq.version,
+      }));
+    }
+    if (activeTrack === "logical") {
+      return LOGICAL_QUESTION_BANK.map((lq) => ({
+        id: lq.id,
+        roleId: "logical-reasoning",
+        role: "Logical Reasoning",
+        skill: lq.category,
+        subSkill: "Analytical Reasoning",
+        topic: lq.category,
+        difficulty: lq.difficulty,
+        type: "mcq" as const,
+        question: lq.question,
+        codeSnippet: undefined,
+        options: lq.options,
+        correctAnswer: lq.correctAnswer,
+        explanation: lq.explanation,
+        source: lq.source,
+        sourceUrl: lq.sourceUrl,
+        sourceType: lq.sourceType,
+        version: lq.version,
+      }));
+    }
+    return technicalQuestions;
+  }, [activeTrack, technicalQuestions]);
+
+  const questions = currentQuestionSet;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [localAnswers, setLocalAnswers] = useState<Record<string, string>>(assessmentAnswers);
+
+  // Maintain separate local answers per track to avoid bleed
+  const [trackAnswers, setTrackAnswers] = useState<{
+    technical: Record<string, string>;
+    aptitude: Record<string, string>;
+    logical: Record<string, string>;
+  }>({
+    technical: assessmentAnswers,
+    aptitude: {},
+    logical: {},
+  });
+
   const [flaggedQuestions, setFlaggedQuestions] = useState<Record<string, boolean>>({});
   const [secondsRemaining, setSecondsRemaining] = useState(1500); // 25 mins
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
-  const [focusWarningCount, setFocusWarningCount] = useState(0);
 
-  const currentQ = questions[currentIndex];
-  const answeredCount = Object.keys(localAnswers).length;
-  const progressPercentage = Math.round((answeredCount / questions.length) * 100);
+  // Safe index boundary check
+  const activeIndex = Math.min(currentIndex, Math.max(0, questions.length - 1));
+  const currentQ = questions[activeIndex];
+
+  const currentTrackAnswers = trackAnswers[activeTrack] || {};
+  const answeredCount = Object.keys(currentTrackAnswers).length;
+  const progressPercentage = questions.length > 0 ? Math.round((answeredCount / questions.length) * 100) : 0;
 
   // Timer countdown
   useEffect(() => {
@@ -53,24 +149,61 @@ export default function AssessmentPage() {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handleSelectOption = (optionId: string) => {
-    const updated = { ...localAnswers, [currentQ.id]: optionId };
-    setLocalAnswers(updated);
-    setAssessmentAnswer(currentQ.id, optionId);
+  const handleSelectOption = (optionLabelOrText: string) => {
+    if (!currentQ) return;
+    const updated = { ...currentTrackAnswers, [currentQ.id]: optionLabelOrText };
+    setTrackAnswers((prev) => ({ ...prev, [activeTrack]: updated }));
+    if (activeTrack === "technical") {
+      setAssessmentAnswer(currentQ.id, optionLabelOrText);
+    }
+  };
+
+  const handleFillBlankChange = (text: string) => {
+    if (!currentQ) return;
+    const updated = { ...currentTrackAnswers, [currentQ.id]: text };
+    setTrackAnswers((prev) => ({ ...prev, [activeTrack]: updated }));
+    if (activeTrack === "technical") {
+      setAssessmentAnswer(currentQ.id, text);
+    }
   };
 
   const handleToggleFlag = () => {
+    if (!currentQ) return;
     setFlaggedQuestions((prev) => ({
       ...prev,
       [currentQ.id]: !prev[currentQ.id],
     }));
   };
 
-  const handleFinalSubmit = () => {
-    submitAssessment(localAnswers);
-    setIsSubmitModalOpen(false);
-    router.push("/assessment/results");
+  const handleTrackSwitch = (newTrack: AssessmentTrack) => {
+    setActiveTrack(newTrack);
+    setCurrentIndex(0);
   };
+
+  const handleFinalSubmit = () => {
+    if (activeTrack === "technical") {
+      submitAssessment(trackAnswers.technical, technicalQuestions);
+      setIsSubmitModalOpen(false);
+      router.push("/assessment/results");
+    } else {
+      // Aptitude or Logical Reasoning score evaluation
+      setIsSubmitModalOpen(false);
+      alert(
+        `Track completed! You answered ${answeredCount} of ${questions.length} ${
+          activeTrack === "aptitude" ? "Quantitative Aptitude" : "Logical Reasoning"
+        } questions.`
+      );
+    }
+  };
+
+  if (!currentQ) {
+    return (
+      <div className="min-h-screen bg-white text-night flex flex-col items-center justify-center p-6">
+        <div className="w-8 h-8 border-4 border-imperial border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-sm font-semibold text-night">Loading verified question bank for {selectedRole.title}...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white text-night flex flex-col">
@@ -84,15 +217,23 @@ export default function AssessmentPage() {
           <div className="h-4 w-px bg-border mx-1 hidden sm:block" />
           <div className="flex items-center gap-2">
             <h1 className="text-xs sm:text-sm font-bold text-night">
-              {selectedRole.title} Diagnostic Assessment
+              {activeTrack === "technical"
+                ? `${selectedRole.title} Diagnostic`
+                : activeTrack === "aptitude"
+                ? "Quantitative Aptitude"
+                : "Logical Reasoning"}
             </h1>
             <Badge variant="night" size="sm">
-              Standard Technical Evaluation
+              {activeTrack === "technical"
+                ? "Role-Specific Technical Assessment"
+                : activeTrack === "aptitude"
+                ? "Numerical & Quantitative"
+                : "Analytical & Deduction"}
             </Badge>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           {/* Integrity Badge */}
           <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-subtle border border-border text-night text-[11px] font-mono font-semibold">
             <Eye className="w-3.5 h-3.5 text-imperial" />
@@ -117,6 +258,54 @@ export default function AssessmentPage() {
         </div>
       </header>
 
+      {/* Track Selector Bar (Technical / Aptitude / Logical) */}
+      <div className="border-b border-border bg-surface-subtle px-4 sm:px-8 py-2">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-1.5 bg-white p-1 rounded-lg border border-border text-xs">
+            <button
+              onClick={() => handleTrackSwitch("technical")}
+              className={`px-3 py-1.5 rounded-md font-bold transition-all flex items-center gap-1.5 ${
+                activeTrack === "technical"
+                  ? "bg-imperial text-white shadow-sm"
+                  : "text-muted hover:text-night"
+              }`}
+            >
+              <Code2 className="w-3.5 h-3.5" />
+              <span>Technical ({selectedRole.title})</span>
+            </button>
+            <button
+              onClick={() => handleTrackSwitch("aptitude")}
+              className={`px-3 py-1.5 rounded-md font-bold transition-all flex items-center gap-1.5 ${
+                activeTrack === "aptitude"
+                  ? "bg-imperial text-white shadow-sm"
+                  : "text-muted hover:text-night"
+              }`}
+            >
+              <Calculator className="w-3.5 h-3.5" />
+              <span>Aptitude (14 Topics)</span>
+            </button>
+            <button
+              onClick={() => handleTrackSwitch("logical")}
+              className={`px-3 py-1.5 rounded-md font-bold transition-all flex items-center gap-1.5 ${
+                activeTrack === "logical"
+                  ? "bg-imperial text-white shadow-sm"
+                  : "text-muted hover:text-night"
+              }`}
+            >
+              <Brain className="w-3.5 h-3.5" />
+              <span>Logical Reasoning (14 Topics)</span>
+            </button>
+          </div>
+
+          <div className="text-[11px] text-muted font-medium flex items-center gap-2">
+            <span>Pool:</span>
+            <Badge variant="neutral" size="sm">
+              {questions.length} Questions Verified
+            </Badge>
+          </div>
+        </div>
+      </div>
+
       {/* Main 3-Column Assessment Body */}
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Question Navigator Matrix (3 cols) */}
@@ -132,11 +321,11 @@ export default function AssessmentPage() {
 
           <ProgressBar value={progressPercentage} size="sm" variant="imperial" />
 
-          {/* 10 Question Navigation Grid */}
+          {/* Dynamic Question Navigation Grid */}
           <div className="grid grid-cols-5 gap-2 pt-2">
             {questions.map((q, idx) => {
               const isCurrent = idx === currentIndex;
-              const isAnswered = !!localAnswers[q.id];
+              const isAnswered = !!currentTrackAnswers[q.id];
               const isFlagged = !!flaggedQuestions[q.id];
 
               let buttonStyles = "bg-surface-subtle border-border text-muted hover:border-night hover:text-night";
@@ -154,7 +343,7 @@ export default function AssessmentPage() {
                   onClick={() => setCurrentIndex(idx)}
                   className={`h-10 rounded-lg border text-xs font-mono transition-all flex flex-col items-center justify-center relative ${buttonStyles}`}
                 >
-                  <span>0{idx + 1}</span>
+                  <span>{idx < 9 ? `0${idx + 1}` : `${idx + 1}`}</span>
                   {isAnswered && !isCurrent && (
                     <span className="w-1.5 h-1.5 rounded-full bg-imperial absolute bottom-1" />
                   )}
@@ -188,10 +377,28 @@ export default function AssessmentPage() {
           <div className="p-6 rounded-xl bg-white border border-border space-y-5 shadow-card">
             {/* Question Header & Badges */}
             <div className="flex items-center justify-between border-b border-border pb-3">
-              <div className="flex items-center gap-2">
-                <Badge variant="imperial" size="sm">Question 0{currentIndex + 1} of 10</Badge>
-                <Badge variant="night" size="sm">{currentQ.category}</Badge>
+              <div className="flex items-center gap-2 flex-wrap">
+                <Badge variant="imperial" size="sm">
+                  Question {currentIndex + 1} / {questions.length}
+                </Badge>
+                <Badge variant="night" size="sm">{currentQ.skill}</Badge>
+                <Badge
+                  variant={
+                    currentQ.difficulty === "Beginner"
+                      ? "neutral"
+                      : currentQ.difficulty === "Intermediate"
+                      ? "night"
+                      : "imperial"
+                  }
+                  size="sm"
+                >
+                  {currentQ.difficulty}
+                </Badge>
+                <Badge variant="neutral" size="sm">
+                  {currentQ.type === "mcq" ? "Multiple Choice" : "Fill in the Blank"}
+                </Badge>
               </div>
+
               <button
                 onClick={handleToggleFlag}
                 className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded transition-colors font-semibold ${
@@ -205,9 +412,9 @@ export default function AssessmentPage() {
               </button>
             </div>
 
-            {/* Question Title */}
-            <h2 className="text-base font-bold text-night leading-relaxed">
-              {currentQ.title}
+            {/* Question Text */}
+            <h2 className="text-base font-bold text-night leading-relaxed whitespace-pre-line">
+              {currentQ.question}
             </h2>
 
             {/* Code Snippet Box if available */}
@@ -219,39 +426,70 @@ export default function AssessmentPage() {
               </div>
             )}
 
-            {/* Options List */}
-            <div className="space-y-2.5 pt-2">
-              <p className="text-xs text-muted font-bold uppercase tracking-wider">
-                Select One Option:
-              </p>
-              {currentQ.options.map((opt) => {
-                const isSelected = localAnswers[currentQ.id] === opt.id;
-                return (
-                  <div
-                    key={opt.id}
-                    onClick={() => handleSelectOption(opt.id)}
-                    className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-start gap-3 ${
-                      isSelected
-                        ? "bg-imperial-50/50 border-imperial text-night shadow-sm"
-                        : "bg-surface-subtle border-border text-night hover:border-night"
-                    }`}
-                  >
+            {/* Answer Control: MCQ Options (4 options) OR Fill in Blank Input */}
+            {currentQ.type === "mcq" && currentQ.options && (
+              <div className="space-y-2.5 pt-2">
+                <p className="text-xs text-muted font-bold uppercase tracking-wider">
+                  Select Exactly One Option:
+                </p>
+                {currentQ.options.map((opt) => {
+                  const isSelected =
+                    currentTrackAnswers[currentQ.id] === opt.label ||
+                    currentTrackAnswers[currentQ.id] === opt.text;
+
+                  return (
                     <div
-                      className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                      key={opt.label}
+                      onClick={() => handleSelectOption(opt.label)}
+                      className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-start gap-3 ${
                         isSelected
-                          ? "border-imperial bg-imperial text-white"
-                          : "border-border bg-white"
+                          ? "bg-imperial-50/50 border-imperial text-night shadow-sm"
+                          : "bg-surface-subtle border-border text-night hover:border-night"
                       }`}
                     >
-                      {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                      <div
+                        className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold transition-colors ${
+                          isSelected
+                            ? "border-imperial bg-imperial text-white"
+                            : "border-border bg-white text-muted"
+                        }`}
+                      >
+                        {isSelected ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : opt.label}
+                      </div>
+                      <div className={`text-xs leading-relaxed font-medium ${isSelected ? "text-night font-bold" : "text-night"}`}>
+                        <span className="font-bold mr-1.5">{opt.label}.</span>
+                        {opt.text}
+                      </div>
                     </div>
-                    <div className={`text-xs leading-relaxed font-medium ${isSelected ? "text-night font-bold" : "text-night"}`}>
-                      {opt.text}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {currentQ.type === "fill_blank" && (
+              <div className="space-y-3 pt-2">
+                <p className="text-xs text-muted font-bold uppercase tracking-wider">
+                  Fill in the Blank:
+                </p>
+                <div className="space-y-2">
+                  <input
+                    type="text"
+                    value={currentTrackAnswers[currentQ.id] || ""}
+                    onChange={(e) => handleFillBlankChange(e.target.value)}
+                    placeholder="Type your answer here (e.g. hook name, status code, protocol)..."
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-surface-subtle text-night text-sm font-medium focus:outline-none focus:border-imperial focus:ring-1 focus:ring-imperial transition-all shadow-inner"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && currentIndex < questions.length - 1) {
+                        setCurrentIndex((prev) => prev + 1);
+                      }
+                    }}
+                  />
+                  <p className="text-[11px] text-muted italic">
+                    Answers are evaluated deterministically with normalized casing, whitespace, and punctuation.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Bottom Pagination Controls */}
@@ -295,14 +533,14 @@ export default function AssessmentPage() {
           </div>
         </div>
 
-        {/* Right Column: Assessment Rules & Integrity (3 cols) */}
+        {/* Right Column: Assessment Metadata & Reference Attribution (3 cols) */}
         <div className="lg:col-span-3 rounded-xl bg-white border border-border p-5 space-y-5 shadow-card">
           <div>
             <h3 className="text-xs font-bold text-night uppercase tracking-wider">
               Assessment Standards
             </h3>
             <p className="text-[11px] text-muted mt-1 leading-relaxed">
-              Technical diagnostics evaluate mental models, runtime nuances, and code comprehension.
+              Diagnostic questions are role-segregated and curated from verified industry interview references.
             </p>
           </div>
 
@@ -310,9 +548,9 @@ export default function AssessmentPage() {
             <div className="flex items-start gap-2">
               <ShieldAlert className="w-4 h-4 text-imperial shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold text-night">Honest Integrity</p>
+                <p className="font-bold text-night">Strict Uniqueness</p>
                 <p className="text-[10px] text-muted mt-0.5">
-                  Leaving full screen or switching tabs is recorded in session telemetry.
+                  Every technical area has its own unique questions with 0 cross-role duplication.
                 </p>
               </div>
             </div>
@@ -320,19 +558,47 @@ export default function AssessmentPage() {
             <div className="flex items-start gap-2">
               <AlertTriangle className="w-4 h-4 text-imperial shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold text-night">No Guessing Penalty</p>
+                <p className="font-bold text-night">Deterministic Scoring</p>
                 <p className="text-[10px] text-muted mt-0.5">
-                  Answer every question to receive the most accurate personalized curriculum.
+                  Questions are graded on exact solutions without generative hallucinations.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="pt-2 border-t border-border">
-            <h4 className="text-[11px] uppercase tracking-wider font-bold text-night mb-2">
-              Skill Tested in Current Question
+          <div className="pt-2 border-t border-border space-y-2">
+            <h4 className="text-[11px] uppercase tracking-wider font-bold text-night">
+              Competency Tested
             </h4>
-            <Badge variant="imperial" size="sm">{currentQ.skillTested}</Badge>
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted">Skill:</span>
+                <span className="font-bold text-night">{currentQ.skill}</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted">Sub-skill:</span>
+                <span className="font-semibold text-night">{currentQ.subSkill}</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted">Topic:</span>
+                <span className="font-semibold text-imperial">{currentQ.topic}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-border space-y-1 text-[11px] text-muted">
+            <span className="font-bold text-night">Curated Source Reference:</span>
+            <p className="text-[10px] text-muted font-mono">{currentQ.source}</p>
+            {currentQ.sourceUrl && (
+              <a
+                href={currentQ.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] text-imperial font-semibold hover:underline block truncate mt-0.5"
+              >
+                {currentQ.sourceUrl}
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -341,12 +607,22 @@ export default function AssessmentPage() {
       <Modal
         isOpen={isSubmitModalOpen}
         onClose={() => setIsSubmitModalOpen(false)}
-        title="Submit Technical Assessment?"
-        description="Your answers will be analyzed to generate your Skill Gap breakdown and custom learning track."
+        title="Submit Assessment?"
+        description="Your answers will be analyzed to calculate your overall score, per-skill competency breakdown, and personalized learning roadmap."
         maxWidth="md"
       >
         <div className="space-y-4">
           <div className="p-4 rounded-lg bg-surface-subtle border border-border space-y-2 text-xs">
+            <div className="flex justify-between">
+              <span className="text-muted font-medium">Track:</span>
+              <span className="text-night font-bold">
+                {activeTrack === "technical"
+                  ? `Technical (${selectedRole.title})`
+                  : activeTrack === "aptitude"
+                  ? "Quantitative Aptitude"
+                  : "Logical Reasoning"}
+              </span>
+            </div>
             <div className="flex justify-between">
               <span className="text-muted font-medium">Questions Answered:</span>
               <span className="text-night font-bold">{answeredCount} of {questions.length}</span>

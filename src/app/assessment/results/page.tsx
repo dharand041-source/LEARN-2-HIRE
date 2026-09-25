@@ -152,15 +152,15 @@ export default function AssessmentResultsPage() {
                       <span className="text-night font-bold">{item.skill}</span>
                       <Badge
                         variant={
-                          item.status === "Strong"
+                          ((item as any).band || item.status) === "Advanced" || ((item as any).band || item.status) === "Strong"
                             ? "night"
-                            : item.status === "Moderate"
+                            : ((item as any).band || item.status) === "Developing"
                             ? "neutral"
                             : "imperial"
                         }
                         size="sm"
                       >
-                        {item.status}
+                        {(item as any).band || item.status}
                       </Badge>
                     </div>
                     <span className="font-mono font-extrabold text-imperial">
@@ -237,6 +237,92 @@ export default function AssessmentResultsPage() {
               ))}
             </div>
           </div>
+
+          {/* Detailed Question Review Accordion */}
+          {result.questionResults && result.questionResults.length > 0 && (
+            <div className="p-6 rounded-xl bg-white border border-border space-y-4 shadow-card">
+              <div className="flex items-center justify-between border-b border-border pb-3">
+                <div>
+                  <h3 className="text-sm font-bold text-night uppercase tracking-wider">
+                    Diagnostic Item Breakdown
+                  </h3>
+                  <p className="text-[11px] text-muted mt-0.5">
+                    Deterministic answer validation with verified technical explanations
+                  </p>
+                </div>
+                <Badge variant="imperial" size="sm">
+                  {result.correctCount || 0} / {result.totalQuestions} Correct
+                </Badge>
+              </div>
+
+              <div className="space-y-3">
+                {result.questionResults.map((qr, idx) => (
+                  <div
+                    key={idx}
+                    className={`p-4 rounded-lg border text-xs space-y-2 transition-all ${
+                      qr.isCorrect
+                        ? "bg-surface-subtle/50 border-border"
+                        : "bg-imperial-50/20 border-imperial/30"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono font-bold text-muted">
+                            Q{idx < 9 ? `0${idx + 1}` : idx + 1}
+                          </span>
+                          <Badge variant="neutral" size="sm">
+                            {qr.skill}
+                          </Badge>
+                        </div>
+                        <p className="font-semibold text-night leading-relaxed">
+                          {qr.question}
+                        </p>
+                      </div>
+
+                      <div className="shrink-0 flex items-center gap-1 font-bold">
+                        {qr.isCorrect ? (
+                          <span className="text-emerald-700 flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <span>Correct</span>
+                          </span>
+                        ) : (
+                          <span className="text-imperial flex items-center gap-1 bg-imperial-50 px-2 py-0.5 rounded border border-imperial/40">
+                            <AlertTriangle className="w-3.5 h-3.5" />
+                            <span>Review</span>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                      <div>
+                        <span className="text-muted font-medium">Your Submitted Answer: </span>
+                        <span
+                          className={`font-semibold ${
+                            qr.isCorrect ? "text-night" : "text-imperial"
+                          }`}
+                        >
+                          {qr.userAnswer}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-muted font-medium">Canonical Solution: </span>
+                        <span className="text-night font-bold">
+                          {qr.correctAnswer}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-2.5 rounded bg-surface-subtle text-[11px] text-muted leading-relaxed font-normal">
+                      <span className="font-bold text-night">Explanation: </span>
+                      {qr.explanation}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

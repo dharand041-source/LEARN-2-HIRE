@@ -1271,6 +1271,9 @@ video {
 .whitespace-nowrap {
   white-space: nowrap;
 }
+.whitespace-pre-line {
+  white-space: pre-line;
+}
 .whitespace-pre-wrap {
   white-space: pre-wrap;
 }
@@ -1420,6 +1423,9 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
 }
+.border-t-transparent {
+  border-top-color: transparent;
+}
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
@@ -1516,6 +1522,9 @@ video {
 .bg-red-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+.bg-imperial-50\/20 {
+  background-color: rgb(255 241 242 / 0.2);
 }
 .fill-amber-400\/20 {
   fill: rgb(251 191 36 / 0.2);

@@ -19,6 +19,11 @@ import {
 } from "@/types";
 import { CAREER_ROLES } from "@/data/careers";
 import { INITIAL_ASSESSMENT_QUESTIONS } from "@/data/assessments";
+import {
+  getQuestionsForRole,
+  calculateDynamicAssessmentResult,
+  TechnicalQuestion,
+} from "@/data/questions";
 import { LEARNING_MODULES } from "@/data/learning";
 import { REAL_WORLD_PROJECTS } from "@/data/projects";
 import { PROBLEM_ITEMS } from "@/data/problems";
@@ -59,7 +64,7 @@ interface CareerContextType {
   // Actions
   selectRole: (roleId: string) => void;
   setAssessmentAnswer: (questionId: string, optionId: string) => void;
-  submitAssessment: (answers: Record<string, string>) => AssessmentResult;
+  submitAssessment: (answers: Record<string, string>, activeQuestions?: TechnicalQuestion[]) => AssessmentResult;
   toggleTopicCompletion: (moduleId: string, topicId: string) => void;
   completeModule: (moduleId: string) => void;
   setLanguage: (lang: UserProfile["selectedLanguage"]) => void;
@@ -262,53 +267,46 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
     setAssessmentAnswers((prev) => ({ ...prev, [questionId]: optionId }));
   };
 
-  const submitAssessment = (answers: Record<string, string>): AssessmentResult => {
-    let correct = 0;
-    INITIAL_ASSESSMENT_QUESTIONS.forEach((q) => {
-      if (answers[q.id] === q.correctOptionId) {
-        correct++;
-      }
-    });
+  const submitAssessment = (
+    answers: Record<string, string>,
+    activeQuestions?: TechnicalQuestion[]
+  ): AssessmentResult => {
+    const questionsToUse =
+      activeQuestions && activeQuestions.length > 0
+        ? activeQuestions
+        : getQuestionsForRole(selectedRole.id);
 
-    const calculatedScore = Math.round((correct / INITIAL_ASSESSMENT_QUESTIONS.length) * 100);
+    const dynamicResult = calculateDynamicAssessmentResult(
+      questionsToUse,
+      answers,
+      selectedRole.id,
+      selectedRole.title
+    );
 
     const newResult: AssessmentResult = {
-      score: calculatedScore,
-      totalQuestions: INITIAL_ASSESSMENT_QUESTIONS.length,
-      completedAt: new Date().toISOString().split("T")[0],
-      roleId: selectedRole.id,
-      roleTitle: selectedRole.title,
-      skillBreakdown: [
-        { skill: "JavaScript", score: answers["q1"] === "opt_a" ? 85 : 45, status: answers["q1"] === "opt_a" ? "Strong" : "Needs Improvement" },
-        { skill: "React & Next.js", score: answers["q2"] === "opt_b" ? 80 : 50, status: answers["q2"] === "opt_b" ? "Strong" : "Needs Improvement" },
-        { skill: "PostgreSQL & SQL", score: answers["q3"] === "opt_a" ? 85 : 45, status: answers["q3"] === "opt_a" ? "Strong" : "Needs Improvement" },
-        { skill: "Node.js & Express", score: answers["q4"] === "opt_a" ? 75 : 55, status: answers["q4"] === "opt_a" ? "Strong" : "Moderate" },
-        { skill: "Git & Version Control", score: answers["q5"] === "opt_a" ? 90 : 60, status: "Strong" },
-        { skill: "REST APIs & Security", score: answers["q6"] === "opt_a" ? 80 : 50, status: "Strong" },
-      ],
-      strongAreas: [
-        answers["q1"] === "opt_a" ? "JavaScript Asynchronous Event Loop" : "Git & Version Control",
-        answers["q2"] === "opt_b" ? "React Performance & useCallback" : "REST API Design",
-      ],
-      needsImprovement: [
-        answers["q3"] !== "opt_a" ? "SQL Query Optimization & Indexes" : "Docker Layer Caching",
-        answers["q4"] !== "opt_a" ? "Node.js Error Handling Middleware" : "Data Structures & Time Complexity",
-      ],
-      recommendations: [
-        "Focus on database indexing and transaction isolation levels in the learning track.",
-        "Complete the real-world Freelance Marketplace escrow project to prove backend ability.",
-        "Take a mock Technical Interview to practice verbal explanation.",
-      ],
+      score: dynamicResult.score,
+      totalQuestions: dynamicResult.totalQuestions,
+      completedAt: dynamicResult.completedAt,
+      roleId: dynamicResult.roleId,
+      roleTitle: dynamicResult.roleTitle,
+      correctCount: dynamicResult.correctCount,
+      wrongCount: dynamicResult.wrongCount,
+      skippedCount: dynamicResult.skippedCount,
+      skillBreakdown: dynamicResult.skillBreakdown,
+      strongAreas: dynamicResult.strongAreas,
+      needsImprovement: dynamicResult.needsImprovement,
+      recommendations: dynamicResult.recommendations,
+      questionResults: dynamicResult.questionResults,
     };
 
     setAssessmentResult(newResult);
     setUserProfileState((prev) => ({
       ...prev,
-      readinessScore: Math.round((prev.readinessScore + calculatedScore) / 2),
-      xp: prev.xp + 200,
+      readinessScore: Math.round((prev.readinessScore + dynamicResult.score) / 2),
+      xp: prev.xp + 250,
       readinessBreakdown: {
         ...prev.readinessBreakdown,
-        technicalSkills: calculatedScore,
+        technicalSkills: dynamicResult.score,
       },
     }));
 

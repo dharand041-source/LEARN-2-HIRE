@@ -1,8 +1,9 @@
 {
-  "/page": "app/page.js",
-  "/opportunities/page": "app/opportunities/page.js",
-  "/interview/page": "app/interview/page.js",
   "/onboarding/page": "app/onboarding/page.js",
-  "/interview/session/page": "app/interview/session/page.js",
-  "/interview/results/page": "app/interview/results/page.js"
+  "/feedback/page": "app/feedback/page.js",
+  "/applications/page": "app/applications/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/assessment/results/page": "app/assessment/results/page.js",
+  "/assessment/page": "app/assessment/page.js",
+  "/problem-solving/page": "app/problem-solving/page.js"
 }
