@@ -143,7 +143,7 @@ export const INITIAL_APPLICATIONS: ApplicationItem[] = [
     lastUpdated: "2026-09-23",
     salary: "₹45,000 / month",
     matchScore: 88,
-    notes: "Match verified by SkillForge Readiness Engine. Ready for one-click application submission upon user confirmation.",
+    notes: "Match verified by Learn-2-Hire Readiness Engine. Ready for one-click application submission upon user confirmation.",
   },
   {
     id: "app-6",

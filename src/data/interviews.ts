@@ -41,7 +41,7 @@ export const INTERVIEW_TYPES = [
     duration: "20 mins",
     difficulty: "Intermediate",
     description: "Real-time speech-to-text interactive voice simulation evaluating clarity of speech, confidence, pacing, and concise technical explanations.",
-    interviewerName: "SkillForge Voice Assessor",
+    interviewerName: "Learn-2-Hire Voice Assessor",
     interviewerRole: "Automated Speech & Technical Evaluation Engine",
     skillsEvaluated: ["Verbal Clarity", "Pacing & Tone", "Directness", "Technical Terminology"],
   },

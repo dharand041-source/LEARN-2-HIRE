@@ -131,7 +131,7 @@ export const LOGICAL_QUESTION_BANK: LogicalReasoningQuestion[] = [
     id: "lr-08",
     category: "Statement and Conclusion",
     difficulty: "Intermediate",
-    question: "Statement: 'In country X, all software engineers who pass the SkillForge certification secure employment within 3 months.'\nConclusions:\nI. Passing the SkillForge certification is sufficient for securing employment in country X.\nII. No software engineer can secure employment in country X without this certification.\nWhich conclusion logically follows?",
+    question: "Statement: 'In country X, all software engineers who pass the Learn-2-Hire certification secure employment within 3 months.'\nConclusions:\nI. Passing the Learn-2-Hire certification is sufficient for securing employment in country X.\nII. No software engineer can secure employment in country X without this certification.\nWhich conclusion logically follows?",
     options: [
       { label: "A", text: "Only Conclusion I follows" },
       { label: "B", text: "Only Conclusion II follows" },

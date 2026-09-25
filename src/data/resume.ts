@@ -86,7 +86,7 @@ export const INITIAL_RESUME_DATA: ResumeData = {
   certifications: [
     "AWS Certified Cloud Practitioner (Foundations of Cloud Architecture)",
     "Meta Frontend Developer Professional Certificate (Advanced React)",
-    "SkillForge Certified Full Stack Engineer (Score: 88/100)",
+    "Learn-2-Hire Certified Full Stack Engineer (Score: 88/100)",
   ],
   achievements: [
     "Ranked in top 5% of 14,000 candidates in National Technical Coding Challenge 2026.",

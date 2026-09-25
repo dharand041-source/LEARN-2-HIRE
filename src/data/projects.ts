@@ -38,7 +38,7 @@ export const REAL_WORLD_PROJECTS: ProjectItem[] = [
       { id: "m6", title: "Production Deployment & Automated Tests", description: "Deploy database on Supabase/Neon, frontend on Vercel, and write Playwright E2E tests.", completed: false },
     ],
     repoUrl: "https://github.com/hamenath-dev/freelance-escrow-engine",
-    liveUrl: "https://freelance-escrow.skillforge.live",
+    liveUrl: "https://freelance-escrow.learn-2-hire.live",
     docsUrl: "https://github.com/hamenath-dev/freelance-escrow-engine/blob/main/README.md",
     evaluation: {
       overallScore: 78,
@@ -100,7 +100,7 @@ export const REAL_WORLD_PROJECTS: ProjectItem[] = [
       { id: "m4", title: "Analytics & Export Engine", description: "Generate monthly turnover charts and automated CSV/PDF reports.", completed: true },
     ],
     repoUrl: "https://github.com/hamenath-dev/warehouse-inventory-saas",
-    liveUrl: "https://inventory-pro.skillforge.live",
+    liveUrl: "https://inventory-pro.learn-2-hire.live",
     docsUrl: "https://github.com/hamenath-dev/warehouse-inventory-saas/wiki",
     evaluation: {
       overallScore: 92,

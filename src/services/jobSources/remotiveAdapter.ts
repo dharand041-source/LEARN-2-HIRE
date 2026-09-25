@@ -31,7 +31,7 @@ export class RemotiveAdapter implements JobSourceAdapter {
       const res = await fetch(url, {
         signal: controller.signal,
         headers: {
-          "User-Agent": "SkillForge-Career-Engine/1.0",
+          "User-Agent": "Learn-2-Hire-Career-Engine/1.0",
           Accept: "application/json",
         },
       });

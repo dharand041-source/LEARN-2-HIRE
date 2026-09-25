@@ -35,7 +35,7 @@ export default function ProjectWorkspacePage() {
   const project = projects.find((p) => p.id === projectId) || projects[0];
 
   const [repoUrl, setRepoUrl] = useState(project.repoUrl || "https://github.com/hamenath-dev/project-repo");
-  const [liveUrl, setLiveUrl] = useState(project.liveUrl || "https://project.skillforge.live");
+  const [liveUrl, setLiveUrl] = useState(project.liveUrl || "https://project.learn-2-hire.live");
   const [docsUrl, setDocsUrl] = useState(project.docsUrl || "https://github.com/hamenath-dev/project-repo/wiki");
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

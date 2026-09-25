@@ -25,7 +25,7 @@ import {
 import { CAREER_ROLES } from "@/data/careers";
 
 const DISCLAIMER_TEXT =
-  "This is SkillForge's compatibility estimate based on resume parsing, structure, job-description alignment, keywords, skills, and content quality. It is not an official score from an employer's ATS (e.g. Workday, Greenhouse, or Lever).";
+  "This is Learn-2-Hire's compatibility estimate based on resume parsing, structure, job-description alignment, keywords, skills, and content quality. It is not an official score from an employer's ATS (e.g. Workday, Greenhouse, or Lever).";
 
 // Standard action verbs that ATS parsers look for in high-impact experience bullets
 const ACTION_VERBS = [
