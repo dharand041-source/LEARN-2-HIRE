@@ -1,9 +1,7 @@
 {
   "/onboarding/page": "app/onboarding/page.js",
-  "/feedback/page": "app/feedback/page.js",
   "/applications/page": "app/applications/page.js",
   "/profile/page": "app/profile/page.js",
-  "/assessment/results/page": "app/assessment/results/page.js",
   "/assessment/page": "app/assessment/page.js",
-  "/problem-solving/page": "app/problem-solving/page.js"
+  "/feedback/page": "app/feedback/page.js"
 }

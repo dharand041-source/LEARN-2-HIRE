@@ -44,6 +44,7 @@ export interface Question {
 }
 
 export * from "./assessment";
+export * from "./resumeJob";
 
 export interface AssessmentResult {
   score: number;
@@ -253,8 +254,7 @@ export interface ResumeAnalysisResult {
   recommendations: string[];
 }
 
-export type OpportunityType = "Job" | "Internship" | "Startup";
-export type WorkMode = "Remote" | "Hybrid" | "Onsite";
+export * from "./resumeJob";
 
 export interface OpportunityItem {
   id: string;
@@ -277,6 +277,21 @@ export interface OpportunityItem {
   saved: boolean;
   appliedDate?: string;
   applicationStatus?: ApplicationStatus;
+  source?: string;
+  listingUrl?: string;
+  applicationUrl?: string;
+  lastVerifiedAt?: string;
+  postedAt?: string;
+  eligibilityStatus?: EligibilityStatus;
+  eligibility?: EligibilityStatus;
+  eligibilityReason?: string;
+  whyYouMatch?: string[];
+  attribution?: string;
+  alsoFoundOn?: string[];
+  isDemo?: boolean;
+  externalSource?: string;
+  externalListingUrl?: string;
+  externalApplicationUrl?: string;
 }
 
 export type ApplicationStatus = 

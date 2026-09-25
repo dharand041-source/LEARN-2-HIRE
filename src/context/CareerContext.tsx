@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import {
   UserProfile,
   CareerRole,
@@ -16,6 +16,12 @@ import {
   ApplicationStatus,
   AchievementItem,
   RejectionFeedback,
+  ParsedResume,
+  AtsCompatibilityAnalysis,
+  JobListing,
+  JobMatchResult,
+  JobSearchQuery,
+  ApplicationRecord,
 } from "@/types";
 import { CAREER_ROLES } from "@/data/careers";
 import { INITIAL_ASSESSMENT_QUESTIONS } from "@/data/assessments";
@@ -32,6 +38,9 @@ import { INITIAL_RESUME_DATA, MOCK_RESUME_ANALYSIS } from "@/data/resume";
 import { TECH_OPPORTUNITIES } from "@/data/opportunities";
 import { INITIAL_APPLICATIONS } from "@/data/applications";
 import { ACHIEVEMENTS_LIST } from "@/data/achievements";
+import { parseResumeText } from "@/services/resumeParser";
+import { analyzeResumeATS } from "@/services/atsScorer";
+import { evaluateJobMatch } from "@/services/jobMatching";
 
 export interface NotificationItem {
   id: string;
@@ -41,6 +50,108 @@ export interface NotificationItem {
   read: boolean;
   type: "info" | "success" | "warning" | "achievement";
   link?: string;
+}
+
+export function convertResumeDataToText(data: ResumeData): string {
+  const parts: string[] = [];
+  parts.push(data.personalInfo.fullName || "Candidate");
+  parts.push(`${data.personalInfo.title || ""} | ${data.personalInfo.location || "India"}`);
+  parts.push(`Email: ${data.personalInfo.email || ""} | Phone: ${data.personalInfo.phone || ""}`);
+  if (data.personalInfo.linkedin) parts.push(`LinkedIn: ${data.personalInfo.linkedin}`);
+  if (data.personalInfo.github) parts.push(`GitHub: ${data.personalInfo.github}`);
+  if (data.personalInfo.portfolio) parts.push(`Portfolio: ${data.personalInfo.portfolio}`);
+
+  if (data.summary) {
+    parts.push("\nPROFESSIONAL SUMMARY\n" + data.summary);
+  }
+
+  if (data.skills && data.skills.length > 0) {
+    parts.push("\nTECHNICAL SKILLS");
+    data.skills.forEach((cat) => {
+      parts.push(`${cat.category}: ${cat.items.join(", ")}`);
+    });
+  }
+
+  if (data.experience && data.experience.length > 0) {
+    parts.push("\nPROFESSIONAL EXPERIENCE");
+    data.experience.forEach((exp) => {
+      parts.push(`${exp.role} - ${exp.company} (${exp.period}, ${exp.location})`);
+      exp.highlights.forEach((h) => parts.push(`• ${h}`));
+    });
+  }
+
+  if (data.projects && data.projects.length > 0) {
+    parts.push("\nPROJECTS");
+    data.projects.forEach((proj) => {
+      parts.push(`${proj.name} [${proj.technologies.join(", ")}]`);
+      if (proj.link) parts.push(`Link: ${proj.link}`);
+      proj.highlights.forEach((h) => parts.push(`• ${h}`));
+    });
+  }
+
+  if (data.education && data.education.length > 0) {
+    parts.push("\nEDUCATION");
+    data.education.forEach((edu) => {
+      parts.push(`${edu.degree} - ${edu.institution} (${edu.year}) ${edu.score ? `[${edu.score}]` : ""}`);
+    });
+  }
+
+  if (data.certifications && data.certifications.length > 0) {
+    parts.push("\nCERTIFICATIONS");
+    data.certifications.forEach((c) => parts.push(`• ${c}`));
+  }
+
+  if (data.achievements && data.achievements.length > 0) {
+    parts.push("\nACHIEVEMENTS & AWARDS");
+    data.achievements.forEach((a) => parts.push(`• ${a}`));
+  }
+
+  return parts.join("\n");
+}
+
+export function jobMatchToOpportunity(match: JobMatchResult): OpportunityItem {
+  const j = match.job;
+  return {
+    id: j.id,
+    company: j.company,
+    logoInitial: j.company.slice(0, 2).toUpperCase(),
+    role: j.title,
+    type: j.opportunityType === "INTERNSHIP" ? "Internship" : j.opportunityType === "STARTUP" ? "Startup" : "Job",
+    location: j.location,
+    workMode: j.remoteType === "Remote" ? "Remote" : j.remoteType === "Hybrid" ? "Hybrid" : "Onsite",
+    experienceLevel: j.experienceLevel || (j.opportunityType === "INTERNSHIP" ? "Student / Fresher" : "Entry Level"),
+    salary: j.salaryMin && j.salaryMax
+      ? `${j.salaryCurrency || "₹"} ${j.salaryMin.toLocaleString()} - ${j.salaryMax.toLocaleString()} / yr`
+      : j.salaryMin
+      ? `${j.salaryCurrency || "₹"} ${j.salaryMin.toLocaleString()}+ / yr`
+      : "Disclosed on Application",
+    deadline: j.expiresAt ? j.expiresAt.split("T")[0] : "Open until filled",
+    matchPercentage: match.matchScore,
+    matchedSkills: match.matchedSkills,
+    skillGaps: match.missingSkills,
+    description: j.description,
+    responsibilities: [
+      `Contribute to engineering deliverables and production services as ${j.title}.`,
+      `Collaborate with cross-functional engineering teams in ${j.location}.`,
+      `Apply core competencies: ${match.matchedSkills.slice(0, 4).join(", ") || "engineering best practices"}.`,
+    ],
+    requirements: j.requiredSkills.map((s) => `Proficiency with ${s}`),
+    benefits: [
+      "Health & Medical Coverage",
+      "Remote / Hybrid Flexibility",
+      "Competitive Compensation & Benefits",
+      "Professional Development Stipend",
+    ],
+    saved: false,
+    externalSource: j.source,
+    externalListingUrl: j.listingUrl,
+    externalApplicationUrl: j.applicationUrl,
+    lastVerifiedAt: j.lastVerifiedAt,
+    postedAt: j.postedAt,
+    eligibilityStatus: match.eligibility,
+    alsoFoundOn: j.alsoFoundOn,
+    isDemo: j.isDemo,
+  };
 }
 
 interface CareerContextType {
@@ -60,6 +171,17 @@ interface CareerContextType {
   achievements: AchievementItem[];
   notifications: NotificationItem[];
   unreadNotificationCount: number;
+
+  // Real Resume & ATS State
+  parsedResume: ParsedResume | null;
+  atsAnalysis: AtsCompatibilityAnalysis | null;
+  liveJobMatches: JobMatchResult[];
+  isAnalyzingResume: boolean;
+  isJobsLoading: boolean;
+  jobsSourceStatus: Record<string, { status: string; count: number; error?: string }>;
+  applicationRecords: ApplicationRecord[];
+  isApplyApprovalModalOpen: boolean;
+  pendingApplyJob: JobListing | null;
 
   // Actions
   selectRole: (roleId: string) => void;
@@ -82,6 +204,15 @@ interface CareerContextType {
   markNotificationAsRead: (id: string) => void;
   clearAllNotifications: () => void;
   resetToDefaults: () => void;
+
+  // Real Resume & Job Actions
+  uploadAndAnalyzeResume: (file: File, jobDescription?: string) => Promise<{ parsed: ParsedResume; analysis: AtsCompatibilityAnalysis }>;
+  analyzeResumeFromRawText: (text: string, jobDescription?: string) => Promise<{ parsed: ParsedResume; analysis: AtsCompatibilityAnalysis }>;
+  fetchLiveJobs: (customQuery?: Partial<JobSearchQuery>) => Promise<JobMatchResult[]>;
+  openExternalApplyModal: (job: JobListing) => void;
+  closeExternalApplyModal: () => void;
+  confirmExternalApplyRedirect: () => void;
+  confirmExternalApplied: (jobId: string) => void;
 }
 
 const DEFAULT_USER_PROFILE: UserProfile = {
@@ -200,6 +331,17 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
   const [achievements, setAchievements] = useState<AchievementItem[]>(ACHIEVEMENTS_LIST);
   const [notifications, setNotifications] = useState<NotificationItem[]>(INITIAL_NOTIFICATIONS);
 
+  // Real Resume & Job Matching States
+  const [parsedResume, setParsedResume] = useState<ParsedResume | null>(null);
+  const [atsAnalysis, setAtsAnalysis] = useState<AtsCompatibilityAnalysis | null>(null);
+  const [liveJobMatches, setLiveJobMatches] = useState<JobMatchResult[]>([]);
+  const [isAnalyzingResume, setIsAnalyzingResume] = useState<boolean>(false);
+  const [isJobsLoading, setIsJobsLoading] = useState<boolean>(false);
+  const [jobsSourceStatus, setJobsSourceStatus] = useState<Record<string, { status: string; count: number; error?: string }>>({});
+  const [applicationRecords, setApplicationRecords] = useState<ApplicationRecord[]>([]);
+  const [isApplyApprovalModalOpen, setIsApplyApprovalModalOpen] = useState(false);
+  const [pendingApplyJob, setPendingApplyJob] = useState<JobListing | null>(null);
+
   // Load from localStorage on mount
   useEffect(() => {
     try {
@@ -226,6 +368,15 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
 
       const savedApps = localStorage.getItem("sf_applications");
       if (savedApps) setApplications(JSON.parse(savedApps));
+
+      const savedParsedResume = localStorage.getItem("sf_parsedResume");
+      if (savedParsedResume) setParsedResume(JSON.parse(savedParsedResume));
+
+      const savedAtsAnalysis = localStorage.getItem("sf_atsAnalysis");
+      if (savedAtsAnalysis) setAtsAnalysis(JSON.parse(savedAtsAnalysis));
+
+      const savedAppRecords = localStorage.getItem("sf_applicationRecords");
+      if (savedAppRecords) setApplicationRecords(JSON.parse(savedAppRecords));
     } catch {
       // LocalStorage fallback
     }
@@ -244,10 +395,28 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem("sf_problems", JSON.stringify(problems));
       localStorage.setItem("sf_resumeData", JSON.stringify(resumeData));
       localStorage.setItem("sf_applications", JSON.stringify(applications));
+      if (parsedResume) localStorage.setItem("sf_parsedResume", JSON.stringify(parsedResume));
+      if (atsAnalysis) localStorage.setItem("sf_atsAnalysis", JSON.stringify(atsAnalysis));
+      if (applicationRecords.length > 0) {
+        localStorage.setItem("sf_applicationRecords", JSON.stringify(applicationRecords));
+      }
     } catch {
       // Storage error silent catch
     }
-  }, [mounted, userProfile, selectedRoleId, assessmentResult, learningModules, projects, problems, resumeData, applications]);
+  }, [
+    mounted,
+    userProfile,
+    selectedRoleId,
+    assessmentResult,
+    learningModules,
+    projects,
+    problems,
+    resumeData,
+    applications,
+    parsedResume,
+    atsAnalysis,
+    applicationRecords,
+  ]);
 
   const selectedRole = CAREER_ROLES.find((r) => r.id === selectedRoleId) || CAREER_ROLES[0];
 
@@ -463,28 +632,314 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
   };
 
   const reanalyzeResume = () => {
+    const text = convertResumeDataToText(resumeData);
+    const parsed = parseResumeText(text);
+    const analysis = analyzeResumeATS(parsed, selectedRole.title);
+
+    setParsedResume(parsed);
+    setAtsAnalysis(analysis);
     setResumeAnalysis({
-      ...MOCK_RESUME_ANALYSIS,
-      overallMatch: 88,
-      atsCompatibilityScore: 94,
-      skillsFound: [
-        ...MOCK_RESUME_ANALYSIS.skillsFound,
-        "PostgreSQL Index Optimization",
-        "Vitest",
-      ],
-      recommendations: [
-        "Include production links to verified GitHub repositories.",
-        "Highlight your 92/100 Warehouse SaaS project in interview discussions.",
-      ],
+      overallMatch: analysis.overallScore,
+      atsCompatibilityScore: analysis.overallScore,
+      targetRole: selectedRole.title,
+      experienceRelevance: Math.round(analysis.scoreBreakdown.experienceRelevance.score * 10),
+      projectRelevance: Math.round(analysis.scoreBreakdown.projectRelevance.score * 20),
+      formattingScore: Math.round(analysis.scoreBreakdown.parsingAndFormat.score * 5),
+      skillsFound: analysis.matchedRoleSkills,
+      skillsMissing: analysis.missingRoleSkills,
+      strengths: analysis.matchedRoleSkills.slice(0, 4).map((s) => `Demonstrated skill: ${s}`),
+      criticalGaps: analysis.issues.length > 0 ? analysis.issues : ["Standard single-column syntax verified"],
+      recommendations: analysis.recommendations,
     });
+
     setUserProfileState((prev) => ({
       ...prev,
       xp: prev.xp + 100,
       readinessBreakdown: {
         ...prev.readinessBreakdown,
-        resume: 92,
+        resume: analysis.overallScore,
       },
     }));
+  };
+
+  const uploadAndAnalyzeResume = async (
+    file: File,
+    jobDescription?: string
+  ): Promise<{ parsed: ParsedResume; analysis: AtsCompatibilityAnalysis }> => {
+    setIsAnalyzingResume(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("targetRole", selectedRole.title);
+      if (jobDescription) formData.append("jobDescription", jobDescription);
+
+      const res = await fetch("/api/resume/analyze", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!data.success) {
+        throw new Error(data.error || "Failed to analyze resume.");
+      }
+
+      const parsed: ParsedResume = data.parsedResume;
+      const analysis: AtsCompatibilityAnalysis = data.analysis;
+
+      setParsedResume(parsed);
+      setAtsAnalysis(analysis);
+
+      // Keep legacy/existing state in sync
+      setResumeAnalysis({
+        overallMatch: analysis.overallScore,
+        atsCompatibilityScore: analysis.overallScore,
+        targetRole: selectedRole.title,
+        experienceRelevance: Math.round(analysis.scoreBreakdown.experienceRelevance.score * 10),
+        projectRelevance: Math.round(analysis.scoreBreakdown.projectRelevance.score * 20),
+        formattingScore: Math.round(analysis.scoreBreakdown.parsingAndFormat.score * 5),
+        skillsFound: analysis.matchedRoleSkills,
+        skillsMissing: analysis.missingRoleSkills,
+        strengths: analysis.matchedRoleSkills.slice(0, 4).map((s) => `Demonstrated skill: ${s}`),
+        criticalGaps: analysis.issues.length > 0 ? analysis.issues : ["Standard single-column syntax verified"],
+        recommendations: analysis.recommendations,
+      });
+
+      setUserProfileState((prev) => ({
+        ...prev,
+        readinessBreakdown: {
+          ...prev.readinessBreakdown,
+          resume: analysis.overallScore,
+        },
+      }));
+
+      // Automatically search live opportunities matching candidate skills
+      fetchLiveJobs({
+        role: selectedRole.title,
+        skills: parsed.technicalSkills,
+      }).catch((e) => console.error("Auto live jobs query failed:", e));
+
+      return { parsed, analysis };
+    } finally {
+      setIsAnalyzingResume(false);
+    }
+  };
+
+  const analyzeResumeFromRawText = async (
+    text: string,
+    jobDescription?: string
+  ): Promise<{ parsed: ParsedResume; analysis: AtsCompatibilityAnalysis }> => {
+    setIsAnalyzingResume(true);
+    try {
+      const res = await fetch("/api/resume/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text,
+          targetRole: selectedRole.title,
+          jobDescription,
+        }),
+      });
+
+      const data = await res.json();
+      if (!data.success) {
+        throw new Error(data.error || "Failed to analyze resume.");
+      }
+
+      const parsed: ParsedResume = data.parsedResume;
+      const analysis: AtsCompatibilityAnalysis = data.analysis;
+
+      setParsedResume(parsed);
+      setAtsAnalysis(analysis);
+
+      setResumeAnalysis({
+        overallMatch: analysis.overallScore,
+        atsCompatibilityScore: analysis.overallScore,
+        targetRole: selectedRole.title,
+        experienceRelevance: Math.round(analysis.scoreBreakdown.experienceRelevance.score * 10),
+        projectRelevance: Math.round(analysis.scoreBreakdown.projectRelevance.score * 20),
+        formattingScore: Math.round(analysis.scoreBreakdown.parsingAndFormat.score * 5),
+        skillsFound: analysis.matchedRoleSkills,
+        skillsMissing: analysis.missingRoleSkills,
+        strengths: analysis.matchedRoleSkills.slice(0, 4).map((s) => `Demonstrated skill: ${s}`),
+        criticalGaps: analysis.issues.length > 0 ? analysis.issues : ["Standard single-column syntax verified"],
+        recommendations: analysis.recommendations,
+      });
+
+      return { parsed, analysis };
+    } finally {
+      setIsAnalyzingResume(false);
+    }
+  };
+
+  const fetchLiveJobs = useCallback(
+    async (customQuery?: Partial<JobSearchQuery>): Promise<JobMatchResult[]> => {
+      setIsJobsLoading(true);
+      try {
+        const role = customQuery?.role || selectedRole.title;
+        const skills = customQuery?.skills || (parsedResume ? parsedResume.technicalSkills : undefined);
+        const params = new URLSearchParams();
+        if (role) params.set("role", role);
+        if (customQuery?.location) params.set("location", customQuery.location);
+        if (customQuery?.workMode) params.set("workMode", customQuery.workMode);
+        if (customQuery?.type) params.set("type", customQuery.type);
+        if (skills && skills.length > 0) params.set("skills", skills.join(","));
+
+        const res = await fetch(`/api/jobs/search?${params.toString()}`);
+        const data = await res.json();
+
+        if (!data.success) {
+          console.warn("Failed to fetch jobs from API:", data.error);
+          return [];
+        }
+
+        const rawJobs: JobListing[] = data.jobs || [];
+
+        // Update sources health
+        if (Array.isArray(data.sources)) {
+          const statuses: Record<string, { status: string; count: number; error?: string }> = {};
+          data.sources.forEach((s: any) => {
+            statuses[s.source] = {
+              status: s.success ? "healthy" : "failing",
+              count: s.jobCount,
+              error: s.error,
+            };
+          });
+          setJobsSourceStatus(statuses);
+        }
+
+        // Match against candidate profile
+        const effectiveResume =
+          parsedResume || parseResumeText(convertResumeDataToText(resumeData));
+        const matched = rawJobs.map((job) => evaluateJobMatch(job, effectiveResume, role));
+
+        // Sort by match score descending
+        matched.sort((a, b) => b.matchScore - a.matchScore);
+
+        setLiveJobMatches(matched);
+
+        // Convert to opportunities format for opportunities hub & cards
+        const opps = matched.map(jobMatchToOpportunity);
+        setOpportunities(opps);
+
+        return matched;
+      } catch (err) {
+        console.error("fetchLiveJobs error:", err);
+        return [];
+      } finally {
+        setIsJobsLoading(false);
+      }
+    },
+    [selectedRole.title, parsedResume, resumeData]
+  );
+
+  // Fetch live jobs on initial load (only when not in demo mode)
+  useEffect(() => {
+    if (!mounted) return;
+    const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+    if (!isDemoMode) {
+      fetchLiveJobs();
+    }
+  }, [mounted, fetchLiveJobs]);
+
+  const openExternalApplyModal = (job: JobListing) => {
+    setPendingApplyJob(job);
+    setIsApplyApprovalModalOpen(true);
+  };
+
+  const closeExternalApplyModal = () => {
+    setIsApplyApprovalModalOpen(false);
+    setPendingApplyJob(null);
+  };
+
+  const confirmExternalApplyRedirect = () => {
+    if (!pendingApplyJob) return;
+    const job = pendingApplyJob;
+    const targetUrl = job.applicationUrl || job.listingUrl;
+
+    if (!targetUrl || !targetUrl.startsWith("https://")) {
+      alert("Invalid or insecure application URL. Only HTTPS destinations are permitted.");
+      return;
+    }
+
+    // 1. Record application tracking record (status: 'redirected')
+    const record: ApplicationRecord = {
+      id: `app-rec-${Date.now()}`,
+      jobId: job.id,
+      jobTitle: job.title,
+      company: job.company,
+      source: job.source,
+      externalUrl: targetUrl,
+      timestamp: new Date().toISOString(),
+      status: "Redirected",
+    };
+    setApplicationRecords((prev) => [record, ...prev]);
+
+    // 2. Add or update Kanban Application Tracker
+    const existingApp = applications.find((a) => a.opportunityId === job.id);
+    if (!existingApp) {
+      const newApp: ApplicationItem = {
+        id: `app-${Date.now()}`,
+        opportunityId: job.id,
+        company: job.company,
+        role: job.title,
+        type: job.opportunityType === "INTERNSHIP" ? "Internship" : job.opportunityType === "STARTUP" ? "Startup" : "Job",
+        location: job.location,
+        status: "Saved",
+        appliedDate: new Date().toISOString().split("T")[0],
+        lastUpdated: new Date().toISOString().split("T")[0],
+        salary: job.salaryMin ? `${job.salaryCurrency || "₹"} ${job.salaryMin.toLocaleString()}` : "Disclosed on Application",
+        matchScore: 85,
+        notes: `Redirected to ${job.source} official application destination: ${targetUrl}`,
+      };
+      setApplications((prev) => [newApp, ...prev]);
+    }
+
+    // 3. Close modal
+    setIsApplyApprovalModalOpen(false);
+    setPendingApplyJob(null);
+
+    // 4. Safe open external URL
+    window.open(targetUrl, "_blank", "noopener,noreferrer");
+
+    // 5. Add notification
+    const newNotif: NotificationItem = {
+      id: `notif-${Date.now()}`,
+      title: "Redirected to External Application",
+      message: `You were redirected to ${job.company}'s official application portal on ${job.source}. Once submitted, mark it as applied in your Tracker.`,
+      timestamp: "Just now",
+      read: false,
+      type: "info",
+      link: "/applications",
+    };
+    setNotifications((prev) => [newNotif, ...prev]);
+  };
+
+  const confirmExternalApplied = (jobId: string) => {
+    setApplicationRecords((prev) =>
+      prev.map((r) => (r.jobId === jobId ? { ...r, status: "Applied" } : r))
+    );
+    setApplications((prev) =>
+      prev.map((a) =>
+        a.opportunityId === jobId
+          ? {
+              ...a,
+              status: "Applied",
+              appliedDate: new Date().toISOString().split("T")[0],
+              lastUpdated: new Date().toISOString().split("T")[0],
+            }
+          : a
+      )
+    );
+    const newNotif: NotificationItem = {
+      id: `notif-${Date.now()}`,
+      title: "Application Confirmed",
+      message: "Application marked as submitted. Status tracked in your Application Kanban.",
+      timestamp: "Just now",
+      read: false,
+      type: "success",
+      link: "/applications",
+    };
+    setNotifications((prev) => [newNotif, ...prev]);
   };
 
   const toggleSaveOpportunity = (oppId: string) => {
@@ -497,45 +952,58 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
     const opp = opportunities.find((o) => o.id === oppId);
     if (!opp) return;
 
-    setOpportunities((prev) =>
-      prev.map((o) => (o.id === oppId ? { ...o, applicationStatus: "Applied", appliedDate: new Date().toISOString().split("T")[0] } : o))
-    );
-
-    const existingApp = applications.find((a) => a.opportunityId === oppId);
-    if (!existingApp) {
-      const newApp: ApplicationItem = {
-        id: `app-${Date.now()}`,
-        opportunityId: opp.id,
-        company: opp.company,
-        role: opp.role,
-        type: opp.type,
-        location: opp.location,
-        status: "Applied",
-        appliedDate: new Date().toISOString().split("T")[0],
-        lastUpdated: new Date().toISOString().split("T")[0],
-        salary: opp.salary,
-        matchScore: opp.matchPercentage,
-        notes: "Applied directly through SkillForge candidate readiness match.",
-      };
-      setApplications((prev) => [newApp, ...prev]);
+    // Check if live job match exists
+    const matchedJob = liveJobMatches.find((m) => m.job.id === oppId)?.job;
+    if (matchedJob) {
+      openExternalApplyModal(matchedJob);
+      return;
     }
 
-    // Add notification
-    const newNotif: NotificationItem = {
-      id: `notif-${Date.now()}`,
-      title: "Application Submitted Successfully",
-      message: `Your verified profile and projects have been submitted for ${opp.role} at ${opp.company}.`,
-      timestamp: "Just now",
-      read: false,
-      type: "success",
-      link: "/applications",
-    };
-    setNotifications((prev) => [newNotif, ...prev]);
+    // If external URLs exist on opp, open modal
+    if (opp.externalApplicationUrl || opp.externalListingUrl) {
+      const syntheticJob: JobListing = {
+        id: opp.id,
+        source: (opp.externalSource as any) || "verified_external",
+        sourceId: opp.id,
+        title: opp.role,
+        company: opp.company,
+        description: opp.description,
+        location: opp.location,
+        country: "India",
+        remoteType: opp.workMode === "Remote" ? "Remote" : opp.workMode === "Hybrid" ? "Hybrid" : "Onsite",
+        employmentType: "Full-time",
+        opportunityType: opp.type === "Internship" ? "INTERNSHIP" : opp.type === "Startup" ? "STARTUP" : "JOB",
+        requiredSkills: opp.matchedSkills.concat(opp.skillGaps),
+        preferredSkills: [],
+        listingUrl: opp.externalListingUrl || "https://jobicy.com",
+        applicationUrl: opp.externalApplicationUrl || opp.externalListingUrl,
+        postedAt: opp.postedAt || new Date().toISOString(),
+        lastVerifiedAt: opp.lastVerifiedAt || new Date().toISOString(),
+        isActive: true,
+        sourceUrl: opp.externalListingUrl || "https://jobicy.com",
+        attribution: "Source: Verified Career Page",
+      };
+      openExternalApplyModal(syntheticJob);
+      return;
+    }
+
+    // Fallback: create application item
+    setOpportunities((prev) =>
+      prev.map((o) =>
+        o.id === oppId
+          ? { ...o, applicationStatus: "Applied", appliedDate: new Date().toISOString().split("T")[0] }
+          : o
+      )
+    );
   };
 
   const updateApplicationStatus = (appId: string, newStatus: ApplicationStatus) => {
     setApplications((prev) =>
-      prev.map((app) => (app.id === appId ? { ...app, status: newStatus, lastUpdated: new Date().toISOString().split("T")[0] } : app))
+      prev.map((app) =>
+        app.id === appId
+          ? { ...app, status: newStatus, lastUpdated: new Date().toISOString().split("T")[0] }
+          : app
+      )
     );
   };
 
@@ -563,6 +1031,10 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
     setOpportunities(TECH_OPPORTUNITIES);
     setApplications(INITIAL_APPLICATIONS);
     setNotifications(INITIAL_NOTIFICATIONS);
+    setParsedResume(null);
+    setAtsAnalysis(null);
+    setLiveJobMatches([]);
+    setApplicationRecords([]);
     try {
       localStorage.clear();
     } catch {
@@ -591,6 +1063,19 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         achievements,
         notifications,
         unreadNotificationCount,
+
+        // Real Resume & Job Matching States
+        parsedResume,
+        atsAnalysis,
+        liveJobMatches,
+        isAnalyzingResume,
+        isJobsLoading,
+        jobsSourceStatus,
+        applicationRecords,
+        isApplyApprovalModalOpen,
+        pendingApplyJob,
+
+        // Actions
         selectRole,
         setAssessmentAnswer,
         submitAssessment,
@@ -611,6 +1096,15 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         markNotificationAsRead,
         clearAllNotifications,
         resetToDefaults,
+
+        // Real Resume & Job Actions
+        uploadAndAnalyzeResume,
+        analyzeResumeFromRawText,
+        fetchLiveJobs,
+        openExternalApplyModal,
+        closeExternalApplyModal,
+        confirmExternalApplyRedirect,
+        confirmExternalApplied,
       }}
     >
       {children}
