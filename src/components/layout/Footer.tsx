@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import Link from "next/link";
 import { PRODUCT_NAME, PRODUCT_TAGLINE } from "@/lib/constants";
-import { Sparkles, Shield, Compass, BookOpen, Briefcase, Award } from "lucide-react";
+import { Sparkles, Shield } from "lucide-react";
 
-export function Footer() {
+function FooterComponent() {
   return (
     <footer className="w-full border-t border-border bg-white py-12 px-4 sm:px-6 lg:px-8 text-muted text-xs">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
@@ -30,11 +30,11 @@ export function Footer() {
             Career Pathways
           </h4>
           <ul className="space-y-2">
-            <li><Link href="/onboarding" className="hover:text-imperial transition-colors">Software Development</Link></li>
-            <li><Link href="/onboarding" className="hover:text-imperial transition-colors">Data & AI Engineering</Link></li>
-            <li><Link href="/onboarding" className="hover:text-imperial transition-colors">Cloud & DevOps</Link></li>
-            <li><Link href="/onboarding" className="hover:text-imperial transition-colors">Cybersecurity</Link></li>
-            <li><Link href="/onboarding" className="hover:text-imperial transition-colors">Systems & Embedded</Link></li>
+            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Software Development</Link></li>
+            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Data & AI Engineering</Link></li>
+            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Cloud & DevOps</Link></li>
+            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Cybersecurity</Link></li>
+            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Systems & Embedded</Link></li>
           </ul>
         </div>
 
@@ -44,12 +44,12 @@ export function Footer() {
             Product Journey
           </h4>
           <ul className="space-y-2">
-            <li><Link href="/assessment" className="hover:text-imperial transition-colors">Technical Assessment</Link></li>
-            <li><Link href="/learning" className="hover:text-imperial transition-colors">Personalized Training</Link></li>
-            <li><Link href="/projects" className="hover:text-imperial transition-colors">Production Projects</Link></li>
-            <li><Link href="/interview" className="hover:text-imperial transition-colors">Voice Interview Simulation</Link></li>
-            <li><Link href="/resume" className="hover:text-imperial transition-colors">ATS Resume Engine</Link></li>
-            <li><Link href="/feedback" className="hover:text-imperial transition-colors">Rejection Analysis & Retraining</Link></li>
+            <li><Link href="/assessment" prefetch={true} className="hover:text-imperial transition-colors">Technical Assessment</Link></li>
+            <li><Link href="/learning" prefetch={true} className="hover:text-imperial transition-colors">Personalized Training</Link></li>
+            <li><Link href="/projects" prefetch={true} className="hover:text-imperial transition-colors">Production Projects</Link></li>
+            <li><Link href="/interview" prefetch={true} className="hover:text-imperial transition-colors">Voice Interview Simulation</Link></li>
+            <li><Link href="/resume" prefetch={true} className="hover:text-imperial transition-colors">ATS Resume Engine</Link></li>
+            <li><Link href="/feedback" prefetch={true} className="hover:text-imperial transition-colors">Rejection Analysis & Retraining</Link></li>
           </ul>
         </div>
 
@@ -75,3 +75,5 @@ export function Footer() {
     </footer>
   );
 }
+
+export const Footer = memo(FooterComponent);

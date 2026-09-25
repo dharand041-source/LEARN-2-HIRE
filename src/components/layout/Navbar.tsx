@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -14,6 +14,7 @@ import {
   Settings,
   Menu,
   Check,
+  LogOut,
 } from "lucide-react";
 import { PRODUCT_NAME, SUPPORTED_LANGUAGES } from "@/lib/constants";
 import { useCareer } from "@/context/CareerContext";
@@ -24,7 +25,7 @@ interface NavbarProps {
   onToggleSidebar?: () => void;
 }
 
-export function Navbar({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
+function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
   const pathname = usePathname();
   const {
     userProfile,
@@ -34,6 +35,8 @@ export function Navbar({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
     markNotificationAsRead,
     clearAllNotifications,
     setLanguage,
+    isAuthenticated,
+    signOut,
   } = useCareer();
 
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -57,7 +60,7 @@ export function Navbar({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
             <Menu className="w-5 h-5 text-night" />
           </button>
 
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" prefetch={true} className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-lg bg-night flex items-center justify-center text-white shadow-sm transition-all group-hover:scale-105">
               <Sparkles className="w-4 h-4 text-imperial fill-imperial" />
             </div>
@@ -72,6 +75,7 @@ export function Navbar({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
           <div className="hidden md:flex items-center gap-2 ml-4 pl-4 border-l border-surface-border">
             <Link
               href="/onboarding"
+              prefetch={true}
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-white border border-surface-border transition-colors text-xs text-night-muted hover:text-night"
             >
               <Compass className="w-3.5 h-3.5 text-imperial" />
@@ -244,6 +248,7 @@ export function Navbar({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
                 <div className="py-1">
                   <Link
                     href="/profile"
+                    prefetch={true}
                     onClick={() => setIsProfileOpen(false)}
                     className="flex items-center gap-2.5 px-4 py-2 text-xs text-night hover:bg-surface-subtle hover:text-imperial transition-colors"
                   >
@@ -252,12 +257,35 @@ export function Navbar({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
                   </Link>
                   <Link
                     href="/settings"
+                    prefetch={true}
                     onClick={() => setIsProfileOpen(false)}
                     className="flex items-center gap-2.5 px-4 py-2 text-xs text-night hover:bg-surface-subtle hover:text-imperial transition-colors"
                   >
                     <Settings className="w-4 h-4 text-night-muted" />
                     <span>Preferences & Settings</span>
                   </Link>
+                  {isAuthenticated ? (
+                    <button
+                      onClick={async () => {
+                        setIsProfileOpen(false);
+                        await signOut();
+                      }}
+                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs text-imperial font-medium hover:bg-imperial-50 transition-colors border-t border-surface-border mt-1 text-left cursor-pointer"
+                    >
+                      <LogOut className="w-4 h-4 text-imperial" />
+                      <span>Sign Out</span>
+                    </button>
+                  ) : (
+                    <Link
+                      href="/login"
+                      prefetch={true}
+                      onClick={() => setIsProfileOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs text-imperial font-medium hover:bg-imperial-50 transition-colors border-t border-surface-border mt-1"
+                    >
+                      <Sparkles className="w-4 h-4 text-imperial" />
+                      <span>Sign In with Google</span>
+                    </Link>
+                  )}
                 </div>
               </div>
             )}
@@ -267,3 +295,5 @@ export function Navbar({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
     </header>
   );
 }
+
+export const Navbar = memo(NavbarComponent);

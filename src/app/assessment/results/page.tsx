@@ -19,7 +19,6 @@ import { useCareer } from "@/context/CareerContext";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { getScoreColor } from "@/lib/constants";
 
 export default function AssessmentResultsPage() {
   const { assessmentResult, selectedRole } = useCareer();
@@ -56,21 +55,21 @@ export default function AssessmentResultsPage() {
   };
 
   return (
-    <div className="space-y-8 animate-fade-in bg-white">
+    <div className="max-w-6xl w-full mx-auto space-y-8 animate-fade-in bg-white pb-12">
       {/* Header */}
-      <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-2 mb-1.5">
             <Badge variant="imperial" size="sm">Phase 03</Badge>
-            <span className="text-xs text-muted font-mono uppercase tracking-wider font-bold">
+            <span className="text-xs text-night-muted font-mono uppercase tracking-wider font-bold">
               Diagnostic Skill-Gap Analysis
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-night tracking-tight uppercase">
             Assessment Results & Competency Map
           </h1>
-          <p className="text-xs sm:text-sm text-muted mt-1">
-            Evaluated against the verified industry benchmark for <strong>{result.roleTitle}</strong>.
+          <p className="text-xs sm:text-sm text-night-muted mt-1">
+            Evaluated against the verified industry benchmark for <strong className="text-night font-semibold">{result.roleTitle}</strong>.
           </p>
         </div>
 
@@ -90,36 +89,39 @@ export default function AssessmentResultsPage() {
         </div>
       </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Overall Readiness Score Card (4 cols) */}
-        <div className="lg:col-span-4 space-y-5">
-          <div className="p-6 rounded-2xl bg-white border border-border shadow-card space-y-6 text-center">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-night">
+      {/* Section 1: Top 2-Column Overview (Readiness Score & Skill Breakdown) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        {/* Left Card: Overall Career Readiness (5 cols) */}
+        <div className="lg:col-span-5 p-6 rounded-2xl bg-white border border-surface-border shadow-card-subtle flex flex-col justify-between text-center">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-night block mb-6">
               Current Career Readiness
             </span>
 
-            <div className="relative inline-flex items-center justify-center">
-              {/* Outer Ring Visual */}
-              <div className="w-36 h-36 rounded-full border-4 border-imperial flex flex-col items-center justify-center bg-surface-subtle shadow-sm">
+            <div className="relative inline-flex items-center justify-center my-2">
+              <div className="w-36 h-36 rounded-full border-4 border-imperial flex flex-col items-center justify-center bg-surface-subtle shadow-inner">
                 <span className="text-4xl font-display font-extrabold text-night font-mono">
                   {result.score}
                 </span>
-                <span className="text-[11px] text-muted uppercase font-mono font-bold">/ 100</span>
+                <span className="text-xs text-night-muted uppercase font-mono font-bold">/ 100</span>
               </div>
             </div>
 
-            <div className="p-3.5 rounded-lg bg-surface-subtle border border-border text-xs text-night leading-relaxed text-left space-y-1.5">
+            <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border text-xs text-night leading-relaxed text-left space-y-1.5 mt-6">
               <p className="font-bold text-night flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-imperial" />
-                Readiness Level: Intermediate
+                Readiness Level: {result.score >= 80 ? "Advanced" : result.score >= 60 ? "Intermediate" : "Foundational"}
               </p>
-              <p className="text-[11px] text-muted font-medium">
-                You have validated strong fundamentals in JavaScript and React. Closing your SQL and Node.js gaps will elevate your score to 85%+ (Job Ready).
+              <p className="text-[11px] text-night-muted font-medium">
+                {result.score >= 80
+                  ? "You have validated production-grade competencies across core domains. You are well-positioned for top tech roles."
+                  : "You have validated foundational principles. Closing your identified critical gaps will rapidly elevate your score to 85%+ (Job Ready)."}
               </p>
             </div>
+          </div>
 
-            <div className="pt-2 border-t border-border flex items-center justify-between text-xs text-muted font-semibold">
+          <div className="pt-4 border-t border-surface-border mt-6 space-y-4">
+            <div className="flex items-center justify-between text-xs text-night-muted font-semibold">
               <span>Completed: {result.completedAt}</span>
               <span className="text-night font-bold">Valid Diagnostic</span>
             </div>
@@ -133,198 +135,219 @@ export default function AssessmentResultsPage() {
           </div>
         </div>
 
-        {/* Right Column: Skill Breakdown & Gaps (8 cols) */}
-        <div className="lg:col-span-8 space-y-6">
-          {/* Horizontal Skill Breakdown Bars */}
-          <div className="p-6 rounded-xl bg-white border border-border space-y-5 shadow-card">
-            <div className="flex items-center justify-between border-b border-border pb-3">
-              <h3 className="text-sm font-bold text-night uppercase tracking-wider">
+        {/* Right Card: Technical Skill Breakdown (7 cols) */}
+        <div className="lg:col-span-7 p-6 rounded-2xl bg-white border border-surface-border shadow-card-subtle flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between border-b border-surface-border pb-3 mb-5">
+              <h3 className="text-xs font-bold text-night uppercase tracking-wider">
                 Technical Skill Breakdown
               </h3>
-              <span className="text-xs text-muted font-semibold">6 Core Dimensions Evaluated</span>
+              <span className="text-xs text-night-muted font-semibold">
+                {result.skillBreakdown?.length || 6} Core Dimensions Evaluated
+              </span>
             </div>
 
             <div className="space-y-4">
-              {result.skillBreakdown.map((item, i) => (
-                <div key={i} className="space-y-1.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="text-night font-bold">{item.skill}</span>
-                      <Badge
-                        variant={
-                          ((item as any).band || item.status) === "Advanced" || ((item as any).band || item.status) === "Strong"
-                            ? "night"
-                            : ((item as any).band || item.status) === "Developing"
-                            ? "neutral"
-                            : "imperial"
-                        }
-                        size="sm"
-                      >
-                        {(item as any).band || item.status}
-                      </Badge>
-                    </div>
-                    <span className="font-mono font-extrabold text-imperial">
-                      {item.score}%
-                    </span>
-                  </div>
-                  <ProgressBar
-                    value={item.score}
-                    size="sm"
-                    variant="imperial"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+              {result.skillBreakdown.map((item, i) => {
+                const band = (item as any).band || item.status || "Moderate";
+                const isStrong = band === "Advanced" || band === "Strong" || item.score >= 75;
+                const isCritical = item.score < 50 || band === "Needs Improvement" || band === "Critical Gap";
 
-          {/* 2-Column Cards: Strong Areas vs Critical Gaps */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Strong Areas */}
-            <div className="p-5 rounded-xl bg-white border border-border space-y-3 shadow-sm">
-              <div className="flex items-center gap-2 text-night">
-                <CheckCircle2 className="w-4 h-4 text-night" />
-                <h4 className="text-xs font-bold uppercase tracking-wider">
-                  Demonstrated Strengths
-                </h4>
-              </div>
-              <ul className="space-y-2 text-xs text-muted font-medium">
-                {result.strongAreas.map((area, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="text-night font-bold">•</span>
-                    <span>{area}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Critical Skill Gaps */}
-            <div className="p-5 rounded-xl bg-imperial-50/40 border border-imperial/40 space-y-3 shadow-sm">
-              <div className="flex items-center gap-2 text-imperial">
-                <AlertTriangle className="w-4 h-4" />
-                <h4 className="text-xs font-bold uppercase tracking-wider">
-                  Identified Skill Gaps
-                </h4>
-              </div>
-              <ul className="space-y-2 text-xs text-night font-medium">
-                {result.needsImprovement.map((gap, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="text-imperial font-bold">•</span>
-                    <span>{gap}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Actionable Next Steps */}
-          <div className="p-5 rounded-xl bg-surface-subtle border border-border space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-night flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5 text-imperial" />
-              Recommended Immediate Action Plan
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {result.recommendations.map((rec, i) => (
-                <div key={i} className="p-3.5 rounded-lg bg-white border border-border text-xs flex flex-col justify-between shadow-sm">
-                  <p className="text-muted leading-relaxed font-medium">{rec}</p>
-                  <Link
-                    href={i === 0 ? "/learning" : i === 1 ? "/problem-solving" : "/interview"}
-                    className="mt-3 text-[11px] font-bold text-imperial hover:underline flex items-center gap-1"
-                  >
-                    <span>{i === 0 ? "Start Module" : i === 1 ? "Solve Problems" : "Practice Mock"}</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Detailed Question Review Accordion */}
-          {result.questionResults && result.questionResults.length > 0 && (
-            <div className="p-6 rounded-xl bg-white border border-border space-y-4 shadow-card">
-              <div className="flex items-center justify-between border-b border-border pb-3">
-                <div>
-                  <h3 className="text-sm font-bold text-night uppercase tracking-wider">
-                    Diagnostic Item Breakdown
-                  </h3>
-                  <p className="text-[11px] text-muted mt-0.5">
-                    Deterministic answer validation with verified technical explanations
-                  </p>
-                </div>
-                <Badge variant="imperial" size="sm">
-                  {result.correctCount || 0} / {result.totalQuestions} Correct
-                </Badge>
-              </div>
-
-              <div className="space-y-3">
-                {result.questionResults.map((qr, idx) => (
-                  <div
-                    key={idx}
-                    className={`p-4 rounded-lg border text-xs space-y-2 transition-all ${
-                      qr.isCorrect
-                        ? "bg-surface-subtle/50 border-border"
-                        : "bg-imperial-50/20 border-imperial/30"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-muted">
-                            Q{idx < 9 ? `0${idx + 1}` : idx + 1}
-                          </span>
-                          <Badge variant="neutral" size="sm">
-                            {qr.skill}
-                          </Badge>
-                        </div>
-                        <p className="font-semibold text-night leading-relaxed">
-                          {qr.question}
-                        </p>
-                      </div>
-
-                      <div className="shrink-0 flex items-center gap-1 font-bold">
-                        {qr.isCorrect ? (
-                          <span className="text-emerald-700 flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                            <CheckCircle2 className="w-3.5 h-3.5" />
-                            <span>Correct</span>
-                          </span>
-                        ) : (
-                          <span className="text-imperial flex items-center gap-1 bg-imperial-50 px-2 py-0.5 rounded border border-imperial/40">
-                            <AlertTriangle className="w-3.5 h-3.5" />
-                            <span>Review</span>
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="pt-2 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
-                      <div>
-                        <span className="text-muted font-medium">Your Submitted Answer: </span>
-                        <span
-                          className={`font-semibold ${
-                            qr.isCorrect ? "text-night" : "text-imperial"
-                          }`}
+                return (
+                  <div key={i} className="space-y-1.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="text-night font-bold">{item.skill}</span>
+                        <Badge
+                          variant={isStrong ? "night" : isCritical ? "imperial" : "neutral"}
+                          size="sm"
                         >
-                          {qr.userAnswer}
-                        </span>
+                          {band}
+                        </Badge>
                       </div>
-                      <div>
-                        <span className="text-muted font-medium">Canonical Solution: </span>
-                        <span className="text-night font-bold">
-                          {qr.correctAnswer}
-                        </span>
-                      </div>
+                      <span className="font-mono font-extrabold text-imperial">
+                        {item.score}%
+                      </span>
                     </div>
-
-                    <div className="p-2.5 rounded bg-surface-subtle text-[11px] text-muted leading-relaxed font-normal">
-                      <span className="font-bold text-night">Explanation: </span>
-                      {qr.explanation}
-                    </div>
+                    <ProgressBar
+                      value={item.score}
+                      size="sm"
+                      variant={isStrong ? "night" : "imperial"}
+                    />
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
-          )}
+          </div>
+
+          <div className="pt-4 border-t border-surface-border mt-6 flex items-center justify-between text-xs text-night-muted">
+            <span className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              Skill-benchmarked against hiring requirements
+            </span>
+            <span className="font-mono font-bold text-night">{result.totalQuestions} Questions Evaluated</span>
+          </div>
         </div>
       </div>
+
+      {/* Section 2: Full-Width 2-Column Cards (Demonstrated Strengths vs Critical Skill Gaps) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+        {/* Demonstrated Strengths */}
+        <div className="p-6 rounded-2xl bg-white border border-surface-border shadow-card-subtle space-y-4">
+          <div className="flex items-center gap-2 text-night border-b border-surface-border pb-3">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <h4 className="text-xs font-bold uppercase tracking-wider">
+              Demonstrated Strengths
+            </h4>
+          </div>
+          <ul className="space-y-2.5 text-xs text-night-muted font-medium">
+            {result.strongAreas && result.strongAreas.length > 0 ? (
+              result.strongAreas.map((area, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold">•</span>
+                  <span className="text-night">{area}</span>
+                </li>
+              ))
+            ) : (
+              <li className="text-night-muted italic">Complete more modules to unlock highlighted strengths.</li>
+            )}
+          </ul>
+        </div>
+
+        {/* Critical Skill Gaps */}
+        <div className="p-6 rounded-2xl bg-imperial-50/40 border border-imperial-200 space-y-4 shadow-card-subtle">
+          <div className="flex items-center gap-2 text-imperial border-b border-imperial-200 pb-3">
+            <AlertTriangle className="w-4 h-4 shrink-0" />
+            <h4 className="text-xs font-bold uppercase tracking-wider">
+              Identified Skill Gaps
+            </h4>
+          </div>
+          <ul className="space-y-2.5 text-xs text-night font-medium">
+            {result.needsImprovement && result.needsImprovement.length > 0 ? (
+              result.needsImprovement.map((gap, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <span className="text-imperial font-bold">•</span>
+                  <span>{gap}</span>
+                </li>
+              ))
+            ) : (
+              <li className="text-night-muted italic">No critical gaps identified in this evaluation.</li>
+            )}
+          </ul>
+        </div>
+      </div>
+
+      {/* Section 3: Full-Width Recommended Immediate Action Plan */}
+      <div className="p-6 rounded-2xl bg-surface-subtle border border-surface-border shadow-card-subtle space-y-5 w-full">
+        <div className="flex items-center justify-between border-b border-surface-border pb-3">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-night flex items-center gap-2">
+            <Zap className="w-4 h-4 text-imperial" />
+            Recommended Immediate Action Plan
+          </h4>
+          <span className="text-xs text-night-muted font-semibold">Priority Retraining Steps</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {result.recommendations.map((rec, i) => (
+            <div key={i} className="p-4 rounded-xl bg-white border border-surface-border text-xs flex flex-col justify-between shadow-sm hover:border-imperial/40 transition-colors">
+              <p className="text-night-muted leading-relaxed font-medium">{rec}</p>
+              <Link
+                href={i === 0 ? "/learning" : i === 1 ? "/problem-solving" : "/interview"}
+                className="mt-4 text-xs font-bold text-imperial hover:underline flex items-center gap-1.5 group"
+              >
+                <span>{i === 0 ? "Start Module" : i === 1 ? "Solve Problems" : "Practice Mock"}</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Section 4: Full-Width Detailed Question Review */}
+      {result.questionResults && result.questionResults.length > 0 && (
+        <div className="p-6 sm:p-8 rounded-2xl bg-white border border-surface-border shadow-card-subtle space-y-6 w-full">
+          <div className="flex items-center justify-between border-b border-surface-border pb-4">
+            <div>
+              <h3 className="text-sm font-bold text-night uppercase tracking-wider">
+                Diagnostic Item Breakdown
+              </h3>
+              <p className="text-xs text-night-muted mt-0.5">
+                Deterministic answer validation with verified technical explanations
+              </p>
+            </div>
+            <Badge variant="imperial" size="sm">
+              {result.correctCount || 0} / {result.totalQuestions} Correct
+            </Badge>
+          </div>
+
+          <div className="space-y-4">
+            {result.questionResults.map((qr, idx) => (
+              <div
+                key={idx}
+                className={`p-5 rounded-xl border text-xs space-y-3 transition-all ${
+                  qr.isCorrect
+                    ? "bg-surface-subtle/50 border-surface-border"
+                    : "bg-imperial-50/20 border-imperial-200"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="space-y-1.5 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-bold text-night-muted">
+                        Q{idx < 9 ? `0${idx + 1}` : idx + 1}
+                      </span>
+                      <Badge variant="neutral" size="sm">
+                        {qr.skill}
+                      </Badge>
+                    </div>
+                    <p className="font-semibold text-night text-sm leading-relaxed">
+                      {qr.question}
+                    </p>
+                  </div>
+
+                  <div className="shrink-0 flex items-center gap-1 font-bold">
+                    {qr.isCorrect ? (
+                      <span className="text-emerald-700 flex items-center gap-1 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Correct</span>
+                      </span>
+                    ) : (
+                      <span className="text-imperial flex items-center gap-1 bg-imperial-50 px-2.5 py-1 rounded-md border border-imperial-200">
+                        <AlertTriangle className="w-3.5 h-3.5" />
+                        <span>Review</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-surface-border grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <span className="text-night-muted font-medium">Your Submitted Answer: </span>
+                    <span
+                      className={`font-semibold ${
+                        qr.isCorrect ? "text-night" : "text-imperial"
+                      }`}
+                    >
+                      {qr.userAnswer || "(Unanswered)"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-night-muted font-medium">Canonical Solution: </span>
+                    <span className="text-night font-bold">
+                      {qr.correctAnswer}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-lg bg-white border border-surface-border text-xs text-night-muted leading-relaxed font-normal">
+                  <span className="font-bold text-night">Explanation: </span>
+                  {qr.explanation}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

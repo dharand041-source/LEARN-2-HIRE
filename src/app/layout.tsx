@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+    <html lang="en" className={`scroll-smooth ${inter.variable} ${outfit.variable}`}>
       <body className="bg-white text-night font-sans antialiased selection:bg-imperial selection:text-white">
         <CareerProvider>
           <AppShell>{children}</AppShell>

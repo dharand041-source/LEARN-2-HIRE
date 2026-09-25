@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 import {
   UserProfile,
   CareerRole,
@@ -41,6 +41,7 @@ import { ACHIEVEMENTS_LIST } from "@/data/achievements";
 import { parseResumeText } from "@/services/resumeParser";
 import { analyzeResumeATS } from "@/services/atsScorer";
 import { evaluateJobMatch } from "@/services/jobMatching";
+import { createClient } from "@/lib/supabase/client";
 
 export interface NotificationItem {
   id: string;
@@ -204,6 +205,8 @@ interface CareerContextType {
   markNotificationAsRead: (id: string) => void;
   clearAllNotifications: () => void;
   resetToDefaults: () => void;
+  isAuthenticated: boolean;
+  signOut: () => Promise<void>;
 
   // Real Resume & Job Actions
   uploadAndAnalyzeResume: (file: File, jobDescription?: string) => Promise<{ parsed: ParsedResume; analysis: AtsCompatibilityAnalysis }>;
@@ -341,6 +344,78 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
   const [applicationRecords, setApplicationRecords] = useState<ApplicationRecord[]>([]);
   const [isApplyApprovalModalOpen, setIsApplyApprovalModalOpen] = useState(false);
   const [pendingApplyJob, setPendingApplyJob] = useState<JobListing | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  // Sync Supabase Authentication with UserProfile
+  useEffect(() => {
+    try {
+      const supabase = createClient();
+
+      // 1. Check current logged-in user
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        if (user) {
+          setIsAuthenticated(true);
+          const displayName =
+            user.user_metadata?.full_name ||
+            user.user_metadata?.name ||
+            user.email?.split("@")[0] ||
+            "User";
+
+          setUserProfileState((prev) => ({
+            ...prev,
+            name: displayName,
+            email: user.email || prev.email,
+          }));
+        } else {
+          setIsAuthenticated(false);
+        }
+      });
+
+      // 2. Subscribe to auth events (SIGN_IN, SIGN_OUT, USER_UPDATED)
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((event, session) => {
+        if (session?.user) {
+          setIsAuthenticated(true);
+          const user = session.user;
+          const displayName =
+            user.user_metadata?.full_name ||
+            user.user_metadata?.name ||
+            user.email?.split("@")[0] ||
+            "User";
+
+          setUserProfileState((prev) => ({
+            ...prev,
+            name: displayName,
+            email: user.email || prev.email,
+          }));
+        } else if (event === "SIGNED_OUT") {
+          setIsAuthenticated(false);
+          setUserProfileState(DEFAULT_USER_PROFILE);
+          localStorage.removeItem("sf_userProfile");
+        }
+      });
+
+      return () => {
+        subscription.unsubscribe();
+      };
+    } catch {
+      // Supabase client initialization fallback
+    }
+  }, []);
+
+  const signOut = useCallback(async () => {
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      setIsAuthenticated(false);
+      setUserProfileState(DEFAULT_USER_PROFILE);
+      localStorage.removeItem("sf_userProfile");
+      window.location.href = "/";
+    } catch (err) {
+      console.error("Sign out error:", err);
+    }
+  }, []);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -1100,6 +1175,8 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         markNotificationAsRead,
         clearAllNotifications,
         resetToDefaults,
+        isAuthenticated,
+        signOut,
 
         // Real Resume & Job Actions
         uploadAndAnalyzeResume,
@@ -1121,5 +1198,4 @@ export function useCareer() {
   if (!context) {
     throw new Error("useCareer must be used within a CareerProvider");
   }
-  return context;
-}
+  return cont

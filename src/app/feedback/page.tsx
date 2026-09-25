@@ -110,7 +110,7 @@ export default function RejectionAnalysisPage() {
               <Badge variant="rose" size="sm">Direct Feedback</Badge>
             </div>
             <p className="text-xs text-pearl-primary italic leading-relaxed">
-              "{feedback.employerFeedbackText}"
+              &quot;{feedback.employerFeedbackText}&quot;
             </p>
           </div>
         )}

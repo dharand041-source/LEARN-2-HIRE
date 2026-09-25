@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -30,41 +30,41 @@ interface SidebarProps {
   onClose: () => void;
 }
 
-export function Sidebar({ isOpen, onClose }: SidebarProps) {
+const PRIMARY_NAV_SECTIONS = [
+  {
+    group: "Core Progression",
+    items: [
+      { label: "Dashboard", href: "/", icon: LayoutDashboard },
+      { label: "Career Discovery", href: "/onboarding", icon: Compass },
+      { label: "Technical Assessment", href: "/assessment", icon: CheckSquare },
+      { label: "Personalized Learning", href: "/learning", icon: BookOpen },
+      { label: "Advanced Assessment", href: "/advanced-assessment", icon: ShieldAlert },
+      { label: "Real-World Projects", href: "/projects", icon: FolderGit2 },
+      { label: "Problem Solving", href: "/problem-solving", icon: Code2 },
+    ],
+  },
+  {
+    group: "Career & Employment",
+    items: [
+      { label: "Interview Simulation", href: "/interview", icon: Mic },
+      { label: "Resume & ATS Engine", href: "/resume", icon: FileText },
+      { label: "Matching Opportunities", href: "/opportunities", icon: Briefcase },
+      { label: "Application Tracker", href: "/applications", icon: Kanban },
+      { label: "Rejection & Retraining", href: "/feedback", icon: TrendingUp },
+    ],
+  },
+  {
+    group: "Candidate Profile",
+    items: [
+      { label: "Profile & Portfolio", href: "/profile", icon: User },
+      { label: "System Settings", href: "/settings", icon: Settings },
+    ],
+  },
+] as const;
+
+function SidebarComponent({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { userProfile, selectedRole } = useCareer();
-
-  const primaryNavSections = [
-    {
-      group: "Core Progression",
-      items: [
-        { label: "Dashboard", href: "/", icon: LayoutDashboard },
-        { label: "Career Discovery", href: "/onboarding", icon: Compass },
-        { label: "Technical Assessment", href: "/assessment", icon: CheckSquare },
-        { label: "Personalized Learning", href: "/learning", icon: BookOpen },
-        { label: "Advanced Assessment", href: "/advanced-assessment", icon: ShieldAlert },
-        { label: "Real-World Projects", href: "/projects", icon: FolderGit2 },
-        { label: "Problem Solving", href: "/problem-solving", icon: Code2 },
-      ],
-    },
-    {
-      group: "Career & Employment",
-      items: [
-        { label: "Interview Simulation", href: "/interview", icon: Mic },
-        { label: "Resume & ATS Engine", href: "/resume", icon: FileText },
-        { label: "Matching Opportunities", href: "/opportunities", icon: Briefcase },
-        { label: "Application Tracker", href: "/applications", icon: Kanban },
-        { label: "Rejection & Retraining", href: "/feedback", icon: TrendingUp },
-      ],
-    },
-    {
-      group: "Candidate Profile",
-      items: [
-        { label: "Profile & Portfolio", href: "/profile", icon: User },
-        { label: "System Settings", href: "/settings", icon: Settings },
-      ],
-    },
-  ];
 
   const renderNavContent = () => (
     <div className="w-80 flex flex-col h-full overflow-hidden shrink-0 select-none bg-white">
@@ -85,7 +85,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       {/* Navigation Links */}
       <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5 bg-white">
-        {primaryNavSections.map((section, idx) => (
+        {PRIMARY_NAV_SECTIONS.map((section, idx) => (
           <div key={idx} className="space-y-1">
             <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-muted">
               {section.group}
@@ -98,6 +98,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                   <Link
                     key={item.href}
                     href={item.href}
+                    prefetch={true}
                     onClick={onClose}
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 text-xs font-medium rounded-md transition-all duration-150",
@@ -188,3 +189,5 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     </>
   );
 }
+
+export const Sidebar = memo(SidebarComponent);
