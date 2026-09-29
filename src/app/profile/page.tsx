@@ -52,7 +52,7 @@ export default function CandidateProfilePage() {
               <div className="flex flex-wrap items-center gap-3 text-xs text-pearl-muted pt-1">
                 <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-champagne" /> {userProfile.email}</span>
                 <span>•</span>
-                <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-champagne" /> Bengaluru / Chennai</span>
+                <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-champagne" /> {resumeData.personalInfo.location || "India"}</span>
                 <span>•</span>
                 <span className="flex items-center gap-1 font-mono text-champagne"><Flame className="w-3.5 h-3.5 text-amber-400" /> {userProfile.streakDays}-Day Streak</span>
               </div>

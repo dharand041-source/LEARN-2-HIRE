@@ -86,7 +86,7 @@ export interface LearningModule {
   progress: number; // 0 to 100
   difficulty: "Foundational" | "Intermediate" | "Advanced";
   estimatedTime: string;
-  status: "Completed" | "In Progress" | "Locked" | "Recommended";
+  status: "Completed" | "In Progress" | "Locked" | "Recommended" | "Not Started";
   skillsCovered: string[];
   resources: LearningResource[];
   topics: {

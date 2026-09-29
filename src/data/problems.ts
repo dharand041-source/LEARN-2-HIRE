@@ -8,7 +8,7 @@ export const PROBLEM_ITEMS: ProblemItem[] = [
     category: "Programming",
     difficulty: "Easy",
     xp: 50,
-    solved: true,
+    solved: false,
     tags: ["Array", "Hash Table", "Two Pointers"],
     description: "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
     examples: [
@@ -25,7 +25,7 @@ export const PROBLEM_ITEMS: ProblemItem[] = [
     category: "Algorithms",
     difficulty: "Medium",
     xp: 100,
-    solved: true,
+    solved: false,
     tags: ["Sliding Window", "String", "Hash Set"],
     description: "Given a string `s`, find the length of the longest substring without repeating characters.",
     examples: [
@@ -74,7 +74,7 @@ export const PROBLEM_ITEMS: ProblemItem[] = [
     category: "Logical Reasoning",
     difficulty: "Medium",
     xp: 75,
-    solved: true,
+    solved: false,
     tags: ["DAG", "Topological Sort", "Critical Path", "Logic"],
     description: "Tasks A through F have dependencies: A -> B (2d), A -> C (3d), B -> D (4d), C -> D (2d), D -> E (1d), C -> F (5d). What is the minimum duration required to complete all tasks, and which tasks form the critical path?",
     examples: [
@@ -90,7 +90,7 @@ export const PROBLEM_ITEMS: ProblemItem[] = [
     category: "Aptitude",
     difficulty: "Easy",
     xp: 60,
-    solved: true,
+    solved: false,
     tags: ["Math", "Ratios", "Systems Math", "Probability"],
     description: "A distributed microservice receives 24,000 requests per minute. Each server node can handle 250 requests per second with 99% CPU utilization. To maintain a safety buffer of at most 70% CPU utilization, what is the minimum number of worker nodes required?",
     examples: [

@@ -20,7 +20,34 @@ import { getScoreColor } from "@/lib/constants";
 
 export default function InterviewResultsPage() {
   const { interviewSessions } = useCareer();
-  const session = interviewSessions[0] || RECENT_INTERVIEW_RESULT;
+  const session = interviewSessions[0];
+
+  if (!session) {
+    return (
+      <div className="max-w-4xl w-full mx-auto py-16 px-4 text-center space-y-6 animate-fade-in bg-white">
+        <div className="w-16 h-16 rounded-2xl bg-surface-subtle border border-border flex items-center justify-center mx-auto text-imperial">
+          <Mic className="w-8 h-8" />
+        </div>
+        <div className="space-y-2">
+          <Badge variant="imperial" size="sm">Phase 10 Voice Defense</Badge>
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-night uppercase tracking-tight">
+            No Interview Sessions Yet
+          </h1>
+          <p className="text-sm text-muted max-w-lg mx-auto">
+            Rehearse technical architecture and behavioral questions in a realistic voice simulation with audio waveforms, pacing analysis, and STAR critique.
+          </p>
+        </div>
+        <div className="pt-2">
+          <Link href="/interview">
+            <Button size="lg" className="gap-2 font-bold shadow-sm">
+              <span>Start Voice Interview Simulation</span>
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

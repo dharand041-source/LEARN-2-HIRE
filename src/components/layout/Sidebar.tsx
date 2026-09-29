@@ -79,7 +79,9 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
         <ProgressBar value={userProfile.readinessScore} size="sm" variant="imperial" />
         <div className="mt-2 flex items-center justify-between text-[11px]">
           <span className="truncate max-w-[140px] text-night font-semibold">{selectedRole.title}</span>
-          <span className="text-imperial text-[10px] font-bold uppercase tracking-wider">Gap: SQL</span>
+          <span className="text-imperial text-[10px] font-bold uppercase tracking-wider truncate max-w-[110px]">
+            {userProfile.focusArea ? `Gap: ${userProfile.focusArea.split('&')[0].trim()}` : "Not Assessed"}
+          </span>
         </div>
       </div>
 

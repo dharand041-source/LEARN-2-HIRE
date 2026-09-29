@@ -35,6 +35,38 @@ export async function getProfile(userId: string) {
   return { data, error };
 }
 
+export async function getOrCreateProfile(userId: string, defaultData?: Partial<ProfileData>) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
+
+  if (data) {
+    return { data, error: null };
+  }
+
+  const newProfile = {
+    id: userId,
+    full_name: defaultData?.full_name || "",
+    email: defaultData?.email || "",
+    selected_role: defaultData?.selected_role || "",
+    experience_level: defaultData?.experience_level || "Entry Level",
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    ...defaultData,
+  };
+
+  const { data: createdData, error: createError } = await supabase
+    .from("profiles")
+    .upsert(newProfile, { onConflict: "id" })
+    .select()
+    .single();
+
+  return { data: createdData, error: createError };
+}
+
 export async function updateProfile(userId: string, updates: Partial<ProfileData>) {
   const supabase = createClient();
   const { data, error } = await supabase

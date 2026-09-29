@@ -22,9 +22,45 @@ import { ProgressBar } from "@/components/ui/ProgressBar";
 import { CAREER_ROLES } from "@/data/careers";
 
 export default function DashboardPage() {
-  const { userProfile, selectedRole, selectRole } = useCareer();
+  const {
+    userProfile,
+    selectedRole,
+    selectRole,
+    assessmentResult,
+    learningModules,
+    projects,
+    interviewSessions,
+    liveJobMatches,
+    atsAnalysis,
+  } = useCareer();
   const [, setActiveStepTab] = useState(0);
   const [previewRole, setPreviewRole] = useState(selectedRole);
+
+  const completedModules = learningModules.filter((m) => m.status === "Completed").length;
+  const completedProjects = projects.filter((p) => p.status === "Completed");
+
+  const assessmentScoreStr = assessmentResult ? `${assessmentResult.score}/100` : "Not Started";
+  const gapAnalysisStr = userProfile.focusArea
+    ? `Gap: ${userProfile.focusArea.split('&')[0].trim()}`
+    : assessmentResult
+    ? "Gaps Diagnosed"
+    : "Pending Assessment";
+  const learningProgressStr =
+    learningModules.length > 0 && completedModules > 0
+      ? `${Math.round((completedModules / learningModules.length) * 100)}% Complete`
+      : "0% Complete";
+  const capstoneScoreStr =
+    completedProjects.length > 0 && completedProjects[0].evaluation?.overallScore
+      ? `${completedProjects[0].evaluation.overallScore}/100 Evaluated`
+      : completedProjects.length > 0
+      ? `${completedProjects.length} Verified`
+      : "0 Projects";
+  const voiceScoreStr =
+    interviewSessions.length > 0 && interviewSessions[0].overallScore
+      ? `${interviewSessions[0].overallScore}/100 Ready`
+      : "Not Practiced";
+  const topMatchStr =
+    liveJobMatches.length > 0 ? `${liveJobMatches[0].matchScore}% Top Match` : "Pending Analysis";
 
   const journeySteps = [
     {
@@ -135,12 +171,12 @@ export default function DashboardPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 relative">
             {[
-              { title: "1. Assessment", sub: "10-question diagnostic", icon: CheckSquare, score: "72/100", route: "/assessment" },
-              { title: "2. Gap Analysis", sub: "Targeted blindspots", icon: TrendingUp, score: "SQL Gap Found", route: "/assessment/results" },
-              { title: "3. Learning Track", sub: "NPTEL / IIT modules", icon: BookOpen, score: "58% Complete", route: "/learning" },
-              { title: "4. Capstone Build", sub: "Escrow & SaaS build", icon: FolderGit2, score: "92/100 Evaluated", route: "/projects" },
-              { title: "5. Voice Defense", sub: "STAR & architecture", icon: Mic, score: "77/100 Ready", route: "/interview" },
-              { title: "6. Match Engine", sub: "Direct applications", icon: Briefcase, score: "91% Top Match", route: "/opportunities" },
+              { title: "1. Assessment", sub: "10-question diagnostic", icon: CheckSquare, score: assessmentScoreStr, route: "/assessment" },
+              { title: "2. Gap Analysis", sub: "Targeted blindspots", icon: TrendingUp, score: gapAnalysisStr, route: "/assessment/results" },
+              { title: "3. Learning Track", sub: "NPTEL / IIT modules", icon: BookOpen, score: learningProgressStr, route: "/learning" },
+              { title: "4. Capstone Build", sub: "Production-grade apps", icon: FolderGit2, score: capstoneScoreStr, route: "/projects" },
+              { title: "5. Voice Defense", sub: "STAR & architecture", icon: Mic, score: voiceScoreStr, route: "/interview" },
+              { title: "6. Match Engine", sub: "Direct applications", icon: Briefcase, score: topMatchStr, route: "/opportunities" },
             ].map((node, i) => {
               const Icon = node.icon;
               return (
@@ -162,8 +198,8 @@ export default function DashboardPage() {
                     <p className="text-[11px] text-muted mt-0.5">{node.sub}</p>
                   </div>
                   <div className="mt-3 pt-2.5 border-t border-border flex items-center justify-between">
-                    <span className="text-[10px] text-imperial font-mono font-bold">{node.score}</span>
-                    <ChevronRight className="w-3 h-3 text-muted group-hover:text-imperial group-hover:translate-x-0.5 transition-all" />
+                    <span className="text-[10px] text-imperial font-mono font-bold truncate max-w-[100px]">{node.score}</span>
+                    <ChevronRight className="w-3 h-3 text-muted group-hover:text-imperial group-hover:translate-x-0.5 transition-all shrink-0" />
                   </div>
                 </Link>
               );
@@ -293,7 +329,9 @@ export default function DashboardPage() {
                   <span className="text-3xl font-extrabold font-mono text-imperial">
                     {userProfile.readinessScore}%
                   </span>
-                  <p className="text-[10px] text-white/70 font-semibold uppercase tracking-wider">Verified State</p>
+                  <p className="text-[10px] text-white/70 font-semibold uppercase tracking-wider">
+                    {userProfile.readinessScore > 0 ? "Verified State" : "Unverified"}
+                  </p>
                 </div>
               </div>
 
@@ -336,11 +374,15 @@ export default function DashboardPage() {
               <div className="pt-3 border-t border-white/15 grid grid-cols-2 gap-2 text-xs">
                 <div className="flex items-center gap-2 text-white/90">
                   <Check className="w-3.5 h-3.5 text-imperial" />
-                  <span className="font-medium">2 Verified Capstones</span>
+                  <span className="font-medium">
+                    {completedProjects.length > 0 ? `${completedProjects.length} Verified Capstones` : "0 Capstones Completed"}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90">
                   <Check className="w-3.5 h-3.5 text-imperial" />
-                  <span className="font-medium">91% ATS Resume Match</span>
+                  <span className="font-medium">
+                    {atsAnalysis ? `${atsAnalysis.overallScore}% ATS Resume Match` : "Resume Not Analyzed"}
+                  </span>
                 </div>
               </div>
             </div>

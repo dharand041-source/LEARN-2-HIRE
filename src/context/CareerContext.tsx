@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   UserProfile,
   CareerRole,
@@ -24,7 +24,6 @@ import {
   ApplicationRecord,
 } from "@/types";
 import { CAREER_ROLES } from "@/data/careers";
-import { INITIAL_ASSESSMENT_QUESTIONS } from "@/data/assessments";
 import {
   getQuestionsForRole,
   calculateDynamicAssessmentResult,
@@ -33,15 +32,45 @@ import {
 import { LEARNING_MODULES } from "@/data/learning";
 import { REAL_WORLD_PROJECTS } from "@/data/projects";
 import { PROBLEM_ITEMS } from "@/data/problems";
-import { RECENT_INTERVIEW_RESULT } from "@/data/interviews";
-import { INITIAL_RESUME_DATA, MOCK_RESUME_ANALYSIS } from "@/data/resume";
+import { EMPTY_RESUME_DATA, EMPTY_RESUME_ANALYSIS } from "@/data/resume";
 import { TECH_OPPORTUNITIES } from "@/data/opportunities";
-import { INITIAL_APPLICATIONS } from "@/data/applications";
 import { ACHIEVEMENTS_LIST } from "@/data/achievements";
 import { parseResumeText } from "@/services/resumeParser";
 import { analyzeResumeATS } from "@/services/atsScorer";
 import { evaluateJobMatch } from "@/services/jobMatching";
 import { createClient } from "@/lib/supabase/client";
+
+// Supabase Data Services
+import {
+  getOrCreateProfile,
+  updateProfile,
+} from "@/lib/services/profile-service";
+import {
+  createAssessmentAttempt,
+  recordAssessmentAnswer,
+  completeAssessmentAttempt,
+  getUserAssessmentHistory,
+} from "@/lib/services/assessment-service";
+import {
+  getUserApplications,
+  trackJobRedirection,
+  updateApplicationStatus as updateAppStatusDB,
+} from "@/lib/services/application-service";
+import {
+  getUserLearningProgress,
+  updateLearningLessonProgress,
+} from "@/lib/services/learning-service";
+import {
+  saveInterviewSession,
+  getUserInterviewSessions,
+} from "@/lib/services/interview-service";
+import {
+  getUserProjects,
+  saveUserProject,
+} from "@/lib/services/project-service";
+import {
+  getUserResumes,
+} from "@/lib/services/resume-service";
 
 export interface NotificationItem {
   id: string;
@@ -155,6 +184,26 @@ export function jobMatchToOpportunity(match: JobMatchResult): OpportunityItem {
   };
 }
 
+export const ZERO_USER_PROFILE: UserProfile = {
+  name: "Learner",
+  email: "",
+  targetRole: "Full Stack Developer",
+  targetCategory: "Software Development & Engineering",
+  readinessScore: 0,
+  xp: 0,
+  streakDays: 0,
+  selectedLanguage: "en",
+  readinessBreakdown: {
+    technicalSkills: 0,
+    projects: 0,
+    problemSolving: 0,
+    interview: 0,
+    resume: 0,
+    careerFit: 0,
+  },
+  focusArea: "",
+};
+
 interface CareerContextType {
   userProfile: UserProfile;
   selectedRole: CareerRole;
@@ -218,121 +267,27 @@ interface CareerContextType {
   confirmExternalApplied: (jobId: string) => void;
 }
 
-const DEFAULT_USER_PROFILE: UserProfile = {
-  name: "Candidate",
-  email: "",
-  targetRole: "Full Stack Developer",
-  targetCategory: "Software Development & Engineering",
-  readinessScore: 76,
-  xp: 1450,
-  streakDays: 7,
-  selectedLanguage: "en",
-  readinessBreakdown: {
-    technicalSkills: 78,
-    projects: 85,
-    problemSolving: 72,
-    interview: 77,
-    resume: 84,
-    careerFit: 88,
-  },
-  focusArea: "SQL & Backend Query Optimization",
-};
-
-const DEFAULT_ASSESSMENT_RESULT: AssessmentResult = {
-  score: 72,
-  totalQuestions: 10,
-  completedAt: "2026-09-18",
-  roleId: "full-stack-dev",
-  roleTitle: "Full Stack Developer",
-  skillBreakdown: [
-    { skill: "JavaScript", score: 82, status: "Strong" },
-    { skill: "React & Next.js", score: 76, status: "Strong" },
-    { skill: "Node.js & Express", score: 61, status: "Moderate" },
-    { skill: "PostgreSQL & SQL", score: 48, status: "Needs Improvement" },
-    { skill: "Git & CI/CD", score: 88, status: "Strong" },
-    { skill: "REST & APIs", score: 69, status: "Moderate" },
-  ],
-  strongAreas: [
-    "Git & branching workflows (88%)",
-    "JavaScript asynchronous microtask loop (82%)",
-    "React state hooks & Server Component separation (76%)",
-  ],
-  needsImprovement: [
-    "SQL composite indexing, execution plans & query tuning (48%)",
-    "Node.js streams & memory leak prevention (61%)",
-    "REST cursor-based pagination & error envelope contracts (69%)",
-  ],
-  recommendations: [
-    "Complete the 'Relational Databases & PostgreSQL Query Optimization' learning module.",
-    "Solve the 3 recommended SQL & Debugging algorithmic problems.",
-    "Practice database transaction lock questions in the Voice Interview simulator.",
-  ],
-};
-
-const INITIAL_NOTIFICATIONS: NotificationItem[] = [
-  {
-    id: "notif-1",
-    title: "Application Assessment Received",
-    message: "Swiggy Core Logistics sent you an online technical assessment link.",
-    timestamp: "2 hours ago",
-    read: false,
-    type: "info",
-    link: "/applications",
-  },
-  {
-    id: "notif-2",
-    title: "Project Evaluation Completed",
-    message: "Warehouse Inventory SaaS scored 92/100! Your readiness increased by +4%.",
-    timestamp: "1 day ago",
-    read: false,
-    type: "success",
-    link: "/projects/proj-inventory-saas/evaluation",
-  },
-  {
-    id: "notif-3",
-    title: "Rejection Outcome Analysis Ready",
-    message: "Actionable retraining plan generated for Karya AI Founding Engineer application.",
-    timestamp: "3 days ago",
-    read: true,
-    type: "warning",
-    link: "/feedback",
-  },
-  {
-    id: "notif-4",
-    title: "Achievement Unlocked: 7-Day Streak",
-    message: "You earned +150 XP for consistent daily practice!",
-    timestamp: "Today",
-    read: true,
-    type: "achievement",
-    link: "/profile",
-  },
-];
-
 const CareerContext = createContext<CareerContextType | undefined>(undefined);
 
 export function CareerProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
-  // Core State
-  const [userProfile, setUserProfileState] = useState<UserProfile>(DEFAULT_USER_PROFILE);
+  // Core State initialized to CLEAN ZERO baseline
+  const [userProfile, setUserProfileState] = useState<UserProfile>(ZERO_USER_PROFILE);
   const [selectedRoleId, setSelectedRoleId] = useState<string>("full-stack-dev");
-  const [assessmentResult, setAssessmentResult] = useState<AssessmentResult | null>(DEFAULT_ASSESSMENT_RESULT);
-  const [assessmentAnswers, setAssessmentAnswers] = useState<Record<string, string>>({
-    q1: "opt_a",
-    q2: "opt_b",
-    q5: "opt_a",
-    q6: "opt_a",
-  });
+  const [assessmentResult, setAssessmentResult] = useState<AssessmentResult | null>(null);
+  const [assessmentAnswers, setAssessmentAnswers] = useState<Record<string, string>>({});
   const [learningModules, setLearningModules] = useState<LearningModule[]>(LEARNING_MODULES);
   const [projects, setProjects] = useState<ProjectItem[]>(REAL_WORLD_PROJECTS);
   const [problems, setProblems] = useState<ProblemItem[]>(PROBLEM_ITEMS);
-  const [interviewSessions, setInterviewSessions] = useState<InterviewSession[]>([RECENT_INTERVIEW_RESULT]);
-  const [resumeData, setResumeData] = useState<ResumeData>(INITIAL_RESUME_DATA);
-  const [resumeAnalysis, setResumeAnalysis] = useState<ResumeAnalysisResult>(MOCK_RESUME_ANALYSIS);
+  const [interviewSessions, setInterviewSessions] = useState<InterviewSession[]>([]);
+  const [resumeData, setResumeData] = useState<ResumeData>(EMPTY_RESUME_DATA);
+  const [resumeAnalysis, setResumeAnalysis] = useState<ResumeAnalysisResult>(EMPTY_RESUME_ANALYSIS);
   const [opportunities, setOpportunities] = useState<OpportunityItem[]>(TECH_OPPORTUNITIES);
-  const [applications, setApplications] = useState<ApplicationItem[]>(INITIAL_APPLICATIONS);
+  const [applications, setApplications] = useState<ApplicationItem[]>([]);
   const [achievements, setAchievements] = useState<AchievementItem[]>(ACHIEVEMENTS_LIST);
-  const [notifications, setNotifications] = useState<NotificationItem[]>(INITIAL_NOTIFICATIONS);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
 
   // Real Resume & Job Matching States
   const [parsedResume, setParsedResume] = useState<ParsedResume | null>(null);
@@ -346,53 +301,313 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
   const [pendingApplyJob, setPendingApplyJob] = useState<JobListing | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  // Sync Supabase Authentication with UserProfile
+  // Ref to avoid race conditions during data loading
+  const loadingUserRef = useRef<string | null>(null);
+
+  // Idempotent data loader that retrieves authentic Supabase records for auth.users.id
+  const loadUserData = useCallback(async (userId: string, displayName: string, email: string) => {
+    if (loadingUserRef.current === userId) return;
+    loadingUserRef.current = userId;
+
+    try {
+      // 1. Load or initialize user profile in Supabase
+      const { data: profile } = await getOrCreateProfile(userId, {
+        full_name: displayName,
+        email: email,
+        selected_role: "Full Stack Developer",
+        experience_level: "Entry Level",
+      });
+
+      if (profile) {
+        const roleMatch = CAREER_ROLES.find(
+          (r) => r.title.toLowerCase() === (profile.selected_role || "").toLowerCase()
+        );
+        if (roleMatch) {
+          setSelectedRoleId(roleMatch.id);
+        }
+
+        setUserProfileState((prev) => ({
+          ...prev,
+          name: profile.full_name || displayName,
+          email: profile.email || email,
+          targetRole: profile.selected_role || prev.targetRole,
+        }));
+      }
+
+      // 2. Load Assessment History from Supabase
+      const { data: attempts } = await getUserAssessmentHistory(userId);
+      if (attempts && attempts.length > 0) {
+        // Filter for completed attempts
+        const completedAttempts = attempts.filter((a: any) => a.status === "completed");
+        if (completedAttempts.length > 0) {
+          const latest = completedAttempts[0];
+          const skillResults: any[] = latest.assessment_skill_results || [];
+
+          const skillBreakdown: { skill: string; score: number; status: "Needs Improvement" | "Strong" | "Moderate" }[] = skillResults.map((sr) => ({
+            skill: String(sr.skill || "Technical Competency"),
+            score: Number(sr.score),
+            status: (sr.score >= 80 ? "Strong" : sr.score >= 60 ? "Moderate" : "Needs Improvement") as "Strong" | "Moderate" | "Needs Improvement",
+          }));
+
+          // Sort skills to detect focus areas (lowest scoring)
+          const sortedSkills = [...skillBreakdown].sort((a, b) => a.score - b.score);
+          const focusSkill = sortedSkills.length > 0 && sortedSkills[0].score < 75 ? sortedSkills[0].skill : "";
+
+          const rebuiltResult: AssessmentResult = {
+            score: Number(latest.score),
+            totalQuestions: latest.total_questions || 10,
+            completedAt: latest.completed_at ? latest.completed_at.split("T")[0] : new Date().toISOString().split("T")[0],
+            roleId: latest.role,
+            roleTitle: CAREER_ROLES.find((r) => r.id === latest.role)?.title || latest.role,
+            skillBreakdown,
+            strongAreas: skillBreakdown.filter((s) => s.score >= 75).map((s) => `${s.skill} (${s.score}%)`),
+            needsImprovement: skillBreakdown.filter((s) => s.score < 75).map((s) => `${s.skill} (${s.score}%)`),
+            recommendations: [
+              `Complete technical lessons targeting ${focusSkill || "core competencies"}.`,
+              "Re-test periodically to track readiness progression.",
+            ],
+          };
+
+          setAssessmentResult(rebuiltResult);
+          setUserProfileState((prev) => ({
+            ...prev,
+            readinessScore: Number(latest.score),
+            focusArea: focusSkill ? `${focusSkill} Foundations` : "",
+            readinessBreakdown: {
+              ...prev.readinessBreakdown,
+              technicalSkills: Number(latest.score),
+            },
+          }));
+        }
+      }
+
+      // 3. Load Applications from Supabase (strict database rows only)
+      const { data: dbApps } = await getUserApplications(userId);
+      if (dbApps && dbApps.length > 0) {
+        const mappedApps: ApplicationItem[] = dbApps.map((a: any) => {
+          const job = a.job_listings;
+          const statusFormatted = a.status
+            ? (a.status.charAt(0).toUpperCase() + a.status.slice(1)) as ApplicationStatus
+            : "Applied";
+
+          return {
+            id: a.id,
+            opportunityId: a.job_id || a.id,
+            company: job?.company || "External Company",
+            role: job?.title || "Role",
+            type: job?.opportunityType === "INTERNSHIP" ? "Internship" : job?.opportunityType === "STARTUP" ? "Startup" : "Job",
+            location: job?.location || "India",
+            status: statusFormatted,
+            appliedDate: a.applied_at ? a.applied_at.split("T")[0] : a.created_at ? a.created_at.split("T")[0] : "",
+            lastUpdated: a.updated_at ? a.updated_at.split("T")[0] : "",
+            salary: job?.salaryMin ? `₹${job.salaryMin.toLocaleString()}` : "Disclosed on Application",
+            matchScore: 85,
+            notes: a.notes || undefined,
+          };
+        });
+
+        const mappedRecords: ApplicationRecord[] = dbApps.map((a: any) => ({
+          id: a.id,
+          jobId: a.job_id || a.id,
+          title: a.job_listings?.title || "Role",
+          jobTitle: a.job_listings?.title || "Role",
+          company: a.job_listings?.company || "Company",
+          opportunityType: a.job_listings?.opportunityType || "Job",
+          source: a.job_listings?.source || "direct",
+          externalUrl: a.external_url || a.job_listings?.applicationUrl || "",
+          timestamp: a.created_at || new Date().toISOString(),
+          lastUpdated: a.updated_at || new Date().toISOString(),
+          status: a.status ? a.status.charAt(0).toUpperCase() + a.status.slice(1) : "Redirected",
+        }));
+
+        setApplications(mappedApps);
+        setApplicationRecords(mappedRecords);
+      } else {
+        // Zero records in Supabase = Clean empty state
+        setApplications([]);
+        setApplicationRecords([]);
+      }
+
+      // 4. Load User Projects from Supabase
+      const { data: dbProjects } = await getUserProjects(userId);
+      if (dbProjects && dbProjects.length > 0) {
+        setProjects((prev) =>
+          prev.map((catalogProj) => {
+            const userProj = dbProjects.find(
+              (p) => p.title.toLowerCase() === catalogProj.title.toLowerCase() || p.id === catalogProj.id
+            );
+            if (userProj) {
+              return {
+                ...catalogProj,
+                status: userProj.status,
+                progressPercentage: userProj.status === "Completed" ? 100 : userProj.status === "In Progress" ? 50 : 0,
+                repoUrl: userProj.github_url || undefined,
+                liveUrl: userProj.live_url || undefined,
+                evaluation: userProj.evaluation && Object.keys(userProj.evaluation).length > 0 ? userProj.evaluation : undefined,
+              };
+            }
+            return catalogProj;
+          })
+        );
+
+        const completedCount = dbProjects.filter((p) => p.status === "Completed").length;
+        if (completedCount > 0) {
+          setUserProfileState((prev) => ({
+            ...prev,
+            readinessBreakdown: {
+              ...prev.readinessBreakdown,
+              projects: Math.min(95, completedCount * 45),
+            },
+          }));
+        }
+      }
+
+      // 5. Load User Learning Progress from Supabase
+      const { data: dbProgress } = await getUserLearningProgress(userId);
+      if (dbProgress && dbProgress.length > 0) {
+        setLearningModules((prev) =>
+          prev.map((mod) => {
+            const courseProgress = dbProgress.filter((p: any) => p.course_id === mod.id);
+            if (courseProgress.length > 0) {
+              const updatedTopics = mod.topics.map((t) => {
+                const topicProgress = courseProgress.find((p: any) => p.lesson_id === t.id);
+                return {
+                  ...t,
+                  completed: topicProgress?.status === "completed",
+                };
+              });
+              const doneCount = updatedTopics.filter((t) => t.completed).length;
+              const pct = Math.round((doneCount / updatedTopics.length) * 100);
+              return {
+                ...mod,
+                topics: updatedTopics,
+                progress: pct,
+                status: pct === 100 ? "Completed" : pct > 0 ? "In Progress" : "Not Started",
+              };
+            }
+            return mod;
+          })
+        );
+      }
+
+      // 6. Load Interview Sessions from Supabase
+      const { data: dbInterviews } = await getUserInterviewSessions(userId);
+      if (dbInterviews && dbInterviews.length > 0) {
+        const mappedInterviews: InterviewSession[] = dbInterviews.map((iv: any) => ({
+          id: iv.id,
+          roleId: iv.role_id || "full-stack-dev",
+          type: (iv.interview_type || "Technical Interview") as InterviewSession["type"],
+          durationMinutes: iv.duration_minutes || 25,
+          conductedAt: iv.conducted_at ? iv.conducted_at.split("T")[0] : new Date().toISOString().split("T")[0],
+          overallScore: Number(iv.overall_score),
+          scores: {
+            technicalKnowledge: Number(iv.technical_score) || 75,
+            problemSolving: Number(iv.problem_solving_score) || 75,
+            communication: Number(iv.communication_score) || 75,
+            answerStructure: Number(iv.answer_structure_score) || 75,
+            projectExplanation: 80,
+          },
+          questionsAsked: Array.isArray(iv.interview_answers)
+            ? iv.interview_answers.map((ans: any) => ({
+                question: ans.question_text || "",
+                candidateAnswer: ans.answer_transcript || "",
+                critique: ans.feedback || "",
+                idealPoints: ans.ideal_points || [],
+              }))
+            : [],
+          whatWentWell: iv.what_went_well || [],
+          whatToImprove: iv.what_to_improve || [],
+          recommendedPractice: iv.recommended_practice || [],
+        }));
+
+        setInterviewSessions(mappedInterviews);
+        setUserProfileState((prev) => ({
+          ...prev,
+          readinessBreakdown: {
+            ...prev.readinessBreakdown,
+            interview: Number(dbInterviews[0].overall_score),
+          },
+        }));
+      }
+
+      // 7. Load User Resumes from Supabase
+      const { data: dbResumes } = await getUserResumes(userId);
+      if (dbResumes && dbResumes.length > 0) {
+        const latestResume = dbResumes[0];
+        if (latestResume.parsed_data && Object.keys(latestResume.parsed_data).length > 0) {
+          setParsedResume(latestResume.parsed_data as ParsedResume);
+        }
+        if (latestResume.ats_score) {
+          setUserProfileState((prev) => ({
+            ...prev,
+            readinessBreakdown: {
+              ...prev.readinessBreakdown,
+              resume: Number(latestResume.ats_score),
+            },
+          }));
+        }
+      }
+    } catch (err) {
+      console.warn("loadUserData error:", err);
+    } finally {
+      loadingUserRef.current = null;
+    }
+  }, []);
+
+  // Sync Supabase Authentication with UserProfile & strictly query user-isolated data
   useEffect(() => {
     try {
       const supabase = createClient();
 
-      // 1. Check current logged-in user
+      // Check active session
       supabase.auth.getUser().then(({ data: { user } }) => {
         if (user) {
           setIsAuthenticated(true);
+          setCurrentUserId(user.id);
           const displayName =
             user.user_metadata?.full_name ||
             user.user_metadata?.name ||
             user.email?.split("@")[0] ||
-            "User";
+            "Candidate";
 
-          setUserProfileState((prev) => ({
-            ...prev,
-            name: displayName,
-            email: user.email || prev.email,
-          }));
+          loadUserData(user.id, displayName, user.email || "");
         } else {
           setIsAuthenticated(false);
+          setCurrentUserId(null);
         }
       });
 
-      // 2. Subscribe to auth events (SIGN_IN, SIGN_OUT, USER_UPDATED)
+      // Subscribe to auth state changes
       const {
         data: { subscription },
       } = supabase.auth.onAuthStateChange((event, session) => {
         if (session?.user) {
           setIsAuthenticated(true);
-          const user = session.user;
+          setCurrentUserId(session.user.id);
           const displayName =
-            user.user_metadata?.full_name ||
-            user.user_metadata?.name ||
-            user.email?.split("@")[0] ||
-            "User";
+            session.user.user_metadata?.full_name ||
+            session.user.user_metadata?.name ||
+            session.user.email?.split("@")[0] ||
+            "Candidate";
 
-          setUserProfileState((prev) => ({
-            ...prev,
-            name: displayName,
-            email: user.email || prev.email,
-          }));
+          loadUserData(session.user.id, displayName, session.user.email || "");
         } else if (event === "SIGNED_OUT") {
           setIsAuthenticated(false);
-          setUserProfileState(DEFAULT_USER_PROFILE);
-          localStorage.removeItem("sf_userProfile");
+          setCurrentUserId(null);
+          setUserProfileState(ZERO_USER_PROFILE);
+          setAssessmentResult(null);
+          setAssessmentAnswers({});
+          setApplications([]);
+          setApplicationRecords([]);
+          setInterviewSessions([]);
+          setResumeData(EMPTY_RESUME_DATA);
+          setResumeAnalysis(EMPTY_RESUME_ANALYSIS);
+          setParsedResume(null);
+          setAtsAnalysis(null);
+          setLiveJobMatches([]);
+          setProjects(REAL_WORLD_PROJECTS);
+          setLearningModules(LEARNING_MODULES);
+          setNotifications([]);
         }
       });
 
@@ -402,97 +617,27 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // Supabase client initialization fallback
     }
-  }, []);
+  }, [loadUserData]);
 
   const signOut = useCallback(async () => {
     try {
       const supabase = createClient();
       await supabase.auth.signOut();
       setIsAuthenticated(false);
-      setUserProfileState(DEFAULT_USER_PROFILE);
-      localStorage.removeItem("sf_userProfile");
+      setCurrentUserId(null);
+      setUserProfileState(ZERO_USER_PROFILE);
+      setAssessmentResult(null);
+      setApplications([]);
+      setApplicationRecords([]);
+      setInterviewSessions([]);
+      setResumeData(EMPTY_RESUME_DATA);
+      setResumeAnalysis(EMPTY_RESUME_ANALYSIS);
       window.location.href = "/login";
     } catch (err) {
       console.error("Sign out error:", err);
       window.location.href = "/login";
     }
   }, []);
-
-  // Load from localStorage on mount
-  useEffect(() => {
-    try {
-      const savedUser = localStorage.getItem("sf_userProfile");
-      if (savedUser) setUserProfileState(JSON.parse(savedUser));
-
-      const savedRole = localStorage.getItem("sf_selectedRoleId");
-      if (savedRole) setSelectedRoleId(savedRole);
-
-      const savedAssess = localStorage.getItem("sf_assessmentResult");
-      if (savedAssess) setAssessmentResult(JSON.parse(savedAssess));
-
-      const savedModules = localStorage.getItem("sf_learningModules");
-      if (savedModules) setLearningModules(JSON.parse(savedModules));
-
-      const savedProjects = localStorage.getItem("sf_projects");
-      if (savedProjects) setProjects(JSON.parse(savedProjects));
-
-      const savedProblems = localStorage.getItem("sf_problems");
-      if (savedProblems) setProblems(JSON.parse(savedProblems));
-
-      const savedResume = localStorage.getItem("sf_resumeData");
-      if (savedResume) setResumeData(JSON.parse(savedResume));
-
-      const savedApps = localStorage.getItem("sf_applications");
-      if (savedApps) setApplications(JSON.parse(savedApps));
-
-      const savedParsedResume = localStorage.getItem("sf_parsedResume");
-      if (savedParsedResume) setParsedResume(JSON.parse(savedParsedResume));
-
-      const savedAtsAnalysis = localStorage.getItem("sf_atsAnalysis");
-      if (savedAtsAnalysis) setAtsAnalysis(JSON.parse(savedAtsAnalysis));
-
-      const savedAppRecords = localStorage.getItem("sf_applicationRecords");
-      if (savedAppRecords) setApplicationRecords(JSON.parse(savedAppRecords));
-    } catch {
-      // LocalStorage fallback
-    }
-    setMounted(true);
-  }, []);
-
-  // Save changes to localStorage
-  useEffect(() => {
-    if (!mounted) return;
-    try {
-      localStorage.setItem("sf_userProfile", JSON.stringify(userProfile));
-      localStorage.setItem("sf_selectedRoleId", selectedRoleId);
-      localStorage.setItem("sf_assessmentResult", JSON.stringify(assessmentResult));
-      localStorage.setItem("sf_learningModules", JSON.stringify(learningModules));
-      localStorage.setItem("sf_projects", JSON.stringify(projects));
-      localStorage.setItem("sf_problems", JSON.stringify(problems));
-      localStorage.setItem("sf_resumeData", JSON.stringify(resumeData));
-      localStorage.setItem("sf_applications", JSON.stringify(applications));
-      if (parsedResume) localStorage.setItem("sf_parsedResume", JSON.stringify(parsedResume));
-      if (atsAnalysis) localStorage.setItem("sf_atsAnalysis", JSON.stringify(atsAnalysis));
-      if (applicationRecords.length > 0) {
-        localStorage.setItem("sf_applicationRecords", JSON.stringify(applicationRecords));
-      }
-    } catch {
-      // Storage error silent catch
-    }
-  }, [
-    mounted,
-    userProfile,
-    selectedRoleId,
-    assessmentResult,
-    learningModules,
-    projects,
-    problems,
-    resumeData,
-    applications,
-    parsedResume,
-    atsAnalysis,
-    applicationRecords,
-  ]);
 
   const selectedRole = CAREER_ROLES.find((r) => r.id === selectedRoleId) || CAREER_ROLES[0];
 
@@ -505,8 +650,15 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         targetRole: r.title,
         targetCategory: r.category,
       }));
+
+      // Persist chosen career track to Supabase profile
+      if (currentUserId) {
+        updateProfile(currentUserId, { selected_role: r.title }).catch((err) =>
+          console.warn("Failed to persist selected role to Supabase:", err)
+        );
+      }
     }
-  }, []);
+  }, [currentUserId]);
 
   const setAssessmentAnswer = useCallback((questionId: string, optionId: string) => {
     setAssessmentAnswers((prev) => ({ ...prev, [questionId]: optionId }));
@@ -545,18 +697,77 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
     };
 
     setAssessmentResult(newResult);
+
+    // Calculate new overall readiness score
+    const newReadiness = userProfile.readinessScore === 0
+      ? dynamicResult.score
+      : Math.round((userProfile.readinessScore + dynamicResult.score) / 2);
+
+    const sortedSkills = [...dynamicResult.skillBreakdown].sort((a, b) => a.score - b.score);
+    const focusSkill = sortedSkills.length > 0 && sortedSkills[0].score < 75 ? sortedSkills[0].skill : "";
+
     setUserProfileState((prev) => ({
       ...prev,
-      readinessScore: Math.round((prev.readinessScore + dynamicResult.score) / 2),
+      readinessScore: newReadiness,
       xp: prev.xp + 250,
+      focusArea: focusSkill ? `${focusSkill} Foundations` : prev.focusArea,
       readinessBreakdown: {
         ...prev.readinessBreakdown,
         technicalSkills: dynamicResult.score,
       },
     }));
 
+    // Persist assessment attempt, answers, and results to Supabase for the authenticated user
+    if (currentUserId) {
+      (async () => {
+        try {
+          const { data: attempt } = await createAssessmentAttempt(
+            currentUserId,
+            selectedRole.id,
+            "initial"
+          );
+
+          if (attempt?.id) {
+            // Record answers
+            for (const q of questionsToUse) {
+              const selected = answers[q.id];
+              const isCorrect = selected === q.correctAnswer;
+              await recordAssessmentAnswer(attempt.id, {
+                question_id: q.id,
+                role: selectedRole.id,
+                skill: q.skill,
+                selected_answer: selected,
+                correct_answer: q.correctAnswer,
+                is_correct: isCorrect,
+              });
+            }
+
+            // Complete attempt and record skill breakdowns
+            await completeAssessmentAttempt(attempt.id, currentUserId, {
+              score: dynamicResult.score,
+              total_questions: dynamicResult.totalQuestions,
+              correct_answers: dynamicResult.correctCount,
+              skillBreakdowns: dynamicResult.skillBreakdown.map((sb) => ({
+                skill: sb.skill,
+                questions_attempted: 2,
+                correct_answers: sb.score >= 80 ? 2 : sb.score >= 50 ? 1 : 0,
+                score: sb.score,
+              })),
+            });
+
+            // Update user profile in Supabase
+            await updateProfile(currentUserId, {
+              selected_role: selectedRole.title,
+            });
+          }
+        } catch (dbErr) {
+          console.warn("Failed to persist assessment to Supabase:", dbErr);
+        }
+      })();
+    }
+
     return newResult;
-  }, [selectedRole.id, selectedRole.title]);
+  }, [selectedRole.id, selectedRole.title, userProfile.readinessScore, currentUserId]);
 
   const toggleTopicCompletion = useCallback((moduleId: string, topicId: string) => {
     setLearningModules((prev) =>
@@ -565,6 +776,19 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         const updatedTopics = mod.topics.map((t) => (t.id === topicId ? { ...t, completed: !t.completed } : t));
         const completedCount = updatedTopics.filter((t) => t.completed).length;
         const newProgress = Math.round((completedCount / updatedTopics.length) * 100);
+
+        // Persist lesson progress to Supabase
+        if (currentUserId) {
+          const targetTopic = updatedTopics.find((t) => t.id === topicId);
+          updateLearningLessonProgress(
+            currentUserId,
+            moduleId,
+            topicId,
+            newProgress,
+            targetTopic?.completed ? "completed" : "in_progress"
+          ).catch((e) => console.warn("Learning progress save error:", e));
+        }
+
         return {
           ...mod,
           topics: updatedTopics,
@@ -574,20 +798,26 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
       })
     );
     setUserProfileState((prev) => ({ ...prev, xp: prev.xp + 25 }));
-  }, []);
+  }, [currentUserId]);
 
   const completeModule = useCallback((moduleId: string) => {
     setLearningModules((prev) =>
-      prev.map((mod) =>
-        mod.id === moduleId
-          ? {
-              ...mod,
-              progress: 100,
-              status: "Completed",
-              topics: mod.topics.map((t) => ({ ...t, completed: true })),
-            }
-          : mod
-      )
+      prev.map((mod) => {
+        if (mod.id === moduleId) {
+          if (currentUserId) {
+            updateLearningLessonProgress(currentUserId, moduleId, "all", 100, "completed").catch((e) =>
+              console.warn("Module complete save error:", e)
+            );
+          }
+          return {
+            ...mod,
+            progress: 100,
+            status: "Completed",
+            topics: mod.topics.map((t) => ({ ...t, completed: true })),
+          };
+        }
+        return mod;
+      })
     );
     setUserProfileState((prev) => ({
       ...prev,
@@ -598,7 +828,7 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         technicalSkills: Math.min(98, prev.readinessBreakdown.technicalSkills + 4),
       },
     }));
-  }, []);
+  }, [currentUserId]);
 
   const setLanguage = useCallback((lang: UserProfile["selectedLanguage"]) => {
     setUserProfileState((prev) => ({ ...prev, selectedLanguage: lang }));
@@ -611,51 +841,105 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         const updatedMilestones = proj.milestones.map((m) => (m.id === milestoneId ? { ...m, completed } : m));
         const doneCount = updatedMilestones.filter((m) => m.completed).length;
         const progressPercentage = Math.round((doneCount / updatedMilestones.length) * 100);
-        return {
+        const updatedProj: ProjectItem = {
           ...proj,
           milestones: updatedMilestones,
           progressPercentage,
           status: progressPercentage === 100 ? "Under Review" : "In Progress",
         };
+
+        if (currentUserId) {
+          saveUserProject(currentUserId, {
+            id: updatedProj.id,
+            title: updatedProj.title,
+            description: updatedProj.description,
+            role: selectedRole.title,
+            skills: updatedProj.skillsTested,
+            status: updatedProj.status,
+            github_url: updatedProj.repoUrl,
+            live_url: updatedProj.liveUrl,
+          }).catch((e) => console.warn("Project milestone save error:", e));
+        }
+
+        return updatedProj;
       })
     );
-  }, []);
+  }, [currentUserId, selectedRole.title]);
 
   const updateProjectDetails = useCallback((projectId: string, details: Partial<ProjectItem>) => {
-    setProjects((prev) => prev.map((p) => (p.id === projectId ? { ...p, ...details } : p)));
-  }, []);
+    setProjects((prev) =>
+      prev.map((p) => {
+        if (p.id !== projectId) return p;
+        const updated = { ...p, ...details };
+        if (currentUserId) {
+          saveUserProject(currentUserId, {
+            id: updated.id,
+            title: updated.title,
+            description: updated.description,
+            role: selectedRole.title,
+            skills: updated.skillsTested,
+            status: updated.status,
+            github_url: updated.repoUrl,
+            live_url: updated.liveUrl,
+            score: updated.evaluation?.overallScore,
+            evaluation: updated.evaluation,
+          }).catch((e) => console.warn("Project details save error:", e));
+        }
+        return updated;
+      })
+    );
+  }, [currentUserId, selectedRole.title]);
 
   const submitProjectForEvaluation = useCallback((projectId: string) => {
     setProjects((prev) =>
       prev.map((p) => {
         if (p.id !== projectId) return p;
-        return {
+        const evalPayload = {
+          overallScore: 88,
+          evaluatedAt: new Date().toISOString().split("T")[0],
+          rubric: [
+            { criterion: "System Functionality & Completeness", score: 18, maxScore: 20, feedback: "All functional requirements fulfilled smoothly." },
+            { criterion: "Code Quality & TypeScript Strictness", score: 18, maxScore: 20, feedback: "Strong TypeScript typing and clean modular architecture." },
+            { criterion: "UI / UX & Responsive Design", score: 19, maxScore: 20, feedback: "Exceptional visual design, clear contrast, accessible layouts." },
+            { criterion: "Database Schema & Query Performance", score: 17, maxScore: 20, feedback: "Proper indexing and transaction isolation verified." },
+            { criterion: "Testing & DevOps Pipeline", score: 16, maxScore: 20, feedback: "CI pipeline active with automated Vitest suites." },
+          ],
+          strengths: [
+            "Production-grade error handling and state management.",
+            "Clean database migration strategy with relational indexes.",
+            "Responsive layout tested across desktop and mobile breakpoints.",
+          ],
+          areasToImprove: ["Add load testing benchmarks using k6 or Artillery."],
+          recommendedNextSteps: [
+            "Add project URL to ATS resume.",
+            "Apply for verified Full Stack positions with 90%+ match score.",
+          ],
+        };
+
+        const updatedProj: ProjectItem = {
           ...p,
           status: "Completed",
           progressPercentage: 100,
           currentPhase: "Submitted",
-          evaluation: {
-            overallScore: 88,
-            evaluatedAt: new Date().toISOString().split("T")[0],
-            rubric: [
-              { criterion: "System Functionality & Completeness", score: 18, maxScore: 20, feedback: "All functional requirements fulfilled smoothly." },
-              { criterion: "Code Quality & TypeScript Strictness", score: 18, maxScore: 20, feedback: "Strong TypeScript typing and clean modular architecture." },
-              { criterion: "UI / UX & Responsive Design", score: 19, maxScore: 20, feedback: "Exceptional visual design, clear contrast, accessible layouts." },
-              { criterion: "Database Schema & Query Performance", score: 17, maxScore: 20, feedback: "Proper indexing and transaction isolation verified." },
-              { criterion: "Testing & DevOps Pipeline", score: 16, maxScore: 20, feedback: "CI pipeline active with automated Vitest suites." },
-            ],
-            strengths: [
-              "Production-grade error handling and state management.",
-              "Clean database migration strategy with relational indexes.",
-              "Responsive layout tested across desktop and mobile breakpoints.",
-            ],
-            areasToImprove: ["Add load testing benchmarks using k6 or Artillery."],
-            recommendedNextSteps: [
-              "Add project URL to ATS resume.",
-              "Apply for verified Full Stack positions with 90%+ match score.",
-            ],
-          },
+          evaluation: evalPayload,
         };
+
+        if (currentUserId) {
+          saveUserProject(currentUserId, {
+            id: updatedProj.id,
+            title: updatedProj.title,
+            description: updatedProj.description,
+            role: selectedRole.title,
+            skills: updatedProj.skillsTested,
+            status: "Completed",
+            score: 88,
+            evaluation: evalPayload,
+            github_url: updatedProj.repoUrl,
+            live_url: updatedProj.liveUrl,
+          }).catch((e) => console.warn("Project eval save error:", e));
+        }
+
+        return updatedProj;
       })
     );
 
@@ -668,7 +952,7 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         projects: Math.min(98, prev.readinessBreakdown.projects + 8),
       },
     }));
-  }, []);
+  }, [currentUserId, selectedRole.title]);
 
   const solveProblem = useCallback((problemId: string) => {
     setProblems((prev) => {
@@ -702,7 +986,25 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
         interview: Math.round((prev.readinessBreakdown.interview + session.overallScore) / 2),
       },
     }));
-  }, []);
+
+    if (currentUserId) {
+      saveInterviewSession(currentUserId, {
+        role_id: session.roleId,
+        role_title: CAREER_ROLES.find((r) => r.id === session.roleId)?.title || selectedRole.title,
+        interview_type: session.type,
+        duration_minutes: session.durationMinutes,
+        overall_score: session.overallScore,
+        technical_score: session.scores?.technicalKnowledge,
+        communication_score: session.scores?.communication,
+        problem_solving_score: session.scores?.problemSolving,
+        answer_structure_score: session.scores?.answerStructure,
+        summary_feedback: { overview: "Voice interview practice session completed." },
+        what_went_well: session.whatWentWell,
+        what_to_improve: session.whatToImprove,
+        recommended_practice: session.recommendedPractice,
+      }).catch((e) => console.warn("Interview session save error:", e));
+    }
+  }, [currentUserId, selectedRole.title]);
 
   const updateResume = useCallback((data: Partial<ResumeData>) => {
     setResumeData((prev) => ({ ...prev, ...data }));
@@ -804,14 +1106,10 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
     [selectedRole.title, parsedResume, resumeData]
   );
 
-  // Fetch live jobs on initial load (only when not in demo mode)
+  // Fetch live jobs on initial load
   useEffect(() => {
-    if (!mounted) return;
-    const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
-    if (!isDemoMode) {
-      fetchLiveJobs();
-    }
-  }, [mounted, fetchLiveJobs]);
+    fetchLiveJobs();
+  }, [fetchLiveJobs]);
 
   const uploadAndAnalyzeResume = useCallback(async (
     file: File,
@@ -840,7 +1138,6 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
       setParsedResume(parsed);
       setAtsAnalysis(analysis);
 
-      // Keep legacy/existing state in sync
       setResumeAnalysis({
         overallMatch: analysis.overallScore,
         atsCompatibilityScore: analysis.overallScore,
@@ -959,32 +1256,40 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
       setApplicationRecords((prev) => [record, ...prev]);
 
       // 2. Add or update Kanban Application Tracker
+      const newApp: ApplicationItem = {
+        id: `app-${Date.now()}`,
+        opportunityId: currentJob.id,
+        company: currentJob.company,
+        role: currentJob.title,
+        type: currentJob.opportunityType === "INTERNSHIP" ? "Internship" : currentJob.opportunityType === "STARTUP" ? "Startup" : "Job",
+        location: currentJob.location,
+        status: "Saved",
+        appliedDate: new Date().toISOString().split("T")[0],
+        lastUpdated: new Date().toISOString().split("T")[0],
+        salary: currentJob.salaryMin ? `${currentJob.salaryCurrency || "₹"} ${currentJob.salaryMin.toLocaleString()}` : "Disclosed on Application",
+        matchScore: 85,
+        notes: `Redirected to ${currentJob.source} official application destination: ${targetUrl}`,
+      };
+
       setApplications((prev) => {
         const existingApp = prev.find((a) => a.opportunityId === currentJob.id);
         if (!existingApp) {
-          const newApp: ApplicationItem = {
-            id: `app-${Date.now()}`,
-            opportunityId: currentJob.id,
-            company: currentJob.company,
-            role: currentJob.title,
-            type: currentJob.opportunityType === "INTERNSHIP" ? "Internship" : currentJob.opportunityType === "STARTUP" ? "Startup" : "Job",
-            location: currentJob.location,
-            status: "Saved",
-            appliedDate: new Date().toISOString().split("T")[0],
-            lastUpdated: new Date().toISOString().split("T")[0],
-            salary: currentJob.salaryMin ? `${currentJob.salaryCurrency || "₹"} ${currentJob.salaryMin.toLocaleString()}` : "Disclosed on Application",
-            matchScore: 85,
-            notes: `Redirected to ${currentJob.source} official application destination: ${targetUrl}`,
-          };
           return [newApp, ...prev];
         }
         return prev;
       });
 
-      // 3. Safe open external URL
+      // 3. Persist to Supabase applications table for authenticated user
+      if (currentUserId) {
+        trackJobRedirection(currentUserId, currentJob.id, targetUrl).catch((err) =>
+          console.warn("Application track error:", err)
+        );
+      }
+
+      // 4. Safe open external URL
       window.open(targetUrl, "_blank", "noopener,noreferrer");
 
-      // 4. Add notification
+      // 5. Add notification
       const newNotif: NotificationItem = {
         id: `notif-${Date.now()}`,
         title: "Redirected to External Application",
@@ -1000,23 +1305,29 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
     });
 
     setIsApplyApprovalModalOpen(false);
-  }, []);
+  }, [currentUserId]);
 
   const confirmExternalApplied = useCallback((jobId: string) => {
     setApplicationRecords((prev) =>
       prev.map((r) => (r.jobId === jobId ? { ...r, status: "Applied" } : r))
     );
     setApplications((prev) =>
-      prev.map((a) =>
-        a.opportunityId === jobId
-          ? {
-              ...a,
-              status: "Applied",
-              appliedDate: new Date().toISOString().split("T")[0],
-              lastUpdated: new Date().toISOString().split("T")[0],
-            }
-          : a
-      )
+      prev.map((a) => {
+        if (a.opportunityId === jobId) {
+          if (currentUserId) {
+            updateAppStatusDB(currentUserId, a.id, "applied").catch((err) =>
+              console.warn("Update application DB error:", err)
+            );
+          }
+          return {
+            ...a,
+            status: "Applied",
+            appliedDate: new Date().toISOString().split("T")[0],
+            lastUpdated: new Date().toISOString().split("T")[0],
+          };
+        }
+        return a;
+      })
     );
     const newNotif: NotificationItem = {
       id: `notif-${Date.now()}`,
@@ -1028,7 +1339,7 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
       link: "/applications",
     };
     setNotifications((prev) => [newNotif, ...prev]);
-  }, []);
+  }, [currentUserId]);
 
   const toggleSaveOpportunity = useCallback((oppId: string) => {
     setOpportunities((prev) =>
@@ -1089,17 +1400,30 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
 
   const updateApplicationStatus = useCallback((appId: string, newStatus: ApplicationStatus) => {
     setApplications((prev) =>
-      prev.map((app) =>
-        app.id === appId
-          ? { ...app, status: newStatus, lastUpdated: new Date().toISOString().split("T")[0] }
-          : app
-      )
+      prev.map((app) => {
+        if (app.id === appId) {
+          if (currentUserId) {
+            const dbStatus = newStatus.toLowerCase() as any;
+            updateAppStatusDB(currentUserId, appId, dbStatus).catch((err) =>
+              console.warn("Status update DB error:", err)
+            );
+          }
+          return { ...app, status: newStatus, lastUpdated: new Date().toISOString().split("T")[0] };
+        }
+        return app;
+      })
     );
-  }, []);
+  }, [currentUserId]);
 
   const updateUserProfile = useCallback((data: Partial<UserProfile>) => {
     setUserProfileState((prev) => ({ ...prev, ...data }));
-  }, []);
+    if (currentUserId) {
+      updateProfile(currentUserId, {
+        full_name: data.name,
+        selected_role: data.targetRole,
+      }).catch((e) => console.warn("Profile update DB error:", e));
+    }
+  }, [currentUserId]);
 
   const markNotificationAsRead = useCallback((id: string) => {
     setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
@@ -1110,26 +1434,22 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const resetToDefaults = useCallback(() => {
-    setUserProfileState(DEFAULT_USER_PROFILE);
+    setUserProfileState(ZERO_USER_PROFILE);
     setSelectedRoleId("full-stack-dev");
-    setAssessmentResult(DEFAULT_ASSESSMENT_RESULT);
+    setAssessmentResult(null);
+    setAssessmentAnswers({});
     setLearningModules(LEARNING_MODULES);
     setProjects(REAL_WORLD_PROJECTS);
     setProblems(PROBLEM_ITEMS);
-    setResumeData(INITIAL_RESUME_DATA);
-    setResumeAnalysis(MOCK_RESUME_ANALYSIS);
+    setResumeData(EMPTY_RESUME_DATA);
+    setResumeAnalysis(EMPTY_RESUME_ANALYSIS);
     setOpportunities(TECH_OPPORTUNITIES);
-    setApplications(INITIAL_APPLICATIONS);
-    setNotifications(INITIAL_NOTIFICATIONS);
+    setApplications([]);
+    setNotifications([]);
     setParsedResume(null);
     setAtsAnalysis(null);
     setLiveJobMatches([]);
     setApplicationRecords([]);
-    try {
-      localStorage.clear();
-    } catch {
-      // ignore
-    }
   }, []);
 
   const unreadNotificationCount = notifications.filter((n) => !n.read).length;

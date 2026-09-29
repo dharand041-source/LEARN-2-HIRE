@@ -14,6 +14,7 @@ import {
   Sparkles,
   ShieldCheck,
   Zap,
+  Target,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
 import { Button } from "@/components/ui/Button";
@@ -23,36 +24,34 @@ import { ProgressBar } from "@/components/ui/ProgressBar";
 export default function AssessmentResultsPage() {
   const { assessmentResult, selectedRole } = useCareer();
 
-  const result = assessmentResult || {
-    score: 72,
-    totalQuestions: 10,
-    completedAt: "2026-09-18",
-    roleId: selectedRole.id,
-    roleTitle: selectedRole.title,
-    skillBreakdown: [
-      { skill: "JavaScript", score: 82, status: "Strong" },
-      { skill: "React & Next.js", score: 76, status: "Strong" },
-      { skill: "Node.js & Express", score: 61, status: "Moderate" },
-      { skill: "PostgreSQL & SQL", score: 48, status: "Needs Improvement" },
-      { skill: "Git & Version Control", score: 88, status: "Strong" },
-      { skill: "REST APIs & Security", score: 69, status: "Moderate" },
-    ],
-    strongAreas: [
-      "Git & branching workflows (88%)",
-      "JavaScript asynchronous microtask loop (82%)",
-      "React state hooks & Server Component separation (76%)",
-    ],
-    needsImprovement: [
-      "SQL composite indexing, execution plans & query tuning (48%)",
-      "Node.js streams & memory leak prevention (61%)",
-      "REST cursor-based pagination & error envelope contracts (69%)",
-    ],
-    recommendations: [
-      "Complete the 'Relational Databases & PostgreSQL Query Optimization' learning module.",
-      "Solve the 3 recommended SQL & Debugging algorithmic problems.",
-      "Practice database transaction lock questions in the Voice Interview simulator.",
-    ],
-  };
+  if (!assessmentResult) {
+    return (
+      <div className="max-w-4xl w-full mx-auto py-16 px-4 text-center space-y-6 animate-fade-in bg-white">
+        <div className="w-16 h-16 rounded-2xl bg-surface-subtle border border-border flex items-center justify-center mx-auto text-imperial">
+          <Target className="w-8 h-8" />
+        </div>
+        <div className="space-y-2">
+          <Badge variant="imperial" size="sm">Phase 03 Diagnostics</Badge>
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-night uppercase tracking-tight">
+            No Assessment Taken Yet
+          </h1>
+          <p className="text-sm text-muted max-w-lg mx-auto">
+            Take the initial technical diagnostic for <span className="font-semibold text-night">{selectedRole.title}</span> to evaluate your core skills, identify blind spots, and generate your customized learning roadmap.
+          </p>
+        </div>
+        <div className="pt-2">
+          <Link href="/assessment">
+            <Button size="lg" className="gap-2 font-bold shadow-sm">
+              <span>Start Initial Assessment</span>
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const result = assessmentResult;
 
   return (
     <div className="max-w-6xl w-full mx-auto space-y-8 animate-fade-in bg-white pb-12">

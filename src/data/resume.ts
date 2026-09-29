@@ -95,6 +95,41 @@ export const INITIAL_RESUME_DATA: ResumeData = {
   ],
 };
 
+export const EMPTY_RESUME_DATA: ResumeData = {
+  personalInfo: {
+    fullName: "",
+    title: "",
+    email: "",
+    phone: "",
+    location: "",
+    github: "",
+    linkedin: "",
+    portfolio: "",
+  },
+  summary: "",
+  skills: [],
+  experience: [],
+  projects: [],
+  education: [],
+  certifications: [],
+  achievements: [],
+};
+
+export const EMPTY_RESUME_ANALYSIS: ResumeAnalysisResult = {
+  overallMatch: 0,
+  atsCompatibilityScore: 0,
+  targetRole: "Full Stack Developer",
+  experienceRelevance: 0,
+  projectRelevance: 0,
+  formattingScore: 0,
+  skillsFound: [],
+  skillsMissing: [],
+  strengths: [],
+  criticalGaps: [],
+  recommendations: [],
+};
+
+
 export const MOCK_RESUME_ANALYSIS: ResumeAnalysisResult = {
   overallMatch: 84,
   atsCompatibilityScore: 91,

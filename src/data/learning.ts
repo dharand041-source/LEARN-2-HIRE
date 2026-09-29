@@ -7,10 +7,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "Semantic HTML5 & Modern CSS Systems",
     category: "Frontend Foundations",
     description: "Master semantic markup, modern CSS grid & flexbox layouts, CSS custom properties, WCAG 2.1 accessibility, and responsive fluid design.",
-    progress: 100,
+    progress: 0,
     difficulty: "Foundational",
     estimatedTime: "8 hours",
-    status: "Completed",
+    status: "Not Started",
     skillsCovered: ["HTML5", "CSS3", "Responsive Layouts", "A11y Accessibility", "Flexbox & Grid"],
     resources: [
       {
@@ -48,7 +48,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t1",
         title: "Semantic Document Structure & Landmark Elements",
-        completed: true,
+        completed: false,
         duration: "45m",
         summary: {
           en: "Semantic HTML provides meaning to web structure, aiding screen readers and search engines with elements like <main>, <nav>, <article>, and <section>.",
@@ -62,7 +62,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t2",
         title: "CSS Grid vs Flexbox: Mental Models & 2D Layouts",
-        completed: true,
+        completed: false,
         duration: "60m",
         summary: {
           en: "Flexbox is 1-dimensional for rows or columns, while Grid is 2-dimensional for complex row/column placement with subgrid and auto-fit capabilities.",
@@ -88,10 +88,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "Modern JavaScript (ES6+) & Asynchronous Engine",
     category: "Core Programming",
     description: "Understand the V8 event loop, microtask queues, closures, prototypes, asynchronous concurrency with async/await, and functional programming idioms.",
-    progress: 82,
+    progress: 0,
     difficulty: "Intermediate",
     estimatedTime: "14 hours",
-    status: "In Progress",
+    status: "Not Started",
     skillsCovered: ["JavaScript", "Event Loop", "Promises / Async-Await", "Closures", "ES6 Modules", "Memory Management"],
     resources: [
       {
@@ -129,7 +129,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-js-1",
         title: "The V8 Event Loop, Call Stack & Microtask Ordering",
-        completed: true,
+        completed: false,
         duration: "60m",
         summary: {
           en: "The JS runtime handles synchronous code on the call stack, microtasks (Promises, queueMicrotask) immediately after each stack frame, and macrotasks (setTimeout, DOM events) in the next tick.",
@@ -143,7 +143,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-js-2",
         title: "Closures, Lexical Scope & Garbage Collection",
-        completed: true,
+        completed: false,
         duration: "50m",
         summary: {
           en: "A closure is the combination of a function bundled together with references to its surrounding state (lexical environment), allowing private variables and factory patterns.",
@@ -183,10 +183,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "React 18/19 & Next.js App Router Architecture",
     category: "Frontend Frameworks",
     description: "Architect stateful enterprise applications using Server/Client Components, custom hooks, Suspense streaming, error boundaries, and optimistic UI updates.",
-    progress: 76,
+    progress: 0,
     difficulty: "Intermediate",
     estimatedTime: "16 hours",
-    status: "In Progress",
+    status: "Not Started",
     skillsCovered: ["React", "Next.js", "Server Components", "State Management", "Hooks", "Suspense"],
     resources: [
       {
@@ -224,7 +224,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-rc-1",
         title: "React Server Components (RSC) vs Client Components",
-        completed: true,
+        completed: false,
         duration: "60m",
         summary: {
           en: "Server Components render on the server without sending JS bundles to the browser. Client Components ('use client') add interactive handlers, state, and browser APIs.",
@@ -238,7 +238,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-rc-2",
         title: "Custom Hook Composition & Cache Invalidation",
-        completed: true,
+        completed: false,
         duration: "50m",
         summary: {
           en: "Encapsulate reusable stateful logic into clean, type-safe custom hooks with predictable cleanup, abort controllers, and optimistic rollbacks.",
@@ -264,10 +264,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "Node.js, Express & Scalable Microservices",
     category: "Backend Engineering",
     description: "Engineer production-ready REST & RPC APIs, implement JWT/OAuth authentication, streaming pipelines, middleware chains, and rate limiting.",
-    progress: 61,
+    progress: 0,
     difficulty: "Intermediate",
     estimatedTime: "15 hours",
-    status: "In Progress",
+    status: "Not Started",
     skillsCovered: ["Node.js", "Express", "REST APIs", "JWT Authentication", "Middleware", "Stream Processing"],
     resources: [
       {
@@ -295,7 +295,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-node-1",
         title: "JWT Authentication, Refresh Token Rotation & Cookies",
-        completed: true,
+        completed: false,
         duration: "60m",
         summary: {
           en: "Short-lived access tokens (15 mins) stored in memory or HttpOnly cookies combined with rotated refresh tokens stored in Redis prevent session hijacking.",
@@ -335,10 +335,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "Relational Databases, PostgreSQL & Query Optimization",
     category: "Data & Storage",
     description: "Schema normalization, B-Tree and GIN indexing strategies, query plan analysis (EXPLAIN ANALYZE), ACID transactions, and connection pool sizing.",
-    progress: 48,
+    progress: 0,
     difficulty: "Intermediate",
     estimatedTime: "12 hours",
-    status: "Recommended",
+    status: "Not Started",
     skillsCovered: ["PostgreSQL", "SQL", "Schema Design", "Indexing", "Transactions", "EXPLAIN ANALYZE"],
     resources: [
       {
@@ -366,7 +366,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-db-1",
         title: "B-Tree Indexes, Composite Keys & Covering Indexes",
-        completed: true,
+        completed: false,
         duration: "50m",
         summary: {
           en: "Indexes create balanced lookup trees. Multi-column indexes match queries from left-to-right (the leading column rule). Covering indexes (INCLUDE) eliminate table heap lookups.",
@@ -406,10 +406,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "RESTful API Standards, OpenAPI & Contracts",
     category: "Backend Engineering",
     description: "Design clean semantic REST APIs, versioning schemas (URI vs header), OpenAPI/Swagger specs, pagination patterns, and hypermedia controls.",
-    progress: 69,
+    progress: 0,
     difficulty: "Intermediate",
     estimatedTime: "10 hours",
-    status: "In Progress",
+    status: "Not Started",
     skillsCovered: ["REST APIs", "OpenAPI / Swagger", "Pagination", "Versioning", "HTTP Status Codes"],
     resources: [
       {
@@ -427,7 +427,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-api-1",
         title: "Cursor-Based vs Offset-Based Pagination at Scale",
-        completed: true,
+        completed: false,
         duration: "45m",
         summary: {
           en: "Offset pagination (OFFSET 100000) causes database table scanning and skips/duplicates when items are inserted; cursor pagination using indexed unique IDs is O(1) fast.",
@@ -453,10 +453,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "Advanced Git, Branching Strategies & CI Workflows",
     category: "DevOps & Tooling",
     description: "Master interactive rebasing, merge conflict resolution, git bisect debugging, conventional commits, and GitHub Actions continuous integration gates.",
-    progress: 88,
+    progress: 0,
     difficulty: "Foundational",
     estimatedTime: "6 hours",
-    status: "Completed",
+    status: "Not Started",
     skillsCovered: ["Git", "GitHub Actions", "Interactive Rebase", "Git Bisect", "Trunk-Based Development"],
     resources: [
       {
@@ -474,7 +474,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-git-1",
         title: "Interactive Rebase, Cherry-Pick & Clean History",
-        completed: true,
+        completed: false,
         duration: "40m",
         summary: {
           en: "Use git rebase -i to squash intermediate WIP commits, reword commit messages, and produce a clean linear changelog before merging pull requests.",
@@ -500,10 +500,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "Unit, Integration & E2E Testing Methodologies",
     category: "Quality Assurance",
     description: "Implement Test-Driven Development (TDD) with Vitest/Jest, React Testing Library for accessibility assertions, and Playwright for real browser E2E test suites.",
-    progress: 52,
+    progress: 0,
     difficulty: "Intermediate",
     estimatedTime: "11 hours",
-    status: "In Progress",
+    status: "Not Started",
     skillsCovered: ["Vitest", "Jest", "React Testing Library", "Playwright", "Mock Service Worker (MSW)"],
     resources: [
       {
@@ -521,7 +521,7 @@ export const LEARNING_MODULES: LearningModule[] = [
       {
         id: "t-test-1",
         title: "Mocking Network Requests with Mock Service Worker (MSW)",
-        completed: true,
+        completed: false,
         duration: "50m",
         summary: {
           en: "MSW intercepts network calls at the network level via Service Workers, allowing tests to run against realistic API behavior without fragile monkey-patching.",
@@ -547,10 +547,10 @@ export const LEARNING_MODULES: LearningModule[] = [
     title: "Docker Containerization & Production Cloud Deployment",
     category: "DevOps & Cloud",
     description: "Write lean Alpine Dockerfiles, compose multi-container stacks (App + Postgres + Redis), configure Nginx reverse proxies with SSL, and deploy to AWS / Render / Vercel.",
-    progress: 40,
+    progress: 0,
     difficulty: "Intermediate",
     estimatedTime: "10 hours",
-    status: "Recommended",
+    status: "Not Started",
     skillsCovered: ["Docker", "Docker Compose", "Nginx", "SSL / TLS", "Cloud Deployment", "Healthchecks"],
     resources: [
       {
