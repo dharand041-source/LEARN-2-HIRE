@@ -219,8 +219,8 @@ interface CareerContextType {
 }
 
 const DEFAULT_USER_PROFILE: UserProfile = {
-  name: "Hamenath",
-  email: "demo@learn-2-hire.local",
+  name: "Candidate",
+  email: "",
   targetRole: "Full Stack Developer",
   targetCategory: "Software Development & Engineering",
   readinessScore: 76,
@@ -411,9 +411,10 @@ export function CareerProvider({ children }: { children: React.ReactNode }) {
       setIsAuthenticated(false);
       setUserProfileState(DEFAULT_USER_PROFILE);
       localStorage.removeItem("sf_userProfile");
-      window.location.href = "/";
+      window.location.href = "/login";
     } catch (err) {
       console.error("Sign out error:", err);
+      window.location.href = "/login";
     }
   }, []);
 

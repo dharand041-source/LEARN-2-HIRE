@@ -34,7 +34,7 @@ const PRIMARY_NAV_SECTIONS = [
   {
     group: "Core Progression",
     items: [
-      { label: "Dashboard", href: "/", icon: LayoutDashboard },
+      { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
       { label: "Career Discovery", href: "/onboarding", icon: Compass },
       { label: "Technical Assessment", href: "/assessment", icon: CheckSquare },
       { label: "Personalized Learning", href: "/learning", icon: BookOpen },
@@ -93,7 +93,10 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
             <div className="mt-1 space-y-0.5">
               {section.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== "/dashboard" && pathname.startsWith(item.href)) ||
+                  (item.href === "/dashboard" && (pathname === "/" || pathname === "/dashboard"));
                 return (
                   <Link
                     key={item.href}

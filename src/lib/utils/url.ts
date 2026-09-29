@@ -5,13 +5,16 @@
 
 export function getBaseURL(): string {
   // 1. If configured explicitly in environment, use that
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL;
+  if (siteUrl) {
+    return siteUrl.replace(/\/$/, "");
   }
 
-  // 2. If running on Vercel preview/production, Vercel provides VERCEL_URL
-  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL.replace(/\/$/, "")}`;
+  // 2. If running on Vercel preview/production, Vercel provides VERCEL_URL / NEXT_PUBLIC_VERCEL_URL
+  const vercelUrl = process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL;
+  if (vercelUrl) {
+    const prefix = vercelUrl.startsWith("http") ? "" : "https://";
+    return `${prefix}${vercelUrl.replace(/\/$/, "")}`;
   }
 
   // 3. Fallback for local development

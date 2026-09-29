@@ -60,7 +60,7 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
             <Menu className="w-5 h-5 text-night" />
           </button>
 
-          <Link href="/" prefetch={true} className="flex items-center gap-2.5 group">
+          <Link href="/dashboard" prefetch={true} className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-lg bg-night flex items-center justify-center text-white shadow-sm transition-all group-hover:scale-105">
               <Sparkles className="w-4 h-4 text-imperial fill-imperial" />
             </div>
