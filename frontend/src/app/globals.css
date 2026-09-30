@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Bold Career Editorial Palette */
+  --color-fire-red: #E62727;
+  --color-electric-yellow: #FFDE00;
+  --color-ultra-violet: #7F00FF;
+  --color-acid-yellow: #EFFF00;
+  --color-honey-gold: #FEC40B;
+  --color-deep-navy: #04123F;
+
+  /* Neutrals */
+  --color-background: #FFFFFF;
+  --color-surface: #F7F7F5;
+  --color-text: #050505;
+  --color-muted: #666666;
+  --color-border: #E5E5E5;
+
+  /* Semantic Section Accents */
+  --accent-dashboard: #E62727;
+  --accent-career: #FEC40B;
+  --accent-assessment: #FFDE00;
+  --accent-learning: #EFFF00;
+  --accent-advanced-assessment: #FFDE00;
+  --accent-projects: #04123F;
+  --accent-problem-solving: #04123F;
+  --accent-interview: #7F00FF;
+  --accent-resume: #E62727;
+  --accent-opportunities: #FEC40B;
+  --accent-applications: #EFFF00;
+  --accent-feedback: #7F00FF;
+
+  /* Backward Compatibility Tokens */
+  --color-night: #050505;
+  --color-imperial: #E62727;
+  --color-white: #FFFFFF;
+  --color-soft-gray: #F7F7F5;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    border-color: #E5E5E5;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    color: #050505;
+    font-feature-settings: "rlig" 1, "calt" 1, "cv02" 1;
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Accessible focus indicators */
+  :focus-visible {
+    outline: 2px solid #050505;
+    outline-offset: 2px;
+  }
+
+  /* Refined clean scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F7F7F5;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CCCCCC;
+    border-radius: 4px;
+    transition: background-color 0.15s ease-in-out;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #050505;
+  }
+}
+
+@layer utilities {
+  .border-subtle {
+    border: 1px solid #E5E5E5;
+  }
+
+  .border-editorial {
+    border: 2px solid #050505;
+  }
+
+  .border-hero {
+    border: 3px solid #050505;
+  }
+
+  .shadow-card-clean {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  .shadow-editorial-sm {
+    box-shadow: 2px 2px 0px #050505;
+  }
+
+  .shadow-editorial-md {
+    box-shadow: 3px 3px 0px #050505;
+  }
+
+  .smooth-transition {
+    transition: all 0.18s ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
