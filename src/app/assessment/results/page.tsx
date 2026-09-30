@@ -55,35 +55,35 @@ export default function AssessmentResultsPage() {
 
   return (
     <div className="max-w-6xl w-full mx-auto space-y-8 animate-fade-in bg-white pb-12">
-      {/* Header */}
-      <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Bold Fire Red Header Section */}
+      <div className="rounded-2xl bg-fire-red text-white border-4 border-black p-6 sm:p-8 shadow-editorial-md flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <Badge variant="electric-yellow" size="sm">Phase 03</Badge>
-            <span className="text-xs text-muted font-mono uppercase tracking-wider font-extrabold">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="px-2.5 py-0.5 rounded bg-black text-electric-yellow text-xs font-mono font-black border border-black uppercase tracking-wider">Phase 03</span>
+            <span className="text-xs text-white/90 font-mono uppercase tracking-wider font-extrabold">
               Diagnostic Skill-Gap Analysis
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground tracking-tight uppercase leading-snug">
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight uppercase leading-snug">
             Assessment Results & Competency Map
           </h1>
-          <p className="text-xs sm:text-sm text-muted mt-1 font-medium">
-            Evaluated against the verified industry benchmark for <strong className="text-foreground font-extrabold">{result.roleTitle}</strong>.
+          <p className="text-xs sm:text-sm text-white/80 mt-1 font-medium">
+            Evaluated against the verified industry benchmark for <strong className="text-white font-extrabold">{result.roleTitle}</strong>.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <Link href="/assessment">
-            <Button variant="secondary" size="sm" className="gap-1.5 font-extrabold">
+            <button className="px-4 py-2.5 rounded-lg bg-black/40 hover:bg-black/60 text-white border-2 border-white/60 font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer">
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Retake Diagnostic</span>
-            </Button>
+            </button>
           </Link>
           <Link href="/learning">
-            <Button variant="primary" size="sm" className="gap-1.5 font-extrabold shadow-sm">
+            <button className="px-5 py-2.5 rounded-lg bg-electric-yellow hover:bg-acid-yellow text-black border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
               <span>Start Personalized Training</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </Button>
+            </button>
           </Link>
         </div>
       </div>
@@ -171,7 +171,7 @@ export default function AssessmentResultsPage() {
                     <ProgressBar
                       value={item.score}
                       size="sm"
-                      variant={isStrong ? "deep-navy" : isCritical ? "fire-red" : "electric-yellow"}
+                      variant={isStrong ? "maroon" : isCritical ? "fire-red" : "electric-yellow"}
                     />
                   </div>
                 );

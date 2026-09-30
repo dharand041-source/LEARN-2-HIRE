@@ -3,39 +3,42 @@
 @tailwind utilities;
 
 :root {
-  /* Bold Career Editorial Palette */
-  --color-fire-red: #E62727;
-  --color-electric-yellow: #FFDE00;
+  /* Approved Six-Color Visual System */
   --color-ultra-violet: #7F00FF;
   --color-acid-yellow: #EFFF00;
-  --color-honey-gold: #FEC40B;
-  --color-deep-navy: #04123F;
+  --color-fire-red: #E62727;
+  --color-electric-yellow: #FFDE00;
+  --color-electric-coral: #FF6332;
+  --color-royal-maroon: #5E0000;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
 
   /* Neutrals */
   --color-background: #FFFFFF;
   --color-surface: #F7F7F5;
-  --color-text: #050505;
+  --color-text: #000000;
   --color-muted: #666666;
-  --color-border: #E5E5E5;
+  --color-border: #000000;
 
   /* Semantic Section Accents */
-  --accent-dashboard: #E62727;
-  --accent-career: #FEC40B;
-  --accent-assessment: #FFDE00;
-  --accent-learning: #EFFF00;
-  --accent-advanced-assessment: #FFDE00;
-  --accent-projects: #04123F;
-  --accent-problem-solving: #04123F;
-  --accent-interview: #7F00FF;
-  --accent-resume: #E62727;
-  --accent-opportunities: #FEC40B;
-  --accent-applications: #EFFF00;
-  --accent-feedback: #7F00FF;
+  --accent-dashboard: #7F00FF;
+  --accent-career: #7F00FF;
+  --accent-assessment: #E62727;
+  --accent-learning: #7F00FF;
+  --accent-advanced-assessment: #E62727;
+  --accent-projects: #FF6332;
+  --accent-problem-solving: #E62727;
+  --accent-interview: #5E0000;
+  --accent-resume: #5E0000;
+  --accent-opportunities: #5E0000;
+  --accent-applications: #E62727;
+  --accent-feedback: #E62727;
 
   /* Backward Compatibility Tokens */
-  --color-night: #050505;
+  --color-honey-gold: #FFDE00;
+  --color-deep-navy: #5E0000;
+  --color-night: #000000;
   --color-imperial: #E62727;
-  --color-white: #FFFFFF;
   --color-soft-gray: #F7F7F5;
 }
 
@@ -111,6 +114,20 @@
 
   .smooth-transition {
     transition: all 0.18s ease-out;
+  }
+
+  .sidebar-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
   }
 }
 

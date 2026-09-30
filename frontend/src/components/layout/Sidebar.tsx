@@ -21,7 +21,7 @@ import {
   LogOut,
   X,
 } from "lucide-react";
-import { cn, PRODUCT_NAME } from "@/lib/constants";
+import { cn } from "@/lib/constants";
 import { useCareer } from "@/context/CareerContext";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { BrandLogo } from "@/components/ui/BrandLogo";
@@ -33,63 +33,37 @@ interface SidebarProps {
 
 const PRIMARY_NAV_SECTIONS = [
   {
-    group: "Core Progression",
+    group: "Career Readiness",
     items: [
       {
-        label: "Dashboard",
+        label: "Dashboard / Home",
         href: "/dashboard",
         icon: LayoutDashboard,
-        colorClass: "text-black",
-        borderClass: "border-l-black",
-        activeBgClass: "bg-honey-gold text-black font-extrabold shadow-sm",
       },
-      {
-        label: "Career Discovery",
-        href: "/onboarding",
-        icon: Compass,
-        colorClass: "text-black",
-        borderClass: "border-l-black",
-        activeBgClass: "bg-honey-gold text-black font-extrabold shadow-sm",
-      },
-      {
-        label: "Technical Assessment",
-        href: "/assessment",
-        icon: CheckSquare,
-        colorClass: "text-white",
-        borderClass: "border-l-electric-yellow",
-        activeBgClass: "bg-fire-red text-white font-extrabold shadow-sm",
-      },
-      {
-        label: "Personalized Learning",
-        href: "/learning",
-        icon: BookOpen,
-        colorClass: "text-acid-yellow",
-        borderClass: "border-l-acid-yellow",
-        activeBgClass: "bg-ultra-violet text-white font-extrabold shadow-sm",
-      },
-      {
-        label: "Advanced Assessment",
-        href: "/advanced-assessment",
-        icon: ShieldAlert,
-        colorClass: "text-white",
-        borderClass: "border-l-electric-yellow",
-        activeBgClass: "bg-fire-red text-white font-extrabold shadow-sm",
-      },
+    ],
+  },
+  {
+    group: "Core",
+    items: [
       {
         label: "Real-World Projects",
         href: "/projects",
         icon: FolderGit2,
-        colorClass: "text-black",
-        borderClass: "border-l-black",
-        activeBgClass: "bg-honey-gold text-black font-extrabold shadow-sm",
       },
       {
         label: "Problem Solving",
         href: "/problem-solving",
         icon: Code2,
-        colorClass: "text-white",
-        borderClass: "border-l-electric-yellow",
-        activeBgClass: "bg-fire-red text-white font-extrabold shadow-sm",
+      },
+      {
+        label: "Technical Assessment",
+        href: "/assessment",
+        icon: CheckSquare,
+      },
+      {
+        label: "Personalized Learning",
+        href: "/learning",
+        icon: BookOpen,
       },
     ],
   },
@@ -100,62 +74,41 @@ const PRIMARY_NAV_SECTIONS = [
         label: "Interview Simulation",
         href: "/interview",
         icon: Mic,
-        colorClass: "text-acid-yellow",
-        borderClass: "border-l-acid-yellow",
-        activeBgClass: "bg-ultra-violet text-white font-extrabold shadow-sm",
       },
       {
         label: "Resume & ATS Engine",
         href: "/resume",
         icon: FileText,
-        colorClass: "text-black",
-        borderClass: "border-l-black",
-        activeBgClass: "bg-honey-gold text-black font-extrabold shadow-sm",
       },
       {
         label: "Matching Opportunities",
         href: "/opportunities",
         icon: Briefcase,
-        colorClass: "text-black",
-        borderClass: "border-l-black",
-        activeBgClass: "bg-honey-gold text-black font-extrabold shadow-sm",
       },
       {
         label: "Application Tracker",
         href: "/applications",
         icon: Kanban,
-        colorClass: "text-black",
-        borderClass: "border-l-black",
-        activeBgClass: "bg-electric-yellow text-black font-extrabold shadow-sm",
       },
       {
         label: "Rejection & Retraining",
         href: "/feedback",
         icon: TrendingUp,
-        colorClass: "text-acid-yellow",
-        borderClass: "border-l-acid-yellow",
-        activeBgClass: "bg-ultra-violet text-white font-extrabold shadow-sm",
       },
     ],
   },
   {
-    group: "Candidate Profile",
+    group: "Candidate",
     items: [
       {
         label: "Profile & Portfolio",
         href: "/profile",
         icon: User,
-        colorClass: "text-black",
-        borderClass: "border-l-black",
-        activeBgClass: "bg-honey-gold text-black font-extrabold shadow-sm",
       },
       {
         label: "System Settings",
         href: "/settings",
         icon: Settings,
-        colorClass: "text-black",
-        borderClass: "border-l-black",
-        activeBgClass: "bg-white text-black font-extrabold shadow-sm",
       },
     ],
   },
@@ -164,6 +117,18 @@ const PRIMARY_NAV_SECTIONS = [
 function SidebarComponent({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { userProfile, selectedRole, isAuthenticated, signOut } = useCareer();
+
+  // Close on Escape key press
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   React.useEffect(() => {
     if (!isOpen) return;
@@ -188,14 +153,14 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
   }, [isOpen, onClose]);
 
   const renderNavContent = (isMobileDrawer = false) => (
-    <div className="w-[268px] flex flex-col h-full overflow-hidden shrink-0 select-none bg-deep-navy text-white border-r-2 border-black">
-      {/* Brand Header with Exact L2H Logo */}
-      <div className="px-4 py-4 border-b border-white/15 flex items-center justify-between shrink-0 bg-deep-navy">
+    <div className="w-[268px] flex flex-col h-full overflow-hidden shrink-0 select-none bg-royal-maroon text-white border-r-2 border-black">
+      {/* Brand Header with Exact Transparent L2H Logo */}
+      <div className="px-4 py-3.5 border-b-2 border-black/40 flex items-center justify-between shrink-0 bg-royal-maroon">
         <BrandLogo size="md" href="/dashboard" theme="dark" />
         {isMobileDrawer && (
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow"
             aria-label="Close navigation"
           >
             <X className="w-5 h-5" />
@@ -203,38 +168,38 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
         )}
       </div>
 
-      {/* Target Readiness Snapshot Card */}
-      <div className="p-3.5 mx-3 mt-3 rounded-lg bg-black border-2 border-honey-gold/30 text-white shrink-0">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="text-[10px] font-extrabold text-white/60 uppercase tracking-wider font-mono">
+      {/* Target Readiness Snapshot Card - Compact */}
+      <div className="p-2.5 mx-3 mt-2.5 rounded-lg bg-black border-2 border-acid-yellow/40 text-white shrink-0">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-[10px] font-extrabold text-white/70 uppercase tracking-wider font-mono">
             Target Readiness
           </span>
-          <span className="text-xs font-extrabold font-mono text-honey-gold">
+          <span className="text-xs font-mono font-black text-acid-yellow">
             {userProfile.readinessScore}%
           </span>
         </div>
-        <ProgressBar value={userProfile.readinessScore} size="sm" variant="honey-gold" />
-        <div className="mt-2 flex items-center justify-between text-[11px]">
-          <span className="truncate max-w-[125px] text-white font-bold">
+        <ProgressBar value={userProfile.readinessScore} size="sm" variant="acid-yellow" />
+        <div className="mt-1.5 flex items-center justify-between text-[11px]">
+          <span className="truncate max-w-[125px] text-white font-bold text-[11px]">
             {selectedRole.title}
           </span>
-          <span className="text-honey-gold text-[10px] font-extrabold uppercase tracking-wider truncate max-w-[95px] font-mono">
+          <span className="text-acid-yellow text-[10px] font-extrabold uppercase tracking-wider truncate max-w-[95px] font-mono">
             {userProfile.focusArea ? `Gap: ${userProfile.focusArea.split("&")[0].trim()}` : "Active"}
           </span>
         </div>
       </div>
 
-      {/* Navigation Groups */}
+      {/* Navigation Groups - Compact Spacing with Subtle Scrollbar */}
       <nav
         aria-label="Sidebar Navigation"
-        className="flex-1 overflow-y-auto px-2.5 py-3 space-y-4 bg-deep-navy"
+        className="flex-1 overflow-y-auto px-2.5 py-2.5 space-y-3.5 bg-royal-maroon sidebar-scrollbar"
       >
         {PRIMARY_NAV_SECTIONS.map((section, idx) => (
           <div key={idx} className="space-y-0.5">
-            <p className="px-2.5 py-1 text-[10px] font-mono font-extrabold uppercase tracking-wider text-white/50">
+            <p className="px-2.5 py-0.5 text-[9px] font-mono font-extrabold uppercase tracking-widest text-white/60">
               {section.group}
             </p>
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               {section.items.map((item) => {
                 const Icon = item.icon;
                 const isActive =
@@ -252,20 +217,16 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
                     }}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
-                      "flex items-center gap-2.5 px-3 py-2 text-xs rounded-md transition-all duration-150 group min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white",
+                      "flex items-center gap-2.5 px-3 py-2 text-xs rounded-md transition-colors duration-150 group min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow",
                       isActive
-                        ? cn(
-                            "border-l-4 font-extrabold",
-                            item.borderClass,
-                            item.activeBgClass
-                          )
-                        : "text-white/80 font-medium hover:bg-white/10 hover:text-white"
+                        ? "bg-acid-yellow text-black font-black shadow-sm border-2 border-black"
+                        : "text-white font-medium hover:bg-electric-coral hover:text-white"
                     )}
                   >
                     <Icon
                       className={cn(
                         "w-4 h-4 transition-transform group-hover:scale-110 shrink-0",
-                        isActive ? item.colorClass : "text-white/70"
+                        isActive ? "text-black stroke-[2.5]" : "text-white/80"
                       )}
                     />
                     <span className="truncate">{item.label}</span>
@@ -277,18 +238,18 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
         ))}
       </nav>
 
-      {/* User / Authentication Footer */}
-      <div className="p-3 border-t border-white/15 shrink-0 bg-deep-navy text-white">
+      {/* Compact User / Authentication Footer */}
+      <div className="p-2.5 px-3 border-t-2 border-black/40 shrink-0 bg-royal-maroon text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 min-w-0">
-            <div className="w-7 h-7 rounded-full bg-honey-gold text-black flex items-center justify-center text-[11px] font-mono font-extrabold shrink-0">
+            <div className="w-6 h-6 rounded-full bg-acid-yellow text-black flex items-center justify-center text-[10px] font-mono font-black shrink-0 border border-black">
               {userProfile.name ? userProfile.name.charAt(0).toUpperCase() : "U"}
             </div>
             <div className="min-w-0 flex flex-col">
-              <span className="text-xs font-bold text-white truncate">
+              <span className="text-xs font-bold text-white truncate leading-tight">
                 {userProfile.name}
               </span>
-              <span className="text-[10px] text-white/50 truncate font-mono">
+              <span className="text-[9px] text-white/60 truncate font-mono">
                 {userProfile.email}
               </span>
             </div>
@@ -302,7 +263,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
               }}
               title="Sign Out"
               aria-label="Sign Out"
-              className="p-1.5 rounded-md text-white/70 hover:text-fire-red hover:bg-white/10 transition-colors cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="p-1.5 rounded-md text-white/80 hover:text-white hover:bg-fire-red transition-colors cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow"
             >
               <LogOut className="w-4 h-4" />
             </button>
@@ -319,7 +280,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
         {/* Mobile Backdrop */}
         {isOpen && (
           <div
-            className="fixed inset-0 z-40 bg-black/60 transition-opacity duration-300 ease-out animate-fade-in"
+            className="fixed inset-0 z-40 bg-black/70 transition-opacity duration-[260ms] ease-out animate-fade-in"
             onClick={onClose}
             aria-hidden="true"
           />
@@ -328,7 +289,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
         {/* Mobile Drawer Aside */}
         <aside
           className={cn(
-            "fixed top-0 bottom-0 left-0 z-50 w-[268px] max-w-[85vw] bg-deep-navy border-r-2 border-black flex flex-col transition-transform duration-300 ease-out shadow-2xl overflow-hidden",
+            "fixed top-0 bottom-0 left-0 z-50 w-[268px] max-w-[85vw] bg-royal-maroon border-r-2 border-black flex flex-col transition-transform duration-[250ms] ease-out shadow-2xl overflow-hidden",
             isOpen ? "translate-x-0" : "-translate-x-full pointer-events-none"
           )}
           aria-label="Mobile Navigation"
@@ -340,15 +301,15 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
       {/* DESKTOP COLLAPSIBLE SIDEBAR (lg breakpoint and above) */}
       <aside
         className={cn(
-          "hidden lg:flex flex-col bg-deep-navy overflow-hidden transition-all duration-300 ease-out shrink-0",
+          "hidden lg:block overflow-hidden transition-[width,transform,opacity] duration-[250ms] ease-out shrink-0 bg-royal-maroon z-30",
           isOpen
-            ? "w-[268px] border-r-2 border-black opacity-100"
-            : "w-0 border-r-0 border-transparent opacity-0 pointer-events-none"
+            ? "w-[268px] opacity-100 translate-x-0 border-r-2 border-black"
+            : "w-0 opacity-0 -translate-x-full pointer-events-none border-r-0"
         )}
         aria-label="Main Navigation"
         aria-hidden={!isOpen}
       >
-        <div className="w-[268px] h-[calc(100vh-4rem)] sticky top-16 flex flex-col overflow-hidden bg-deep-navy">
+        <div className="w-[268px] h-[calc(100vh-4rem)] sticky top-16 flex flex-col overflow-hidden bg-royal-maroon">
           {renderNavContent(false)}
         </div>
       </aside>

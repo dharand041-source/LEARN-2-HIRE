@@ -143,7 +143,7 @@ function FooterComponent() {
 
             {/* Social Icons */}
             <div className="pt-2">
-              <p className="text-[10px] font-mono uppercase tracking-widest text-honey-gold font-extrabold mb-2.5">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-acid-yellow font-extrabold mb-2.5">
                 Connect With Us
               </p>
               <div className="flex items-center gap-2.5">
@@ -156,7 +156,7 @@ function FooterComponent() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.label}
-                      className="w-9 h-9 rounded-lg bg-white/10 hover:bg-honey-gold text-white hover:text-black border border-white/20 hover:border-black flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-gold"
+                      className="w-9 h-9 rounded-lg bg-white/10 hover:bg-acid-yellow text-white hover:text-black border border-white/20 hover:border-black flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow"
                     >
                       <Icon className="w-4 h-4" />
                     </a>
@@ -182,17 +182,17 @@ function FooterComponent() {
                       <Link
                         href={link.href}
                         prefetch={true}
-                        className="group flex items-center justify-between text-xs text-white/70 hover:text-white font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-gold rounded py-0.5"
+                        className="group flex items-center justify-between text-xs text-white/70 hover:text-white font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow rounded py-0.5"
                       >
                         <span className="group-hover:translate-x-0.5 transition-transform truncate">
                           {link.title}
                         </span>
                         {link.badge ? (
-                          <span className="text-[9px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-white/10 border border-white/20 text-honey-gold group-hover:border-honey-gold shrink-0 ml-1.5">
+                          <span className="text-[9px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-white/10 border border-white/20 text-acid-yellow group-hover:border-acid-yellow shrink-0 ml-1.5">
                             {link.badge}
                           </span>
                         ) : (
-                          <ChevronRight className="w-3 h-3 text-white/30 group-hover:text-honey-gold opacity-0 group-hover:opacity-100 transition-all shrink-0 ml-1" />
+                          <ChevronRight className="w-3 h-3 text-white/30 group-hover:text-acid-yellow opacity-0 group-hover:opacity-100 transition-all shrink-0 ml-1" />
                         )}
                       </Link>
                     </li>
@@ -220,19 +220,19 @@ function FooterComponent() {
           <div className="flex items-center gap-4 sm:gap-6 font-medium text-[11px]">
             <button
               onClick={() => setActiveLegalModal("privacy")}
-              className="hover:text-honey-gold transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-gold rounded"
+              className="hover:text-acid-yellow transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow rounded"
             >
               Privacy Policy
             </button>
             <button
               onClick={() => setActiveLegalModal("terms")}
-              className="hover:text-honey-gold transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-gold rounded"
+              className="hover:text-acid-yellow transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow rounded"
             >
               Terms & Conditions
             </button>
             <button
               onClick={() => setActiveLegalModal("cookies")}
-              className="hover:text-honey-gold transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-gold rounded"
+              className="hover:text-acid-yellow transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow rounded"
             >
               Cookie Policy
             </button>

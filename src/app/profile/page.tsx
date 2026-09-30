@@ -22,11 +22,11 @@ export default function CandidateProfilePage() {
 
   return (
     <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen">
-      {/* Candidate Profile Deep Navy Hero Header */}
-      <div className="rounded-2xl bg-deep-navy text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md">
+      {/* Candidate Profile Royal Maroon Hero Header */}
+      <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-xl bg-honey-gold text-black flex items-center justify-center font-black text-2xl font-mono shrink-0 border-2 border-black shadow-editorial-xs">
+            <div className="w-16 h-16 rounded-xl bg-acid-yellow text-black flex items-center justify-center font-black text-2xl font-mono shrink-0 border-2 border-black shadow-editorial-xs">
               {userProfile.name.charAt(0)}
             </div>
             <div className="space-y-1">
@@ -38,11 +38,11 @@ export default function CandidateProfilePage() {
                   Verified Candidate
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-honey-gold font-mono font-extrabold">
+              <p className="text-xs sm:text-sm text-acid-yellow font-mono font-extrabold">
                 Target Role: {userProfile.targetRole}
               </p>
               <div className="flex flex-wrap items-center gap-3 text-xs text-white/70 pt-1 font-mono font-medium">
-                <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-honey-gold" /> {userProfile.email}</span>
+                <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-acid-yellow" /> {userProfile.email}</span>
                 <span>•</span>
                 <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-white" /> {resumeData.personalInfo.location || "India"}</span>
                 <span>•</span>
@@ -53,7 +53,7 @@ export default function CandidateProfilePage() {
 
           <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-white/20">
             <div className="text-right">
-              <span className="text-4xl sm:text-5xl font-extrabold font-mono text-honey-gold">{userProfile.readinessScore}%</span>
+              <span className="text-4xl sm:text-5xl font-extrabold font-mono text-acid-yellow">{userProfile.readinessScore}%</span>
               <p className="text-[10px] text-white/70 uppercase font-mono font-extrabold tracking-wider">Readiness Score</p>
             </div>
             <Link href="/settings">
@@ -89,7 +89,7 @@ export default function CandidateProfilePage() {
                   <span className="text-muted-foreground">Production Projects</span>
                   <span className="text-foreground">{userProfile.readinessBreakdown.projects}%</span>
                 </div>
-                <ProgressBar value={userProfile.readinessBreakdown.projects} size="sm" variant="navy" />
+                <ProgressBar value={userProfile.readinessBreakdown.projects} size="sm" variant="maroon" />
               </div>
 
               <div className="space-y-1">
@@ -97,7 +97,7 @@ export default function CandidateProfilePage() {
                   <span className="text-muted-foreground">Problem Solving & Algorithms</span>
                   <span className="text-foreground">{userProfile.readinessBreakdown.problemSolving}%</span>
                 </div>
-                <ProgressBar value={userProfile.readinessBreakdown.problemSolving} size="sm" variant="navy" />
+                <ProgressBar value={userProfile.readinessBreakdown.problemSolving} size="sm" variant="maroon" />
               </div>
 
               <div className="space-y-1">
@@ -121,7 +121,7 @@ export default function CandidateProfilePage() {
                   <span className="text-muted-foreground">Career & Skill Match Fit</span>
                   <span className="text-foreground">{userProfile.readinessBreakdown.careerFit}%</span>
                 </div>
-                <ProgressBar value={userProfile.readinessBreakdown.careerFit} size="sm" variant="gold" />
+                <ProgressBar value={userProfile.readinessBreakdown.careerFit} size="sm" variant="yellow" />
               </div>
             </div>
           </Card>
@@ -181,7 +181,7 @@ export default function CandidateProfilePage() {
                   <div className="flex items-start justify-between gap-1">
                     <h3 className="font-bold text-foreground leading-tight">{proj.title}</h3>
                     {proj.evaluation && (
-                      <span className="px-2 py-0.5 rounded-sm bg-editorial-navy text-white font-mono font-bold text-[10px] shrink-0">
+                      <span className="px-2 py-0.5 rounded-sm bg-royal-maroon text-white font-mono font-bold text-[10px] shrink-0 border border-black">
                         {proj.evaluation.overallScore}/100
                       </span>
                     )}
@@ -230,7 +230,7 @@ export default function CandidateProfilePage() {
                     <span className="font-bold text-foreground">{skill.name}</span>
                     <span className="font-extrabold text-foreground">{skill.score}</span>
                   </div>
-                  <span className={`text-[10px] font-mono font-bold ${skill.status === "Verified" ? "text-emerald-700" : "text-editorial-red"}`}>
+                  <span className={`text-[10px] font-mono font-bold ${skill.status === "Verified" ? "text-foreground font-black" : "text-fire-red font-black"}`}>
                     • {skill.status}
                   </span>
                 </div>
@@ -257,7 +257,7 @@ export default function CandidateProfilePage() {
                     <h3 className="font-bold text-foreground">{app.role}</h3>
                     <p className="text-[11px] text-muted-foreground font-mono">{app.company} • {app.location}</p>
                   </div>
-                  <Badge variant="navy" size="sm">
+                  <Badge variant="maroon" size="sm">
                     {app.status}
                   </Badge>
                 </div>

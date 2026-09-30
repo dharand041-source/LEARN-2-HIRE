@@ -6,7 +6,7 @@ export interface MetricCardProps {
   label: string;
   value: string | number;
   subValue?: string;
-  accent?: "fire-red" | "electric-yellow" | "ultra-violet" | "acid-yellow" | "honey-gold" | "deep-navy" | "dark";
+  accent?: "fire-red" | "electric-yellow" | "ultra-violet" | "acid-yellow" | "electric-coral" | "royal-maroon" | "honey-gold" | "deep-navy" | "dark";
   icon?: LucideIcon;
   badge?: string;
   className?: string;
@@ -30,8 +30,10 @@ export function MetricCard({
     "electric-yellow": "border-l-4 border-l-electric-yellow",
     "ultra-violet": "border-l-4 border-l-ultra-violet",
     "acid-yellow": "border-l-4 border-l-acid-yellow",
-    "honey-gold": "border-l-4 border-l-honey-gold",
-    "deep-navy": "border-l-4 border-l-deep-navy",
+    "electric-coral": "border-l-4 border-l-electric-coral",
+    "royal-maroon": "border-l-4 border-l-royal-maroon",
+    "honey-gold": "border-l-4 border-l-electric-yellow",
+    "deep-navy": "border-l-4 border-l-royal-maroon",
     dark: "border-l-4 border-l-foreground",
   };
 
@@ -40,18 +42,22 @@ export function MetricCard({
     "electric-yellow": "text-foreground",
     "ultra-violet": "text-ultra-violet",
     "acid-yellow": "text-foreground",
+    "electric-coral": "text-electric-coral",
+    "royal-maroon": "text-royal-maroon",
     "honey-gold": "text-foreground",
-    "deep-navy": "text-deep-navy",
+    "deep-navy": "text-royal-maroon",
     dark: "text-foreground",
   };
 
   const iconBgMap = {
-    "fire-red": "bg-fire-red-50 text-fire-red border border-fire-red-200",
-    "electric-yellow": "bg-electric-yellow text-foreground border border-foreground/20",
-    "ultra-violet": "bg-ultra-violet-50 text-ultra-violet border border-ultra-violet-200",
-    "acid-yellow": "bg-acid-yellow text-foreground border border-foreground/20",
-    "honey-gold": "bg-honey-gold/20 text-foreground border border-honey-gold/40",
-    "deep-navy": "bg-deep-navy text-white border border-deep-navy",
+    "fire-red": "bg-fire-red text-white border border-black",
+    "electric-yellow": "bg-electric-yellow text-foreground border border-black",
+    "ultra-violet": "bg-ultra-violet text-white border border-black",
+    "acid-yellow": "bg-acid-yellow text-foreground border border-black",
+    "electric-coral": "bg-electric-coral text-white border border-black",
+    "royal-maroon": "bg-royal-maroon text-white border border-black",
+    "honey-gold": "bg-electric-yellow text-foreground border border-black",
+    "deep-navy": "bg-royal-maroon text-white border border-black",
     dark: "bg-surface text-foreground border border-foreground/30",
   };
 

@@ -51,11 +51,11 @@ export default function OnboardingPage() {
 
   return (
     <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen">
-      {/* Deep Navy Career Discovery Hero Section */}
-      <div className="rounded-2xl bg-deep-navy text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
+      {/* Ultra Violet Career Discovery Hero Section */}
+      <div className="rounded-2xl bg-ultra-violet text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-honey-gold border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-acid-yellow border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
               <span>Phase 01 // Career Discovery</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
@@ -69,7 +69,7 @@ export default function OnboardingPage() {
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={handleStartAssessment}
-              className="px-6 py-3 rounded-lg bg-honey-gold hover:bg-electric-yellow text-black border-2 border-black font-extrabold text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-xs"
+              className="px-6 py-3 rounded-lg bg-acid-yellow hover:bg-electric-yellow text-black border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-xs"
             >
               <span>Begin {currentRole.title} Assessment</span>
               <ArrowRight className="w-4 h-4" />
@@ -114,7 +114,7 @@ export default function OnboardingPage() {
                     <div className="flex items-center gap-3.5">
                       <div className={`w-9 h-9 rounded-md flex items-center justify-center text-xs font-bold border-2 ${
                         hasSelectedRole
-                          ? "bg-editorial-gold text-foreground border-foreground shadow-editorial-sm"
+                          ? "bg-acid-yellow text-black border-foreground shadow-editorial-sm font-black"
                           : "bg-surface text-foreground border-border"
                       }`}>
                         <Compass className="w-4 h-4" />
@@ -133,7 +133,7 @@ export default function OnboardingPage() {
 
                     <div className="flex items-center gap-2">
                       {hasSelectedRole && (
-                        <Badge variant="gold" size="sm">Active Track</Badge>
+                        <Badge variant="acid" size="sm">Active Track</Badge>
                       )}
                       {isExpanded ? (
                         <ChevronUp className="w-4 h-4 text-foreground" />
@@ -164,7 +164,7 @@ export default function OnboardingPage() {
                                   {role.title}
                                 </h4>
                                 {isSelected && (
-                                  <span className="w-2.5 h-2.5 rounded-full bg-editorial-gold border border-foreground shrink-0" />
+                                  <span className="w-2.5 h-2.5 rounded-full bg-acid-yellow border border-foreground shrink-0" />
                                 )}
                               </div>
                               <p className="text-[11px] mt-1.5 line-clamp-2 leading-relaxed text-muted-foreground">
@@ -192,7 +192,7 @@ export default function OnboardingPage() {
           <Card variant="editorial" className="p-6 md:p-7 space-y-6">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <Badge variant="gold" size="sm">{currentRole.category}</Badge>
+                <Badge variant="acid" size="sm">{currentRole.category}</Badge>
                 <span className="text-[11px] text-foreground font-bold font-mono">{currentRole.growthRate} Growth</span>
               </div>
               <h2 className="text-2xl font-extrabold text-foreground tracking-tight">
@@ -243,7 +243,7 @@ export default function OnboardingPage() {
                       <span className="text-foreground font-semibold">{skill.name}</span>
                       <span className="font-mono font-bold text-foreground">{skill.weight}%</span>
                     </div>
-                    <ProgressBar value={skill.weight} size="sm" variant="gold" />
+                    <ProgressBar value={skill.weight} size="sm" variant="yellow" />
                     <p className="text-[10px] text-muted-foreground">{skill.description}</p>
                   </div>
                 ))}
@@ -271,7 +271,7 @@ export default function OnboardingPage() {
             <div className="pt-4 border-t-2 border-border space-y-2">
               <Button
                 onClick={handleStartAssessment}
-                variant="gold"
+                variant="acid"
                 size="lg"
                 className="w-full gap-2 text-xs font-bold shadow-editorial-sm"
               >

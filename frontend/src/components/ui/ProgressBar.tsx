@@ -18,10 +18,11 @@ export interface ProgressBarProps {
     | "gold"
     | "deep-navy"
     | "navy"
-    | "champagne"
-    | "rose"
+    | "electric-coral"
+    | "coral"
+    | "royal-maroon"
+    | "maroon"
     | "night"
-    | "gradient"
     | "success";
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
@@ -47,24 +48,27 @@ export function ProgressBar({
   };
 
   const fillVariants = {
-    "fire-red": "bg-editorial-red",
-    red: "bg-editorial-red",
-    imperial: "bg-editorial-red",
-    rose: "bg-editorial-red",
-    "electric-yellow": "bg-editorial-yellow",
-    yellow: "bg-editorial-yellow",
-    "acid-yellow": "bg-editorial-acid",
-    acid: "bg-editorial-acid",
-    "honey-gold": "bg-editorial-gold",
-    gold: "bg-editorial-gold",
-    champagne: "bg-editorial-gold",
-    "deep-navy": "bg-editorial-navy",
-    navy: "bg-editorial-navy",
-    "ultra-violet": "bg-editorial-violet",
-    violet: "bg-editorial-violet",
-    night: "bg-foreground",
-    gradient: "bg-editorial-red",
-    success: "bg-emerald-600",
+    "fire-red": "bg-fire-red",
+    red: "bg-fire-red",
+    imperial: "bg-fire-red",
+    rose: "bg-fire-red",
+    "electric-yellow": "bg-electric-yellow",
+    yellow: "bg-electric-yellow",
+    "acid-yellow": "bg-acid-yellow",
+    acid: "bg-acid-yellow",
+    "honey-gold": "bg-electric-yellow",
+    gold: "bg-electric-yellow",
+    "electric-coral": "bg-electric-coral",
+    coral: "bg-electric-coral",
+    "royal-maroon": "bg-royal-maroon",
+    maroon: "bg-royal-maroon",
+    "deep-navy": "bg-royal-maroon",
+    navy: "bg-royal-maroon",
+    "ultra-violet": "bg-ultra-violet",
+    violet: "bg-ultra-violet",
+    night: "bg-black",
+    gradient: "bg-fire-red",
+    success: "bg-acid-yellow",
   };
 
   return (

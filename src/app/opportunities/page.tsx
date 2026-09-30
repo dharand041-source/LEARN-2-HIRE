@@ -107,17 +107,17 @@ export default function OpportunitiesHubPage() {
 
   return (
     <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen">
-      {/* Deep Navy Hero Section */}
-      <div className="rounded-2xl bg-deep-navy text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
+      {/* Royal Maroon Hero Section */}
+      <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-honey-gold border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-coral border-2 border-black text-xs font-mono font-black uppercase tracking-widest">
               <span>Phase 13 // Matched Opportunities</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight text-white leading-tight">
               Matching Jobs, Internships & Startups
             </h1>
-            <p className="text-white/80 text-sm sm:text-base leading-relaxed">
+            <p className="text-white/95 text-sm sm:text-base leading-relaxed font-medium">
               Live verified opportunities matched transparently against your diagnostic readiness score and validated competencies. Official employer applications only.
             </p>
           </div>
@@ -126,14 +126,14 @@ export default function OpportunitiesHubPage() {
             <button
               onClick={() => fetchLiveJobs()}
               disabled={isJobsLoading}
-              className="px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white border-2 border-white/40 font-extrabold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white border-2 border-white/40 font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isJobsLoading ? "animate-spin" : ""}`} />
               <span>Refresh Live Feeds</span>
             </button>
 
             <Link href="/applications">
-              <button className="px-5 py-2.5 rounded-lg bg-honey-gold hover:bg-electric-yellow text-black border-2 border-black font-extrabold text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
+              <button className="px-5 py-2.5 rounded-lg bg-electric-coral hover:bg-white hover:text-black text-white border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
                 <span>Application Kanban</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
@@ -142,29 +142,29 @@ export default function OpportunitiesHubPage() {
         </div>
 
         {/* Opportunity Track Counts Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/20">
-          <div className="p-3.5 rounded-xl bg-black border-2 border-honey-gold text-white flex items-center justify-between">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t-2 border-white/20">
+          <div className="p-4 rounded-xl bg-black border-2 border-black text-white flex items-center justify-between">
             <div>
               <p className="text-[10px] text-white/70 uppercase font-mono font-bold">Verified Full-time Roles</p>
-              <p className="text-xl font-extrabold text-honey-gold font-mono">{jobCount} Live Jobs</p>
+              <p className="text-xl font-black text-white font-mono">{jobCount} Live Jobs</p>
             </div>
-            <Briefcase className="w-6 h-6 text-honey-gold" />
+            <Briefcase className="w-6 h-6 text-electric-coral stroke-[2.5]" />
           </div>
 
-          <div className="p-3.5 rounded-xl bg-black border-2 border-white/30 text-white flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-black border-2 border-black text-white flex items-center justify-between">
             <div>
               <p className="text-[10px] text-white/70 uppercase font-mono font-bold">Skill-verified Internships</p>
-              <p className="text-xl font-extrabold text-white font-mono">{internshipCount} Internships</p>
+              <p className="text-xl font-black text-electric-coral font-mono">{internshipCount} Internships</p>
             </div>
-            <MapPin className="w-6 h-6 text-white/70" />
+            <MapPin className="w-6 h-6 text-white stroke-[2.5]" />
           </div>
 
-          <div className="p-3.5 rounded-xl bg-black border-2 border-honey-gold text-white flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-black border-2 border-black text-white flex items-center justify-between">
             <div>
               <p className="text-[10px] text-white/70 uppercase font-mono font-bold">YC & High-Growth Startups</p>
-              <p className="text-xl font-extrabold text-honey-gold font-mono">{startupCount} Startups</p>
+              <p className="text-xl font-black text-white font-mono">{startupCount} Startups</p>
             </div>
-            <DollarSign className="w-6 h-6 text-honey-gold" />
+            <DollarSign className="w-6 h-6 text-electric-coral stroke-[2.5]" />
           </div>
         </div>
       </div>

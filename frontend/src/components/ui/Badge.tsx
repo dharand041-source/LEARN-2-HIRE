@@ -16,8 +16,10 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
     | "gold"
     | "deep-navy"
     | "navy"
-    | "champagne"
-    | "rose"
+    | "electric-coral"
+    | "coral"
+    | "royal-maroon"
+    | "maroon"
     | "night"
     | "neutral"
     | "success"
@@ -29,32 +31,36 @@ export function Badge({ className, variant = "neutral", size = "sm", children, .
   const baseStyles = "inline-flex items-center font-bold rounded-md transition-colors select-none";
 
   const variants = {
-    // Red (Fire Red)
-    "fire-red": "bg-editorial-red/10 text-editorial-red border border-editorial-red font-bold",
-    red: "bg-editorial-red/10 text-editorial-red border border-editorial-red font-bold",
-    imperial: "bg-editorial-red/10 text-editorial-red border border-editorial-red font-bold",
-    rose: "bg-editorial-red/10 text-editorial-red border border-editorial-red font-bold",
-    // Electric Yellow (Accessible black text on yellow)
-    "electric-yellow": "bg-editorial-yellow text-foreground border border-foreground font-bold",
-    yellow: "bg-editorial-yellow text-foreground border border-foreground font-bold",
-    // Acid Yellow (Accessible black text on yellow)
-    "acid-yellow": "bg-editorial-acid text-foreground border border-foreground font-bold",
-    acid: "bg-editorial-acid text-foreground border border-foreground font-bold",
-    // Honey Gold (Accessible black text on gold)
-    "honey-gold": "bg-editorial-gold text-foreground border border-foreground font-bold",
-    gold: "bg-editorial-gold text-foreground border border-foreground font-bold",
-    champagne: "bg-editorial-gold/25 text-foreground border border-foreground font-bold",
-    // Deep Navy (Accessible white text on navy)
-    "deep-navy": "bg-editorial-navy text-white border border-editorial-navy font-bold",
-    navy: "bg-editorial-navy text-white border border-editorial-navy font-bold",
-    // Ultra Violet (Accessible white text on violet)
-    "ultra-violet": "bg-editorial-violet text-white border border-editorial-violet font-bold",
-    violet: "bg-editorial-violet text-white border border-editorial-violet font-bold",
+    // Ultra Violet
+    "ultra-violet": "bg-ultra-violet text-white border border-black font-extrabold",
+    violet: "bg-ultra-violet text-white border border-black font-extrabold",
+    // Acid Yellow
+    "acid-yellow": "bg-acid-yellow text-black border border-black font-extrabold",
+    acid: "bg-acid-yellow text-black border border-black font-extrabold",
+    // Fire Red
+    "fire-red": "bg-fire-red text-white border border-black font-extrabold",
+    red: "bg-fire-red text-white border border-black font-extrabold",
+    imperial: "bg-fire-red text-white border border-black font-extrabold",
+    rose: "bg-fire-red text-white border border-black font-extrabold",
+    // Electric Yellow
+    "electric-yellow": "bg-electric-yellow text-black border border-black font-extrabold",
+    yellow: "bg-electric-yellow text-black border border-black font-extrabold",
+    "honey-gold": "bg-electric-yellow text-black border border-black font-extrabold",
+    gold: "bg-electric-yellow text-black border border-black font-extrabold",
+    champagne: "bg-electric-yellow text-black border border-black font-extrabold",
+    // Electric Coral
+    "electric-coral": "bg-electric-coral text-white border border-black font-extrabold",
+    coral: "bg-electric-coral text-white border border-black font-extrabold",
+    // Royal Maroon
+    "royal-maroon": "bg-royal-maroon text-white border border-black font-extrabold",
+    maroon: "bg-royal-maroon text-white border border-black font-extrabold",
+    "deep-navy": "bg-royal-maroon text-white border border-black font-extrabold",
+    navy: "bg-royal-maroon text-white border border-black font-extrabold",
     // Neutrals
-    night: "bg-foreground text-background border border-foreground font-bold",
-    neutral: "bg-surface text-foreground border border-border font-medium",
-    success: "bg-emerald-50 text-emerald-800 border border-emerald-600 font-bold",
-    outline: "bg-transparent text-foreground border border-border font-medium",
+    night: "bg-black text-white border border-black font-extrabold",
+    neutral: "bg-surface text-black border border-black font-bold",
+    success: "bg-white text-black border border-black font-extrabold",
+    outline: "bg-transparent text-foreground border border-black font-bold",
   };
 
   const sizes = {

@@ -25,6 +25,10 @@ export interface TabsProps {
     | "acid"
     | "honey-gold"
     | "gold"
+    | "electric-coral"
+    | "coral"
+    | "royal-maroon"
+    | "maroon"
     | "deep-navy"
     | "navy"
     | "dark";
@@ -32,29 +36,37 @@ export interface TabsProps {
 }
 
 export function Tabs({ tabs, activeTab, onChange, accent = "fire-red", className }: TabsProps) {
-  const activeStyles = {
-    "fire-red": "bg-editorial-red text-white shadow-editorial-sm font-bold",
-    red: "bg-editorial-red text-white shadow-editorial-sm font-bold",
-    "electric-yellow": "bg-editorial-yellow text-foreground border-2 border-foreground font-bold",
-    yellow: "bg-editorial-yellow text-foreground border-2 border-foreground font-bold",
-    "acid-yellow": "bg-editorial-acid text-foreground border-2 border-foreground font-bold",
-    acid: "bg-editorial-acid text-foreground border-2 border-foreground font-bold",
-    "honey-gold": "bg-editorial-gold text-foreground border-2 border-foreground font-bold",
-    gold: "bg-editorial-gold text-foreground border-2 border-foreground font-bold",
-    "deep-navy": "bg-editorial-navy text-white font-bold",
-    navy: "bg-editorial-navy text-white font-bold",
-    "ultra-violet": "bg-editorial-violet text-white font-bold",
-    violet: "bg-editorial-violet text-white font-bold",
-    dark: "bg-foreground text-background font-bold",
+  const activeStyles: Record<string, string> = {
+    "ultra-violet": "bg-ultra-violet text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    violet: "bg-ultra-violet text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    "acid-yellow": "bg-acid-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
+    acid: "bg-acid-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
+    "fire-red": "bg-fire-red text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    red: "bg-fire-red text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    "electric-yellow": "bg-electric-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
+    yellow: "bg-electric-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
+    "honey-gold": "bg-electric-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
+    gold: "bg-electric-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
+    "electric-coral": "bg-electric-coral text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    coral: "bg-electric-coral text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    "royal-maroon": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    maroon: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    "deep-navy": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    navy: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    dark: "bg-black text-white border-2 border-black font-extrabold shadow-editorial-xs",
   };
 
   const isDarkAccent =
     accent === "fire-red" ||
     accent === "red" ||
+    accent === "royal-maroon" ||
+    accent === "maroon" ||
     accent === "deep-navy" ||
     accent === "navy" ||
     accent === "ultra-violet" ||
     accent === "violet" ||
+    accent === "electric-coral" ||
+    accent === "coral" ||
     accent === "dark";
 
   return (

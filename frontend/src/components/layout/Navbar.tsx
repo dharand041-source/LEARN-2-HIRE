@@ -47,14 +47,14 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
   const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === userProfile.selectedLanguage) || SUPPORTED_LANGUAGES[0];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b-2 border-black bg-deep-navy text-white">
+    <header className="sticky top-0 z-40 w-full border-b-2 border-black bg-black text-white">
       <div className="flex h-16 items-center justify-between px-3 sm:px-6 lg:px-8">
         {/* Left Section: Hamburger Menu & Logo & Active Track */}
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Hamburger menu button */}
           <button
             onClick={onToggleSidebar}
-            className="p-1.5 sm:p-2 text-white hover:text-electric-yellow rounded-lg hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-yellow cursor-pointer"
+            className="p-1.5 sm:p-2 text-white hover:text-acid-yellow rounded-lg hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow cursor-pointer"
             aria-label={sidebarOpen ? "Close navigation" : "Open navigation"}
             title={sidebarOpen ? "Collapse navigation" : "Expand navigation"}
           >
@@ -68,10 +68,10 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
             <Link
               href="/onboarding"
               prefetch={true}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/20 border border-white/20 hover:border-honey-gold transition-colors text-xs text-white/80 hover:text-white"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/20 border border-white/20 hover:border-acid-yellow transition-colors text-xs text-white/90 hover:text-white"
             >
-              <Compass className="w-3.5 h-3.5 text-honey-gold" />
-              <span>Track: <strong className="text-honey-gold font-bold">{selectedRole.title}</strong></span>
+              <Compass className="w-3.5 h-3.5 text-acid-yellow" />
+              <span>Track: <strong className="text-acid-yellow font-extrabold">{selectedRole.title}</strong></span>
               <ChevronDown className="w-3 h-3 text-white/60 ml-0.5" />
             </Link>
           </div>
@@ -87,7 +87,7 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
               <span className="text-[10px] text-white/70 uppercase tracking-wider font-bold">Days</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-electric-yellow border-2 border-black text-xs text-black font-extrabold shadow-sm">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-acid-yellow border-2 border-black text-xs text-black font-extrabold shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-black fill-black" />
               <span className="font-extrabold text-black font-mono">{userProfile.xp}</span>
               <span className="text-[10px] text-black uppercase tracking-wider font-extrabold">XP</span>
@@ -102,7 +102,7 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
                 setIsNotifOpen(false);
                 setIsProfileOpen(false);
               }}
-              className="flex items-center gap-1.5 p-2 sm:px-2.5 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 hover:border-honey-gold text-xs text-white transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 p-2 sm:px-2.5 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 hover:border-acid-yellow text-xs text-white transition-colors cursor-pointer"
               title="Select Language"
             >
               <Globe className="w-3.5 h-3.5 text-electric-yellow" />
@@ -140,12 +140,12 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
                 setIsLangOpen(false);
                 setIsProfileOpen(false);
               }}
-              className="relative p-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 hover:border-honey-gold text-white transition-colors cursor-pointer"
+              className="relative p-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 hover:border-acid-yellow text-white transition-colors cursor-pointer"
               aria-label="Notifications"
             >
               <Bell className="w-4 h-4 text-white" />
               {unreadNotificationCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-fire-red text-[9px] font-extrabold text-white ring-2 ring-deep-navy">
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-fire-red text-[9px] font-extrabold text-white ring-2 ring-black">
                   {unreadNotificationCount}
                 </span>
               )}
@@ -214,14 +214,14 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
                 setIsLangOpen(false);
                 setIsNotifOpen(false);
               }}
-              className="flex items-center gap-2 p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 hover:border-honey-gold transition-colors cursor-pointer text-white"
+              className="flex items-center gap-2 p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 hover:border-acid-yellow transition-colors cursor-pointer text-white"
             >
-              <div className="w-6 h-6 rounded bg-honey-gold flex items-center justify-center text-[11px] font-extrabold text-black">
+              <div className="w-6 h-6 rounded bg-acid-yellow flex items-center justify-center text-[11px] font-extrabold text-black">
                 {userProfile.name.charAt(0)}
               </div>
               <div className="hidden md:flex flex-col text-left">
                 <span className="text-xs font-extrabold text-white leading-none">{userProfile.name}</span>
-                <span className="text-[10px] text-honey-gold font-extrabold font-mono mt-0.5">{userProfile.readinessScore}% Ready</span>
+                <span className="text-[10px] text-acid-yellow font-extrabold font-mono mt-0.5">{userProfile.readinessScore}% Ready</span>
               </div>
               <ChevronDown className="w-3 h-3 text-white/70" />
             </button>

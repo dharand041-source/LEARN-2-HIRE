@@ -77,17 +77,17 @@ export default function ResumeBuilderPage() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Deep Navy Resume Hero Section */}
-      <div className="rounded-2xl bg-deep-navy text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
+      {/* Royal Maroon Resume Hero Section */}
+      <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-honey-gold border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-coral border-2 border-black text-xs font-mono font-black uppercase tracking-widest">
               <span>Phase 11 // ATS Verification</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight text-white leading-tight">
               ATS-Optimized Resume Builder
             </h1>
-            <p className="text-white/80 text-sm sm:text-base leading-relaxed">
+            <p className="text-white/95 text-sm sm:text-base leading-relaxed font-medium">
               Single-column, machine-readable resume format structured specifically for ATS scanners and senior technical hiring managers.
             </p>
           </div>
@@ -109,15 +109,15 @@ export default function ResumeBuilderPage() {
             </button>
 
             <Link href="/resume/analyze">
-              <button className="px-4 py-2.5 rounded-lg bg-black text-honey-gold border-2 border-honey-gold hover:bg-honey-gold hover:text-black font-extrabold text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
-                <Sparkles className="w-3.5 h-3.5" />
+              <button className="px-4 py-2.5 rounded-lg bg-black text-white border-2 border-white hover:bg-white hover:text-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
+                <Sparkles className="w-3.5 h-3.5 text-electric-coral" />
                 <span>ATS Score: {resumeAnalysis.atsCompatibilityScore}%</span>
               </button>
             </Link>
 
             <button
               onClick={handleSave}
-              className="px-5 py-2.5 rounded-lg bg-honey-gold hover:bg-electric-yellow text-black border-2 border-black font-extrabold text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs"
+              className="px-5 py-2.5 rounded-lg bg-electric-coral hover:bg-white hover:text-black text-white border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>{isSaved ? "Saved to Profile!" : "Save Changes"}</span>
@@ -129,17 +129,17 @@ export default function ResumeBuilderPage() {
       {/* Main Grid: Form Editor (5 cols) & Live ATS Preview (7 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Form Editor */}
-        <div className="lg:col-span-5 rounded-lg bg-white border-2 border-border p-5 sm:p-6 space-y-6 shadow-editorial-sm">
+        <div className="lg:col-span-5 rounded-xl bg-white border-2 border-black p-5 sm:p-6 space-y-6 shadow-editorial-sm">
           {/* Section Navigation Pills */}
-          <div className="flex flex-wrap gap-1.5 p-1.5 bg-surface rounded-md border-2 border-border text-xs">
+          <div className="flex flex-wrap gap-1.5 p-1.5 bg-surface rounded-md border-2 border-black text-xs">
             {(["personal", "summary", "skills", "experience", "projects", "education"] as const).map((sec) => (
               <button
                 key={sec}
                 onClick={() => setActiveSection(sec)}
-                className={`px-3 py-1.5 rounded-sm capitalize font-mono text-xs font-bold transition-all ${
+                className={`px-3 py-1.5 rounded-sm capitalize font-mono text-xs font-black transition-all ${
                   activeSection === sec
-                    ? "bg-editorial-red text-white shadow-editorial-sm"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white"
+                    ? "bg-royal-maroon text-white shadow-editorial-xs"
+                    : "text-black/70 hover:text-black hover:bg-white"
                 }`}
               >
                 {sec}

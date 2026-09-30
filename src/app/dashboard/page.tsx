@@ -25,7 +25,6 @@ import { useCareer } from "@/context/CareerContext";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { MetricCard } from "@/components/ui/MetricCard";
 import { CAREER_ROLES } from "@/data/careers";
 import { LoginIntro } from "@/components/ui/login-intro";
 import { Footer } from "@/components/layout/Footer";
@@ -96,9 +95,10 @@ export default function DashboardPage() {
       icon: CheckSquare,
       score: assessmentScoreStr,
       route: "/assessment",
-      accent: "border-t-4 border-t-electric-yellow",
-      iconBg: "bg-electric-yellow text-foreground",
-      badge: "Electric Yellow",
+      cardBg: "bg-ultra-violet text-white border-2 border-black",
+      iconBg: "bg-acid-yellow text-black",
+      numColor: "text-acid-yellow",
+      scoreColor: "text-acid-yellow",
     },
     {
       title: "2. Gap Analysis",
@@ -106,9 +106,10 @@ export default function DashboardPage() {
       icon: TrendingUp,
       score: gapAnalysisStr,
       route: "/assessment/results",
-      accent: "border-t-4 border-t-honey-gold",
-      iconBg: "bg-honey-gold text-foreground",
-      badge: "Honey Gold",
+      cardBg: "bg-acid-yellow text-black border-2 border-black",
+      iconBg: "bg-black text-acid-yellow",
+      numColor: "text-black",
+      scoreColor: "text-black",
     },
     {
       title: "3. Learning Track",
@@ -116,9 +117,10 @@ export default function DashboardPage() {
       icon: BookOpen,
       score: `${completedModules}/${learningModules.length} Done`,
       route: "/learning",
-      accent: "border-t-4 border-t-acid-yellow",
-      iconBg: "bg-acid-yellow text-foreground",
-      badge: "Acid Yellow",
+      cardBg: "bg-black text-white border-2 border-black",
+      iconBg: "bg-acid-yellow text-black",
+      numColor: "text-acid-yellow",
+      scoreColor: "text-acid-yellow",
     },
     {
       title: "4. Capstone Build",
@@ -126,9 +128,10 @@ export default function DashboardPage() {
       icon: FolderGit2,
       score: capstoneScoreStr,
       route: "/projects",
-      accent: "border-t-4 border-t-deep-navy",
-      iconBg: "bg-deep-navy text-white",
-      badge: "Deep Navy",
+      cardBg: "bg-white text-black border-2 border-black",
+      iconBg: "bg-ultra-violet text-white",
+      numColor: "text-black",
+      scoreColor: "text-black",
     },
     {
       title: "5. Voice Defense",
@@ -136,9 +139,10 @@ export default function DashboardPage() {
       icon: Mic,
       score: voiceScoreStr,
       route: "/interview",
-      accent: "border-t-4 border-t-ultra-violet",
-      iconBg: "bg-ultra-violet text-white",
-      badge: "Ultra Violet",
+      cardBg: "bg-ultra-violet text-white border-2 border-black",
+      iconBg: "bg-acid-yellow text-black",
+      numColor: "text-acid-yellow",
+      scoreColor: "text-acid-yellow",
     },
     {
       title: "6. Match Engine",
@@ -146,9 +150,10 @@ export default function DashboardPage() {
       icon: Briefcase,
       score: topMatchStr,
       route: "/opportunities",
-      accent: "border-t-4 border-t-honey-gold",
-      iconBg: "bg-honey-gold text-foreground",
-      badge: "Honey Gold",
+      cardBg: "bg-acid-yellow text-black border-2 border-black",
+      iconBg: "bg-black text-acid-yellow",
+      numColor: "text-black",
+      scoreColor: "text-black",
     },
   ];
 
@@ -159,7 +164,8 @@ export default function DashboardPage() {
       desc: "Explore 24+ high-demand technical pathways across Software Engineering, AI/ML, DevOps, and Cybersecurity with transparent skill requirements and salary data.",
       route: "/onboarding",
       badge: "Career Discovery",
-      accentClass: "border-honey-gold text-[#DDA300]",
+      cardClass: "bg-white text-black border-2 border-black hover:bg-ultra-violet hover:text-white group",
+      badgeVariant: "violet" as const,
     },
     {
       num: "02",
@@ -167,7 +173,8 @@ export default function DashboardPage() {
       desc: "Take focused, anti-distraction technical assessments with real code snippets, logic traps, and architectural questions—not simplistic school tests.",
       route: "/assessment",
       badge: "Diagnostics",
-      accentClass: "border-electric-yellow text-[#B8A000]",
+      cardClass: "bg-white text-black border-2 border-black hover:bg-acid-yellow hover:text-black group",
+      badgeVariant: "acid" as const,
     },
     {
       num: "03",
@@ -175,7 +182,8 @@ export default function DashboardPage() {
       desc: "Get an uncompromising diagnostic breakdown of your strengths and specific blind spots with actionable next steps mapped directly to your target role.",
       route: "/assessment/results",
       badge: "Gap Analysis",
-      accentClass: "border-honey-gold text-[#DDA300]",
+      cardClass: "bg-white text-black border-2 border-black hover:bg-black hover:text-white group",
+      badgeVariant: "night" as const,
     },
     {
       num: "04",
@@ -183,7 +191,8 @@ export default function DashboardPage() {
       desc: "Personalized curated modules from NPTEL, IITs, and official documentation with interactive code challenges and multi-language support (Tamil, Hindi, Telugu, etc.).",
       route: "/learning",
       badge: "Curated Training",
-      accentClass: "border-acid-yellow text-[#97A700]",
+      cardClass: "bg-white text-black border-2 border-black hover:bg-ultra-violet hover:text-white group",
+      badgeVariant: "violet" as const,
     },
     {
       num: "05",
@@ -191,7 +200,8 @@ export default function DashboardPage() {
       desc: "Implement production-grade applications—from escrow marketplaces to multi-tenant inventory SaaS—with milestone checkpoints and automated rubric evaluation.",
       route: "/projects",
       badge: "Verified Proof",
-      accentClass: "border-deep-navy text-deep-navy",
+      cardClass: "bg-white text-black border-2 border-black hover:bg-acid-yellow hover:text-black group",
+      badgeVariant: "acid" as const,
     },
     {
       num: "06",
@@ -199,7 +209,8 @@ export default function DashboardPage() {
       desc: "Rehearse technical architecture and behavioral questions in a realistic voice simulation with audio waveforms, pacing analysis, and STAR critique.",
       route: "/interview",
       badge: "Mock Simulation",
-      accentClass: "border-ultra-violet text-ultra-violet",
+      cardClass: "bg-white text-black border-2 border-black hover:bg-black hover:text-white group",
+      badgeVariant: "night" as const,
     },
     {
       num: "07",
@@ -207,7 +218,8 @@ export default function DashboardPage() {
       desc: "Access verified jobs, internships, and YC startups matched strictly against your demonstrated skill proficiencies and verified project portfolio.",
       route: "/opportunities",
       badge: "Targeted Placement",
-      accentClass: "border-honey-gold text-[#DDA300]",
+      cardClass: "bg-white text-black border-2 border-black hover:bg-ultra-violet hover:text-white group",
+      badgeVariant: "violet" as const,
     },
     {
       num: "08",
@@ -215,45 +227,46 @@ export default function DashboardPage() {
       desc: "If an application is rejected, our engine conducts rejection analysis, highlights root-cause skill deficiencies, and generates an actionable retraining plan.",
       route: "/feedback",
       badge: "Continuous Retraining",
-      accentClass: "border-ultra-violet text-ultra-violet",
+      cardClass: "bg-white text-black border-2 border-black hover:bg-acid-yellow hover:text-black group",
+      badgeVariant: "acid" as const,
     },
   ];
 
   return (
     <>
       {showIntro && <LoginIntro onComplete={() => setShowIntro(false)} />}
-      <div className="space-y-16 sm:space-y-20 bg-white">
+      <div className="space-y-14 sm:space-y-18 bg-white w-full">
       {/* ====================================================
-          1. HERO EDITORIAL HEADLINE (Solid Deep Navy Hero)
+          1. HERO SECTION (SOLID ULTRA VIOLET #7F00FF HERO)
          ==================================================== */}
-      <section className="relative w-full bg-deep-navy text-white border-b-4 border-black py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+      <section className="relative w-full bg-ultra-violet text-white border-b-4 border-black py-12 sm:py-18 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 border border-honey-gold/40 text-xs text-honey-gold animate-fade-in shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-honey-gold" />
-              <span className="font-extrabold tracking-wider uppercase text-[10px] sm:text-[11px]">The Career-Readiness Standard</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-black text-acid-yellow border-2 border-black text-xs font-mono font-black uppercase tracking-widest shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-acid-yellow" />
+              <span>The Career-Readiness Standard</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-white leading-[1.08] uppercase break-words">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-black tracking-tight text-white leading-[1.08] uppercase break-words">
               BUILD SKILLS. <br />
-              <span className="text-honey-gold">PROVE YOUR ABILITY.</span> <br />
+              <span className="text-acid-yellow underline decoration-black decoration-4 underline-offset-8">PROVE YOUR ABILITY.</span> <br />
               GET HIRED.
             </h1>
 
-            <p className="text-sm sm:text-base lg:text-lg text-white/80 max-w-2xl leading-relaxed font-normal">
+            <p className="text-sm sm:text-base lg:text-lg text-white font-medium max-w-2xl leading-relaxed">
               One cohesive career platform from verified skill assessment to real-world production projects, voice interview simulations, and targeted employment matching with automated rejection retraining.
             </p>
 
             {/* Action CTAs */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-md sm:max-w-none w-full">
               <Link href="/assessment" className="w-full sm:w-auto">
-                <button className="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-lg bg-electric-yellow hover:bg-honey-gold text-black border-2 border-black font-extrabold text-sm sm:text-base transition-colors flex items-center justify-center gap-2.5 cursor-pointer shadow-editorial-sm">
+                <button className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-lg bg-acid-yellow hover:bg-white text-black border-2 border-black font-black text-sm sm:text-base transition-colors flex items-center justify-center gap-2.5 cursor-pointer shadow-editorial-sm">
                   <span>Start Initial Assessment</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                 </button>
               </Link>
               <Link href="/onboarding" className="w-full sm:w-auto">
-                <button className="w-full sm:w-auto px-6 sm:px-7 py-3.5 rounded-lg bg-white/10 hover:bg-white/20 text-white border-2 border-white/40 hover:border-white font-extrabold text-sm sm:text-base transition-colors flex items-center justify-center cursor-pointer">
+                <button className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-lg bg-black hover:bg-white hover:text-black text-white border-2 border-black font-black text-sm sm:text-base transition-colors flex items-center justify-center cursor-pointer shadow-editorial-sm">
                   <span>Explore 24+ Career Tracks</span>
                 </button>
               </Link>
@@ -261,34 +274,34 @@ export default function DashboardPage() {
           </div>
 
           {/* Right Hero Readiness High-Contrast Surface */}
-          <div className="lg:col-span-5 rounded-2xl bg-black border-2 border-honey-gold p-6 sm:p-7 text-white shadow-editorial-md space-y-4">
-            <div className="flex items-center justify-between border-b border-white/20 pb-3">
+          <div className="lg:col-span-5 rounded-2xl bg-black border-3 border-acid-yellow p-6 sm:p-7 text-white shadow-editorial-md space-y-4">
+            <div className="flex items-center justify-between border-b-2 border-white/20 pb-3">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-honey-gold font-extrabold">Active Pathway</span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-acid-yellow font-black">Active Pathway</span>
                 <h3 className="text-base font-extrabold text-white truncate max-w-[200px]">{selectedRole.title}</h3>
               </div>
               <div className="text-right">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-white/70 font-bold">Salary Avg</span>
-                <p className="text-xs font-mono font-extrabold text-honey-gold">{selectedRole.averageSalary}</p>
+                <p className="text-xs font-mono font-black text-acid-yellow">{selectedRole.averageSalary}</p>
               </div>
             </div>
 
             <div className="space-y-2">
               <div className="flex items-baseline justify-between">
-                <span className="text-xs text-white/80 font-bold uppercase tracking-wider">Candidate Readiness</span>
-                <span className="text-4xl font-mono font-extrabold text-honey-gold">{userProfile.readinessScore}%</span>
+                <span className="text-xs text-white/90 font-bold uppercase tracking-wider">Candidate Readiness</span>
+                <span className="text-4xl font-mono font-black text-acid-yellow">{userProfile.readinessScore}%</span>
               </div>
-              <ProgressBar value={userProfile.readinessScore} size="md" variant="honey-gold" />
+              <ProgressBar value={userProfile.readinessScore} size="md" variant="acid-yellow" />
             </div>
 
             <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
-              <div className="p-2.5 rounded-lg bg-white/10 border border-white/10">
-                <span className="text-[10px] text-white/60 font-mono uppercase font-bold block">Gamified XP</span>
-                <span className="text-base font-mono font-extrabold text-electric-yellow">{userProfile.xp} XP</span>
+              <div className="p-3 rounded-lg bg-white/10 border border-white/20">
+                <span className="text-[10px] text-white/70 font-mono uppercase font-bold block">Gamified XP</span>
+                <span className="text-base font-mono font-black text-acid-yellow">{userProfile.xp} XP</span>
               </div>
-              <div className="p-2.5 rounded-lg bg-white/10 border border-white/10">
-                <span className="text-[10px] text-white/60 font-mono uppercase font-bold block">Streak Count</span>
-                <span className="text-base font-mono font-extrabold text-fire-red">{userProfile.streakDays} Days</span>
+              <div className="p-3 rounded-lg bg-white/10 border border-white/20">
+                <span className="text-[10px] text-white/70 font-mono uppercase font-bold block">Streak Count</span>
+                <span className="text-base font-mono font-black text-white">{userProfile.streakDays} Days</span>
               </div>
             </div>
           </div>
@@ -296,221 +309,221 @@ export default function DashboardPage() {
       </section>
 
       {/* ====================================================
-          2. BOLD EDITORIAL METRIC SYSTEM (9 Core Cards)
+          2. COLOR-BLOCKED METRIC SYSTEM (RHYTHMIC 9-CARD GRID)
          ==================================================== */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-3 border-b border-border pb-4">
+        {/* Section Headline Banner in Acid Yellow */}
+        <div className="p-6 sm:p-8 rounded-2xl bg-acid-yellow border-3 border-black shadow-editorial-md mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Badge variant="fire-red" size="sm">Live Telemetry</Badge>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-muted font-bold">
-                Candidate Competency Engine
-              </span>
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-black text-white text-[10px] font-mono font-black uppercase tracking-wider mb-2">
+              <span>Telemetry Engine // 9 Core Competency Tiers</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground tracking-tight uppercase">
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-black tracking-tight uppercase leading-none">
               READINESS & PROGRESS OVERVIEW
             </h2>
           </div>
-          <p className="text-xs text-muted max-w-md font-medium">
-            Controlled high-saturation metric cards representing each tier of your verified readiness profile.
+          <p className="text-xs font-bold text-black max-w-md leading-relaxed">
+            High-contrast visual cards representing each tier of your verified readiness profile across assessments, capstones, and interviews.
           </p>
         </div>
 
-        {/* 9-Card Editorial Grid */}
+        {/* 9-Card Deliberate Color Mixture Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {/* 1. READINESS CARD (Fire Red Hero Metric) */}
-          <div className="p-6 rounded-xl bg-white border-2 border-foreground shadow-editorial-sm flex flex-col justify-between relative overflow-hidden border-l-8 border-l-fire-red">
+          {/* Card 1: READINESS (ULTRA VIOLET BRAND SURFACE) */}
+          <div className="p-6 rounded-xl bg-ultra-violet text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div className="space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-extrabold text-foreground uppercase tracking-wider">
+                <span className="text-xs font-black uppercase tracking-wider text-white">
                   Target Readiness
                 </span>
-                <Badge variant="fire-red" size="sm">Dashboard Accent</Badge>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-black bg-acid-yellow text-black uppercase">
+                  Primary Score
+                </span>
               </div>
               <div className="flex items-baseline gap-2 pt-2">
-                <span className="text-5xl font-mono font-extrabold text-fire-red tracking-tight">
+                <span className="text-5xl font-mono font-black text-acid-yellow tracking-tight">
                   {userProfile.readinessScore}%
                 </span>
-                <span className="text-xs text-muted font-bold uppercase">/ 100</span>
+                <span className="text-xs text-white/80 font-bold uppercase">/ 100</span>
               </div>
             </div>
 
-            <div className="pt-4 space-y-2.5 border-t border-border mt-4">
+            <div className="pt-4 space-y-2 border-t border-white/20 mt-4">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-muted font-medium">Target Track:</span>
-                <span className="font-extrabold text-foreground truncate max-w-[160px]">
+                <span className="text-white/80 font-medium">Target Track:</span>
+                <span className="font-black text-white truncate max-w-[160px]">
                   {selectedRole.title}
                 </span>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="text-muted font-medium">Primary Skill Gap:</span>
-                <span className="font-extrabold text-fire-red font-mono truncate max-w-[160px]">
+                <span className="text-white/80 font-medium">Primary Skill Gap:</span>
+                <span className="font-black text-acid-yellow font-mono truncate max-w-[160px]">
                   {userProfile.focusArea ? userProfile.focusArea.split("&")[0].trim() : "Pending Diagnostics"}
                 </span>
               </div>
-              <ProgressBar value={userProfile.readinessScore} size="sm" variant="fire-red" />
+              <ProgressBar value={userProfile.readinessScore} size="sm" variant="acid-yellow" />
             </div>
           </div>
 
-          {/* 2. XP & STREAK CARD (Solid Honey Gold Brand Surface) */}
-          <div className="p-5 rounded-xl bg-honey-gold text-black border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+          {/* Card 2: XP & STREAK (ACID YELLOW BRAND SURFACE) */}
+          <div className="p-6 rounded-xl bg-acid-yellow text-black border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-black uppercase tracking-wider text-black">
+                <span className="text-xs font-black uppercase tracking-wider text-black">
                   Candidate Experience
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-black text-honey-gold flex items-center justify-center font-bold">
-                  <Flame className="w-4 h-4 fill-honey-gold" />
+                <div className="w-8 h-8 rounded-lg bg-black text-acid-yellow flex items-center justify-center font-bold">
+                  <Flame className="w-4 h-4 fill-acid-yellow" />
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold font-mono text-black">
+                <span className="text-4xl font-mono font-black text-black">
                   {userProfile.xp} XP
                 </span>
               </div>
-              <p className="text-xs text-black/80 font-bold mt-1">
+              <p className="text-xs text-black font-extrabold mt-1">
                 {userProfile.streakDays} Days Continuous Learning Streak
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-black/20 flex items-center justify-between text-xs">
-              <span className="text-black/80 font-bold">Daily Target:</span>
-              <span className="font-black text-black">Completed Today</span>
+            <div className="mt-4 pt-3 border-t-2 border-black/20 flex items-center justify-between text-xs">
+              <span className="text-black/80 font-bold">Daily Milestone:</span>
+              <span className="font-black text-black uppercase font-mono">Active Today</span>
             </div>
           </div>
 
-          {/* 3. CAREER TRACK CARD (Solid Deep Navy Brand Surface) */}
-          <div className="p-5 rounded-xl bg-deep-navy text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+          {/* Card 3: CAREER TRACK (SOLID BLACK SURFACE) */}
+          <div className="p-6 rounded-xl bg-black text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-white/70 uppercase tracking-wider">
+                <span className="text-xs font-bold text-white/70 uppercase tracking-wider">
                   Target Pathway
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-honey-gold text-black flex items-center justify-center font-bold">
+                <div className="w-8 h-8 rounded-lg bg-acid-yellow text-black flex items-center justify-center font-bold">
                   <Target className="w-4 h-4" />
                 </div>
               </div>
-              <h3 className="text-lg font-extrabold text-white leading-snug">
+              <h3 className="text-lg font-black text-white leading-snug">
                 {selectedRole.title}
               </h3>
-              <p className="text-xs font-mono font-extrabold text-honey-gold mt-1">
+              <p className="text-xs font-mono font-black text-acid-yellow mt-1">
                 {selectedRole.averageSalary}
               </p>
             </div>
 
             <div className="mt-4 pt-3 border-t border-white/20 flex items-center justify-between text-xs">
               <span className="text-white/70 font-medium">24+ Paths</span>
-              <Link href="/onboarding" className="font-extrabold text-honey-gold hover:underline flex items-center gap-1">
+              <Link href="/onboarding" className="font-black text-acid-yellow hover:underline flex items-center gap-1">
                 <span>Switch Track</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
-          {/* 4. TECHNICAL ASSESSMENT CARD (Electric Yellow Accent) */}
-          <div className="p-5 rounded-xl bg-white text-black border-2 border-black border-l-8 border-l-fire-red shadow-editorial-sm flex flex-col justify-between">
+          {/* Card 4: TECHNICAL ASSESSMENT (WHITE SURFACE WITH VIOLET ACCENTS) */}
+          <div className="p-6 rounded-xl bg-white text-black border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-muted uppercase tracking-wider">
+                <span className="text-xs font-bold text-black/70 uppercase tracking-wider">
                   Diagnostic Assessment
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-fire-red text-white flex items-center justify-center font-bold">
+                <div className="w-8 h-8 rounded-lg bg-ultra-violet text-white flex items-center justify-center font-bold">
                   <CheckSquare className="w-4 h-4" />
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold font-mono text-fire-red">
+                <span className="text-4xl font-mono font-black text-ultra-violet">
                   {assessmentScoreStr}
                 </span>
               </div>
-              <p className="text-xs text-muted mt-1">
+              <p className="text-xs text-black/70 font-medium mt-1">
                 {assessmentResult ? `${assessmentResult.totalQuestions} Questions Verified` : "10 Diagnostic Questions Ready"}
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-border">
-              <Link href="/assessment" className="flex items-center justify-between text-xs font-extrabold text-fire-red hover:underline">
+            <div className="mt-4 pt-3 border-t-2 border-black flex items-center justify-between text-xs">
+              <Link href="/assessment" className="flex items-center justify-between w-full font-black text-black hover:text-ultra-violet transition-colors">
                 <span>{assessmentResult ? "Retake Diagnostic" : "Start 20-min Test"}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
-          {/* 5. PERSONALIZED LEARNING (White with Acid Yellow Accent) */}
-          <div className="p-5 rounded-xl bg-white border-2 border-black border-l-8 border-l-acid-yellow shadow-editorial-sm flex flex-col justify-between">
+          {/* Card 5: PERSONALIZED LEARNING (ULTRA VIOLET SURFACE) */}
+          <div className="p-6 rounded-xl bg-ultra-violet text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-muted uppercase tracking-wider">
+                <span className="text-xs font-bold text-white/80 uppercase tracking-wider">
                   Personalized Learning
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-acid-yellow text-foreground flex items-center justify-center font-bold">
-                  <BookOpen className="w-4 h-4 text-foreground" />
+                <div className="w-8 h-8 rounded-lg bg-acid-yellow text-black flex items-center justify-center font-bold">
+                  <BookOpen className="w-4 h-4" />
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold font-mono text-foreground">
+                <span className="text-4xl font-mono font-black text-acid-yellow">
                   {learningProgressStr}
                 </span>
-                <span className="text-xs text-muted font-bold">Curriculum</span>
+                <span className="text-xs text-white/80 font-bold">Curriculum</span>
               </div>
-              <p className="text-xs text-muted mt-1">
+              <p className="text-xs text-white/80 mt-1">
                 {completedModules} of {learningModules.length} curated modules finished
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-border space-y-2">
+            <div className="mt-4 pt-3 border-t border-white/20 space-y-2">
               <ProgressBar value={completedModules} max={learningModules.length || 1} size="sm" variant="acid-yellow" />
-              <Link href="/learning" className="flex items-center justify-between text-xs font-extrabold text-foreground hover:text-fire-red pt-1">
+              <Link href="/learning" className="flex items-center justify-between text-xs font-black text-acid-yellow hover:underline pt-1">
                 <span>Continue Modules</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
-          {/* 6. PRODUCTION PROJECTS (Solid Deep Navy Brand Surface) */}
-          <div className="p-5 rounded-xl bg-deep-navy text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+          {/* Card 6: PRODUCTION PROJECTS (ACID YELLOW SURFACE) */}
+          <div className="p-6 rounded-xl bg-acid-yellow text-black border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-white/70 uppercase tracking-wider">
+                <span className="text-xs font-black uppercase tracking-wider text-black">
                   Real-World Projects
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-honey-gold text-black flex items-center justify-center font-bold">
-                  <FolderGit2 className="w-4 h-4 text-black" />
+                <div className="w-8 h-8 rounded-lg bg-black text-acid-yellow flex items-center justify-center font-bold">
+                  <FolderGit2 className="w-4 h-4" />
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold font-mono text-honey-gold">
+                <span className="text-4xl font-mono font-black text-black">
                   {completedProjects.length}
                 </span>
-                <span className="text-xs text-white/70 font-bold">Verified Repos</span>
+                <span className="text-xs text-black/80 font-bold">Verified Repos</span>
               </div>
-              <p className="text-xs text-white/70 mt-1">
+              <p className="text-xs text-black/80 font-bold mt-1">
                 {projects.length} production capstones available in catalog
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-white/20 flex items-center justify-between text-xs">
-              <span className="text-honey-gold font-bold font-mono">Rubric Graded</span>
-              <Link href="/projects" className="font-extrabold text-honey-gold hover:underline flex items-center gap-1">
+            <div className="mt-4 pt-3 border-t-2 border-black/20 flex items-center justify-between text-xs">
+              <span className="text-black font-mono font-black">Rubric Graded</span>
+              <Link href="/projects" className="font-black text-black hover:underline flex items-center gap-1">
                 <span>Open Catalog</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
-          {/* 7. INTERVIEW SIMULATION (Solid Ultra Violet Brand Surface) */}
-          <div className="p-5 rounded-xl bg-ultra-violet text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+          {/* Card 7: INTERVIEW SIMULATION (SOLID BLACK SURFACE) */}
+          <div className="p-6 rounded-xl bg-black text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-white/70 uppercase tracking-wider">
+                <span className="text-xs font-bold text-white/70 uppercase tracking-wider">
                   Interview Defense
                 </span>
                 <div className="w-8 h-8 rounded-lg bg-acid-yellow text-black flex items-center justify-center font-bold">
-                  <Mic className="w-4 h-4 text-black" />
+                  <Mic className="w-4 h-4" />
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold font-mono text-acid-yellow">
+                <span className="text-4xl font-mono font-black text-acid-yellow">
                   {voiceScoreStr}
                 </span>
               </div>
@@ -521,69 +534,69 @@ export default function DashboardPage() {
 
             <div className="mt-4 pt-3 border-t border-white/20 flex items-center justify-between text-xs">
               <span className="text-white/70 font-medium">Architecture & Logic</span>
-              <Link href="/interview" className="font-extrabold text-acid-yellow hover:underline flex items-center gap-1">
+              <Link href="/interview" className="font-black text-acid-yellow hover:underline flex items-center gap-1">
                 <span>Launch Session</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
-          {/* 8. RESUME & ATS ENGINE (Fire Red) */}
-          <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-fire-red shadow-card-clean flex flex-col justify-between">
+          {/* Card 8: RESUME & ATS ENGINE (WHITE SURFACE WITH VIOLET ACCENT) */}
+          <div className="p-6 rounded-xl bg-white text-black border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-muted uppercase tracking-wider">
+                <span className="text-xs font-bold text-black/70 uppercase tracking-wider">
                   Resume & ATS Engine
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-fire-red-50 text-fire-red border border-fire-red-200 flex items-center justify-center font-bold">
-                  <FileText className="w-4 h-4 text-fire-red" />
+                <div className="w-8 h-8 rounded-lg bg-ultra-violet text-white flex items-center justify-center font-bold">
+                  <FileText className="w-4 h-4" />
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold font-mono text-fire-red">
+                <span className="text-4xl font-mono font-black text-ultra-violet">
                   {atsAnalysis ? `${atsAnalysis.overallScore}%` : "Not Scanned"}
                 </span>
-                <span className="text-xs text-muted font-bold">ATS Score</span>
+                <span className="text-xs text-black/70 font-bold">ATS Score</span>
               </div>
-              <p className="text-xs text-muted mt-1">
+              <p className="text-xs text-black/70 mt-1">
                 Single-column, keyword-verified format for hiring systems
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs">
-              <span className="text-muted font-medium">PDF & DOCX Parser</span>
-              <Link href="/resume" className="font-extrabold text-fire-red hover:underline flex items-center gap-1">
+            <div className="mt-4 pt-3 border-t-2 border-black flex items-center justify-between text-xs">
+              <span className="text-black/70 font-bold">PDF & DOCX Parser</span>
+              <Link href="/resume" className="font-black text-ultra-violet hover:underline flex items-center gap-1">
                 <span>Edit Resume</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
-          {/* 9. APPLICATIONS TRACKER (Acid Yellow) */}
-          <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-acid-yellow shadow-card-clean flex flex-col justify-between">
+          {/* Card 9: APPLICATION TRACKER (ULTRA VIOLET SURFACE) */}
+          <div className="p-6 rounded-xl bg-ultra-violet text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-muted uppercase tracking-wider">
+                <span className="text-xs font-bold text-white/80 uppercase tracking-wider">
                   Application Tracker
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-acid-yellow text-foreground flex items-center justify-center font-bold">
-                  <Kanban className="w-4 h-4 text-foreground" />
+                <div className="w-8 h-8 rounded-lg bg-acid-yellow text-black flex items-center justify-center font-bold">
+                  <Kanban className="w-4 h-4" />
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold font-mono text-foreground">
+                <span className="text-4xl font-mono font-black text-acid-yellow">
                   {applications.length}
                 </span>
-                <span className="text-xs text-muted font-bold">Active Submissions</span>
+                <span className="text-xs text-white/80 font-bold">Submissions</span>
               </div>
-              <p className="text-xs text-muted mt-1">
+              <p className="text-xs text-white/80 mt-1">
                 Automated root-cause analysis for any rejected submission
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs">
-              <span className="text-muted font-medium">7 Kanban Stages</span>
-              <Link href="/applications" className="font-extrabold text-foreground hover:text-fire-red flex items-center gap-1">
+            <div className="mt-4 pt-3 border-t border-white/20 flex items-center justify-between text-xs">
+              <span className="text-white/80 font-medium">7 Kanban Stages</span>
+              <Link href="/applications" className="font-black text-acid-yellow hover:underline flex items-center gap-1">
                 <span>Open Tracker</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
@@ -593,42 +606,42 @@ export default function DashboardPage() {
       </section>
 
       {/* ====================================================
-          3. 6-NODE VERIFIED PIPELINE
+          3. 6-NODE VERIFIED PIPELINE (RHYTHMIC COLOR BLOCKS)
          ==================================================== */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-8 border-b border-border pb-4">
-          <p className="text-xs uppercase tracking-widest text-muted font-extrabold">
+        <div className="text-center mb-8 border-b-2 border-black pb-4">
+          <p className="text-xs uppercase tracking-widest text-black font-black font-mono">
             The 6-Node Verified Career Pipeline
           </p>
-          <h2 className="text-xl sm:text-2xl font-display font-extrabold text-foreground uppercase tracking-tight mt-1">
+          <h2 className="text-2xl sm:text-3xl font-display font-black text-black uppercase tracking-tight mt-1">
             Progressive Skill Verification
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4 relative">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 relative">
           {pipelineNodes.map((node, i) => {
             const Icon = node.icon;
             return (
               <Link
                 key={i}
                 href={node.route}
-                className={`group relative p-3 sm:p-4 rounded-xl bg-white border border-border hover:border-foreground transition-all duration-150 flex flex-col justify-between shadow-card-clean hover:shadow-editorial-sm ${node.accent}`}
+                className={`group relative p-4 rounded-xl transition-transform duration-150 hover:-translate-y-1 flex flex-col justify-between shadow-editorial-sm ${node.cardBg}`}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold ${node.iconBg}`}>
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-4 h-4 stroke-[2.5]" />
                   </div>
-                  <span className="text-[10px] font-mono font-extrabold text-muted">0{i + 1}</span>
+                  <span className={`text-[11px] font-mono font-black ${node.numColor}`}>0{i + 1}</span>
                 </div>
                 <div>
-                  <h3 className="text-xs font-extrabold text-foreground group-hover:text-fire-red transition-colors leading-snug">
+                  <h3 className="text-xs font-black leading-snug">
                     {node.title}
                   </h3>
-                  <p className="text-[11px] text-muted mt-0.5">{node.sub}</p>
+                  <p className="text-[11px] opacity-80 mt-0.5">{node.sub}</p>
                 </div>
-                <div className="mt-3 pt-2.5 border-t border-border flex items-center justify-between">
-                  <span className="text-[10px] text-foreground font-mono font-extrabold truncate max-w-[100px]">{node.score}</span>
-                  <ChevronRight className="w-3 h-3 text-muted group-hover:text-foreground group-hover:translate-x-0.5 transition-all shrink-0" />
+                <div className="mt-3 pt-2.5 border-t border-current/20 flex items-center justify-between">
+                  <span className={`text-[10px] font-mono font-black truncate max-w-[100px] ${node.scoreColor}`}>{node.score}</span>
+                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
                 </div>
               </Link>
             );
@@ -640,21 +653,23 @@ export default function DashboardPage() {
           4. 8-STEP STRUCTURED JOURNEY
          ==================================================== */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-border pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b-2 border-black pb-6">
           <div>
-            <Badge variant="fire-red" size="sm" className="mb-2">Progression Framework</Badge>
-            <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground tracking-tight uppercase">
+            <span className="px-2.5 py-1 rounded bg-black text-acid-yellow text-[10px] font-mono font-black uppercase tracking-wider mb-2 inline-block">
+              Progression Framework
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-black tracking-tight uppercase">
               HOW LEARN-2-HIRE WORKS
             </h2>
-            <p className="text-xs sm:text-sm text-muted mt-1 max-w-xl">
+            <p className="text-xs sm:text-sm text-black/70 mt-1 max-w-xl font-medium">
               An evidence-based pipeline that continuously converts effort into verifiable technical readiness and job offers.
             </p>
           </div>
           <Link href="/onboarding">
-            <Button variant="secondary" size="sm" className="gap-2 font-extrabold">
+            <button className="px-5 py-2.5 rounded-lg bg-white text-black hover:bg-black hover:text-white border-2 border-black font-black text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-xs">
               <span>View All 24 Tracks</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </Button>
+            </button>
           </Link>
         </div>
 
@@ -663,26 +678,26 @@ export default function DashboardPage() {
             <Link
               key={step.num}
               href={step.route}
-              className="group p-5 rounded-xl bg-white border border-border hover:border-foreground transition-all duration-150 flex flex-col justify-between hover:shadow-editorial-sm"
+              className={`p-5 rounded-xl transition-all duration-150 flex flex-col justify-between shadow-editorial-sm ${step.cardClass}`}
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-2xl font-mono font-extrabold text-border group-hover:text-foreground transition-colors">
+                  <span className="text-2xl font-mono font-black">
                     {step.num}
                   </span>
-                  <Badge variant="neutral" size="sm">
+                  <Badge variant={step.badgeVariant} size="sm">
                     {step.badge}
                   </Badge>
                 </div>
-                <h3 className="text-sm font-extrabold text-foreground group-hover:text-fire-red transition-colors mb-2">
+                <h3 className="text-sm font-black mb-2">
                   {step.title}
                 </h3>
-                <p className="text-xs text-muted leading-relaxed font-normal">
+                <p className="text-xs opacity-80 leading-relaxed font-normal">
                   {step.desc}
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs text-muted group-hover:text-foreground">
-                <span className="font-extrabold text-[11px]">Explore Step</span>
+              <div className="mt-4 pt-3 border-t border-current/20 flex items-center justify-between text-xs">
+                <span className="font-black text-[11px]">Explore Step</span>
                 <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
@@ -694,16 +709,16 @@ export default function DashboardPage() {
           5. LIVE READINESS & CAREER SELECTOR DEMO
          ==================================================== */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="rounded-2xl bg-white border-2 border-foreground p-6 sm:p-10 relative overflow-hidden shadow-editorial-sm">
+        <div className="rounded-2xl bg-white border-3 border-black p-6 sm:p-10 relative overflow-hidden shadow-editorial-md">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Col: Career Track Switcher */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <Badge variant="honey-gold" size="sm" className="mb-2">Capability Engine</Badge>
-                <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground tracking-tight uppercase">
+                <Badge variant="acid" size="sm" className="mb-2">Capability Engine</Badge>
+                <h2 className="text-2xl sm:text-3xl font-display font-black text-black tracking-tight uppercase">
                   TAILORED TO YOUR TECHNICAL TARGET
                 </h2>
-                <p className="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
+                <p className="text-xs sm:text-sm text-black/70 mt-1 leading-relaxed font-medium">
                   Select a target role below to see how Learn-2-Hire calculates expected skill weights, assessment benchmarks, and customized learning paths.
                 </p>
               </div>
@@ -717,47 +732,47 @@ export default function DashboardPage() {
                       setPreviewRole(role);
                       selectRole(role.id);
                     }}
-                    className={`p-3 sm:p-3.5 rounded-lg text-left transition-all text-xs border ${
+                    className={`p-3 sm:p-3.5 rounded-lg text-left transition-all text-xs border-2 ${
                       previewRole.id === role.id
-                        ? "bg-foreground border-foreground text-white shadow-sm"
-                        : "bg-surface border-border text-foreground hover:border-foreground"
+                        ? "bg-black border-black text-white shadow-editorial-xs"
+                        : "bg-surface border-black/30 text-black hover:border-black"
                     }`}
                   >
-                    <p className={`font-extrabold ${previewRole.id === role.id ? "text-white" : "text-foreground"}`}>{role.title}</p>
-                    <p className={`text-[11px] font-bold mt-0.5 ${previewRole.id === role.id ? "text-fire-red" : "text-muted"}`}>{role.averageSalary}</p>
+                    <p className={`font-black ${previewRole.id === role.id ? "text-white" : "text-black"}`}>{role.title}</p>
+                    <p className={`text-[11px] font-bold font-mono mt-0.5 ${previewRole.id === role.id ? "text-acid-yellow" : "text-black/60"}`}>{role.averageSalary}</p>
                   </button>
                 ))}
               </div>
 
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <Link href="/assessment" className="w-full sm:w-auto">
-                  <Button size="md" variant="primary" className="w-full sm:w-auto gap-2 font-extrabold shadow-sm">
+                  <button className="w-full sm:w-auto px-6 py-3 rounded-lg bg-ultra-violet hover:bg-black text-white border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-editorial-xs">
                     <span>Assess for {previewRole.title}</span>
                     <ArrowRight className="w-4 h-4" />
-                  </Button>
+                  </button>
                 </Link>
                 <Link href="/onboarding" className="w-full sm:w-auto">
-                  <Button variant="secondary" size="md" className="w-full sm:w-auto font-extrabold">
+                  <button className="w-full sm:w-auto px-6 py-3 rounded-lg bg-white text-black hover:bg-black hover:text-white border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center justify-center cursor-pointer shadow-editorial-xs">
                     <span>All 24 Tracks</span>
-                  </Button>
+                  </button>
                 </Link>
               </div>
             </div>
 
             {/* Right Col: Readiness Matrix Card (High Contrast Dark Block) */}
-            <div className="lg:col-span-6 rounded-xl bg-foreground p-6 border-2 border-foreground text-white space-y-5 shadow-editorial-sm">
+            <div className="lg:col-span-6 rounded-xl bg-black p-6 border-2 border-black text-white space-y-5 shadow-editorial-sm">
               <div className="flex items-center justify-between border-b border-white/20 pb-4">
                 <div>
                   <span className="text-[10px] uppercase font-mono tracking-wider text-white/70 font-bold">
                     Target Readiness Score
                   </span>
-                  <h3 className="text-lg font-extrabold text-white">{previewRole.title}</h3>
+                  <h3 className="text-lg font-black text-white">{previewRole.title}</h3>
                 </div>
                 <div className="text-right">
-                  <span className="text-3xl font-extrabold font-mono text-fire-red">
+                  <span className="text-3xl font-black font-mono text-acid-yellow">
                     {userProfile.readinessScore}%
                   </span>
-                  <p className="text-[10px] text-white/70 font-extrabold uppercase tracking-wider font-mono">
+                  <p className="text-[10px] text-white/70 font-black uppercase tracking-wider font-mono">
                     {userProfile.readinessScore > 0 ? "Verified State" : "Unverified"}
                   </p>
                 </div>
@@ -768,31 +783,31 @@ export default function DashboardPage() {
                 <div className="space-y-1">
                   <div className="flex justify-between text-xs">
                     <span className="text-white/90 font-medium">Technical Assessments</span>
-                    <span className="text-white font-extrabold">{userProfile.readinessBreakdown.technicalSkills}%</span>
+                    <span className="text-white font-black">{userProfile.readinessBreakdown.technicalSkills}%</span>
                   </div>
-                  <ProgressBar value={userProfile.readinessBreakdown.technicalSkills} size="sm" variant="fire-red" />
+                  <ProgressBar value={userProfile.readinessBreakdown.technicalSkills} size="sm" variant="acid-yellow" />
                 </div>
 
                 <div className="space-y-1">
                   <div className="flex justify-between text-xs">
                     <span className="text-white/90 font-medium">Production Projects</span>
-                    <span className="text-white font-extrabold">{userProfile.readinessBreakdown.projects}%</span>
+                    <span className="text-white font-black">{userProfile.readinessBreakdown.projects}%</span>
                   </div>
-                  <ProgressBar value={userProfile.readinessBreakdown.projects} size="sm" variant="deep-navy" />
+                  <ProgressBar value={userProfile.readinessBreakdown.projects} size="sm" variant="ultra-violet" />
                 </div>
 
                 <div className="space-y-1">
                   <div className="flex justify-between text-xs">
                     <span className="text-white/90 font-medium">Problem Solving & SQL</span>
-                    <span className="text-white font-extrabold">{userProfile.readinessBreakdown.problemSolving}%</span>
+                    <span className="text-white font-black">{userProfile.readinessBreakdown.problemSolving}%</span>
                   </div>
-                  <ProgressBar value={userProfile.readinessBreakdown.problemSolving} size="sm" variant="fire-red" />
+                  <ProgressBar value={userProfile.readinessBreakdown.problemSolving} size="sm" variant="acid-yellow" />
                 </div>
 
                 <div className="space-y-1">
                   <div className="flex justify-between text-xs">
                     <span className="text-white/90 font-medium">Interview Defense & STAR</span>
-                    <span className="text-white font-extrabold">{userProfile.readinessBreakdown.interview}%</span>
+                    <span className="text-white font-black">{userProfile.readinessBreakdown.interview}%</span>
                   </div>
                   <ProgressBar value={userProfile.readinessBreakdown.interview} size="sm" variant="ultra-violet" />
                 </div>
@@ -801,13 +816,13 @@ export default function DashboardPage() {
               {/* Verified Highlights */}
               <div className="pt-3 border-t border-white/20 grid grid-cols-2 gap-2 text-xs">
                 <div className="flex items-center gap-2 text-white/90">
-                  <Check className="w-3.5 h-3.5 text-fire-red stroke-[3]" />
+                  <Check className="w-3.5 h-3.5 text-acid-yellow stroke-[3]" />
                   <span className="font-bold">
                     {completedProjects.length > 0 ? `${completedProjects.length} Verified Capstones` : "0 Capstones Completed"}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90">
-                  <Check className="w-3.5 h-3.5 text-fire-red stroke-[3]" />
+                  <Check className="w-3.5 h-3.5 text-acid-yellow stroke-[3]" />
                   <span className="font-bold">
                     {atsAnalysis ? `${atsAnalysis.overallScore}% ATS Match` : "Resume Pending"}
                   </span>
@@ -819,26 +834,26 @@ export default function DashboardPage() {
       </section>
 
       {/* ====================================================
-          6. SOLID RECTANGULAR HERO FEATURE BLOCK (Fire Red)
+          6. SOLID RECTANGULAR HERO FEATURE BLOCK (ULTRA VIOLET)
          ==================================================== */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="rounded-2xl bg-fire-red p-8 sm:p-14 text-white shadow-editorial-md relative overflow-hidden border-2 border-foreground">
+        <div className="rounded-2xl bg-ultra-violet p-8 sm:p-14 text-white shadow-editorial-md relative overflow-hidden border-3 border-black">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase font-mono tracking-widest text-white font-extrabold bg-foreground px-2.5 py-1 rounded inline-block">
+            <span className="text-xs uppercase font-mono tracking-widest text-black font-black bg-acid-yellow px-3 py-1 rounded inline-block border-2 border-black">
               VERIFIABLE PROOF OVER CLAIMS
             </span>
-            <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-white leading-tight uppercase">
+            <h2 className="text-3xl sm:text-5xl font-display font-black text-white leading-tight uppercase">
               YOUR NEXT LEVEL STARTS HERE.
             </h2>
-            <p className="text-sm sm:text-base text-white font-medium leading-relaxed">
+            <p className="text-sm sm:text-base text-white/95 font-medium leading-relaxed">
               No generic certificates. Build verifiable repositories, practice live voice architecture rounds, and apply directly to matching employers with transparent scorecards.
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <Link href="/assessment">
-                <Button variant="dark" size="lg" className="font-extrabold shadow-sm">
+                <button className="px-8 py-3.5 rounded-lg bg-acid-yellow hover:bg-white text-black font-black border-2 border-black text-sm sm:text-base transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
                   <span>Take Free Assessment</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                </button>
               </Link>
             </div>
           </div>
@@ -846,52 +861,54 @@ export default function DashboardPage() {
       </section>
 
       {/* ====================================================
-          7. PLATFORM PILLARS (Semantic Accents)
+          7. PLATFORM PILLARS (HIGH-CONTRAST COLOR BLOCKS)
          ==================================================== */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-12">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <Badge variant="night" size="sm" className="mb-2">Platform Foundations</Badge>
-          <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground uppercase tracking-tight">
+          <span className="px-3 py-1 rounded bg-black text-acid-yellow text-xs font-mono font-black uppercase tracking-wider mb-2 inline-block border border-black">
+            Platform Foundations
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-display font-black text-black uppercase tracking-tight mt-2">
             ENGINEERED FOR GENUINE COMPETENCE
           </h2>
-          <p className="text-xs sm:text-sm text-muted mt-1">
+          <p className="text-xs sm:text-sm text-black/70 mt-1 font-medium">
             Built to overcome the shortcomings of generic tutorials and superficial coding tests.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Pillar 1: Multilingual Curriculum (Acid Yellow) */}
-          <div className="p-6 rounded-xl bg-white border border-border border-l-4 border-l-acid-yellow space-y-4 shadow-card-clean hover:shadow-editorial-sm transition-all">
-            <div className="w-10 h-10 rounded-lg bg-acid-yellow flex items-center justify-center text-foreground font-bold">
+          {/* Pillar 1: Multilingual Curriculum (Acid Yellow Block) */}
+          <div className="p-7 rounded-2xl bg-acid-yellow border-3 border-black text-black space-y-4 shadow-editorial-sm hover:-translate-y-1 transition-transform">
+            <div className="w-10 h-10 rounded-lg bg-black text-acid-yellow flex items-center justify-center font-bold">
               <Globe className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-extrabold text-foreground">
+            <h3 className="text-lg font-black text-black">
               Multilingual Technical Learning (6 Indic Languages)
             </h3>
-            <p className="text-xs text-muted leading-relaxed">
+            <p className="text-xs text-black/90 font-medium leading-relaxed">
               Complex concepts in system architecture, V8 microtasks, and PostgreSQL isolation levels summarized natively in Tamil, Hindi, Telugu, Malayalam, Kannada, and English.
             </p>
             <div className="pt-2 flex flex-wrap gap-2 text-[11px]">
-              <span className="px-2.5 py-1 rounded bg-surface text-foreground font-bold border border-border">தமிழ்</span>
-              <span className="px-2.5 py-1 rounded bg-surface text-foreground font-bold border border-border">हिन्दी</span>
-              <span className="px-2.5 py-1 rounded bg-surface text-foreground font-bold border border-border">తెలుగు</span>
-              <span className="px-2.5 py-1 rounded bg-surface text-foreground font-bold border border-border">മലയാളം</span>
-              <span className="px-2.5 py-1 rounded bg-surface text-foreground font-bold border border-border">ಕನ್ನಡ</span>
+              <span className="px-2.5 py-1 rounded bg-black text-white font-black border border-black">தமிழ்</span>
+              <span className="px-2.5 py-1 rounded bg-black text-white font-black border border-black">हिन्दी</span>
+              <span className="px-2.5 py-1 rounded bg-black text-white font-black border border-black">తెలుగు</span>
+              <span className="px-2.5 py-1 rounded bg-black text-white font-black border border-black">മലയാളം</span>
+              <span className="px-2.5 py-1 rounded bg-black text-white font-black border border-black">ಕನ್ನಡ</span>
             </div>
           </div>
 
-          {/* Pillar 2: Production Projects (Deep Navy) */}
-          <div className="p-6 rounded-xl bg-white border border-border border-l-4 border-l-deep-navy space-y-4 shadow-card-clean hover:shadow-editorial-sm transition-all">
-            <div className="w-10 h-10 rounded-lg bg-deep-navy flex items-center justify-center text-white font-bold">
-              <FolderGit2 className="w-5 h-5" />
+          {/* Pillar 2: Production Projects (Black Block with Acid Yellow CTA) */}
+          <div className="p-7 rounded-2xl bg-black border-3 border-black text-white space-y-4 shadow-editorial-sm hover:-translate-y-1 transition-transform">
+            <div className="w-10 h-10 rounded-lg bg-acid-yellow text-black flex items-center justify-center font-bold">
+              <FolderGit2 className="w-5 h-5 text-black" />
             </div>
-            <h3 className="text-base font-extrabold text-foreground">
+            <h3 className="text-lg font-black text-white">
               Production Capstones with Rubric Evaluations
             </h3>
-            <p className="text-xs text-muted leading-relaxed">
+            <p className="text-xs text-white/80 font-normal leading-relaxed">
               No generic to-do apps. Build multi-tenant inventory systems, WebRTC telehealth portals, and milestone escrow ledgers evaluated on TypeScript strictness, DB query plans, and CI/CD.
             </p>
-            <div className="pt-2 flex items-center gap-3 text-xs text-deep-navy font-extrabold">
+            <div className="pt-2 flex items-center gap-3 text-xs font-black text-acid-yellow">
               <Link href="/projects" className="hover:underline flex items-center gap-1">
                 <span>View Project Marketplace</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -899,18 +916,18 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Pillar 3: Voice Interview Simulation (Ultra Violet) */}
-          <div className="p-6 rounded-xl bg-white border border-border border-l-4 border-l-ultra-violet space-y-4 shadow-card-clean hover:shadow-editorial-sm transition-all">
-            <div className="w-10 h-10 rounded-lg bg-ultra-violet-50 text-ultra-violet border border-ultra-violet-200 flex items-center justify-center font-bold">
-              <Mic className="w-5 h-5" />
+          {/* Pillar 3: Voice Interview Simulation (Ultra Violet Block) */}
+          <div className="p-7 rounded-2xl bg-ultra-violet border-3 border-black text-white space-y-4 shadow-editorial-sm hover:-translate-y-1 transition-transform">
+            <div className="w-10 h-10 rounded-lg bg-acid-yellow text-black flex items-center justify-center font-bold">
+              <Mic className="w-5 h-5 text-black" />
             </div>
-            <h3 className="text-base font-extrabold text-foreground">
+            <h3 className="text-lg font-black text-white">
               Voice Technical & Behavioral Simulation
             </h3>
-            <p className="text-xs text-muted leading-relaxed">
+            <p className="text-xs text-white/90 font-medium leading-relaxed">
               Real-time speech evaluation measuring technical depth, verbal conciseness, pacing, and STAR framework adherence for system design and behavioral rounds.
             </p>
-            <div className="pt-2 flex items-center gap-3 text-xs text-ultra-violet font-extrabold">
+            <div className="pt-2 flex items-center gap-3 text-xs font-black text-acid-yellow">
               <Link href="/interview" className="hover:underline flex items-center gap-1">
                 <span>Try Voice Simulation</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -918,18 +935,18 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Pillar 4: Outcome & Rejection Retraining (Ultra Violet / Fire Red) */}
-          <div className="p-6 rounded-xl bg-white border border-border border-l-4 border-l-ultra-violet space-y-4 shadow-card-clean hover:shadow-editorial-sm transition-all">
-            <div className="w-10 h-10 rounded-lg bg-ultra-violet flex items-center justify-center text-white font-bold">
+          {/* Pillar 4: Outcome & Rejection Retraining (White Block with 3px Black Border) */}
+          <div className="p-7 rounded-2xl bg-white border-3 border-black text-black space-y-4 shadow-editorial-sm hover:-translate-y-1 transition-transform">
+            <div className="w-10 h-10 rounded-lg bg-black text-white flex items-center justify-center font-bold">
               <TrendingUp className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-extrabold text-foreground">
+            <h3 className="text-lg font-black text-black">
               Root-Cause Rejection Analysis & Retraining Plan
             </h3>
-            <p className="text-xs text-muted leading-relaxed">
+            <p className="text-xs text-black/80 font-medium leading-relaxed">
               Turn rejections into targeted acceleration. If an application is turned down, our engine compares requirements, isolates missing skills, and prescribes a daily recovery roadmap.
             </p>
-            <div className="pt-2 flex items-center gap-3 text-xs text-ultra-violet font-extrabold">
+            <div className="pt-2 flex items-center gap-3 text-xs font-black text-ultra-violet">
               <Link href="/feedback" className="hover:underline flex items-center gap-1">
                 <span>Inspect Retraining Engine</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -938,6 +955,7 @@ export default function DashboardPage() {
           </div>
         </div>
       </section>
+
       {/* Learn-2-Hire Dashboard Dedicated Footer */}
       <Footer />
     </div>

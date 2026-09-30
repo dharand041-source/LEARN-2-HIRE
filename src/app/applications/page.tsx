@@ -20,11 +20,11 @@ export default function ApplicationTrackingPage() {
 
   const columns: { id: ApplicationStatus; title: string; topBorder: string; headerBg: string; headerText: string; badgeBg: string; badgeText: string }[] = [
     { id: "Saved", title: "Saved", topBorder: "border-t-4 border-t-black", headerBg: "bg-black", headerText: "text-white", badgeBg: "bg-white/20", badgeText: "text-white" },
-    { id: "Approved", title: "Readiness Approved", topBorder: "border-t-4 border-t-honey-gold", headerBg: "bg-deep-navy", headerText: "text-white", badgeBg: "bg-honey-gold", badgeText: "text-black" },
+    { id: "Approved", title: "Readiness Approved", topBorder: "border-t-4 border-t-royal-maroon", headerBg: "bg-royal-maroon", headerText: "text-white", badgeBg: "bg-electric-yellow", badgeText: "text-black" },
     { id: "Applied", title: "Applied", topBorder: "border-t-4 border-t-black", headerBg: "bg-black", headerText: "text-white", badgeBg: "bg-white/20", badgeText: "text-white" },
     { id: "Assessment", title: "Assessment Active", topBorder: "border-t-4 border-t-electric-yellow", headerBg: "bg-electric-yellow", headerText: "text-black", badgeBg: "bg-black", badgeText: "text-electric-yellow" },
-    { id: "Interview", title: "Interviewing", topBorder: "border-t-4 border-t-ultra-violet", headerBg: "bg-ultra-violet", headerText: "text-white", badgeBg: "bg-acid-yellow", badgeText: "text-black" },
-    { id: "Selected", title: "Offers / Selected", topBorder: "border-t-4 border-t-honey-gold", headerBg: "bg-honey-gold", headerText: "text-black", badgeBg: "bg-black", badgeText: "text-honey-gold" },
+    { id: "Interview", title: "Interviewing", topBorder: "border-t-4 border-t-royal-maroon", headerBg: "bg-royal-maroon", headerText: "text-white", badgeBg: "bg-electric-yellow", badgeText: "text-black" },
+    { id: "Selected", title: "Offers / Selected", topBorder: "border-t-4 border-t-black", headerBg: "bg-black", headerText: "text-white", badgeBg: "bg-electric-yellow", badgeText: "text-black" },
     { id: "Rejected", title: "Outcome Analyzed", topBorder: "border-t-4 border-t-fire-red", headerBg: "bg-fire-red", headerText: "text-white", badgeBg: "bg-black", badgeText: "text-white" },
   ];
 
@@ -33,31 +33,31 @@ export default function ApplicationTrackingPage() {
   };
 
   return (
-    <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen">
-      {/* Deep Navy Hero Section */}
-      <div className="rounded-2xl bg-deep-navy text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
+    <div className="space-y-8 animate-fade-in bg-white text-black min-h-screen">
+      {/* Fire Red Hero Section */}
+      <div className="rounded-2xl bg-fire-red text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-honey-gold border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-yellow border-2 border-black text-xs font-mono font-black uppercase tracking-widest">
               <span>Phase 14 // Application Tracker</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight text-white leading-tight">
               Application Lifecycle Kanban
             </h1>
-            <p className="text-white/80 text-sm sm:text-base leading-relaxed">
+            <p className="text-white/95 text-sm sm:text-base leading-relaxed font-medium">
               Track verified candidate applications across 7 progressive recruitment stages. Applications with turn-down outcomes automatically trigger root-cause remediation.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <Link href="/feedback">
-              <button className="px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white border-2 border-white/40 font-extrabold text-xs transition-colors flex items-center gap-2 cursor-pointer">
-                <TrendingUp className="w-3.5 h-3.5 text-honey-gold" />
+              <button className="px-4 py-2.5 rounded-lg bg-black text-white hover:bg-white hover:text-black border-2 border-black font-black text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-xs">
+                <TrendingUp className="w-3.5 h-3.5 text-electric-yellow" />
                 <span>Retraining Engine</span>
               </button>
             </Link>
             <Link href="/opportunities">
-              <button className="px-5 py-2.5 rounded-lg bg-honey-gold hover:bg-electric-yellow text-black border-2 border-black font-extrabold text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
+              <button className="px-5 py-2.5 rounded-lg bg-electric-yellow hover:bg-white text-black border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
                 <span>Find Opportunities</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
@@ -104,13 +104,13 @@ export default function ApplicationTrackingPage() {
                         <div>
                           <div className="flex items-center justify-between gap-1 mb-1">
                             <span className="text-[11px] font-mono font-bold text-muted-foreground uppercase truncate">{app.company}</span>
-                            <span className="font-mono text-xs font-black text-black px-1.5 py-0.5 rounded-sm bg-honey-gold border border-black">{app.matchScore}%</span>
+                            <span className="font-mono text-xs font-black text-black px-1.5 py-0.5 rounded-sm bg-electric-yellow border border-black">{app.matchScore}%</span>
                           </div>
                           <h4 className="text-xs font-black text-black leading-tight">
                             {app.role}
                           </h4>
                           <p className="text-[10px] text-muted-foreground mt-1 flex items-center gap-1 font-mono font-bold">
-                            <DollarSign className="w-3 h-3 text-deep-navy" /> {app.salary}
+                            <DollarSign className="w-3 h-3 text-royal-maroon" /> {app.salary}
                           </p>
                         </div>
 

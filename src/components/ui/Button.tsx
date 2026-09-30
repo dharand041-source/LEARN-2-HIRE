@@ -18,6 +18,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     | "acid"
     | "navy"
     | "violet"
+    | "coral"
+    | "maroon"
     | "rose";
   size?: "sm" | "md" | "lg" | "icon";
   isLoading?: boolean;
@@ -30,26 +32,28 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       // Primary: Fire Red section accent with white text
-      primary: "bg-fire-red text-white hover:bg-fire-red-600 shadow-sm border border-fire-red-700",
+      primary: "bg-fire-red text-white hover:bg-black shadow-sm border-2 border-black font-extrabold",
       // Secondary: Crisp white with bold black border
-      secondary: "bg-white text-foreground hover:bg-foreground hover:text-white border-2 border-foreground",
+      secondary: "bg-white text-black hover:bg-black hover:text-white border-2 border-black font-extrabold",
       // Outline: Subtle border, clean editorial
-      outline: "bg-transparent text-foreground border border-border hover:border-foreground hover:bg-surface",
+      outline: "bg-transparent text-foreground border border-black hover:border-black hover:bg-surface font-bold",
       // Ghost: Text-only button
-      ghost: "bg-transparent text-muted hover:text-foreground hover:bg-surface",
+      ghost: "bg-transparent text-muted hover:text-foreground hover:bg-surface font-bold",
       // Dark: Solid black editorial block
-      dark: "bg-foreground text-white hover:bg-night-800 border-2 border-foreground",
+      dark: "bg-black text-white hover:bg-ultra-violet border-2 border-black font-extrabold",
       // Danger / Alert
-      danger: "bg-fire-red-50 text-fire-red border border-fire-red hover:bg-fire-red hover:text-white",
-      // Specific Section Accents
-      red: "bg-editorial-red text-white hover:bg-black border-2 border-editorial-red font-bold",
-      yellow: "bg-electric-yellow text-foreground hover:bg-electric-yellow-600 border-2 border-foreground font-bold",
-      gold: "bg-honey-gold text-foreground hover:bg-honey-gold-600 border-2 border-foreground font-bold",
-      acid: "bg-editorial-acid text-foreground hover:brightness-95 border-2 border-foreground font-bold",
-      navy: "bg-deep-navy text-white hover:bg-black border-2 border-deep-navy font-bold",
-      violet: "bg-ultra-violet text-white hover:bg-ultra-violet-600 border-2 border-ultra-violet font-bold",
+      danger: "bg-fire-red-50 text-fire-red border-2 border-fire-red hover:bg-fire-red hover:text-white font-extrabold",
+      // Approved 6-Color System Variants
+      red: "bg-fire-red text-white hover:bg-black border-2 border-black font-extrabold shadow-sm",
+      yellow: "bg-electric-yellow text-black hover:bg-black hover:text-electric-yellow border-2 border-black font-extrabold shadow-sm",
+      gold: "bg-electric-yellow text-black hover:bg-black hover:text-electric-yellow border-2 border-black font-extrabold shadow-sm",
+      acid: "bg-acid-yellow text-black hover:bg-black hover:text-acid-yellow border-2 border-black font-extrabold shadow-sm",
+      violet: "bg-ultra-violet text-white hover:bg-acid-yellow hover:text-black border-2 border-black font-extrabold shadow-sm",
+      coral: "bg-electric-coral text-white hover:bg-black border-2 border-black font-extrabold shadow-sm",
+      maroon: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold shadow-sm",
+      navy: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold shadow-sm",
       // Backward compat
-      rose: "bg-fire-red-50 text-fire-red border border-fire-red-200 hover:bg-fire-red hover:text-white",
+      rose: "bg-fire-red-50 text-fire-red border border-fire-red-200 hover:bg-fire-red hover:text-white font-bold",
     };
 
     const sizes = {
