@@ -1,37 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import {
-  Kanban,
-  Building,
-  MapPin,
   DollarSign,
-  Clock,
-  Sparkles,
   ArrowRight,
   TrendingUp,
-  AlertTriangle,
-  CheckCircle2,
-  ChevronRight,
-  MoreHorizontal,
+  Briefcase,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
-import { ApplicationItem, ApplicationStatus } from "@/types";
+import { ApplicationStatus } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { Card } from "@/components/ui/Card";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export default function ApplicationTrackingPage() {
   const { applications, updateApplicationStatus } = useCareer();
 
-  const columns: { id: ApplicationStatus; title: string; color: string }[] = [
-    { id: "Saved", title: "Saved", color: "border-pearl-muted/40" },
-    { id: "Approved", title: "Readiness Approved", color: "border-champagne/40" },
-    { id: "Applied", title: "Applied", color: "border-navy-500" },
-    { id: "Assessment", title: "Assessment Active", color: "border-amber-400" },
-    { id: "Interview", title: "Interviewing", color: "border-champagne" },
-    { id: "Selected", title: "Offers / Selected", color: "border-emerald-400" },
-    { id: "Rejected", title: "Outcome Analyzed", color: "border-rose" },
+  const columns: { id: ApplicationStatus; title: string; topBorder: string }[] = [
+    { id: "Saved", title: "Saved", topBorder: "border-t-4 border-t-foreground" },
+    { id: "Approved", title: "Readiness Approved", topBorder: "border-t-4 border-t-editorial-acid" },
+    { id: "Applied", title: "Applied", topBorder: "border-t-4 border-t-foreground" },
+    { id: "Assessment", title: "Assessment Active", topBorder: "border-t-4 border-t-editorial-yellow" },
+    { id: "Interview", title: "Interviewing", topBorder: "border-t-4 border-t-editorial-violet" },
+    { id: "Selected", title: "Offers / Selected", topBorder: "border-t-4 border-t-emerald-600" },
+    { id: "Rejected", title: "Outcome Analyzed", topBorder: "border-t-4 border-t-editorial-red" },
   ];
 
   const handleStatusChange = (appId: string, newStatus: ApplicationStatus) => {
@@ -39,34 +33,26 @@ export default function ApplicationTrackingPage() {
   };
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      {/* Header */}
-      <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <Badge variant="champagne" size="sm">Phase 14</Badge>
-            <span className="text-xs text-pearl-muted font-mono uppercase tracking-wider">
-              Employment Pipeline Tracking
-            </span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-bold text-pearl-primary tracking-tight">
-            Application Lifecycle Tracker
-          </h1>
-          <p className="text-xs sm:text-sm text-pearl-muted mt-1 max-w-2xl">
-            Track real candidate submissions across 7 progressive stages. Applications with rejection outcomes automatically trigger root-cause analysis and retraining plans.
-          </p>
-        </div>
+    <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen">
+      {/* Editorial Header */}
+      <div className="border-b-2 border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <SectionHeader
+          eyebrow="PHASE 14 // APPLICATION TRACKER"
+          title="Application Lifecycle Kanban"
+          description="Track verified candidate applications across 7 progressive recruitment stages. Applications with turn-down outcomes automatically trigger root-cause remediation."
+          accent="acid"
+        />
 
         <div className="flex items-center gap-3">
           <Link href="/feedback">
-            <Button variant="secondary" size="sm" className="gap-2 text-rose border-rose/30">
-              <TrendingUp className="w-3.5 h-3.5" />
-              <span>Rejection & Retraining Hub</span>
+            <Button variant="secondary" size="sm" className="gap-2 text-foreground font-bold">
+              <TrendingUp className="w-3.5 h-3.5 text-editorial-violet" />
+              <span>Retraining Engine</span>
             </Button>
           </Link>
           <Link href="/opportunities">
-            <Button size="sm" className="gap-1.5">
-              <span>Find More Opportunities</span>
+            <Button variant="acid" size="sm" className="gap-1.5 font-bold shadow-editorial-sm">
+              <span>Find Opportunities</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </Link>
@@ -82,13 +68,13 @@ export default function ApplicationTrackingPage() {
             return (
               <div
                 key={col.id}
-                className="w-80 rounded-2xl bg-surface-card border border-surface-border flex flex-col max-h-[750px] shadow-card-subtle"
+                className={`w-80 rounded-lg bg-surface border-2 border-border flex flex-col max-h-[750px] shadow-editorial-sm ${col.topBorder}`}
               >
                 {/* Column Header */}
-                <div className={`p-4 border-b border-surface-border flex items-center justify-between border-t-2 ${col.color}`}>
+                <div className="p-4 border-b-2 border-border flex items-center justify-between bg-white">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-xs font-bold text-pearl-primary">{col.title}</h3>
-                    <span className="px-2 py-0.5 rounded-full bg-navy-950 border border-white/5 text-[10px] font-mono text-champagne font-semibold">
+                    <h3 className="text-xs font-bold uppercase font-mono tracking-wider text-foreground">{col.title}</h3>
+                    <span className="px-2 py-0.5 rounded-sm bg-editorial-acid border border-foreground text-[10px] font-mono text-foreground font-extrabold">
                       {colApps.length}
                     </span>
                   </div>
@@ -97,47 +83,42 @@ export default function ApplicationTrackingPage() {
                 {/* Cards Container */}
                 <div className="p-3 space-y-3 overflow-y-auto flex-1">
                   {colApps.length === 0 ? (
-                    <div className="p-6 text-center text-[11px] text-pearl-muted/60 border border-dashed border-white/5 rounded-xl">
-                      No applications in this stage
+                    <div className="p-6 text-center text-[11px] font-mono text-muted-foreground border-2 border-dashed border-border rounded-lg">
+                      No applications in this phase
                     </div>
                   ) : (
                     colApps.map((app) => (
-                      <div
+                      <Card
                         key={app.id}
-                        className={`p-4 rounded-xl border transition-all space-y-3 ${
-                          col.id === "Rejected"
-                            ? "bg-navy-950/90 border-rose/40 hover:border-rose"
-                            : col.id === "Selected"
-                            ? "bg-navy-950/90 border-emerald-500/40"
-                            : "bg-surface-subtle border-white/10 hover:border-champagne/40"
-                        }`}
+                        variant="editorial"
+                        className="p-4 space-y-3 bg-white"
                       >
                         {/* Card Header */}
                         <div>
                           <div className="flex items-center justify-between gap-1 mb-1">
-                            <span className="text-[11px] font-semibold text-pearl-muted truncate">{app.company}</span>
-                            <span className="font-mono text-xs font-bold text-champagne">{app.matchScore}%</span>
+                            <span className="text-[11px] font-mono font-bold text-muted-foreground uppercase truncate">{app.company}</span>
+                            <span className="font-mono text-xs font-extrabold text-foreground px-1.5 py-0.5 rounded-sm bg-editorial-acid/30 border border-foreground">{app.matchScore}%</span>
                           </div>
-                          <h4 className="text-xs font-bold text-pearl-primary leading-tight">
+                          <h4 className="text-xs font-bold text-foreground leading-tight">
                             {app.role}
                           </h4>
-                          <p className="text-[10px] text-pearl-muted mt-1 flex items-center gap-1 font-mono">
-                            <DollarSign className="w-3 h-3 text-champagne" /> {app.salary}
+                          <p className="text-[10px] text-muted-foreground mt-1 flex items-center gap-1 font-mono font-semibold">
+                            <DollarSign className="w-3 h-3 text-foreground" /> {app.salary}
                           </p>
                         </div>
 
                         {/* Notes */}
                         {app.notes && (
-                          <p className="text-[10px] text-pearl-muted/90 bg-black/40 p-2 rounded border border-white/5 leading-relaxed">
+                          <p className="text-[10px] text-foreground bg-surface p-2 rounded-md border border-border leading-relaxed font-mono">
                             {app.notes}
                           </p>
                         )}
 
                         {/* Special Action for Rejected Cards: Rejection Analysis Link */}
                         {col.id === "Rejected" && (
-                          <div className="pt-2 border-t border-rose/30">
+                          <div className="pt-2 border-t-2 border-border">
                             <Link href="/feedback">
-                              <Button variant="rose" size="sm" className="w-full gap-1.5 text-[11px] py-1">
+                              <Button variant="violet" size="sm" className="w-full gap-1.5 text-[11px] py-1 font-bold">
                                 <TrendingUp className="w-3 h-3" />
                                 <span>Inspect Retraining Plan</span>
                               </Button>
@@ -146,23 +127,23 @@ export default function ApplicationTrackingPage() {
                         )}
 
                         {/* Bottom Row: Move Stage Dropdown & Date */}
-                        <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[10px]">
-                          <span className="text-pearl-muted font-mono">{app.appliedDate}</span>
+                        <div className="pt-2 border-t-2 border-border flex items-center justify-between text-[10px] font-mono">
+                          <span className="text-muted-foreground font-bold">{app.appliedDate}</span>
 
                           {/* Quick Stage Mover */}
                           <select
                             value={app.status}
                             onChange={(e) => handleStatusChange(app.id, e.target.value as ApplicationStatus)}
-                            className="bg-navy-900 border border-white/10 text-pearl-primary rounded px-2 py-0.5 text-[10px] focus:outline-none focus:border-champagne cursor-pointer"
+                            className="bg-white border-2 border-border text-foreground font-bold rounded-sm px-2 py-0.5 text-[10px] focus:outline-none focus:border-foreground cursor-pointer"
                           >
                             {columns.map((c) => (
-                              <option key={c.id} value={c.id} className="bg-black text-pearl-primary">
-                                Move to: {c.title}
+                              <option key={c.id} value={c.id} className="bg-white text-foreground">
+                                {c.title}
                               </option>
                             ))}
                           </select>
                         </div>
-                      </div>
+                      </Card>
                     ))
                   )}
                 </div>

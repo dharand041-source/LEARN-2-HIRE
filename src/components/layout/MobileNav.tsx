@@ -24,7 +24,7 @@ function MobileNavComponent() {
   const pathname = usePathname();
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 border-t border-border backdrop-blur-md px-2 py-1.5 flex items-center justify-around shadow-lg">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border px-2 py-1.5 flex items-center justify-around shadow-editorial-sm">
       {NAV_ITEMS.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
@@ -34,13 +34,13 @@ function MobileNavComponent() {
             href={item.href}
             prefetch={true}
             className={cn(
-              "flex flex-col items-center justify-center py-1 px-3 rounded-lg transition-colors text-[10px] font-medium gap-1",
+              "flex flex-col items-center justify-center py-1 px-3 rounded-lg transition-colors text-[10px] font-bold gap-1",
               isActive
-                ? "text-imperial font-bold"
-                : "text-night hover:text-imperial"
+                ? "text-fire-red"
+                : "text-foreground hover:text-fire-red"
             )}
           >
-            <Icon className={cn("w-4 h-4", isActive ? "text-imperial" : "text-night")} />
+            <Icon className={cn("w-4 h-4", isActive ? "text-fire-red" : "text-foreground")} />
             <span>{item.label}</span>
           </Link>
         );

@@ -56,31 +56,31 @@ export default function AssessmentResultsPage() {
   return (
     <div className="max-w-6xl w-full mx-auto space-y-8 animate-fade-in bg-white pb-12">
       {/* Header */}
-      <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <Badge variant="imperial" size="sm">Phase 03</Badge>
-            <span className="text-xs text-night-muted font-mono uppercase tracking-wider font-bold">
+            <Badge variant="electric-yellow" size="sm">Phase 03</Badge>
+            <span className="text-xs text-muted font-mono uppercase tracking-wider font-extrabold">
               Diagnostic Skill-Gap Analysis
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-night tracking-tight uppercase">
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground tracking-tight uppercase leading-snug">
             Assessment Results & Competency Map
           </h1>
-          <p className="text-xs sm:text-sm text-night-muted mt-1">
-            Evaluated against the verified industry benchmark for <strong className="text-night font-semibold">{result.roleTitle}</strong>.
+          <p className="text-xs sm:text-sm text-muted mt-1 font-medium">
+            Evaluated against the verified industry benchmark for <strong className="text-foreground font-extrabold">{result.roleTitle}</strong>.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link href="/assessment">
-            <Button variant="secondary" size="sm" className="gap-1.5 font-bold">
+            <Button variant="secondary" size="sm" className="gap-1.5 font-extrabold">
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Retake Diagnostic</span>
             </Button>
           </Link>
           <Link href="/learning">
-            <Button size="sm" className="gap-1.5 font-bold shadow-sm">
+            <Button variant="primary" size="sm" className="gap-1.5 font-extrabold shadow-sm">
               <span>Start Personalized Training</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Button>
@@ -91,27 +91,27 @@ export default function AssessmentResultsPage() {
       {/* Section 1: Top 2-Column Overview (Readiness Score & Skill Breakdown) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Left Card: Overall Career Readiness (5 cols) */}
-        <div className="lg:col-span-5 p-6 rounded-2xl bg-white border border-surface-border shadow-card-subtle flex flex-col justify-between text-center">
+        <div className="lg:col-span-5 p-6 rounded-xl bg-white border-2 border-foreground shadow-editorial-sm flex flex-col justify-between text-center">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-night block mb-6">
-              Current Career Readiness
+            <span className="text-xs font-extrabold uppercase tracking-wider text-foreground block mb-6">
+              Current Diagnostic Score
             </span>
 
             <div className="relative inline-flex items-center justify-center my-2">
-              <div className="w-36 h-36 rounded-full border-4 border-imperial flex flex-col items-center justify-center bg-surface-subtle shadow-inner">
-                <span className="text-4xl font-display font-extrabold text-night font-mono">
+              <div className="w-36 h-36 rounded-xl border-3 border-foreground flex flex-col items-center justify-center bg-electric-yellow/20 shadow-xs">
+                <span className="text-4xl font-display font-extrabold text-foreground font-mono">
                   {result.score}
                 </span>
-                <span className="text-xs text-night-muted uppercase font-mono font-bold">/ 100</span>
+                <span className="text-xs text-foreground uppercase font-mono font-extrabold">/ 100</span>
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border text-xs text-night leading-relaxed text-left space-y-1.5 mt-6">
-              <p className="font-bold text-night flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-imperial" />
-                Readiness Level: {result.score >= 80 ? "Advanced" : result.score >= 60 ? "Intermediate" : "Foundational"}
+            <div className="p-4 rounded-lg bg-surface border border-border text-xs text-foreground leading-relaxed text-left space-y-1.5 mt-6">
+              <p className="font-extrabold text-foreground flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-fire-red" />
+                Readiness Tier: {result.score >= 80 ? "Advanced Mastery" : result.score >= 60 ? "Intermediate Competent" : "Foundational Discovery"}
               </p>
-              <p className="text-[11px] text-night-muted font-medium">
+              <p className="text-[11px] text-muted font-normal">
                 {result.score >= 80
                   ? "You have validated production-grade competencies across core domains. You are well-positioned for top tech roles."
                   : "You have validated foundational principles. Closing your identified critical gaps will rapidly elevate your score to 85%+ (Job Ready)."}
@@ -119,14 +119,14 @@ export default function AssessmentResultsPage() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-surface-border mt-6 space-y-4">
-            <div className="flex items-center justify-between text-xs text-night-muted font-semibold">
+          <div className="pt-4 border-t border-border mt-6 space-y-4">
+            <div className="flex items-center justify-between text-xs text-muted font-bold">
               <span>Completed: {result.completedAt}</span>
-              <span className="text-night font-bold">Valid Diagnostic</span>
+              <span className="text-foreground font-extrabold">Valid Diagnostic</span>
             </div>
 
             <Link href="/learning" className="block w-full">
-              <Button size="lg" className="w-full gap-2 text-sm font-bold shadow-sm">
+              <Button size="lg" variant="primary" className="w-full gap-2 text-sm font-extrabold shadow-sm">
                 <span>Unlock Recommended Modules</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
@@ -135,13 +135,13 @@ export default function AssessmentResultsPage() {
         </div>
 
         {/* Right Card: Technical Skill Breakdown (7 cols) */}
-        <div className="lg:col-span-7 p-6 rounded-2xl bg-white border border-surface-border shadow-card-subtle flex flex-col justify-between">
+        <div className="lg:col-span-7 p-6 rounded-xl bg-white border border-border shadow-card-clean flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-surface-border pb-3 mb-5">
-              <h3 className="text-xs font-bold text-night uppercase tracking-wider">
+            <div className="flex items-center justify-between border-b border-border pb-3 mb-5">
+              <h3 className="text-xs font-extrabold text-foreground uppercase tracking-wider">
                 Technical Skill Breakdown
               </h3>
-              <span className="text-xs text-night-muted font-semibold">
+              <span className="text-xs text-muted font-bold font-mono">
                 {result.skillBreakdown?.length || 6} Core Dimensions Evaluated
               </span>
             </div>
@@ -156,22 +156,22 @@ export default function AssessmentResultsPage() {
                   <div key={i} className="space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
-                        <span className="text-night font-bold">{item.skill}</span>
+                        <span className="text-foreground font-extrabold">{item.skill}</span>
                         <Badge
-                          variant={isStrong ? "night" : isCritical ? "imperial" : "neutral"}
+                          variant={isStrong ? "night" : isCritical ? "fire-red" : "electric-yellow"}
                           size="sm"
                         >
                           {band}
                         </Badge>
                       </div>
-                      <span className="font-mono font-extrabold text-imperial">
+                      <span className="font-mono font-extrabold text-foreground">
                         {item.score}%
                       </span>
                     </div>
                     <ProgressBar
                       value={item.score}
                       size="sm"
-                      variant={isStrong ? "night" : "imperial"}
+                      variant={isStrong ? "deep-navy" : isCritical ? "fire-red" : "electric-yellow"}
                     />
                   </div>
                 );
@@ -179,12 +179,12 @@ export default function AssessmentResultsPage() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-surface-border mt-6 flex items-center justify-between text-xs text-night-muted">
-            <span className="flex items-center gap-1.5">
+          <div className="pt-4 border-t border-border mt-6 flex items-center justify-between text-xs text-muted">
+            <span className="flex items-center gap-1.5 font-medium">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               Skill-benchmarked against hiring requirements
             </span>
-            <span className="font-mono font-bold text-night">{result.totalQuestions} Questions Evaluated</span>
+            <span className="font-mono font-extrabold text-foreground">{result.totalQuestions} Questions Evaluated</span>
           </div>
         </div>
       </div>

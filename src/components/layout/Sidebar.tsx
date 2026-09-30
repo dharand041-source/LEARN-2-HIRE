@@ -34,30 +34,128 @@ const PRIMARY_NAV_SECTIONS = [
   {
     group: "Core Progression",
     items: [
-      { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-      { label: "Career Discovery", href: "/onboarding", icon: Compass },
-      { label: "Technical Assessment", href: "/assessment", icon: CheckSquare },
-      { label: "Personalized Learning", href: "/learning", icon: BookOpen },
-      { label: "Advanced Assessment", href: "/advanced-assessment", icon: ShieldAlert },
-      { label: "Real-World Projects", href: "/projects", icon: FolderGit2 },
-      { label: "Problem Solving", href: "/problem-solving", icon: Code2 },
+      {
+        label: "Dashboard",
+        href: "/dashboard",
+        icon: LayoutDashboard,
+        color: "#E62727", // Fire Red
+        colorClass: "text-fire-red",
+        borderClass: "border-l-fire-red",
+      },
+      {
+        label: "Career Discovery",
+        href: "/onboarding",
+        icon: Compass,
+        color: "#FEC40B", // Honey Gold
+        colorClass: "text-[#DDA300]",
+        borderClass: "border-l-honey-gold",
+      },
+      {
+        label: "Technical Assessment",
+        href: "/assessment",
+        icon: CheckSquare,
+        color: "#FFDE00", // Electric Yellow
+        colorClass: "text-[#C29E00]",
+        borderClass: "border-l-electric-yellow",
+      },
+      {
+        label: "Personalized Learning",
+        href: "/learning",
+        icon: BookOpen,
+        color: "#EFFF00", // Acid Yellow
+        colorClass: "text-[#97A700]",
+        borderClass: "border-l-acid-yellow",
+      },
+      {
+        label: "Advanced Assessment",
+        href: "/advanced-assessment",
+        icon: ShieldAlert,
+        color: "#FFDE00", // Electric Yellow
+        colorClass: "text-[#C29E00]",
+        borderClass: "border-l-electric-yellow",
+      },
+      {
+        label: "Real-World Projects",
+        href: "/projects",
+        icon: FolderGit2,
+        color: "#04123F", // Deep Navy
+        colorClass: "text-deep-navy",
+        borderClass: "border-l-deep-navy",
+      },
+      {
+        label: "Problem Solving",
+        href: "/problem-solving",
+        icon: Code2,
+        color: "#04123F", // Deep Navy
+        colorClass: "text-deep-navy",
+        borderClass: "border-l-deep-navy",
+      },
     ],
   },
   {
     group: "Career & Employment",
     items: [
-      { label: "Interview Simulation", href: "/interview", icon: Mic },
-      { label: "Resume & ATS Engine", href: "/resume", icon: FileText },
-      { label: "Matching Opportunities", href: "/opportunities", icon: Briefcase },
-      { label: "Application Tracker", href: "/applications", icon: Kanban },
-      { label: "Rejection & Retraining", href: "/feedback", icon: TrendingUp },
+      {
+        label: "Interview Simulation",
+        href: "/interview",
+        icon: Mic,
+        color: "#7F00FF", // Ultra Violet
+        colorClass: "text-ultra-violet",
+        borderClass: "border-l-ultra-violet",
+      },
+      {
+        label: "Resume & ATS Engine",
+        href: "/resume",
+        icon: FileText,
+        color: "#E62727", // Fire Red
+        colorClass: "text-fire-red",
+        borderClass: "border-l-fire-red",
+      },
+      {
+        label: "Matching Opportunities",
+        href: "/opportunities",
+        icon: Briefcase,
+        color: "#FEC40B", // Honey Gold
+        colorClass: "text-[#DDA300]",
+        borderClass: "border-l-honey-gold",
+      },
+      {
+        label: "Application Tracker",
+        href: "/applications",
+        icon: Kanban,
+        color: "#EFFF00", // Acid Yellow
+        colorClass: "text-[#97A700]",
+        borderClass: "border-l-acid-yellow",
+      },
+      {
+        label: "Rejection & Retraining",
+        href: "/feedback",
+        icon: TrendingUp,
+        color: "#7F00FF", // Ultra Violet
+        colorClass: "text-ultra-violet",
+        borderClass: "border-l-ultra-violet",
+      },
     ],
   },
   {
     group: "Candidate Profile",
     items: [
-      { label: "Profile & Portfolio", href: "/profile", icon: User },
-      { label: "System Settings", href: "/settings", icon: Settings },
+      {
+        label: "Profile & Portfolio",
+        href: "/profile",
+        icon: User,
+        color: "#04123F",
+        colorClass: "text-deep-navy",
+        borderClass: "border-l-deep-navy",
+      },
+      {
+        label: "System Settings",
+        href: "/settings",
+        icon: Settings,
+        color: "#666666",
+        colorClass: "text-muted",
+        borderClass: "border-l-foreground",
+      },
     ],
   },
 ] as const;
@@ -68,19 +166,23 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
 
   const renderNavContent = () => (
     <div className="w-80 flex flex-col h-full overflow-hidden shrink-0 select-none bg-white">
-      {/* Readiness Snapshot Card */}
-      <div className="p-4 mx-3 mt-3 rounded-lg bg-white border border-border shrink-0 shadow-sm">
+      {/* Readiness Snapshot Card (Editorial Metric Block) */}
+      <div className="p-4 mx-3 mt-3 rounded-xl bg-white border-2 border-foreground shrink-0 shadow-editorial-sm">
         <div className="flex items-center justify-between mb-1.5">
-          <span className="text-[11px] font-bold text-night uppercase tracking-wider">
+          <span className="text-[11px] font-extrabold text-foreground uppercase tracking-wider">
             Target Readiness
           </span>
-          <span className="text-xs font-bold text-imperial">{userProfile.readinessScore}%</span>
+          <span className="text-sm font-extrabold font-mono text-fire-red">
+            {userProfile.readinessScore}%
+          </span>
         </div>
-        <ProgressBar value={userProfile.readinessScore} size="sm" variant="imperial" />
-        <div className="mt-2 flex items-center justify-between text-[11px]">
-          <span className="truncate max-w-[140px] text-night font-semibold">{selectedRole.title}</span>
-          <span className="text-imperial text-[10px] font-bold uppercase tracking-wider truncate max-w-[110px]">
-            {userProfile.focusArea ? `Gap: ${userProfile.focusArea.split('&')[0].trim()}` : "Not Assessed"}
+        <ProgressBar value={userProfile.readinessScore} size="sm" variant="fire-red" />
+        <div className="mt-2.5 flex items-center justify-between text-[11px]">
+          <span className="truncate max-w-[140px] text-foreground font-bold">
+            {selectedRole.title}
+          </span>
+          <span className="text-fire-red text-[10px] font-extrabold uppercase tracking-wider truncate max-w-[110px] font-mono">
+            {userProfile.focusArea ? `Gap: ${userProfile.focusArea.split("&")[0].trim()}` : "Pending"}
           </span>
         </div>
       </div>
@@ -89,7 +191,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
       <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5 bg-white">
         {PRIMARY_NAV_SECTIONS.map((section, idx) => (
           <div key={idx} className="space-y-1">
-            <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-muted">
+            <p className="px-3 text-[10px] font-extrabold uppercase tracking-wider text-muted">
               {section.group}
             </p>
             <div className="mt-1 space-y-0.5">
@@ -99,6 +201,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
                   pathname === item.href ||
                   (item.href !== "/dashboard" && pathname.startsWith(item.href)) ||
                   (item.href === "/dashboard" && (pathname === "/" || pathname === "/dashboard"));
+
                 return (
                   <Link
                     key={item.href}
@@ -106,14 +209,22 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
                     prefetch={true}
                     onClick={onClose}
                     className={cn(
-                      "flex items-center gap-3 px-3 py-2 text-xs font-medium rounded-md transition-all duration-150",
+                      "flex items-center gap-3 px-3 py-2 text-xs rounded-md transition-all duration-150 group",
                       isActive
-                        ? "bg-imperial text-white font-semibold shadow-sm"
-                        : "text-night hover:text-imperial hover:bg-imperial-50"
+                        ? cn(
+                            "bg-surface text-foreground font-extrabold border-l-4 shadow-xs",
+                            item.borderClass
+                          )
+                        : "text-foreground font-medium hover:bg-surface hover:text-foreground"
                     )}
                   >
-                    <Icon className={cn("w-4 h-4 transition-colors", isActive ? "text-white" : "text-night group-hover:text-imperial")} />
-                    <span>{item.label}</span>
+                    <Icon
+                      className={cn(
+                        "w-4 h-4 transition-transform group-hover:scale-110 shrink-0",
+                        item.colorClass
+                      )}
+                    />
+                    <span className="truncate">{item.label}</span>
                   </Link>
                 );
               })}
@@ -123,9 +234,13 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
       </div>
 
       {/* Bottom Lifecycle Tagline */}
-      <div className="p-3 m-3 rounded-md bg-surface-subtle border border-border text-[11px] text-muted leading-relaxed text-center shrink-0">
-        <p className="text-night font-bold text-[11px]">{PRODUCT_NAME} Lifecycle</p>
-        <p className="text-[10px] text-muted mt-0.5">Assess → Learn → Build → Apply → Retrain</p>
+      <div className="p-3 m-3 rounded-lg bg-surface border border-border text-[11px] text-muted leading-relaxed text-center shrink-0">
+        <p className="text-foreground font-extrabold text-[11px] uppercase tracking-wider">
+          {PRODUCT_NAME} Standard
+        </p>
+        <p className="text-[10px] text-muted font-medium mt-0.5">
+          Assess → Learn → Build → Apply → Retrain
+        </p>
       </div>
     </div>
   );
@@ -154,16 +269,16 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
           {/* Mobile Drawer Header */}
           <div className="p-4 border-b border-border flex items-center justify-between shrink-0 bg-white">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-night flex items-center justify-center text-white">
-                <Sparkles className="w-3.5 h-3.5 text-imperial" />
+              <div className="w-8 h-8 rounded-lg bg-foreground flex items-center justify-center text-white shadow-editorial-sm">
+                <Sparkles className="w-4 h-4 text-fire-red fill-fire-red" />
               </div>
-              <span className="font-display font-bold text-base text-night">
+              <span className="font-display font-extrabold text-base text-foreground tracking-tight">
                 {PRODUCT_NAME}
               </span>
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-muted hover:text-night hover:bg-surface-subtle transition-colors"
+              className="p-1.5 rounded-lg text-muted hover:text-foreground hover:bg-surface transition-colors cursor-pointer"
               aria-label="Close navigation"
             >
               <X className="w-5 h-5" />

@@ -50,7 +50,7 @@ export function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-night/60 backdrop-blur-sm transition-opacity animate-fade-in"
+        className="fixed inset-0 bg-black/60 transition-opacity animate-fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -58,7 +58,7 @@ export function Modal({
       {/* Modal Dialog */}
       <div
         className={cn(
-          "relative w-full bg-white border border-surface-border rounded-xl shadow-2xl z-10 overflow-hidden animate-slide-up flex flex-col max-h-[90vh] text-night",
+          "relative w-full bg-white border-2 border-foreground rounded-xl shadow-editorial-md z-10 overflow-hidden animate-slide-up flex flex-col max-h-[90vh] text-foreground",
           maxWidthClasses[maxWidth]
         )}
         role="dialog"
@@ -66,14 +66,14 @@ export function Modal({
       >
         {/* Header */}
         {(title || description) && (
-          <div className="flex items-start justify-between p-5 border-b border-surface-border bg-white">
+          <div className="flex items-start justify-between p-5 border-b border-border bg-white">
             <div>
-              {title && <h3 className="text-lg font-bold text-night">{title}</h3>}
-              {description && <p className="text-xs text-night-muted mt-1">{description}</p>}
+              {title && <h3 className="text-lg font-extrabold text-foreground tracking-tight">{title}</h3>}
+              {description && <p className="text-xs text-muted mt-1 leading-relaxed">{description}</p>}
             </div>
             <button
               onClick={onClose}
-              className="text-night-muted hover:text-night p-1.5 rounded-lg hover:bg-surface-subtle transition-colors"
+              className="text-muted hover:text-foreground p-1.5 rounded-lg hover:bg-surface transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -87,3 +87,4 @@ export function Modal({
     </div>
   );
 }
+

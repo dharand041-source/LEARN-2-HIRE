@@ -39,22 +39,22 @@ export default function AdvancedAssessmentPage() {
       <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Badge variant="imperial" size="sm">Phase 05</Badge>
-            <span className="text-xs text-muted font-mono uppercase tracking-wider font-bold">
+            <Badge variant="electric-yellow" size="sm">Phase 05</Badge>
+            <span className="text-xs text-muted font-mono uppercase tracking-wider font-extrabold">
               Advanced Technical Verification
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-night tracking-tight uppercase">
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground tracking-tight uppercase leading-snug">
             Advanced Technical & System Assessments
           </h1>
-          <p className="text-xs sm:text-sm text-muted mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-muted mt-1 max-w-2xl font-medium">
             Simulated live production scenarios, memory profiling flamegraphs, and distributed architecture evaluations that elevate your profile to senior candidate readiness.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link href="/projects">
-            <Button size="sm" className="gap-1.5 font-bold shadow-sm">
+            <Button size="sm" variant="primary" className="gap-1.5 font-extrabold shadow-sm">
               <span>View Production Projects</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Button>
@@ -63,13 +63,13 @@ export default function AdvancedAssessmentPage() {
       </div>
 
       {/* Readiness Qualification Status Banner */}
-      <div className="p-5 rounded-xl bg-white border border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+      <div className="p-5 rounded-xl bg-white border-2 border-foreground flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-editorial-sm border-l-8 border-l-electric-yellow">
         <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-imperial shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-electric-yellow text-foreground flex items-center justify-center font-bold shrink-0">
             <ShieldAlert className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs font-bold text-night">
+            <p className="text-xs font-extrabold text-foreground">
               Candidate Readiness Threshold: {userProfile.readinessScore}% / 70% Required
             </p>
             <p className="text-[11px] text-muted mt-0.5 font-medium">
@@ -78,7 +78,7 @@ export default function AdvancedAssessmentPage() {
           </div>
         </div>
 
-        <Badge variant="imperial" size="md">
+        <Badge variant="electric-yellow" size="md">
           Senior Verification Track
         </Badge>
       </div>
@@ -88,42 +88,42 @@ export default function AdvancedAssessmentPage() {
         {ADVANCED_ASSESSMENT_MODULES.map((mod) => (
           <div
             key={mod.id}
-            className={`p-6 rounded-xl border flex flex-col justify-between transition-all duration-200 bg-white ${
+            className={`p-6 rounded-xl border flex flex-col justify-between transition-all duration-150 bg-white ${
               mod.unlocked
-                ? "border-border hover:border-imperial shadow-card"
-                : "border-border/60 opacity-60 bg-surface-subtle"
+                ? "border-border hover:border-foreground shadow-card-clean hover:shadow-editorial-sm border-l-4 border-l-electric-yellow"
+                : "border-border/60 opacity-60 bg-surface"
             }`}
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <Badge variant={mod.unlocked ? "night" : "neutral"} size="sm">
+                <Badge variant={mod.unlocked ? "electric-yellow" : "neutral"} size="sm">
                   {mod.category}
                 </Badge>
-                <div className="flex items-center gap-2 text-xs font-mono text-muted font-semibold">
-                  <Clock className="w-3.5 h-3.5 text-imperial" />
+                <div className="flex items-center gap-2 text-xs font-mono text-muted font-bold">
+                  <Clock className="w-3.5 h-3.5 text-foreground" />
                   <span>{mod.duration}</span>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-base font-extrabold text-night leading-snug">
+                <h3 className="text-base font-extrabold text-foreground leading-snug">
                   {mod.title}
                 </h3>
-                <p className="text-xs text-muted mt-1 leading-relaxed font-medium">
+                <p className="text-xs text-muted mt-1 leading-relaxed font-normal">
                   {mod.scenario}
                 </p>
               </div>
 
               {/* Skills covered */}
               <div className="space-y-1.5">
-                <p className="text-[10px] uppercase font-bold text-night">
+                <p className="text-[10px] uppercase font-bold text-muted tracking-wider">
                   Skills & Vectors Evaluated:
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {mod.skills.map((skill, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 rounded bg-surface-subtle border border-border text-[10px] font-mono font-semibold text-night"
+                      className="px-2 py-0.5 rounded bg-surface border border-border text-[10px] font-mono font-bold text-foreground"
                     >
                       {skill}
                     </span>
@@ -134,7 +134,7 @@ export default function AdvancedAssessmentPage() {
               {/* Min Passing Score */}
               <div className="pt-2 border-t border-border flex items-center justify-between text-xs text-muted font-medium">
                 <span>Passing Threshold:</span>
-                <span className="font-mono text-imperial font-extrabold">{mod.minPassingScore}%</span>
+                <span className="font-mono text-foreground font-extrabold">{mod.minPassingScore}%</span>
               </div>
             </div>
 
@@ -143,15 +143,15 @@ export default function AdvancedAssessmentPage() {
               {mod.unlocked ? (
                 <Button
                   onClick={() => handleLaunchTest(mod)}
-                  variant="primary"
+                  variant="dark"
                   size="sm"
-                  className="w-full gap-2 text-xs font-bold shadow-sm"
+                  className="w-full gap-2 text-xs font-extrabold"
                 >
-                  <Unlock className="w-3.5 h-3.5" />
+                  <Unlock className="w-3.5 h-3.5 text-electric-yellow" />
                   <span>Launch Advanced Assessment</span>
                 </Button>
               ) : (
-                <div className="p-3 rounded-lg bg-surface-subtle border border-border flex items-center gap-2 text-xs text-muted font-medium">
+                <div className="p-3 rounded-lg bg-surface border border-border flex items-center gap-2 text-xs text-muted font-medium">
                   <Lock className="w-4 h-4 text-muted shrink-0" />
                   <span className="text-[11px] leading-tight">{mod.prerequisiteText}</span>
                 </div>

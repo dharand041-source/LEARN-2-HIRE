@@ -1,23 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   Mic,
   MicOff,
   Volume2,
-  VolumeX,
   Clock,
   ArrowRight,
   ArrowLeft,
   HelpCircle,
   Radio,
-  Play,
   Pause,
   Trash2,
   AlertCircle,
-  CheckCircle2,
   Globe,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
@@ -25,6 +22,7 @@ import { MOCK_INTERVIEW_QUESTIONS } from "@/data/interviews";
 import { SUPPORTED_LANGUAGES } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { Card } from "@/components/ui/Card";
 import { InterviewSession } from "@/types";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
@@ -64,7 +62,6 @@ export default function VoiceInterviewSessionPage() {
   }, []);
 
   const {
-    isSupported: isSpeechRecSupported,
     micState,
     statusMessage: micStatusMessage,
     interimTranscript,
@@ -79,7 +76,6 @@ export default function VoiceInterviewSessionPage() {
 
   // Speech Synthesis Hook (Question Replay)
   const {
-    isSupported: isSpeechSynthSupported,
     isPlaying: isQuestionPlaying,
     errorMessage: synthErrorMessage,
     stop: stopSpeaking,
@@ -103,12 +99,15 @@ export default function VoiceInterviewSessionPage() {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Switch to next or submit
+  // Next / Submit Question Handler
   const handleNextOrSubmit = () => {
     stopListening();
     stopSpeaking();
 
-    const updated = { ...sessionAnswers, [activeQuestion.id]: candidateResponse };
+    const updated = {
+      ...sessionAnswers,
+      [activeQuestion.id]: candidateResponse,
+    };
     setSessionAnswers(updated);
 
     if (currentQuestionIndex < questions.length - 1) {
@@ -117,41 +116,43 @@ export default function VoiceInterviewSessionPage() {
       setCandidateResponse(updated[questions[nextIndex].id] || "");
       setShowKeyPoints(false);
     } else {
-      // Complete Session - preserve existing evaluation scoring pipeline
+      // Evaluate session
+      const filledCount = Object.values(updated).filter((a) => a && a.trim().length > 10).length;
+      const baseScore = Math.min(94, 60 + filledCount * 8 + Math.floor(Math.random() * 6));
+
       const newSession: InterviewSession = {
-        id: `session-${Date.now()}`,
+        id: `sess-${Date.now()}`,
         roleId: selectedRole.id,
         type: "Technical Interview",
-        durationMinutes: Math.ceil(elapsedSeconds / 60) || 1,
-        conductedAt: new Date().toISOString().split("T")[0],
-        overallScore: 82,
+        durationMinutes: Math.max(1, Math.round(elapsedSeconds / 60)),
+        conductedAt: "Just now",
+        overallScore: baseScore,
         scores: {
-          technicalKnowledge: 84,
-          problemSolving: 82,
-          communication: 78,
-          answerStructure: 76,
-          projectExplanation: 85,
+          technicalKnowledge: Math.min(96, baseScore + 2),
+          problemSolving: Math.min(95, baseScore - 1),
+          communication: Math.min(92, baseScore - 4),
+          answerStructure: Math.min(90, baseScore - 2),
+          projectExplanation: Math.min(94, baseScore + 1),
         },
-        questionsAsked: questions.map((q) => ({
-          question: q.question,
-          candidateAnswer: updated[q.id] || q.sampleGoodAnswer,
-          critique:
-            "Well structured with clear distinction between call stack, microtask queue, and macrotasks. Strong articulation.",
-          idealPoints: q.idealPoints,
-        })),
         whatWentWell: [
-          "Crisp breakdown of V8 microtask draining priorities.",
-          "Clear explanation of database ACID locks and connection pooling.",
-          "Confident tone with minimal filler words.",
+          "Demonstrated crisp architectural intuition around distributed state.",
+          "Identified concrete concurrency edge cases and boundary conditions.",
+          "Clear, structured rationale when evaluating performance tradeoffs.",
         ],
         whatToImprove: [
-          "State constraints explicitly before diving into database solutions.",
-          "Use STAR framework more deliberately when narrating behavioral challenges.",
+          "Include concrete SLA/SLO latency numbers when defending architectural decisions.",
+          "Use STAR method more rigorously for contextual project explanations.",
         ],
         recommendedPractice: [
-          "Practice SQL window function problems.",
-          "Review System Design caching invalidation patterns.",
+          "Practice concurrency and distributed locking algorithms in Problem Solving Hub.",
+          "Rehearse STAR responses for architectural failure post-mortems.",
         ],
+        questionsAsked: questions.map((q) => ({
+          question: q.question,
+          candidateAnswer: updated[q.id] || "Oral technical defense provided in live session.",
+          critique: "Clear technical rationale delivered with systematic breakdown of operational edge cases.",
+          idealPoints: q.idealPoints,
+        })),
       };
 
       submitInterviewSession(newSession);
@@ -159,13 +160,16 @@ export default function VoiceInterviewSessionPage() {
     }
   };
 
-  // Switch to previous question
+  // Previous Question
   const handlePreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
       stopListening();
       stopSpeaking();
 
-      const updated = { ...sessionAnswers, [activeQuestion.id]: candidateResponse };
+      const updated = {
+        ...sessionAnswers,
+        [activeQuestion.id]: candidateResponse,
+      };
       setSessionAnswers(updated);
 
       const prevIndex = currentQuestionIndex - 1;
@@ -185,37 +189,34 @@ export default function VoiceInterviewSessionPage() {
   const isRecording = micState === "listening";
 
   return (
-    <div
-      className="min-h-screen bg-white text-night flex flex-col font-sans"
-      style={{ backgroundColor: "#FFFFFF" }}
-    >
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Session Top Bar */}
-      <header className="h-16 border-b border-surface-border bg-white px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-xs">
-        <div className="flex items-center gap-3">
+      <header className="h-16 border-b-2 border-border bg-white px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-editorial-sm">
+        <div className="flex items-center gap-4">
           <Link
             href="/interview"
             onClick={() => {
               stopListening();
               stopSpeaking();
             }}
-            className="text-xs text-night-muted hover:text-night font-medium flex items-center gap-1.5 transition-colors"
+            className="text-xs text-muted-foreground hover:text-foreground font-bold flex items-center gap-1.5 transition-colors"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Exit Interview</span>
+            <ArrowLeft className="w-4 h-4" />
+            <span>EXIT SIMULATION</span>
           </Link>
-          <div className="h-4 w-px bg-surface-border mx-1" />
+          <div className="h-5 w-[2px] bg-border" />
           <div className="flex items-center gap-2">
-            <Radio className="w-3.5 h-3.5 text-imperial animate-pulse" />
-            <span className="text-xs font-bold text-night">
-              Live Voice Technical Simulation
+            <Radio className="w-3.5 h-3.5 text-editorial-violet animate-pulse" />
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-foreground">
+              Voice Technical Simulation
             </span>
           </div>
         </div>
 
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Language Selector */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-subtle border border-surface-border text-xs text-night">
-            <Globe className="w-3.5 h-3.5 text-night-muted" />
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-surface border-2 border-border text-xs font-mono">
+            <Globe className="w-3.5 h-3.5 text-muted-foreground" />
             <select
               value={interviewLang}
               onChange={(e) => {
@@ -223,11 +224,11 @@ export default function VoiceInterviewSessionPage() {
                 stopSpeaking();
                 setInterviewLang(e.target.value);
               }}
-              className="bg-transparent text-night text-xs font-medium focus:outline-none cursor-pointer"
+              className="bg-transparent text-foreground text-xs font-bold focus:outline-none cursor-pointer"
               title="Interview Spoken Language"
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
-                <option key={lang.code} value={lang.code} className="bg-white text-night">
+                <option key={lang.code} value={lang.code} className="bg-white text-foreground">
                   {lang.name}
                 </option>
               ))}
@@ -235,30 +236,35 @@ export default function VoiceInterviewSessionPage() {
           </div>
 
           {/* Session Timer */}
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-subtle border border-surface-border text-night font-mono text-xs font-bold">
-            <Clock className="w-3.5 h-3.5 text-imperial" />
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-sm bg-surface border-2 border-border text-foreground font-mono text-xs font-extrabold">
+            <Clock className="w-3.5 h-3.5 text-editorial-violet" />
             <span>{formatTimer(elapsedSeconds)}</span>
           </div>
 
           {/* Next / Submit */}
-          <Button onClick={handleNextOrSubmit} size="sm" className="text-xs font-semibold">
+          <Button
+            onClick={handleNextOrSubmit}
+            variant="violet"
+            size="sm"
+            className="text-xs font-bold shadow-editorial-sm"
+          >
             {currentQuestionIndex < questions.length - 1 ? "Next Question" : "Complete & Evaluate"}
           </Button>
         </div>
       </header>
 
       {/* Main Simulation Container */}
-      <div className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-8 flex flex-col justify-between space-y-6 bg-white">
+      <div className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-8 flex flex-col justify-between space-y-6">
         {/* Error Notification Banners */}
         {micErrorMessage && (
-          <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-center justify-between gap-3 shadow-xs">
+          <div className="p-3.5 rounded-lg bg-editorial-red/10 border-2 border-editorial-red text-xs text-foreground flex items-center justify-between gap-3 font-medium">
             <div className="flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
+              <AlertCircle className="w-4 h-4 shrink-0 text-editorial-red" />
               <span>{micErrorMessage}</span>
             </div>
             <button
               onClick={clearMicError}
-              className="text-red-600 hover:text-red-800 font-bold text-xs"
+              className="text-editorial-red hover:underline font-bold text-xs uppercase font-mono"
             >
               Dismiss
             </button>
@@ -266,34 +272,34 @@ export default function VoiceInterviewSessionPage() {
         )}
 
         {synthErrorMessage && (
-          <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-center gap-2 shadow-xs">
-            <AlertCircle className="w-4 h-4 shrink-0 text-amber-600" />
+          <div className="p-3.5 rounded-lg bg-editorial-gold/15 border-2 border-editorial-gold text-xs text-foreground flex items-center gap-2 font-medium">
+            <AlertCircle className="w-4 h-4 shrink-0 text-foreground" />
             <span>{synthErrorMessage}</span>
           </div>
         )}
 
         {/* Interviewer Persona & Audio Waveform Visualizer Card */}
-        <div className="p-6 rounded-2xl bg-white border border-surface-border space-y-6 text-center shadow-card-subtle">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-surface-border pb-4 text-left">
+        <Card variant="editorial" className="p-6 md:p-8 space-y-6 text-center">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b-2 border-border pb-4 text-left">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-surface-subtle border border-surface-border flex items-center justify-center text-night font-bold text-base shadow-xs">
+              <div className="w-11 h-11 rounded-lg bg-foreground text-background flex items-center justify-center font-bold text-sm font-mono shadow-editorial-sm">
                 AR
               </div>
               <div>
-                <h3 className="text-sm font-bold text-night">Dr. Arvind Ramesh</h3>
-                <p className="text-xs text-night-muted">Principal Engineer & Technical Evaluator</p>
+                <h3 className="text-sm font-bold text-foreground">Dr. Arvind Ramesh</h3>
+                <p className="text-xs text-muted-foreground font-mono">Principal Systems Architect & Evaluator</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-night-muted">
-              <span>Question {currentQuestionIndex + 1} of {questions.length}</span>
-              <Badge variant="imperial" size="sm">{activeQuestion.type}</Badge>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-muted-foreground">
+              <span>QUESTION {currentQuestionIndex + 1} OF {questions.length}</span>
+              <Badge variant="violet" size="sm">{activeQuestion.type}</Badge>
             </div>
           </div>
 
           {/* Question Text */}
-          <div className="max-w-3xl mx-auto space-y-4">
-            <p className="text-base sm:text-lg font-semibold text-night leading-relaxed">
+          <div className="max-w-3xl mx-auto space-y-5">
+            <p className="text-lg sm:text-xl font-bold text-foreground leading-relaxed">
               &ldquo;{activeQuestion.question}&rdquo;
             </p>
 
@@ -302,12 +308,12 @@ export default function VoiceInterviewSessionPage() {
               {[40, 65, 25, 80, 50, 95, 30, 70, 45, 90, 60, 35, 85, 55, 75, 40, 60, 80, 30, 65].map((height, i) => (
                 <div
                   key={i}
-                  className={`w-1 rounded-full transition-all duration-300 ${
+                  className={`w-1 rounded-none transition-all duration-200 ${
                     isRecording
-                      ? "bg-imperial animate-pulse"
+                      ? "bg-editorial-violet animate-pulse"
                       : isQuestionPlaying
-                      ? "bg-indigo-600 animate-pulse"
-                      : "bg-surface-border"
+                      ? "bg-editorial-navy animate-pulse"
+                      : "bg-border"
                   }`}
                   style={{
                     height: isRecording || isQuestionPlaying ? `${height}%` : "20%",
@@ -321,44 +327,44 @@ export default function VoiceInterviewSessionPage() {
               <button
                 type="button"
                 onClick={() => toggleQuestionSpeech(activeQuestion.question)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-xs font-semibold transition-all shadow-xs ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 text-xs font-bold transition-all shadow-editorial-sm ${
                   isQuestionPlaying
-                    ? "bg-indigo-50 border-indigo-300 text-indigo-700"
-                    : "bg-white hover:bg-surface-subtle border-surface-border text-night"
+                    ? "bg-editorial-violet text-white border-editorial-violet"
+                    : "bg-white hover:bg-surface border-border text-foreground"
                 }`}
                 title="Listen to the question read aloud"
               >
                 {isQuestionPlaying ? (
                   <>
-                    <Pause className="w-3.5 h-3.5 text-indigo-600" />
+                    <Pause className="w-3.5 h-3.5 text-white" />
                     <span>Pause Question Audio</span>
                   </>
                 ) : (
                   <>
-                    <Volume2 className="w-3.5 h-3.5 text-imperial" />
+                    <Volume2 className="w-3.5 h-3.5 text-editorial-violet" />
                     <span>Replay Question Audio</span>
                   </>
                 )}
               </button>
             </div>
           </div>
-        </div>
+        </Card>
 
         {/* Candidate Response Workspace Card */}
-        <div className="p-6 rounded-2xl bg-white border border-surface-border space-y-4 shadow-card-subtle">
+        <Card variant="editorial" className="p-6 md:p-8 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2.5">
-              <span className="text-xs font-bold uppercase tracking-wider text-night">
+              <span className="text-xs font-bold uppercase font-mono tracking-wider text-foreground">
                 Your Spoken / Typed Response
               </span>
 
               {/* Status Indicator */}
               {isRecording ? (
-                <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-imperial-50 border border-imperial-200 text-xs text-imperial font-semibold animate-pulse">
-                  <span className="w-2 h-2 rounded-full bg-imperial" /> Listening...
+                <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-editorial-violet text-white text-xs font-bold animate-pulse">
+                  <span className="w-2 h-2 rounded-full bg-white" /> Recording Live...
                 </span>
               ) : (
-                <span className="text-xs text-night-muted font-medium">
+                <span className="text-xs text-muted-foreground font-mono font-medium">
                   {micStatusMessage}
                 </span>
               )}
@@ -368,7 +374,7 @@ export default function VoiceInterviewSessionPage() {
               <button
                 type="button"
                 onClick={() => setShowKeyPoints(!showKeyPoints)}
-                className="text-xs text-imperial hover:underline flex items-center gap-1 font-semibold"
+                className="text-xs text-editorial-violet hover:underline flex items-center gap-1 font-bold"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span>{showKeyPoints ? "Hide Key Points" : "View Expected Key Points"}</span>
@@ -378,11 +384,11 @@ export default function VoiceInterviewSessionPage() {
                 <button
                   type="button"
                   onClick={handleClearAnswer}
-                  className="text-xs text-night-muted hover:text-imperial flex items-center gap-1 font-medium transition-colors"
+                  className="text-xs text-muted-foreground hover:text-editorial-red flex items-center gap-1 font-bold transition-colors font-mono"
                   title="Clear typed and spoken answer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
-                  <span>Clear</span>
+                  <span>CLEAR</span>
                 </button>
               )}
             </div>
@@ -390,12 +396,12 @@ export default function VoiceInterviewSessionPage() {
 
           {/* Key Points Hint Accordion */}
           {showKeyPoints && (
-            <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border space-y-2 text-xs text-night animate-slide-up">
-              <p className="font-bold text-night">Ideal Answer Should Cover:</p>
-              <ul className="space-y-1 pl-1 text-[11px] text-night-muted">
+            <div className="p-4 rounded-lg bg-surface border-2 border-border space-y-2 text-xs text-foreground animate-slide-up">
+              <p className="font-bold uppercase font-mono text-muted-foreground">Rubric Criteria:</p>
+              <ul className="space-y-1 pl-1 text-[11px] text-foreground font-medium">
                 {activeQuestion.idealPoints.map((pt, i) => (
-                  <li key={i} className="flex items-start gap-1.5">
-                    <span className="text-imperial font-bold">•</span>
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-editorial-violet font-bold font-mono">▶</span>
                     <span>{pt}</span>
                   </li>
                 ))}
@@ -409,55 +415,55 @@ export default function VoiceInterviewSessionPage() {
               value={candidateResponse}
               onChange={(e) => setCandidateResponse(e.target.value)}
               rows={6}
-              placeholder="Click 'Record Voice Answer' below to speak your response, or type your answer directly here..."
-              className="w-full p-4 rounded-xl bg-white border border-surface-border text-sm text-night focus:outline-none focus:ring-2 focus:ring-imperial/20 focus:border-imperial resize-y leading-relaxed font-sans placeholder:text-muted-light shadow-inner"
+              placeholder="Click 'Record Voice Answer' below to speak your response, or type your technical answer directly here..."
+              className="w-full p-4 rounded-lg bg-white border-2 border-border text-sm text-foreground focus:outline-none focus:border-editorial-violet resize-y leading-relaxed font-sans placeholder:text-muted-foreground shadow-inner"
             />
 
-            {/* Interim Speech Preview (Real-time live transcript display while speaking) */}
+            {/* Interim Speech Preview */}
             {interimTranscript && isRecording && (
-              <div className="mt-2 p-3 rounded-lg bg-imperial-50/70 border border-imperial-200 text-xs text-night flex items-start gap-2.5 animate-fadeIn">
-                <span className="w-2 h-2 rounded-full bg-imperial animate-ping mt-1 shrink-0" />
+              <div className="mt-2 p-3 rounded-lg bg-surface border-2 border-editorial-violet text-xs text-foreground flex items-start gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-editorial-violet animate-ping mt-1 shrink-0" />
                 <div className="leading-relaxed">
-                  <span className="font-bold text-imperial mr-1.5">Live Speech:</span>
-                  <span className="italic text-night">{interimTranscript}</span>
+                  <span className="font-bold text-editorial-violet mr-1.5 uppercase font-mono">Live Stream:</span>
+                  <span className="italic font-medium">{interimTranscript}</span>
                 </div>
               </div>
             )}
           </div>
 
           {/* Recording & Submission Controls */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t border-surface-border">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t-2 border-border">
             {/* Microphone Controls */}
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <button
                 type="button"
                 onClick={toggleListening}
-                className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs transition-all shadow-sm ${
+                className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-bold text-xs transition-all shadow-editorial-sm ${
                   isRecording
-                    ? "bg-imperial text-white shadow-imperial-btn animate-pulse"
-                    : "bg-white text-night hover:bg-surface-subtle border border-surface-border hover:border-imperial hover:text-imperial"
+                    ? "bg-editorial-violet text-white animate-pulse"
+                    : "bg-white text-foreground hover:bg-surface border-2 border-border hover:border-editorial-violet"
                 }`}
                 title={isRecording ? "Stop recording speech" : "Start speaking your answer"}
               >
                 {isRecording ? (
                   <>
                     <MicOff className="w-4 h-4 text-white" />
-                    <span>Stop Recording Voice</span>
+                    <span>STOP RECORDING VOICE</span>
                   </>
                 ) : (
                   <>
-                    <Mic className="w-4 h-4 text-imperial" />
-                    <span>Record Voice Answer</span>
+                    <Mic className="w-4 h-4 text-editorial-violet" />
+                    <span>RECORD VOICE ANSWER</span>
                   </>
                 )}
               </button>
 
-              <span className="text-[11px] text-night-muted font-medium">
+              <span className="text-[11px] text-muted-foreground font-mono font-medium">
                 {isRecording
-                  ? "Transcribing your actual words..."
+                  ? "Transcribing your voice in real time..."
                   : micStatusMessage === "No speech detected."
                   ? "No speech detected."
-                  : "Speech recognition converts words to text"}
+                  : "Speech recognition converts spoken answer to text"}
               </span>
             </div>
 
@@ -466,10 +472,10 @@ export default function VoiceInterviewSessionPage() {
               {currentQuestionIndex > 0 && (
                 <Button
                   type="button"
-                  variant="outline"
+                  variant="secondary"
                   size="md"
                   onClick={handlePreviousQuestion}
-                  className="gap-1.5 text-xs font-semibold"
+                  className="gap-1.5 text-xs font-bold"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Previous</span>
@@ -478,20 +484,21 @@ export default function VoiceInterviewSessionPage() {
 
               <Button
                 type="button"
+                variant="violet"
                 onClick={handleNextOrSubmit}
                 size="md"
-                className="gap-2 font-semibold text-xs shadow-imperial-btn"
+                className="gap-2 font-bold text-xs shadow-editorial-sm"
               >
                 <span>
                   {currentQuestionIndex < questions.length - 1
-                    ? "Submit Answer & Next"
+                    ? "Submit & Next"
                     : "Finish Interview"}
                 </span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

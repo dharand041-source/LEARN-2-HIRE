@@ -70,6 +70,12 @@ function LoginForm() {
       setErrorMessage(null);
       setSuccessMessage(null);
 
+      try {
+        sessionStorage.setItem("l2h_post_login_intro", "pending");
+      } catch {
+        // Ignore if sessionStorage is unavailable
+      }
+
       const supabase = createClient();
       const redirectPath = `/auth/callback?next=${encodeURIComponent(safeNext)}`;
       const redirectTo = getOAuthRedirectURL(redirectPath);
@@ -117,7 +123,12 @@ function LoginForm() {
         }
 
         if (data.session) {
-          // Session established, navigate to destination
+          // Session established, mark intro flag and navigate to destination
+          try {
+            sessionStorage.setItem("l2h_post_login_intro", "pending");
+          } catch {
+            // Ignore
+          }
           window.location.href = safeNext;
         } else {
           setLoading(false);
@@ -148,6 +159,11 @@ function LoginForm() {
 
         // If session returned immediately (email confirmation disabled in Supabase)
         if (data.session) {
+          try {
+            sessionStorage.setItem("l2h_post_login_intro", "pending");
+          } catch {
+            // Ignore
+          }
           window.location.href = safeNext;
         } else {
           // Email confirmation is enabled

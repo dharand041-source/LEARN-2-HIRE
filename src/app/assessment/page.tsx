@@ -208,26 +208,26 @@ export default function AssessmentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-night flex flex-col">
+    <div className="min-h-screen bg-white text-foreground flex flex-col">
       {/* Top Assessment Header */}
       <header className="h-16 border-b border-border bg-white px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <Link href="/onboarding" className="text-xs text-muted hover:text-night font-semibold flex items-center gap-1.5">
+          <Link href="/onboarding" className="text-xs text-muted hover:text-foreground font-bold flex items-center gap-1.5 transition-colors">
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Exit</span>
           </Link>
           <div className="h-4 w-px bg-border mx-1 hidden sm:block" />
           <div className="flex items-center gap-2">
-            <h1 className="text-xs sm:text-sm font-bold text-night">
+            <h1 className="text-xs sm:text-sm font-extrabold text-foreground uppercase tracking-tight">
               {activeTrack === "technical"
                 ? `${selectedRole.title} Diagnostic`
                 : activeTrack === "aptitude"
                 ? "Quantitative Aptitude"
                 : "Logical Reasoning"}
             </h1>
-            <Badge variant="night" size="sm">
+            <Badge variant="electric-yellow" size="sm">
               {activeTrack === "technical"
-                ? "Role-Specific Technical Assessment"
+                ? "Technical Assessment"
                 : activeTrack === "aptitude"
                 ? "Numerical & Quantitative"
                 : "Analytical & Deduction"}
@@ -237,23 +237,23 @@ export default function AssessmentPage() {
 
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Integrity Badge */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-subtle border border-border text-night text-[11px] font-mono font-semibold">
-            <Eye className="w-3.5 h-3.5 text-imperial" />
+          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface border border-border text-foreground text-[11px] font-mono font-bold">
+            <Eye className="w-3.5 h-3.5 text-foreground" />
             <span>Focus Active</span>
           </div>
 
           {/* Timer Display */}
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded bg-surface-subtle border border-border text-night font-mono text-xs font-extrabold shadow-sm">
-            <Clock className="w-3.5 h-3.5 text-imperial" />
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded bg-surface border-2 border-foreground text-foreground font-mono text-xs font-extrabold shadow-editorial-sm">
+            <Clock className="w-3.5 h-3.5 text-foreground" />
             <span>{formatTimer(secondsRemaining)}</span>
           </div>
 
-          {/* Submit CTA */}
+          {/* Submit CTA - Black CTA */}
           <Button
             onClick={() => setIsSubmitModalOpen(true)}
-            variant="primary"
+            variant="dark"
             size="sm"
-            className="text-xs font-bold shadow-sm"
+            className="text-xs font-extrabold shadow-sm"
           >
             Submit Assessment
           </Button>
@@ -261,15 +261,15 @@ export default function AssessmentPage() {
       </header>
 
       {/* Track Selector Bar (Technical / Aptitude / Logical) */}
-      <div className="border-b border-border bg-surface-subtle px-4 sm:px-8 py-2">
+      <div className="border-b border-border bg-surface px-4 sm:px-8 py-2.5">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-1.5 bg-white p-1 rounded-lg border border-border text-xs">
             <button
               onClick={() => handleTrackSwitch("technical")}
-              className={`px-3 py-1.5 rounded-md font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-md font-extrabold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTrack === "technical"
-                  ? "bg-imperial text-white shadow-sm"
-                  : "text-muted hover:text-night"
+                  ? "bg-electric-yellow text-foreground border border-foreground/30 shadow-xs"
+                  : "text-muted hover:text-foreground"
               }`}
             >
               <Code2 className="w-3.5 h-3.5" />
@@ -277,10 +277,10 @@ export default function AssessmentPage() {
             </button>
             <button
               onClick={() => handleTrackSwitch("aptitude")}
-              className={`px-3 py-1.5 rounded-md font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-md font-extrabold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTrack === "aptitude"
-                  ? "bg-imperial text-white shadow-sm"
-                  : "text-muted hover:text-night"
+                  ? "bg-electric-yellow text-foreground border border-foreground/30 shadow-xs"
+                  : "text-muted hover:text-foreground"
               }`}
             >
               <Calculator className="w-3.5 h-3.5" />
@@ -288,10 +288,10 @@ export default function AssessmentPage() {
             </button>
             <button
               onClick={() => handleTrackSwitch("logical")}
-              className={`px-3 py-1.5 rounded-md font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-md font-extrabold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTrack === "logical"
-                  ? "bg-imperial text-white shadow-sm"
-                  : "text-muted hover:text-night"
+                  ? "bg-electric-yellow text-foreground border border-foreground/30 shadow-xs"
+                  : "text-muted hover:text-foreground"
               }`}
             >
               <Brain className="w-3.5 h-3.5" />
@@ -299,8 +299,8 @@ export default function AssessmentPage() {
             </button>
           </div>
 
-          <div className="text-[11px] text-muted font-medium flex items-center gap-2">
-            <span>Pool:</span>
+          <div className="text-[11px] text-muted font-bold flex items-center gap-2">
+            <span>Question Pool:</span>
             <Badge variant="neutral" size="sm">
               {questions.length} Questions Verified
             </Badge>
@@ -311,17 +311,17 @@ export default function AssessmentPage() {
       {/* Main 3-Column Assessment Body */}
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Question Navigator Matrix (3 cols) */}
-        <div className="lg:col-span-3 rounded-xl bg-white border border-border p-5 space-y-4 shadow-card">
+        <div className="lg:col-span-3 rounded-xl bg-white border border-border p-5 space-y-4 shadow-card-clean">
           <div className="flex items-center justify-between border-b border-border pb-3">
-            <h3 className="text-xs font-bold text-night uppercase tracking-wider">
+            <h3 className="text-xs font-extrabold text-foreground uppercase tracking-wider">
               Question Navigator
             </h3>
-            <span className="text-xs font-mono font-bold text-imperial">
+            <span className="text-xs font-mono font-extrabold text-foreground">
               {answeredCount} / {questions.length} Solved
             </span>
           </div>
 
-          <ProgressBar value={progressPercentage} size="sm" variant="imperial" />
+          <ProgressBar value={progressPercentage} size="sm" variant="electric-yellow" />
 
           {/* Dynamic Question Navigation Grid */}
           <div className="grid grid-cols-5 gap-2 pt-2">
@@ -330,27 +330,27 @@ export default function AssessmentPage() {
               const isAnswered = !!currentTrackAnswers[q.id];
               const isFlagged = !!flaggedQuestions[q.id];
 
-              let buttonStyles = "bg-surface-subtle border-border text-muted hover:border-night hover:text-night";
+              let buttonStyles = "bg-surface border-border text-muted hover:border-foreground hover:text-foreground";
               if (isCurrent) {
-                buttonStyles = "bg-imperial border-imperial text-white font-bold shadow-sm";
+                buttonStyles = "bg-electric-yellow border-2 border-foreground text-foreground font-extrabold shadow-editorial-sm";
               } else if (isFlagged) {
-                buttonStyles = "bg-imperial-50 border-imperial text-imperial font-bold";
+                buttonStyles = "bg-fire-red-50 border-2 border-fire-red text-fire-red font-bold";
               } else if (isAnswered) {
-                buttonStyles = "bg-night border-night text-white font-semibold";
+                buttonStyles = "bg-foreground border-foreground text-white font-bold";
               }
 
               return (
                 <button
                   key={q.id}
                   onClick={() => setCurrentIndex(idx)}
-                  className={`h-10 rounded-lg border text-xs font-mono transition-all flex flex-col items-center justify-center relative ${buttonStyles}`}
+                  className={`h-10 rounded-lg border text-xs font-mono transition-all flex flex-col items-center justify-center relative cursor-pointer ${buttonStyles}`}
                 >
                   <span>{idx < 9 ? `0${idx + 1}` : `${idx + 1}`}</span>
                   {isAnswered && !isCurrent && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-imperial absolute bottom-1" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-electric-yellow absolute bottom-1" />
                   )}
                   {isFlagged && !isCurrent && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-imperial absolute top-1 right-1" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-fire-red absolute top-1 right-1" />
                   )}
                 </button>
               );
@@ -360,27 +360,27 @@ export default function AssessmentPage() {
           {/* Legend */}
           <div className="pt-4 border-t border-border space-y-2 text-[11px] text-muted font-medium">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded bg-imperial" />
-              <span className="text-night font-semibold">Current Question</span>
+              <span className="w-3 h-3 rounded bg-electric-yellow border border-foreground" />
+              <span className="text-foreground font-bold">Current Question</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded bg-night" />
-              <span>Answered</span>
+              <span className="w-3 h-3 rounded bg-foreground" />
+              <span className="text-foreground font-medium">Answered</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded bg-imperial-50 border border-imperial" />
-              <span>Flagged for Review</span>
+              <span className="w-3 h-3 rounded bg-fire-red-50 border border-fire-red" />
+              <span className="text-fire-red font-bold">Flagged for Review</span>
             </div>
           </div>
         </div>
 
         {/* Center Column: Question & Option Cards (6 cols) */}
         <div className="lg:col-span-6 space-y-5">
-          <div className="p-6 rounded-xl bg-white border border-border space-y-5 shadow-card">
+          <div className="p-6 rounded-xl bg-white border-2 border-foreground space-y-5 shadow-editorial-sm">
             {/* Question Header & Badges */}
             <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2 flex-wrap">
-                <Badge variant="imperial" size="sm">
+                <Badge variant="electric-yellow" size="sm">
                   Question {currentIndex + 1} / {questions.length}
                 </Badge>
                 <Badge variant="night" size="sm">{currentQ.skill}</Badge>
@@ -390,7 +390,7 @@ export default function AssessmentPage() {
                       ? "neutral"
                       : currentQ.difficulty === "Intermediate"
                       ? "night"
-                      : "imperial"
+                      : "fire-red"
                   }
                   size="sm"
                 >
@@ -403,10 +403,10 @@ export default function AssessmentPage() {
 
               <button
                 onClick={handleToggleFlag}
-                className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded transition-colors font-semibold ${
+                className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded transition-colors font-bold cursor-pointer ${
                   flaggedQuestions[currentQ.id]
-                    ? "bg-imperial text-white border border-imperial"
-                    : "text-night hover:text-imperial bg-surface-subtle border border-border"
+                    ? "bg-fire-red text-white border border-fire-red"
+                    : "text-foreground hover:text-fire-red bg-surface border border-border"
                 }`}
               >
                 <Flag className="w-3.5 h-3.5" />
@@ -415,14 +415,14 @@ export default function AssessmentPage() {
             </div>
 
             {/* Question Text */}
-            <h2 className="text-base font-bold text-night leading-relaxed whitespace-pre-line">
+            <h2 className="text-base sm:text-lg font-extrabold text-foreground leading-relaxed whitespace-pre-line">
               {currentQ.question}
             </h2>
 
             {/* Code Snippet Box if available */}
             {currentQ.codeSnippet && (
-              <div className="rounded-lg bg-night border border-border p-4 font-mono text-xs text-white overflow-x-auto shadow-inner">
-                <pre className="text-white leading-relaxed whitespace-pre-wrap">
+              <div className="rounded-lg bg-foreground border-2 border-foreground p-4 font-mono text-xs text-white overflow-x-auto shadow-inner">
+                <pre className="text-white leading-relaxed whitespace-pre-wrap font-medium">
                   {currentQ.codeSnippet}
                 </pre>
               </div>
@@ -431,7 +431,7 @@ export default function AssessmentPage() {
             {/* Answer Control: MCQ Options (4 options) OR Fill in Blank Input */}
             {currentQ.type === "mcq" && currentQ.options && (
               <div className="space-y-2.5 pt-2">
-                <p className="text-xs text-muted font-bold uppercase tracking-wider">
+                <p className="text-xs text-muted font-extrabold uppercase tracking-wider">
                   Select Exactly One Option:
                 </p>
                 {currentQ.options.map((opt) => {
@@ -445,21 +445,21 @@ export default function AssessmentPage() {
                       onClick={() => handleSelectOption(opt.label)}
                       className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-start gap-3 ${
                         isSelected
-                          ? "bg-imperial-50/50 border-imperial text-night shadow-sm"
-                          : "bg-surface-subtle border-border text-night hover:border-night"
+                          ? "bg-electric-yellow/25 border-2 border-foreground text-foreground shadow-editorial-sm"
+                          : "bg-surface border border-border text-foreground hover:border-foreground"
                       }`}
                     >
                       <div
-                        className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold transition-colors ${
+                        className={`w-6 h-6 rounded-md border flex items-center justify-center shrink-0 mt-0.5 text-xs font-extrabold transition-colors ${
                           isSelected
-                            ? "border-imperial bg-imperial text-white"
+                            ? "border-foreground bg-electric-yellow text-foreground"
                             : "border-border bg-white text-muted"
                         }`}
                       >
                         {isSelected ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : opt.label}
                       </div>
-                      <div className={`text-xs leading-relaxed font-medium ${isSelected ? "text-night font-bold" : "text-night"}`}>
-                        <span className="font-bold mr-1.5">{opt.label}.</span>
+                      <div className={`text-xs leading-relaxed ${isSelected ? "text-foreground font-extrabold" : "text-foreground font-medium"}`}>
+                        <span className="font-extrabold mr-1.5">{opt.label}.</span>
                         {opt.text}
                       </div>
                     </div>
@@ -470,7 +470,7 @@ export default function AssessmentPage() {
 
             {currentQ.type === "fill_blank" && (
               <div className="space-y-3 pt-2">
-                <p className="text-xs text-muted font-bold uppercase tracking-wider">
+                <p className="text-xs text-muted font-extrabold uppercase tracking-wider">
                   Fill in the Blank:
                 </p>
                 <div className="space-y-2">
@@ -479,14 +479,14 @@ export default function AssessmentPage() {
                     value={currentTrackAnswers[currentQ.id] || ""}
                     onChange={(e) => handleFillBlankChange(e.target.value)}
                     placeholder="Type your answer here (e.g. hook name, status code, protocol)..."
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-surface-subtle text-night text-sm font-medium focus:outline-none focus:border-imperial focus:ring-1 focus:ring-imperial transition-all shadow-inner"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-foreground bg-surface text-foreground text-sm font-bold focus:outline-none focus:ring-2 focus:ring-electric-yellow transition-all"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && currentIndex < questions.length - 1) {
                         setCurrentIndex((prev) => prev + 1);
                       }
                     }}
                   />
-                  <p className="text-[11px] text-muted italic">
+                  <p className="text-[11px] text-muted italic font-medium">
                     Answers are evaluated deterministically with normalized casing, whitespace, and punctuation.
                   </p>
                 </div>
@@ -495,19 +495,19 @@ export default function AssessmentPage() {
           </div>
 
           {/* Bottom Pagination Controls */}
-          <div className="flex items-center justify-between p-4 rounded-xl bg-white border border-border shadow-sm">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-white border border-border shadow-card-clean">
             <Button
               variant="secondary"
               size="sm"
               onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
               disabled={currentIndex === 0}
-              className="gap-2 font-bold"
+              className="gap-2 font-extrabold"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Previous</span>
             </Button>
 
-            <span className="text-xs text-muted font-mono font-bold">
+            <span className="text-xs text-muted font-mono font-extrabold">
               Question {currentIndex + 1} / {questions.length}
             </span>
 
@@ -516,20 +516,20 @@ export default function AssessmentPage() {
                 variant="dark"
                 size="sm"
                 onClick={() => setCurrentIndex((prev) => Math.min(questions.length - 1, prev + 1))}
-                className="gap-2 font-bold"
+                className="gap-2 font-extrabold"
               >
                 <span>Next Question</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Button>
             ) : (
               <Button
-                variant="primary"
+                variant="dark"
                 size="sm"
                 onClick={() => setIsSubmitModalOpen(true)}
-                className="gap-2 font-bold shadow-sm"
+                className="gap-2 font-extrabold shadow-sm bg-foreground text-white"
               >
                 <span>Complete Assessment</span>
-                <CheckCircle2 className="w-3.5 h-3.5" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-electric-yellow" />
               </Button>
             )}
           </div>

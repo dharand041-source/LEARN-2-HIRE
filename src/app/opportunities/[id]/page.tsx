@@ -1,40 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import React from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowLeft,
-  Building,
   MapPin,
   DollarSign,
-  Clock,
   CheckCircle2,
   AlertTriangle,
-  Send,
   Sparkles,
   ShieldCheck,
-  Award,
-  FileText,
-  Briefcase,
-  ChevronRight,
-  Zap,
   ExternalLink,
   BookOpen,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { ProgressBar } from "@/components/ui/ProgressBar";
+import { Card } from "@/components/ui/Card";
 import { ExternalApplyModal } from "@/components/opportunities/ExternalApplyModal";
 import { JobListing } from "@/types";
 
 export default function OpportunityDetailsPage() {
   const params = useParams();
-  const router = useRouter();
   const {
     opportunities,
-    userProfile,
     openExternalApplyModal,
     confirmExternalApplied,
     applicationRecords,
@@ -80,28 +70,28 @@ export default function OpportunityDetailsPage() {
   };
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen">
       {/* Header */}
-      <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-start gap-3.5">
+      <div className="border-b-2 border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-start gap-4">
           <Link
             href="/opportunities"
-            className="p-2 rounded-lg bg-surface-card hover:bg-navy-800 border border-surface-border text-pearl-muted hover:text-pearl-primary transition-colors mt-1"
+            className="p-2 rounded-md bg-white hover:bg-surface border-2 border-border text-muted-foreground hover:text-foreground transition-colors mt-1"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs text-pearl-muted font-medium">{opp.company}</span>
-              <Badge variant="champagne" size="sm">{opp.workMode}</Badge>
-              <Badge variant="navy" size="sm">{opp.type}</Badge>
+              <span className="text-xs font-mono font-bold text-muted-foreground uppercase">{opp.company}</span>
+              <Badge variant="navy" size="sm">{opp.workMode}</Badge>
+              <Badge variant="gold" size="sm">{opp.type}</Badge>
               {opp.eligibilityStatus && (
                 <Badge
                   variant={
                     opp.eligibilityStatus === "eligible"
-                      ? "champagne"
+                      ? "gold"
                       : opp.eligibilityStatus === "not_eligible"
-                      ? "rose"
+                      ? "red"
                       : "neutral"
                   }
                   size="sm"
@@ -116,22 +106,22 @@ export default function OpportunityDetailsPage() {
                 </Badge>
               )}
             </div>
-            <h1 className="text-2xl font-bold text-pearl-primary">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
               {opp.role}
             </h1>
-            <div className="flex flex-wrap items-center gap-3 text-xs text-pearl-muted mt-1.5">
-              <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-champagne" /> {opp.location}
+            <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mt-1.5 font-mono font-medium">
+              <span className="flex items-center gap-1 text-foreground">
+                <MapPin className="w-3.5 h-3.5 text-foreground" /> {opp.location}
               </span>
               <span>•</span>
-              <span className="font-mono text-champagne font-semibold flex items-center gap-1">
-                <DollarSign className="w-3.5 h-3.5 text-champagne" /> {opp.salary}
+              <span className="font-mono text-foreground font-bold flex items-center gap-1">
+                <DollarSign className="w-3.5 h-3.5 text-foreground" /> {opp.salary}
               </span>
               {opp.lastVerifiedAt && (
                 <>
                   <span>•</span>
-                  <span className="font-mono text-[11px] text-pearl-muted">
-                    Last verified: {new Date(opp.lastVerifiedAt).toLocaleDateString()}
+                  <span className="text-[11px] text-muted-foreground">
+                    Verified: {new Date(opp.lastVerifiedAt).toLocaleDateString()}
                   </span>
                 </>
               )}
@@ -142,26 +132,27 @@ export default function OpportunityDetailsPage() {
         <div className="flex items-center gap-3">
           {isApplied ? (
             <Link href="/applications">
-              <Button variant="secondary" size="sm" className="gap-2 text-champagne border-champagne/30">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+              <Button variant="secondary" size="sm" className="gap-2 text-foreground font-bold">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Application Submitted • View Tracker</span>
               </Button>
             </Link>
           ) : isRedirected ? (
             <div className="flex items-center gap-2">
               <Button
-                variant="outline"
+                variant="secondary"
                 size="sm"
                 onClick={handleApplyClick}
-                className="gap-1.5 text-xs font-semibold"
+                className="gap-1.5 text-xs font-bold"
               >
-                <span>Re-open Portal</span>
+                <span>Re-open Destination</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </Button>
               <Button
+                variant="gold"
                 size="sm"
                 onClick={() => confirmExternalApplied(opp.id)}
-                className="gap-1.5 font-semibold text-xs"
+                className="gap-1.5 font-bold text-xs shadow-editorial-sm"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>Mark as Applied</span>
@@ -169,9 +160,10 @@ export default function OpportunityDetailsPage() {
             </div>
           ) : (
             <Button
+              variant="gold"
               onClick={handleApplyClick}
               size="md"
-              className="gap-2 font-semibold shadow-gold-btn"
+              className="gap-2 font-bold shadow-editorial-sm"
             >
               <span>Apply Externally</span>
               <ExternalLink className="w-4 h-4" />
@@ -182,91 +174,91 @@ export default function OpportunityDetailsPage() {
 
       {/* Main Grid: Left Job Spec (7 cols) & Right Readiness Match (5 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Job Description, Responsibilities & Requirements */}
+        {/* Left Column */}
         <div className="lg:col-span-7 space-y-6">
           {/* Job Overview */}
-          <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary font-mono">
-              About the Role
+          <Card variant="editorial" className="p-6 md:p-7 space-y-4">
+            <h2 className="text-xs font-bold uppercase font-mono tracking-wider text-foreground border-b-2 border-border pb-3">
+              Role Specification
             </h2>
-            <p className="text-xs text-pearl-muted leading-relaxed">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               {opp.description}
             </p>
-            <div className="pt-2 text-[11px] text-pearl-muted font-mono">
+            <div className="pt-2 text-[11px] text-muted-foreground font-mono">
               <span>{opp.attribution || `Source: ${opp.externalSource || opp.source || "Verified Job Feed"}`}</span>
             </div>
-          </div>
+          </Card>
 
           {/* Key Responsibilities */}
-          <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary font-mono">
-              Core Responsibilities
+          <Card variant="editorial" className="p-6 md:p-7 space-y-4">
+            <h2 className="text-xs font-bold uppercase font-mono tracking-wider text-foreground border-b-2 border-border pb-3">
+              Primary Responsibilities
             </h2>
             <div className="space-y-2.5">
               {opp.responsibilities.map((resp, i) => (
-                <div key={i} className="flex items-start gap-2.5 text-xs text-pearl-muted leading-relaxed">
-                  <span className="text-champagne font-bold mt-0.5">•</span>
+                <div key={i} className="flex items-start gap-2.5 text-xs text-foreground font-medium leading-relaxed">
+                  <span className="text-foreground font-bold font-mono">▶</span>
                   <span>{resp}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </Card>
 
           {/* Requirements */}
-          <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary font-mono">
+          <Card variant="editorial" className="p-6 md:p-7 space-y-4">
+            <h2 className="text-xs font-bold uppercase font-mono tracking-wider text-foreground border-b-2 border-border pb-3">
               Required Qualifications
             </h2>
             <div className="space-y-2.5">
               {opp.requirements.map((req, i) => (
-                <div key={i} className="flex items-start gap-2.5 text-xs text-pearl-muted leading-relaxed">
-                  <span className="text-champagne font-bold mt-0.5">•</span>
+                <div key={i} className="flex items-start gap-2.5 text-xs text-foreground font-medium leading-relaxed">
+                  <span className="text-foreground font-bold font-mono">▶</span>
                   <span>{req}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </Card>
 
           {/* Benefits & Perks */}
-          <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-pearl-primary font-mono">
-              Perks & Compensation
+          <Card variant="editorial" className="p-6 md:p-7 space-y-4">
+            <h2 className="text-xs font-bold uppercase font-mono tracking-wider text-foreground border-b-2 border-border pb-3">
+              Compensation & Benefits
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {opp.benefits.map((b, i) => (
-                <div key={i} className="p-3 rounded-lg bg-navy-950 border border-white/5 text-xs text-pearl-muted flex items-center gap-2">
-                  <Sparkles className="w-3.5 h-3.5 text-champagne shrink-0" />
+                <div key={i} className="p-3 rounded-md bg-surface border-2 border-border text-xs text-foreground flex items-center gap-2 font-mono font-bold">
+                  <Sparkles className="w-3.5 h-3.5 text-foreground shrink-0" />
                   <span>{b}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </Card>
         </div>
 
         {/* Right Column: Verified Match & Gaps Panel (5 cols) */}
         <div className="lg:col-span-5 sticky top-20 space-y-6">
-          <div className="p-6 rounded-2xl bg-surface-card border border-champagne/40 shadow-card-navy space-y-6">
-            <div className="flex items-center justify-between border-b border-surface-border pb-4">
+          <Card variant="editorial" className="p-6 md:p-7 space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-border pb-4">
               <div>
-                <span className="text-[10px] uppercase font-mono tracking-wider text-pearl-muted">
-                  Learn-2-Hire Compatibility Formula
+                <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground font-bold">
+                  Compatibility Index
                 </span>
-                <h3 className="text-xl font-bold font-mono text-champagne">{opp.matchPercentage}% Compatibility</h3>
+                <h3 className="text-2xl font-extrabold font-mono text-foreground">{opp.matchPercentage}% Matched</h3>
               </div>
-              <Badge variant="champagne" size="sm">Verified Feed</Badge>
+              <Badge variant="gold" size="sm">Verified Portal</Badge>
             </div>
 
             {/* Matched Skills */}
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs text-emerald-400 font-semibold">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Your Matched Competencies ({opp.matchedSkills.length})</span>
+              <div className="flex items-center gap-2 text-xs text-foreground font-bold font-mono">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Verified Matched Skills ({opp.matchedSkills.length})</span>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {opp.matchedSkills.map((s, i) => (
                   <span
                     key={i}
-                    className="px-2.5 py-1 rounded bg-emerald-950/60 border border-emerald-500/30 text-[11px] font-mono text-emerald-300"
+                    className="px-2.5 py-1 rounded-sm bg-surface border border-border text-[11px] font-mono font-semibold text-foreground"
                   >
                     ✓ {s}
                   </span>
@@ -276,24 +268,24 @@ export default function OpportunityDetailsPage() {
 
             {/* Skill Gaps & Direct Learning Deep-Links */}
             {opp.skillGaps.length > 0 && (
-              <div className="space-y-3 pt-3 border-t border-white/5">
-                <div className="flex items-center gap-2 text-xs text-rose font-semibold">
-                  <AlertTriangle className="w-3.5 h-3.5" />
-                  <span>Missing Skills ({opp.skillGaps.length})</span>
+              <div className="space-y-3 pt-3 border-t-2 border-border">
+                <div className="flex items-center gap-2 text-xs text-editorial-red font-bold font-mono">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span>Missing Competencies ({opp.skillGaps.length})</span>
                 </div>
                 <div className="space-y-2">
                   {opp.skillGaps.map((gap, i) => (
                     <div
                       key={i}
-                      className="p-3 rounded-lg bg-navy-950 border border-rose/30 flex items-center justify-between text-xs"
+                      className="p-3 rounded-md bg-surface border-2 border-border flex items-center justify-between text-xs"
                     >
-                      <span className="text-rose font-mono font-medium">+ {gap}</span>
+                      <span className="text-editorial-red font-mono font-bold">+ {gap}</span>
                       <Link
                         href={`/learning?skill=${encodeURIComponent(gap)}`}
-                        className="text-[11px] text-champagne hover:underline flex items-center gap-1 font-semibold"
+                        className="text-[11px] text-foreground hover:text-editorial-red flex items-center gap-1 font-bold font-mono underline"
                       >
-                        <BookOpen className="w-3 h-3" />
-                        <span>Learn this skill</span>
+                        <BookOpen className="w-3.5 h-3.5" />
+                        <span>Learn skill</span>
                       </Link>
                     </div>
                   ))}
@@ -302,22 +294,23 @@ export default function OpportunityDetailsPage() {
             )}
 
             {/* Application Policy Notice */}
-            <div className="p-4 rounded-xl bg-navy-950 border border-white/5 space-y-2 text-[11px] text-pearl-muted leading-relaxed">
-              <p className="font-semibold text-pearl-primary uppercase tracking-wider text-[10px] font-mono flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>External Application Redirect</span>
+            <div className="p-4 rounded-md bg-surface border-2 border-border space-y-2 text-[11px] text-muted-foreground leading-relaxed font-mono">
+              <p className="font-bold text-foreground uppercase tracking-wider text-[10px] flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Direct Application Protection</span>
               </p>
               <p>
-                When you click apply, Learn-2-Hire safely redirects you to the verified external career
-                destination. You will review and submit your application directly on the employer&apos;s site.
+                Learn-2-Hire safely redirects you directly to the verified employer application destination.
+                No automated bot submissions.
               </p>
             </div>
 
             {/* Application CTA */}
             <Button
               onClick={handleApplyClick}
+              variant="gold"
               size="lg"
-              className="w-full gap-2 text-sm font-semibold shadow-gold-btn"
+              className="w-full gap-2 text-xs font-bold shadow-editorial-sm"
             >
               {isApplied ? (
                 <>
@@ -336,7 +329,7 @@ export default function OpportunityDetailsPage() {
                 </>
               )}
             </Button>
-          </div>
+          </Card>
         </div>
       </div>
 

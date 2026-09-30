@@ -78,18 +78,18 @@ export default function ResumeBuilderPage() {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
-      <div className="border-b border-surface-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="border-b-2 border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Badge variant="imperial" size="sm">Phase 11</Badge>
-            <span className="text-xs text-night-muted font-mono uppercase tracking-wider">
+            <Badge variant="red" size="sm">Phase 11</Badge>
+            <span className="text-xs text-muted-foreground font-mono uppercase tracking-wider font-bold">
               ATS Standard Verification
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-bold text-night tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground tracking-tight">
             ATS-Optimized Resume Builder
           </h1>
-          <p className="text-xs sm:text-sm text-night-muted mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
             Single-column, machine-readable resume format structured specifically for ATS scanners and senior technical hiring managers.
           </p>
         </div>
@@ -103,22 +103,22 @@ export default function ResumeBuilderPage() {
             className="hidden"
           />
           <Button
-            variant="outline"
+            variant="secondary"
             size="sm"
             onClick={() => fileInputRef.current?.click()}
             isLoading={isAnalyzingResume}
-            className="gap-1.5 text-xs font-semibold"
+            className="gap-1.5 text-xs font-bold"
           >
             <span>Import PDF / DOCX</span>
           </Button>
 
           <Link href="/resume/analyze">
-            <Button variant="secondary" size="sm" className="gap-1.5 text-imperial border-imperial/30 hover:bg-imperial-50">
+            <Button variant="secondary" size="sm" className="gap-1.5 text-editorial-red border-editorial-red hover:bg-editorial-red/5 font-bold">
               <Sparkles className="w-3.5 h-3.5" />
               <span>ATS Score: {resumeAnalysis.atsCompatibilityScore}%</span>
             </Button>
           </Link>
-          <Button onClick={handleSave} size="sm" className="gap-1.5 font-semibold">
+          <Button onClick={handleSave} variant="red" size="sm" className="gap-1.5 font-bold shadow-editorial-sm">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>{isSaved ? "Saved to Profile!" : "Save Changes"}</span>
           </Button>
@@ -128,17 +128,17 @@ export default function ResumeBuilderPage() {
       {/* Main Grid: Form Editor (5 cols) & Live ATS Preview (7 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Form Editor */}
-        <div className="lg:col-span-5 rounded-2xl bg-white border border-surface-border p-5 sm:p-6 space-y-6 shadow-sm">
+        <div className="lg:col-span-5 rounded-lg bg-white border-2 border-border p-5 sm:p-6 space-y-6 shadow-editorial-sm">
           {/* Section Navigation Pills */}
-          <div className="flex flex-wrap gap-1.5 p-1.5 bg-surface-subtle rounded-xl border border-surface-border text-xs">
+          <div className="flex flex-wrap gap-1.5 p-1.5 bg-surface rounded-md border-2 border-border text-xs">
             {(["personal", "summary", "skills", "experience", "projects", "education"] as const).map((sec) => (
               <button
                 key={sec}
                 onClick={() => setActiveSection(sec)}
-                className={`px-3 py-1.5 rounded-lg capitalize font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-sm capitalize font-mono text-xs font-bold transition-all ${
                   activeSection === sec
-                    ? "bg-white text-imperial font-bold shadow-sm border border-surface-border ring-1 ring-black/5"
-                    : "text-night-muted hover:text-night hover:bg-white/60"
+                    ? "bg-editorial-red text-white shadow-editorial-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-white"
                 }`}
               >
                 {sec}

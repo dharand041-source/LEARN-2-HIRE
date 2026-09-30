@@ -7,19 +7,15 @@ import {
   Clock,
   CheckCircle2,
   ArrowRight,
-  ExternalLink,
-  Github,
   Award,
-  Sparkles,
-  Layers,
-  ChevronRight,
-  Code2,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { Card } from "@/components/ui/Card";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Tabs } from "@/components/ui/Tabs";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export default function ProjectsDashboardPage() {
   const { projects, userProfile } = useCareer();
@@ -37,23 +33,15 @@ export default function ProjectsDashboardPage() {
   });
 
   return (
-    <div className="space-y-8 animate-fade-in bg-white">
+    <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen">
       {/* Header */}
-      <div className="border-b border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <Badge variant="imperial" size="sm">Phase 06</Badge>
-            <span className="text-xs text-muted font-mono uppercase tracking-wider font-bold">
-              Verifiable Evidence Marketplace
-            </span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-night tracking-tight uppercase">
-            Production-Grade Real-World Projects
-          </h1>
-          <p className="text-xs sm:text-sm text-muted mt-1 max-w-2xl">
-            Build, deploy, and defend production-quality full-stack applications. Completed projects undergo strict rubric grading and feed directly into your verified ATS resume.
-          </p>
-        </div>
+      <div className="border-b-2 border-border pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <SectionHeader
+          eyebrow="PHASE 06 // PRODUCTION EVIDENCE"
+          title="Production-Grade Real-World Projects"
+          description="Build, deploy, and defend production-grade full-stack applications. Completed projects undergo strict rubric grading and feed directly into verified ATS resumes."
+          accent="navy"
+        />
 
         <div className="flex items-center gap-3">
           <Link href="/problem-solving">
@@ -67,38 +55,38 @@ export default function ProjectsDashboardPage() {
 
       {/* Project Portfolio Stats Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
-          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-night">
-            <CheckCircle2 className="w-5 h-5 text-imperial" />
+        <Card variant="editorial" className="p-5 flex items-center gap-4">
+          <div className="w-12 h-12 rounded-lg bg-editorial-navy text-white flex items-center justify-center shrink-0 shadow-editorial-sm">
+            <CheckCircle2 className="w-6 h-6 text-white" />
           </div>
           <div>
-            <p className="text-xs text-muted font-medium">Verified Completed Projects</p>
-            <p className="text-lg font-extrabold text-night">{completedCount} Production Apps</p>
-            <p className="text-[10px] text-imperial font-bold">Average Score: 92/100</p>
+            <p className="text-[10px] text-muted-foreground uppercase font-mono font-bold tracking-wider">Verified Projects</p>
+            <p className="text-xl font-extrabold text-foreground font-mono">{completedCount} Production Apps</p>
+            <p className="text-[10px] text-editorial-navy font-bold font-mono">Average Rubric: 92/100</p>
           </div>
-        </div>
+        </Card>
 
-        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
-          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-imperial">
-            <FolderGit2 className="w-5 h-5" />
+        <Card variant="editorial" className="p-5 flex items-center gap-4">
+          <div className="w-12 h-12 rounded-lg bg-editorial-navy text-white flex items-center justify-center shrink-0 shadow-editorial-sm">
+            <FolderGit2 className="w-6 h-6 text-white" />
           </div>
           <div>
-            <p className="text-xs text-muted font-medium">Active In-Development</p>
-            <p className="text-lg font-extrabold text-night">{inProgressCount} Projects Active</p>
-            <p className="text-[10px] text-muted font-semibold">Escrow Marketplace (65%)</p>
+            <p className="text-[10px] text-muted-foreground uppercase font-mono font-bold tracking-wider">Active Development</p>
+            <p className="text-xl font-extrabold text-foreground font-mono">{inProgressCount} Projects Active</p>
+            <p className="text-[10px] text-muted-foreground font-mono font-bold">Escrow Verification Phase</p>
           </div>
-        </div>
+        </Card>
 
-        <div className="p-5 rounded-xl bg-white border border-border flex items-center gap-3.5 shadow-sm">
-          <div className="w-10 h-10 rounded-lg bg-surface-subtle border border-border flex items-center justify-center text-imperial">
-            <Award className="w-5 h-5" />
+        <Card variant="editorial" className="p-5 flex items-center gap-4">
+          <div className="w-12 h-12 rounded-lg bg-editorial-navy text-white flex items-center justify-center shrink-0 shadow-editorial-sm">
+            <Award className="w-6 h-6 text-white" />
           </div>
           <div>
-            <p className="text-xs text-muted font-medium">Portfolio Readiness Weight</p>
-            <p className="text-lg font-extrabold text-night">{userProfile.readinessBreakdown.projects}%</p>
-            <p className="text-[10px] text-night font-bold">+8% boost upon submission</p>
+            <p className="text-[10px] text-muted-foreground uppercase font-mono font-bold tracking-wider">Portfolio Readiness Weight</p>
+            <p className="text-xl font-extrabold text-foreground font-mono">{userProfile.readinessBreakdown.projects}%</p>
+            <p className="text-[10px] text-foreground font-bold font-mono">+8% boost on milestone completion</p>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Filter Tabs */}
@@ -112,10 +100,11 @@ export default function ProjectsDashboardPage() {
           ]}
           activeTab={activeFilter}
           onChange={setActiveFilter}
+          accent="navy"
         />
 
-        <span className="text-xs text-muted font-medium">
-          Showing <strong className="text-night">{filteredProjects.length}</strong> project specifications
+        <span className="text-xs text-muted-foreground font-mono font-bold">
+          Showing <strong className="text-foreground">{filteredProjects.length}</strong> project specifications
         </span>
       </div>
 
@@ -127,27 +116,24 @@ export default function ProjectsDashboardPage() {
           const hasEvaluation = !!proj.evaluation;
 
           return (
-            <div
+            <Card
               key={proj.id}
-              className={`p-6 rounded-2xl border flex flex-col justify-between transition-all duration-200 hover:shadow-card-hover bg-white ${
-                isCompleted
-                  ? "border-border"
-                  : isInProgress
-                  ? "border-imperial/50 hover:border-imperial shadow-sm"
-                  : "border-border hover:border-imperial"
+              variant="editorial"
+              className={`p-6 md:p-7 flex flex-col justify-between transition-all group ${
+                isInProgress ? "border-l-4 border-l-editorial-navy" : ""
               }`}
             >
               <div className="space-y-4">
                 {/* Card Header */}
                 <div className="flex items-start justify-between gap-2">
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
                       <Badge
                         variant={
                           isCompleted
-                            ? "night"
+                            ? "navy"
                             : isInProgress
-                            ? "imperial"
+                            ? "navy"
                             : "neutral"
                         }
                         size="sm"
@@ -156,49 +142,49 @@ export default function ProjectsDashboardPage() {
                       </Badge>
                       <Badge variant="neutral" size="sm">{proj.difficulty}</Badge>
                     </div>
-                    <h3 className="text-base font-extrabold text-night leading-snug">
+                    <h3 className="text-lg font-bold text-foreground leading-snug tracking-tight">
                       {proj.title}
                     </h3>
                   </div>
 
-                  <span className="text-xs text-muted font-mono flex items-center gap-1 shrink-0 font-semibold">
-                    <Clock className="w-3.5 h-3.5 text-imperial" /> {proj.estimatedDuration}
+                  <span className="text-xs text-muted-foreground font-mono flex items-center gap-1 shrink-0 font-bold">
+                    <Clock className="w-3.5 h-3.5 text-editorial-navy" /> {proj.estimatedDuration}
                   </span>
                 </div>
 
-                <p className="text-xs text-muted leading-relaxed font-medium">
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   {proj.description}
                 </p>
 
                 {/* Progress Bar & Phase */}
-                <div className="space-y-1.5 p-3.5 rounded-lg bg-surface-subtle border border-border">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-muted font-medium">Current Phase: <strong className="text-night">{proj.currentPhase}</strong></span>
-                    <span className="font-mono text-imperial font-extrabold">{proj.progressPercentage}%</span>
+                <div className="space-y-2 p-3.5 rounded-lg bg-surface border-2 border-border">
+                  <div className="flex justify-between text-xs font-mono">
+                    <span className="text-muted-foreground font-medium">Phase: <strong className="text-foreground">{proj.currentPhase}</strong></span>
+                    <span className="font-extrabold text-editorial-navy">{proj.progressPercentage}%</span>
                   </div>
                   <ProgressBar
                     value={proj.progressPercentage}
                     size="sm"
-                    variant="imperial"
+                    variant="navy"
                   />
-                  <div className="flex items-center justify-between text-[10px] text-muted pt-1 font-semibold">
-                    <span>{proj.milestones.filter((m) => m.completed).length} of {proj.milestones.length} milestones done</span>
+                  <div className="flex items-center justify-between text-[10px] text-muted-foreground pt-0.5 font-mono font-bold">
+                    <span>{proj.milestones.filter((m) => m.completed).length} of {proj.milestones.length} milestones complete</span>
                     {hasEvaluation && (
-                      <span className="text-night font-bold font-mono">Score: {proj.evaluation?.overallScore}/100</span>
+                      <span className="text-foreground">Score: {proj.evaluation?.overallScore}/100</span>
                     )}
                   </div>
                 </div>
 
                 {/* Tech Stack Badges */}
                 <div className="space-y-1.5">
-                  <p className="text-[10px] uppercase font-bold text-night">
+                  <p className="text-[10px] uppercase font-mono font-bold text-muted-foreground tracking-wider">
                     Technologies & Architecture:
                   </p>
                   <div className="flex flex-wrap gap-1.5">
                     {proj.technologies.map((t, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded bg-surface-subtle border border-border text-[10px] font-mono font-semibold text-night"
+                        className="px-2.5 py-0.5 rounded-sm bg-surface border border-border text-[10px] font-mono font-bold text-foreground"
                       >
                         {t}
                       </span>
@@ -208,12 +194,12 @@ export default function ProjectsDashboardPage() {
               </div>
 
               {/* Action Links */}
-              <div className="mt-6 pt-4 border-t border-border flex items-center justify-between gap-3">
+              <div className="mt-6 pt-4 border-t-2 border-border flex items-center justify-between gap-3">
                 <Link href={`/projects/${proj.id}`} className="flex-1">
                   <Button
-                    variant={isInProgress ? "primary" : isCompleted ? "secondary" : "secondary"}
+                    variant={isInProgress ? "navy" : "secondary"}
                     size="sm"
-                    className="w-full gap-2 text-xs font-bold shadow-sm"
+                    className="w-full gap-2 text-xs font-bold shadow-editorial-sm"
                   >
                     <span>{isInProgress ? "Open Workspace" : isCompleted ? "View Submission Specs" : "Start Project"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -222,14 +208,14 @@ export default function ProjectsDashboardPage() {
 
                 {hasEvaluation && (
                   <Link href={`/projects/${proj.id}/evaluation`}>
-                    <Button variant="secondary" size="sm" className="gap-1.5 text-xs text-night font-bold">
-                      <Award className="w-3.5 h-3.5 text-imperial" />
-                      <span>Evaluation ({proj.evaluation?.overallScore})</span>
+                    <Button variant="secondary" size="sm" className="gap-1.5 text-xs text-foreground font-bold">
+                      <Award className="w-3.5 h-3.5 text-editorial-navy" />
+                      <span>Rubric ({proj.evaluation?.overallScore})</span>
                     </Button>
                   </Link>
                 )}
               </div>
-            </div>
+            </Card>
           );
         })}
       </div>
