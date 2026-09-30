@@ -48,30 +48,30 @@ export default function LearningDashboardPage() {
 
   return (
     <div className="space-y-8 animate-fade-in bg-white">
-      {/* Ultra Violet Learning Hero Section */}
-      <div className="rounded-2xl bg-ultra-violet text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
+      {/* Royal Maroon Learning Hero Section */}
+      <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-acid-yellow border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-coral border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
               <span>Phase 04 // Curated Track</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
               Personalized Learning Dashboard
             </h1>
             <p className="text-white/90 text-sm sm:text-base leading-relaxed">
-              Target Track: <strong className="text-acid-yellow font-extrabold">{selectedRole.title}</strong> • Curated with NPTEL, IITs & Official Documentation.
+              Target Track: <strong className="text-electric-coral font-extrabold">{selectedRole.title}</strong> • Curated with NPTEL, IITs & Official Documentation.
             </p>
           </div>
 
           {/* Language Quick Selector & Navigation */}
           <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-black text-white border-2 border-acid-yellow text-xs shadow-xs">
-              <Globe className="w-3.5 h-3.5 text-acid-yellow" />
+            <div className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-black text-white border-2 border-electric-coral text-xs shadow-xs">
+              <Globe className="w-3.5 h-3.5 text-electric-coral" />
               <span className="text-white/80 font-bold">Language:</span>
               <select
                 value={userProfile.selectedLanguage}
                 onChange={(e) => setLanguage(e.target.value as any)}
-                className="bg-black text-acid-yellow font-extrabold text-xs focus:outline-none cursor-pointer"
+                className="bg-black text-electric-coral font-extrabold text-xs focus:outline-none cursor-pointer"
               >
                 {SUPPORTED_LANGUAGES.map((lang) => (
                   <option key={lang.code} value={lang.code} className="bg-black text-white">
@@ -82,7 +82,7 @@ export default function LearningDashboardPage() {
             </div>
 
             <Link href="/advanced-assessment">
-              <button className="px-4 py-2.5 rounded-lg bg-acid-yellow hover:bg-white text-black border-2 border-black font-extrabold text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
+              <button className="px-4 py-2.5 rounded-lg bg-electric-coral hover:bg-white text-black border-2 border-black font-extrabold text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
                 <span>Advanced Assessment</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
@@ -91,35 +91,35 @@ export default function LearningDashboardPage() {
         </div>
 
         {/* Embedded Curriculum Progress Bar */}
-        <div className="p-4 rounded-xl bg-black border-2 border-acid-yellow text-white space-y-2">
+        <div className="p-4 rounded-xl bg-black border-2 border-electric-coral text-white space-y-2">
           <div className="flex justify-between items-center text-xs">
             <span className="text-white/80 font-extrabold uppercase tracking-wider font-mono">Curriculum Completion Rate</span>
-            <span className="text-acid-yellow font-mono font-black text-base">{totalTrackProgress}%</span>
+            <span className="text-electric-coral font-mono font-black text-base">{totalTrackProgress}%</span>
           </div>
-          <ProgressBar value={totalTrackProgress} size="md" variant="acid-yellow" />
+          <ProgressBar value={totalTrackProgress} size="md" variant="coral" />
           <div className="flex justify-between text-[11px] text-white/70 font-mono font-bold pt-1">
             <span>{completedModules.length} of {learningModules.length} verified modules finished</span>
-            <span className="text-acid-yellow">{learningModules.length - completedModules.length} modules remaining</span>
+            <span className="text-electric-coral">{learningModules.length - completedModules.length} modules remaining</span>
           </div>
         </div>
       </div>
 
       {/* Track Metric Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-acid-yellow space-y-2 shadow-card-clean">
+        <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-electric-coral space-y-2 shadow-card-clean">
           <div className="flex justify-between items-center text-xs text-muted font-bold">
             <span>Overall Curriculum Progress</span>
             <span className="text-foreground font-mono font-extrabold">{totalTrackProgress}%</span>
           </div>
-          <ProgressBar value={totalTrackProgress} size="sm" variant="acid-yellow" />
+          <ProgressBar value={totalTrackProgress} size="sm" variant="coral" />
           <p className="text-[11px] text-muted mt-1 font-medium">
             {completedModules.length} of {learningModules.length} modules completed
           </p>
         </div>
 
-        <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-acid-yellow flex items-center gap-3.5 shadow-card-clean">
-          <div className="w-10 h-10 rounded-lg bg-acid-yellow text-foreground flex items-center justify-center font-bold">
-            <Sparkles className="w-5 h-5 text-foreground" />
+        <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-electric-coral flex items-center gap-3.5 shadow-card-clean">
+          <div className="w-10 h-10 rounded-lg bg-electric-coral text-black flex items-center justify-center font-bold">
+            <Sparkles className="w-5 h-5 text-black" />
           </div>
           <div>
             <p className="text-xs text-muted font-bold">Current Proficiency Level</p>
@@ -128,20 +128,20 @@ export default function LearningDashboardPage() {
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-acid-yellow flex items-center gap-3.5 shadow-card-clean">
-          <div className="w-10 h-10 rounded-lg bg-acid-yellow text-foreground flex items-center justify-center font-bold">
-            <GraduationCap className="w-5 h-5 text-foreground" />
+        <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-royal-maroon flex items-center gap-3.5 shadow-card-clean">
+          <div className="w-10 h-10 rounded-lg bg-royal-maroon text-white flex items-center justify-center font-bold">
+            <GraduationCap className="w-5 h-5 text-white" />
           </div>
           <div>
             <p className="text-xs text-muted font-bold">Priority Recommended Focus</p>
             <p className="text-sm font-extrabold text-foreground">SQL & PostgreSQL</p>
-            <p className="text-[10px] text-fire-red font-bold font-mono">Addresses 48% gap</p>
+            <p className="text-[10px] text-royal-maroon font-bold font-mono">Addresses 48% gap</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-acid-yellow flex items-center gap-3.5 shadow-card-clean">
+        <div className="p-5 rounded-xl bg-white border border-border border-l-4 border-l-electric-coral flex items-center gap-3.5 shadow-card-clean">
           <div className="w-10 h-10 rounded-lg bg-surface border border-border flex items-center justify-center text-foreground font-bold">
-            <Flame className="w-5 h-5 text-fire-red" />
+            <Flame className="w-5 h-5 text-electric-coral" />
           </div>
           <div>
             <p className="text-xs text-muted font-bold">Learning Streak</p>
@@ -162,7 +162,7 @@ export default function LearningDashboardPage() {
           ]}
           activeTab={activeTab}
           onChange={setActiveTab}
-          accent="acid-yellow"
+          accent="coral"
         />
 
         <div className="text-xs text-muted font-bold">
@@ -181,7 +181,7 @@ export default function LearningDashboardPage() {
               key={mod.id}
               className={`p-5 rounded-xl border flex flex-col justify-between transition-all duration-150 bg-white ${
                 isRecommended
-                  ? "border-2 border-foreground shadow-editorial-sm border-l-8 border-l-acid-yellow"
+                  ? "border-2 border-foreground shadow-editorial-sm border-l-8 border-l-electric-coral"
                   : isCompleted
                   ? "border-border shadow-card-clean"
                   : "border-border hover:border-foreground shadow-card-clean hover:shadow-editorial-sm"
@@ -195,7 +195,7 @@ export default function LearningDashboardPage() {
                       isCompleted
                         ? "night"
                         : isRecommended
-                        ? "acid-yellow"
+                        ? "coral"
                         : "neutral"
                     }
                     size="sm"
@@ -224,7 +224,7 @@ export default function LearningDashboardPage() {
                   <ProgressBar
                     value={mod.progress}
                     size="sm"
-                    variant="acid-yellow"
+                    variant="coral"
                   />
                 </div>
 

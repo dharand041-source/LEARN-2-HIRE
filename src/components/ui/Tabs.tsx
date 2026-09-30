@@ -35,24 +35,25 @@ export interface TabsProps {
   className?: string;
 }
 
-export function Tabs({ tabs, activeTab, onChange, accent = "fire-red", className }: TabsProps) {
+export function Tabs({ tabs, activeTab, onChange, accent = "coral", className }: TabsProps) {
   const activeStyles: Record<string, string> = {
-    "ultra-violet": "bg-ultra-violet text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    violet: "bg-ultra-violet text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    "acid-yellow": "bg-acid-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
-    acid: "bg-acid-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
-    "fire-red": "bg-fire-red text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    red: "bg-fire-red text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    "electric-yellow": "bg-electric-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
-    yellow: "bg-electric-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
-    "honey-gold": "bg-electric-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
-    gold: "bg-electric-yellow text-black border-2 border-black font-extrabold shadow-editorial-xs",
-    "electric-coral": "bg-electric-coral text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    coral: "bg-electric-coral text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    "electric-coral": "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
+    coral: "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
     "royal-maroon": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
     maroon: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
     "deep-navy": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
     navy: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    // Fallback aliases strictly using Coral or Maroon
+    "fire-red": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    red: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    "ultra-violet": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    violet: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    "acid-yellow": "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
+    acid: "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
+    "electric-yellow": "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
+    yellow: "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
+    "honey-gold": "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
+    gold: "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
     dark: "bg-black text-white border-2 border-black font-extrabold shadow-editorial-xs",
   };
 

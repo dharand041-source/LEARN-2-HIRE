@@ -226,7 +226,7 @@ export default function AssessmentPage() {
                 : "Logical Reasoning"}
             </h1>
             <div className="hidden sm:inline-flex">
-              <Badge variant="electric-yellow" size="sm">
+              <Badge variant="coral" size="sm">
                 {activeTrack === "technical"
                   ? "Technical Assessment"
                   : activeTrack === "aptitude"
@@ -240,20 +240,20 @@ export default function AssessmentPage() {
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Integrity Badge */}
           <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/10 border border-white/20 text-white text-[11px] font-mono font-bold">
-            <Eye className="w-3.5 h-3.5 text-electric-yellow" />
+            <Eye className="w-3.5 h-3.5 text-electric-coral" />
             <span>Focus Active</span>
           </div>
 
           {/* Timer Display */}
-          <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 rounded bg-black border-2 border-electric-yellow text-electric-yellow font-mono text-xs font-extrabold shadow-editorial-sm">
-            <Clock className="w-3.5 h-3.5 text-electric-yellow" />
+          <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 rounded bg-black border-2 border-electric-coral text-electric-coral font-mono text-xs font-extrabold shadow-editorial-sm">
+            <Clock className="w-3.5 h-3.5 text-electric-coral" />
             <span>{formatTimer(secondsRemaining)}</span>
           </div>
 
-          {/* Submit CTA - Fire Red CTA */}
+          {/* Submit CTA - Royal Maroon CTA */}
           <button
             onClick={() => setIsSubmitModalOpen(true)}
-            className="px-3 sm:px-4 py-1.5 rounded-lg bg-fire-red hover:bg-black text-white border-2 border-black font-extrabold text-xs transition-colors cursor-pointer shadow-editorial-xs"
+            className="px-3 sm:px-4 py-1.5 rounded-lg bg-royal-maroon hover:bg-black text-white border-2 border-black font-extrabold text-xs transition-colors cursor-pointer shadow-editorial-xs"
           >
             <span className="hidden xs:inline">Submit Assessment</span>
             <span className="xs:hidden">Submit</span>
@@ -269,7 +269,7 @@ export default function AssessmentPage() {
               onClick={() => handleTrackSwitch("technical")}
               className={`px-2.5 sm:px-3 py-1.5 rounded-md font-extrabold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                 activeTrack === "technical"
-                  ? "bg-electric-yellow text-foreground border border-foreground/30 shadow-xs"
+                  ? "bg-electric-coral text-black border border-black shadow-xs"
                   : "text-muted hover:text-foreground"
               }`}
             >
@@ -280,7 +280,7 @@ export default function AssessmentPage() {
               onClick={() => handleTrackSwitch("aptitude")}
               className={`px-2.5 sm:px-3 py-1.5 rounded-md font-extrabold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                 activeTrack === "aptitude"
-                  ? "bg-electric-yellow text-foreground border border-foreground/30 shadow-xs"
+                  ? "bg-electric-coral text-black border border-black shadow-xs"
                   : "text-muted hover:text-foreground"
               }`}
             >
@@ -291,7 +291,7 @@ export default function AssessmentPage() {
               onClick={() => handleTrackSwitch("logical")}
               className={`px-2.5 sm:px-3 py-1.5 rounded-md font-extrabold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                 activeTrack === "logical"
-                  ? "bg-electric-yellow text-foreground border border-foreground/30 shadow-xs"
+                  ? "bg-electric-coral text-black border border-black shadow-xs"
                   : "text-muted hover:text-foreground"
               }`}
             >
@@ -322,7 +322,7 @@ export default function AssessmentPage() {
             </span>
           </div>
 
-          <ProgressBar value={progressPercentage} size="sm" variant="electric-yellow" />
+          <ProgressBar value={progressPercentage} size="sm" variant="coral" />
 
           {/* Dynamic Question Navigation Grid */}
           <div className="grid grid-cols-5 gap-2 pt-2">
@@ -333,9 +333,9 @@ export default function AssessmentPage() {
 
               let buttonStyles = "bg-surface border-border text-muted hover:border-foreground hover:text-foreground";
               if (isCurrent) {
-                buttonStyles = "bg-electric-yellow border-2 border-foreground text-foreground font-extrabold shadow-editorial-sm";
+                buttonStyles = "bg-electric-coral border-2 border-foreground text-black font-extrabold shadow-editorial-sm";
               } else if (isFlagged) {
-                buttonStyles = "bg-fire-red-50 border-2 border-fire-red text-fire-red font-bold";
+                buttonStyles = "bg-royal-maroon/15 border-2 border-royal-maroon text-royal-maroon font-bold";
               } else if (isAnswered) {
                 buttonStyles = "bg-foreground border-foreground text-white font-bold";
               }
@@ -348,10 +348,10 @@ export default function AssessmentPage() {
                 >
                   <span>{idx < 9 ? `0${idx + 1}` : `${idx + 1}`}</span>
                   {isAnswered && !isCurrent && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-electric-yellow absolute bottom-1" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-electric-coral absolute bottom-1" />
                   )}
                   {isFlagged && !isCurrent && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-fire-red absolute top-1 right-1" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-royal-maroon absolute top-1 right-1" />
                   )}
                 </button>
               );
@@ -361,7 +361,7 @@ export default function AssessmentPage() {
           {/* Legend */}
           <div className="pt-4 border-t border-border space-y-2 text-[11px] text-muted font-medium">
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded bg-electric-yellow border border-foreground" />
+              <span className="w-3 h-3 rounded bg-electric-coral border border-foreground" />
               <span className="text-foreground font-bold">Current Question</span>
             </div>
             <div className="flex items-center gap-2">
@@ -369,8 +369,8 @@ export default function AssessmentPage() {
               <span className="text-foreground font-medium">Answered</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded bg-fire-red-50 border border-fire-red" />
-              <span className="text-fire-red font-bold">Flagged for Review</span>
+              <span className="w-3 h-3 rounded bg-royal-maroon/15 border border-royal-maroon" />
+              <span className="text-royal-maroon font-bold">Flagged for Review</span>
             </div>
           </div>
         </div>
@@ -381,7 +381,7 @@ export default function AssessmentPage() {
             {/* Question Header & Badges */}
             <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2 flex-wrap">
-                <Badge variant="electric-yellow" size="sm">
+                <Badge variant="coral" size="sm">
                   Question {currentIndex + 1} / {questions.length}
                 </Badge>
                 <Badge variant="night" size="sm">{currentQ.skill}</Badge>
@@ -391,7 +391,7 @@ export default function AssessmentPage() {
                       ? "neutral"
                       : currentQ.difficulty === "Intermediate"
                       ? "night"
-                      : "fire-red"
+                      : "maroon"
                   }
                   size="sm"
                 >
@@ -406,8 +406,8 @@ export default function AssessmentPage() {
                 onClick={handleToggleFlag}
                 className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded transition-colors font-bold cursor-pointer ${
                   flaggedQuestions[currentQ.id]
-                    ? "bg-fire-red text-white border border-fire-red"
-                    : "text-foreground hover:text-fire-red bg-surface border border-border"
+                    ? "bg-royal-maroon text-white border border-royal-maroon"
+                    : "text-foreground hover:text-royal-maroon bg-surface border border-border"
                 }`}
               >
                 <Flag className="w-3.5 h-3.5" />
@@ -446,14 +446,14 @@ export default function AssessmentPage() {
                       onClick={() => handleSelectOption(opt.label)}
                       className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-start gap-3 ${
                         isSelected
-                          ? "bg-electric-yellow/25 border-2 border-foreground text-foreground shadow-editorial-sm"
+                          ? "bg-electric-coral/25 border-2 border-foreground text-foreground shadow-editorial-sm"
                           : "bg-surface border border-border text-foreground hover:border-foreground"
                       }`}
                     >
                       <div
                         className={`w-6 h-6 rounded-md border flex items-center justify-center shrink-0 mt-0.5 text-xs font-extrabold transition-colors ${
                           isSelected
-                            ? "border-foreground bg-electric-yellow text-foreground"
+                            ? "border-foreground bg-electric-coral text-black"
                             : "border-border bg-white text-muted"
                         }`}
                       >
@@ -480,7 +480,7 @@ export default function AssessmentPage() {
                     value={currentTrackAnswers[currentQ.id] || ""}
                     onChange={(e) => handleFillBlankChange(e.target.value)}
                     placeholder="Type your answer here (e.g. hook name, status code, protocol)..."
-                    className="w-full px-4 py-3 rounded-lg border-2 border-foreground bg-surface text-foreground text-sm font-bold focus:outline-none focus:ring-2 focus:ring-electric-yellow transition-all"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-foreground bg-surface text-foreground text-sm font-bold focus:outline-none focus:ring-2 focus:ring-electric-coral transition-all"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && currentIndex < questions.length - 1) {
                         setCurrentIndex((prev) => prev + 1);
@@ -530,7 +530,7 @@ export default function AssessmentPage() {
                 className="gap-2 font-extrabold shadow-sm bg-foreground text-white"
               >
                 <span>Complete Assessment</span>
-                <CheckCircle2 className="w-3.5 h-3.5 text-electric-yellow" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-electric-coral" />
               </Button>
             )}
           </div>

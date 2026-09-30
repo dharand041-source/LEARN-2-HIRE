@@ -133,7 +133,7 @@ export default function OpportunitiesHubPage() {
             </button>
 
             <Link href="/applications">
-              <button className="px-5 py-2.5 rounded-lg bg-electric-coral hover:bg-white hover:text-black text-white border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
+              <button className="px-5 py-2.5 rounded-lg bg-electric-coral hover:bg-white text-black border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
                 <span>Application Kanban</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
@@ -180,7 +180,7 @@ export default function OpportunitiesHubPage() {
             href={linkedInSearchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-md bg-white border-2 border-foreground hover:bg-editorial-gold hover:text-foreground text-foreground transition-all flex items-center gap-1.5 font-bold text-[11px] shadow-editorial-sm"
+            className="px-3 py-1.5 rounded-md bg-white border-2 border-foreground hover:bg-electric-coral hover:text-black text-foreground transition-all flex items-center gap-1.5 font-bold text-[11px] shadow-editorial-sm"
           >
             <span>Search LinkedIn Verified</span>
             <ExternalLink className="w-3 h-3 text-foreground" />
@@ -189,7 +189,7 @@ export default function OpportunitiesHubPage() {
             href={naukriSearchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-md bg-white border-2 border-foreground hover:bg-editorial-gold hover:text-foreground text-foreground transition-all flex items-center gap-1.5 font-bold text-[11px] shadow-editorial-sm"
+            className="px-3 py-1.5 rounded-md bg-white border-2 border-foreground hover:bg-electric-coral hover:text-black text-foreground transition-all flex items-center gap-1.5 font-bold text-[11px] shadow-editorial-sm"
           >
             <span>Search Naukri Verified</span>
             <ExternalLink className="w-3 h-3 text-foreground" />
@@ -208,7 +208,7 @@ export default function OpportunitiesHubPage() {
             ]}
             activeTab={activeTab}
             onChange={setActiveTab}
-            accent="gold"
+            accent="coral"
           />
 
           <div className="w-full sm:w-72">
@@ -263,21 +263,21 @@ export default function OpportunitiesHubPage() {
               {/* Top Row: Company & Title */}
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-editorial-gold border-2 border-foreground flex items-center justify-center font-extrabold text-foreground text-base font-mono shrink-0 shadow-editorial-sm">
+                  <div className="w-12 h-12 rounded-lg bg-electric-coral border-2 border-foreground flex items-center justify-center font-extrabold text-black text-base font-mono shrink-0 shadow-editorial-sm">
                     {opp.logoInitial || opp.company.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-xs font-mono font-bold text-muted-foreground uppercase">{opp.company}</span>
-                      <Badge variant="navy" size="sm">{opp.workMode}</Badge>
-                      <Badge variant="gold" size="sm">{opp.type}</Badge>
+                      <Badge variant="maroon" size="sm">{opp.workMode}</Badge>
+                      <Badge variant="coral" size="sm">{opp.type}</Badge>
                       {opp.eligibilityStatus && (
                         <Badge
                           variant={
                             opp.eligibilityStatus === "eligible"
-                              ? "gold"
+                              ? "coral"
                               : opp.eligibilityStatus === "not_eligible"
-                              ? "red"
+                              ? "maroon"
                               : "neutral"
                           }
                           size="sm"
@@ -318,15 +318,15 @@ export default function OpportunitiesHubPage() {
                 {/* Match Score Block */}
                 <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-3 pt-2 sm:pt-0">
                   <div className="flex items-center gap-2">
-                    <div className="text-right p-2 px-3 rounded-lg bg-editorial-gold/25 border-2 border-foreground">
-                      <span className="text-2xl font-extrabold font-mono text-foreground">{opp.matchPercentage}%</span>
-                      <span className="text-[9px] uppercase tracking-wider text-foreground block font-mono font-bold">Match</span>
+                    <div className="text-right p-2 px-3 rounded-lg bg-electric-coral border-2 border-foreground text-black">
+                      <span className="text-2xl font-black font-mono text-black">{opp.matchPercentage}%</span>
+                      <span className="text-[9px] uppercase tracking-wider text-black block font-mono font-black">Match</span>
                     </div>
                     <button
                       onClick={() => toggleSaveOpportunity(opp.id)}
                       className={`p-2.5 rounded-lg border-2 transition-colors ${
                         opp.saved
-                          ? "bg-editorial-gold border-foreground text-foreground shadow-editorial-sm"
+                          ? "bg-electric-coral border-foreground text-black shadow-editorial-sm"
                           : "bg-surface border-border text-muted-foreground hover:text-foreground hover:border-foreground"
                       }`}
                       title={opp.saved ? "Saved Opportunity" : "Save Opportunity"}
@@ -355,9 +355,9 @@ export default function OpportunitiesHubPage() {
 
                 {opp.skillGaps.length > 0 && (
                   <div className="flex flex-wrap items-center gap-1.5 pt-2 sm:pt-0 sm:border-l-2 sm:border-border sm:pl-3">
-                    <span className="text-[10px] uppercase font-mono font-bold text-editorial-red mr-1">Skill Gap:</span>
+                    <span className="text-[10px] uppercase font-mono font-bold text-royal-maroon mr-1">Skill Gap:</span>
                     {opp.skillGaps.map((gap, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-sm bg-editorial-red/10 border border-editorial-red text-[10px] font-mono text-editorial-red font-bold">
+                      <span key={i} className="px-2 py-0.5 rounded-sm bg-royal-maroon/10 border border-royal-maroon text-[10px] font-mono text-royal-maroon font-bold">
                         • {gap}
                       </span>
                     ))}
@@ -379,7 +379,7 @@ export default function OpportunitiesHubPage() {
                   </Link>
 
                   <Button
-                    variant="gold"
+                    variant="coral"
                     size="sm"
                     onClick={() => handleApplyClick(opp)}
                     className="gap-2 text-xs font-bold shadow-editorial-sm"

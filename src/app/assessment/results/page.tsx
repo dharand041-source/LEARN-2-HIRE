@@ -55,11 +55,11 @@ export default function AssessmentResultsPage() {
 
   return (
     <div className="max-w-6xl w-full mx-auto space-y-8 animate-fade-in bg-white pb-12">
-      {/* Bold Fire Red Header Section */}
-      <div className="rounded-2xl bg-fire-red text-white border-4 border-black p-6 sm:p-8 shadow-editorial-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+      {/* Bold Royal Maroon Header Section */}
+      <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-6 sm:p-8 shadow-editorial-md flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-2.5 py-0.5 rounded bg-black text-electric-yellow text-xs font-mono font-black border border-black uppercase tracking-wider">Phase 03</span>
+            <span className="px-2.5 py-0.5 rounded bg-black text-electric-coral text-xs font-mono font-black border border-black uppercase tracking-wider">Phase 03</span>
             <span className="text-xs text-white/90 font-mono uppercase tracking-wider font-extrabold">
               Diagnostic Skill-Gap Analysis
             </span>
@@ -80,7 +80,7 @@ export default function AssessmentResultsPage() {
             </button>
           </Link>
           <Link href="/learning">
-            <button className="px-5 py-2.5 rounded-lg bg-electric-yellow hover:bg-acid-yellow text-black border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
+            <button className="px-5 py-2.5 rounded-lg bg-electric-coral hover:bg-black hover:text-white text-black border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs">
               <span>Start Personalized Training</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
@@ -98,7 +98,7 @@ export default function AssessmentResultsPage() {
             </span>
 
             <div className="relative inline-flex items-center justify-center my-2">
-              <div className="w-36 h-36 rounded-xl border-3 border-foreground flex flex-col items-center justify-center bg-electric-yellow/20 shadow-xs">
+              <div className="w-36 h-36 rounded-xl border-3 border-foreground flex flex-col items-center justify-center bg-royal-maroon/10 shadow-xs">
                 <span className="text-4xl font-display font-extrabold text-foreground font-mono">
                   {result.score}
                 </span>
@@ -108,7 +108,7 @@ export default function AssessmentResultsPage() {
 
             <div className="p-4 rounded-lg bg-surface border border-border text-xs text-foreground leading-relaxed text-left space-y-1.5 mt-6">
               <p className="font-extrabold text-foreground flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-fire-red" />
+                <Sparkles className="w-3.5 h-3.5 text-royal-maroon" />
                 Readiness Tier: {result.score >= 80 ? "Advanced Mastery" : result.score >= 60 ? "Intermediate Competent" : "Foundational Discovery"}
               </p>
               <p className="text-[11px] text-muted font-normal">
@@ -158,7 +158,7 @@ export default function AssessmentResultsPage() {
                       <div className="flex items-center gap-2">
                         <span className="text-foreground font-extrabold">{item.skill}</span>
                         <Badge
-                          variant={isStrong ? "night" : isCritical ? "fire-red" : "electric-yellow"}
+                          variant={isStrong ? "night" : isCritical ? "maroon" : "coral"}
                           size="sm"
                         >
                           {band}
@@ -171,7 +171,7 @@ export default function AssessmentResultsPage() {
                     <ProgressBar
                       value={item.score}
                       size="sm"
-                      variant={isStrong ? "maroon" : isCritical ? "fire-red" : "electric-yellow"}
+                      variant={isStrong ? "maroon" : isCritical ? "coral" : "coral"}
                     />
                   </div>
                 );
@@ -181,7 +181,7 @@ export default function AssessmentResultsPage() {
 
           <div className="pt-4 border-t border-border mt-6 flex items-center justify-between text-xs text-muted">
             <span className="flex items-center gap-1.5 font-medium">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <ShieldCheck className="w-4 h-4 text-royal-maroon" />
               Skill-benchmarked against hiring requirements
             </span>
             <span className="font-mono font-extrabold text-foreground">{result.totalQuestions} Questions Evaluated</span>
@@ -194,7 +194,7 @@ export default function AssessmentResultsPage() {
         {/* Demonstrated Strengths */}
         <div className="p-6 rounded-2xl bg-white border border-surface-border shadow-card-subtle space-y-4">
           <div className="flex items-center gap-2 text-night border-b border-surface-border pb-3">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-royal-maroon shrink-0" />
             <h4 className="text-xs font-bold uppercase tracking-wider">
               Demonstrated Strengths
             </h4>
@@ -203,7 +203,7 @@ export default function AssessmentResultsPage() {
             {result.strongAreas && result.strongAreas.length > 0 ? (
               result.strongAreas.map((area, i) => (
                 <li key={i} className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold">•</span>
+                  <span className="text-royal-maroon font-bold">•</span>
                   <span className="text-night">{area}</span>
                 </li>
               ))
@@ -214,8 +214,8 @@ export default function AssessmentResultsPage() {
         </div>
 
         {/* Critical Skill Gaps */}
-        <div className="p-6 rounded-2xl bg-imperial-50/40 border border-imperial-200 space-y-4 shadow-card-subtle">
-          <div className="flex items-center gap-2 text-imperial border-b border-imperial-200 pb-3">
+        <div className="p-6 rounded-2xl bg-surface border-2 border-border space-y-4 shadow-card-subtle">
+          <div className="flex items-center gap-2 text-royal-maroon border-b border-border pb-3">
             <AlertTriangle className="w-4 h-4 shrink-0" />
             <h4 className="text-xs font-bold uppercase tracking-wider">
               Identified Skill Gaps
@@ -225,7 +225,7 @@ export default function AssessmentResultsPage() {
             {result.needsImprovement && result.needsImprovement.length > 0 ? (
               result.needsImprovement.map((gap, i) => (
                 <li key={i} className="flex items-start gap-2.5">
-                  <span className="text-imperial font-bold">•</span>
+                  <span className="text-royal-maroon font-bold">•</span>
                   <span>{gap}</span>
                 </li>
               ))

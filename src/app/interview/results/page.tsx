@@ -26,11 +26,11 @@ export default function InterviewResultsPage() {
     return (
       <div className="max-w-3xl w-full mx-auto py-16 px-4 text-center space-y-6 animate-fade-in">
         <Card variant="editorial" className="p-10 space-y-6">
-          <div className="w-16 h-16 rounded-lg bg-editorial-violet text-white flex items-center justify-center mx-auto shadow-editorial-sm">
+          <div className="w-16 h-16 rounded-lg bg-royal-maroon text-white flex items-center justify-center mx-auto shadow-editorial-sm">
             <Mic className="w-8 h-8" />
           </div>
           <div className="space-y-2">
-            <Badge variant="violet" size="sm">Phase 10 // Voice Defense</Badge>
+            <Badge variant="maroon" size="sm">Phase 10 // Voice Defense</Badge>
             <h1 className="text-3xl font-extrabold text-foreground tracking-tight">
               NO INTERVIEW SESSIONS FOUND
             </h1>
@@ -40,7 +40,7 @@ export default function InterviewResultsPage() {
           </div>
           <div className="pt-2">
             <Link href="/interview">
-              <Button variant="violet" size="lg" className="gap-2 font-bold shadow-editorial-sm">
+              <Button variant="coral" size="lg" className="gap-2 font-bold shadow-editorial-sm">
                 <span>Start Voice Interview Simulation</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
@@ -59,7 +59,7 @@ export default function InterviewResultsPage() {
           eyebrow="PHASE 10 // EVALUATION SCORECARD"
           title="Interview Performance Scorecard"
           description={`Conducted on ${session.conductedAt || "Today"} • Comprehensive Technical Defense & STAR Behavioral Critique.`}
-          accent="violet"
+          accent="maroon"
         />
 
         <div className="flex items-center gap-3">
@@ -70,7 +70,7 @@ export default function InterviewResultsPage() {
             </Button>
           </Link>
           <Link href="/opportunities">
-            <Button variant="violet" size="sm" className="gap-1.5 font-bold shadow-editorial-sm">
+            <Button variant="coral" size="sm" className="gap-1.5 font-bold shadow-editorial-sm">
               <span>View Matching Jobs</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Button>
@@ -89,7 +89,7 @@ export default function InterviewResultsPage() {
 
             <div className="relative inline-flex items-center justify-center">
               <div className="w-36 h-36 rounded-lg border-3 border-foreground flex flex-col items-center justify-center bg-surface shadow-editorial-md">
-                <span className="text-5xl font-extrabold font-mono text-editorial-violet">
+                <span className="text-5xl font-extrabold font-mono text-royal-maroon">
                   {session.overallScore}
                 </span>
                 <span className="text-[11px] text-muted-foreground uppercase font-mono font-bold">/ 100</span>
@@ -103,7 +103,7 @@ export default function InterviewResultsPage() {
                   <span className="text-muted-foreground">Technical Knowledge</span>
                   <span className="text-foreground">{session.scores.technicalKnowledge}%</span>
                 </div>
-                <ProgressBar value={session.scores.technicalKnowledge} size="sm" variant="violet" />
+                <ProgressBar value={session.scores.technicalKnowledge} size="sm" variant="maroon" />
               </div>
 
               <div className="space-y-1">
@@ -111,7 +111,7 @@ export default function InterviewResultsPage() {
                   <span className="text-muted-foreground">Problem Solving</span>
                   <span className="text-foreground">{session.scores.problemSolving}%</span>
                 </div>
-                <ProgressBar value={session.scores.problemSolving} size="sm" variant="navy" />
+                <ProgressBar value={session.scores.problemSolving} size="sm" variant="coral" />
               </div>
 
               <div className="space-y-1">
@@ -119,15 +119,15 @@ export default function InterviewResultsPage() {
                   <span className="text-muted-foreground">Communication Clarity</span>
                   <span className="text-foreground">{session.scores.communication}%</span>
                 </div>
-                <ProgressBar value={session.scores.communication} size="sm" variant="gold" />
+                <ProgressBar value={session.scores.communication} size="sm" variant="maroon" />
               </div>
 
               <div className="space-y-1">
                 <div className="flex justify-between text-xs font-mono font-bold">
                   <span className="text-muted-foreground">Answer Structure (STAR)</span>
-                  <span className="text-editorial-violet">{session.scores.answerStructure}%</span>
+                  <span className="text-royal-maroon">{session.scores.answerStructure}%</span>
                 </div>
-                <ProgressBar value={session.scores.answerStructure} size="sm" variant="violet" />
+                <ProgressBar value={session.scores.answerStructure} size="sm" variant="coral" />
               </div>
 
               <div className="space-y-1">
@@ -135,12 +135,12 @@ export default function InterviewResultsPage() {
                   <span className="text-muted-foreground">Project Defense</span>
                   <span className="text-foreground">{session.scores.projectExplanation}%</span>
                 </div>
-                <ProgressBar value={session.scores.projectExplanation} size="sm" variant="red" />
+                <ProgressBar value={session.scores.projectExplanation} size="sm" variant="maroon" />
               </div>
             </div>
 
             <Link href="/interview/session" className="block w-full pt-2">
-              <Button variant="violet" size="lg" className="w-full gap-2 text-xs font-bold shadow-editorial-sm">
+              <Button variant="coral" size="lg" className="w-full gap-2 text-xs font-bold shadow-editorial-sm">
                 <Mic className="w-4 h-4" />
                 <span>Retake Voice Simulation</span>
               </Button>
@@ -152,8 +152,8 @@ export default function InterviewResultsPage() {
         <div className="lg:col-span-8 space-y-6">
           {/* Strengths & Improvement Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-emerald-600">
-              <div className="flex items-center gap-2 text-emerald-700">
+            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-royal-maroon">
+              <div className="flex items-center gap-2 text-royal-maroon">
                 <CheckCircle2 className="w-4 h-4" />
                 <h3 className="text-xs font-bold uppercase font-mono tracking-wider">
                   Demonstrated Strengths
@@ -162,7 +162,7 @@ export default function InterviewResultsPage() {
               <ul className="space-y-2 text-xs text-foreground font-medium">
                 {session.whatWentWell?.map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold font-mono">✓</span>
+                    <span className="text-royal-maroon font-bold font-mono">✓</span>
                     <span>{item}</span>
                   </li>
                 )) || (
@@ -171,8 +171,8 @@ export default function InterviewResultsPage() {
               </ul>
             </Card>
 
-            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-editorial-violet">
-              <div className="flex items-center gap-2 text-editorial-violet">
+            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-electric-coral">
+              <div className="flex items-center gap-2 text-electric-coral">
                 <AlertTriangle className="w-4 h-4" />
                 <h3 className="text-xs font-bold uppercase font-mono tracking-wider">
                   Targeted Improvements
@@ -181,7 +181,7 @@ export default function InterviewResultsPage() {
               <ul className="space-y-2 text-xs text-foreground font-medium">
                 {session.whatToImprove?.map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-editorial-violet font-bold font-mono">▶</span>
+                    <span className="text-electric-coral font-bold font-mono">▶</span>
                     <span>{item}</span>
                   </li>
                 )) || (
@@ -195,7 +195,7 @@ export default function InterviewResultsPage() {
           {session.questionsAsked && session.questionsAsked.length > 0 && (
             <Card variant="editorial" className="p-6 space-y-4">
               <h3 className="text-sm font-bold uppercase font-mono tracking-wider text-foreground flex items-center gap-2 border-b-2 border-border pb-3">
-                <MessageSquare className="w-4 h-4 text-editorial-violet" />
+                <MessageSquare className="w-4 h-4 text-royal-maroon" />
                 Question-by-Question Rubric Critiques
               </h3>
 
@@ -213,7 +213,7 @@ export default function InterviewResultsPage() {
                       </div>
                     )}
                     <p className="text-xs text-foreground font-medium leading-relaxed">
-                      <strong className="text-editorial-violet font-mono uppercase text-[10px] block mb-0.5">Evaluator Feedback:</strong>
+                      <strong className="text-royal-maroon font-mono uppercase text-[10px] block mb-0.5">Evaluator Feedback:</strong>
                       {qa.critique}
                     </p>
                   </div>
@@ -224,20 +224,20 @@ export default function InterviewResultsPage() {
 
           {/* Next Steps CTA */}
           <Card variant="editorial" className="p-6 space-y-4 border-2 border-border">
-            <h4 className="text-xs font-bold uppercase font-mono tracking-wider text-editorial-violet flex items-center gap-2">
+            <h4 className="text-xs font-bold uppercase font-mono tracking-wider text-royal-maroon flex items-center gap-2">
               <Zap className="w-4 h-4" />
               Recommended Next Stage
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="p-3.5 rounded-lg bg-surface border-2 border-border text-xs flex items-center justify-between font-mono">
                 <span className="text-foreground font-bold">Refine Technical Problem Solving</span>
-                <Link href="/problem-solving" className="text-xs text-editorial-violet hover:underline font-bold">
+                <Link href="/problem-solving" className="text-xs text-royal-maroon hover:underline font-bold">
                   Practice →
                 </Link>
               </div>
               <div className="p-3.5 rounded-lg bg-surface border-2 border-border text-xs flex items-center justify-between font-mono">
                 <span className="text-foreground font-bold">Apply to High-Match Jobs</span>
-                <Link href="/opportunities" className="text-xs text-editorial-violet hover:underline font-bold">
+                <Link href="/opportunities" className="text-xs text-royal-maroon hover:underline font-bold">
                   Explore →
                 </Link>
               </div>

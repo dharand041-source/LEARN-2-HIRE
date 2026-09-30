@@ -51,7 +51,7 @@ export default function RejectionAnalysisPage() {
           eyebrow="PHASE 15 // ROOT-CAUSE REMEDIATION"
           title="Outcome Diagnostics & Retraining Engine"
           description="Learn-2-Hire converts rejection outcomes into structured engineering milestones. We separate employer feedback from algorithmic system analysis to prescribe a daily recovery plan."
-          accent="red"
+          accent="maroon"
         />
 
         <div className="flex items-center gap-3">
@@ -64,14 +64,14 @@ export default function RejectionAnalysisPage() {
       </div>
 
       {/* Outcome Snapshot Banner */}
-      <Card variant="editorial" className="p-6 md:p-8 space-y-5 border-l-8 border-l-fire-red bg-white border-2 border-black">
+      <Card variant="editorial" className="p-6 md:p-8 space-y-5 border-l-8 border-l-royal-maroon bg-white border-2 border-black">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-black pb-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-lg bg-fire-red text-white flex items-center justify-center font-bold shadow-editorial-sm border-2 border-black shrink-0">
+            <div className="w-12 h-12 rounded-lg bg-royal-maroon text-white flex items-center justify-center font-bold shadow-editorial-sm border-2 border-black shrink-0">
               <TrendingUp className="w-6 h-6 stroke-[2.5]" />
             </div>
             <div>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-fire-red font-black">
+              <span className="text-[10px] uppercase font-mono tracking-widest text-royal-maroon font-black">
                 Application Outcome: Turn-Down Analysis
               </span>
               <h2 className="text-xl font-black text-black tracking-tight">
@@ -81,7 +81,7 @@ export default function RejectionAnalysisPage() {
           </div>
 
           <div className="flex items-center gap-2 text-xs font-mono text-black/70 font-bold">
-            <Calendar className="w-3.5 h-3.5 text-fire-red" />
+            <Calendar className="w-3.5 h-3.5 text-royal-maroon" />
             <span>Analyzed on {feedback.outcomeDate}</span>
           </div>
         </div>
@@ -91,10 +91,10 @@ export default function RejectionAnalysisPage() {
           <div className="p-4 rounded-lg bg-surface border-2 border-black space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-black uppercase font-mono tracking-wider flex items-center gap-1.5">
-                <AlertTriangle className="w-4 h-4 text-fire-red" />
+                <AlertTriangle className="w-4 h-4 text-royal-maroon" />
                 Verified Employer Feedback:
               </span>
-              <Badge variant="red" size="sm">Direct Feedback</Badge>
+              <Badge variant="maroon" size="sm">Direct Feedback</Badge>
             </div>
             <p className="text-xs text-black italic leading-relaxed font-medium">
               &quot;{feedback.employerFeedbackText}&quot;
@@ -111,10 +111,10 @@ export default function RejectionAnalysisPage() {
           <Card variant="editorial" className="p-6 space-y-4 bg-white border-2 border-black">
             <div className="flex items-center justify-between border-b-2 border-black pb-3">
               <h3 className="text-sm font-black uppercase font-mono tracking-wider text-black flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-fire-red" />
+                <Sparkles className="w-4 h-4 text-electric-coral" />
                 Learn-2-Hire Algorithmic Synthesis
               </h3>
-              <Badge variant="yellow" size="sm">Correlated Deficiencies</Badge>
+              <Badge variant="coral" size="sm">Correlated Deficiencies</Badge>
             </div>
             <p className="text-xs text-black/80 leading-relaxed font-medium">
               {feedback.systemAnalysis.summary}
@@ -124,15 +124,15 @@ export default function RejectionAnalysisPage() {
           {/* 3 Core Vector Gaps */}
           <div className="space-y-4">
             {/* Vector 1: Technical & SQL Gaps */}
-            <Card variant="editorial" className="p-5 space-y-2.5 border-l-8 border-l-fire-red bg-white border-2 border-black">
-              <h4 className="text-xs font-black uppercase font-mono tracking-wider text-fire-red flex items-center gap-2">
-                <AlertTriangle className="w-3.5 h-3.5 text-fire-red" />
+            <Card variant="editorial" className="p-5 space-y-2.5 border-l-8 border-l-royal-maroon bg-white border-2 border-black">
+              <h4 className="text-xs font-black uppercase font-mono tracking-wider text-royal-maroon flex items-center gap-2">
+                <AlertTriangle className="w-3.5 h-3.5 text-royal-maroon" />
                 Primary Technical Competency Gaps
               </h4>
               <ul className="space-y-1.5 text-xs text-black pl-1 font-medium">
                 {feedback.systemAnalysis.potentialSkillGaps.map((gap, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-fire-red font-bold font-mono">▶</span>
+                    <span className="text-royal-maroon font-bold font-mono">▶</span>
                     <span>{gap}</span>
                   </li>
                 ))}
@@ -156,7 +156,7 @@ export default function RejectionAnalysisPage() {
             </Card>
 
             {/* Vector 3: Resume Presentation */}
-            <Card variant="editorial" className="p-5 space-y-2.5 border-l-8 border-l-electric-yellow bg-white border-2 border-black">
+            <Card variant="editorial" className="p-5 space-y-2.5 border-l-8 border-l-electric-coral bg-white border-2 border-black">
               <h4 className="text-xs font-black uppercase font-mono tracking-wider text-black flex items-center gap-2">
                 <FileText className="w-3.5 h-3.5 text-black" />
                 Resume & Portfolio Proof Deficiencies
@@ -164,7 +164,7 @@ export default function RejectionAnalysisPage() {
               <ul className="space-y-1.5 text-xs text-black pl-1 font-medium">
                 {feedback.systemAnalysis.resumeDeficiencies.map((def, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-fire-red font-bold font-mono">▶</span>
+                    <span className="text-royal-maroon font-bold font-mono">▶</span>
                     <span>{def}</span>
                   </li>
                 ))}
@@ -178,8 +178,8 @@ export default function RejectionAnalysisPage() {
           <Card variant="editorial" className="p-6 md:p-7 space-y-6 bg-white border-2 border-black">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <Badge variant="red" size="sm">Actionable Roadmap</Badge>
-                <span className="text-xs font-mono text-fire-red font-black">{recoveryProgress}% Complete</span>
+                <Badge variant="maroon" size="sm">Actionable Roadmap</Badge>
+                <span className="text-xs font-mono text-royal-maroon font-black">{recoveryProgress}% Complete</span>
               </div>
               <h3 className="text-xl font-black text-black tracking-tight">
                 Personalized Retraining Plan
@@ -189,7 +189,7 @@ export default function RejectionAnalysisPage() {
               </p>
             </div>
 
-            <ProgressBar value={recoveryProgress} size="sm" variant="fire-red" />
+            <ProgressBar value={recoveryProgress} size="sm" variant="maroon" />
 
             {/* Tasks Checklist */}
             <div className="space-y-3">
@@ -209,7 +209,7 @@ export default function RejectionAnalysisPage() {
                         onClick={() => toggleTask(idx)}
                         className={`w-4 h-4 rounded-sm border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors cursor-pointer ${
                           isChecked
-                            ? "bg-fire-red border-fire-red text-white"
+                            ? "bg-royal-maroon border-royal-maroon text-white"
                             : "border-black bg-white"
                         }`}
                       >
@@ -219,7 +219,7 @@ export default function RejectionAnalysisPage() {
                         <div className="flex items-center justify-between">
                           <span
                             className={`text-[10px] font-mono uppercase font-black ${
-                              task.priority === "High" ? "text-fire-red" : "text-black"
+                              task.priority === "High" ? "text-royal-maroon" : "text-black"
                             }`}
                           >
                             [{task.priority} Priority] • {task.estimatedDays} Days
@@ -234,7 +234,7 @@ export default function RejectionAnalysisPage() {
                     <div className="pt-2 border-t-2 border-black/10 flex items-center justify-end">
                       <Link
                         href={task.actionLink}
-                        className="text-[11px] text-fire-red hover:underline flex items-center gap-1 font-black font-mono"
+                        className="text-[11px] text-royal-maroon hover:underline flex items-center gap-1 font-black font-mono"
                       >
                         <span>{task.actionLabel}</span>
                         <ArrowRight className="w-3 h-3" />
@@ -248,10 +248,10 @@ export default function RejectionAnalysisPage() {
             {/* Bottom Complete State */}
             {recoveryProgress === 100 && (
               <div className="p-4 rounded-lg bg-surface border-2 border-black text-black text-xs text-center space-y-2 animate-slide-up">
-                <p className="font-black uppercase font-mono text-fire-red">✓ Retraining Roadmap Completed!</p>
+                <p className="font-black uppercase font-mono text-royal-maroon">✓ Retraining Roadmap Completed!</p>
                 <p className="text-[11px] font-medium text-black">Your profile has remediated the identified architecture deficiencies. Ready to re-apply.</p>
                 <Link href="/opportunities" className="block pt-1">
-                  <Button variant="red" size="sm" className="w-full font-black shadow-editorial-xs">Explore Matched Jobs</Button>
+                  <Button variant="coral" size="sm" className="w-full font-black shadow-editorial-xs">Explore Matched Jobs</Button>
                 </Link>
               </div>
             )}

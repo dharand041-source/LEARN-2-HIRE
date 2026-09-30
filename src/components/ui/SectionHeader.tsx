@@ -26,18 +26,10 @@ export function SectionHeader({
   className,
 }: SectionHeaderProps) {
   const accentDotColor =
-    accent === "red"
-      ? "bg-editorial-red"
-      : accent === "yellow"
-      ? "bg-editorial-yellow"
-      : accent === "violet"
-      ? "bg-editorial-violet"
-      : accent === "acid"
-      ? "bg-editorial-acid"
-      : accent === "gold"
-      ? "bg-editorial-gold"
-      : accent === "navy"
-      ? "bg-editorial-navy"
+    accent === "coral" || accent === "yellow" || accent === "acid" || accent === "gold" || accent === "electric-coral"
+      ? "bg-electric-coral"
+      : accent === "maroon" || accent === "red" || accent === "violet" || accent === "navy" || accent === "royal-maroon"
+      ? "bg-royal-maroon"
       : "bg-foreground";
 
   return (

@@ -88,7 +88,7 @@ export function BrandLogo({
         <span
           className={cn(
             "font-display font-extrabold tracking-tight transition-colors whitespace-nowrap",
-            theme === "dark" ? "text-white group-hover:text-electric-yellow" : "text-foreground group-hover:text-fire-red",
+            theme === "dark" ? "text-white group-hover:text-electric-coral" : "text-foreground group-hover:text-electric-coral",
             size === "xs" && "text-sm",
             size === "sm" && "text-base",
             size === "md" && "text-lg",

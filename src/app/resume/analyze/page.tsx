@@ -195,7 +195,7 @@ export default function ResumeAnalyzerPage() {
 
       {/* Official Disclaimer Notice */}
       <Card variant="editorial" className="p-4 bg-surface border-2 border-border flex items-start gap-3.5">
-        <ShieldCheck className="w-5 h-5 text-editorial-red shrink-0 mt-0.5" />
+        <ShieldCheck className="w-5 h-5 text-royal-maroon shrink-0 mt-0.5" />
         <div className="space-y-1">
           <p className="font-bold text-foreground text-xs uppercase font-mono">
             Learn-2-Hire ATS Compatibility Standard
@@ -209,12 +209,12 @@ export default function ResumeAnalyzerPage() {
 
       {/* Upload Error Banner */}
       {uploadError && (
-        <div className="p-4 rounded-lg bg-editorial-red/10 border-2 border-editorial-red text-xs text-foreground flex items-center justify-between font-medium">
+        <div className="p-4 rounded-lg bg-royal-maroon/10 border-2 border-royal-maroon text-xs text-foreground flex items-center justify-between font-medium">
           <div className="flex items-center gap-2">
-            <XCircle className="w-4 h-4 shrink-0 text-editorial-red" />
+            <XCircle className="w-4 h-4 shrink-0 text-royal-maroon" />
             <span>{uploadError}</span>
           </div>
-          <button onClick={() => setUploadError(null)} className="text-xs uppercase font-mono font-bold underline hover:text-editorial-red">
+          <button onClick={() => setUploadError(null)} className="text-xs uppercase font-mono font-bold underline hover:text-electric-coral">
             Dismiss
           </button>
         </div>
@@ -229,17 +229,17 @@ export default function ResumeAnalyzerPage() {
         onClick={() => fileInputRef.current?.click()}
         className={`p-6 sm:p-8 rounded-lg border-2 border-dashed transition-all cursor-pointer text-center space-y-3 ${
           dragActive
-            ? "border-editorial-red bg-editorial-red/5 scale-[1.005]"
-            : "border-border bg-white hover:border-editorial-red hover:bg-surface"
+            ? "border-royal-maroon bg-royal-maroon/5 scale-[1.005]"
+            : "border-border bg-white hover:border-electric-coral hover:bg-surface"
         }`}
       >
-        <div className="w-12 h-12 rounded-lg bg-surface border-2 border-border flex items-center justify-center mx-auto text-editorial-red">
+        <div className="w-12 h-12 rounded-lg bg-surface border-2 border-border flex items-center justify-center mx-auto text-royal-maroon">
           <UploadCloud className="w-6 h-6" />
         </div>
         <div>
           <p className="text-sm font-bold text-foreground">
             {selectedFileName ? (
-              <span className="text-editorial-red font-mono font-extrabold">Active File: {selectedFileName}</span>
+              <span className="text-electric-coral font-mono font-extrabold">Active File: {selectedFileName}</span>
             ) : (
               "Upload or Drag & Drop Resume File"
             )}
@@ -249,7 +249,7 @@ export default function ResumeAnalyzerPage() {
           </p>
         </div>
         {isAnalyzingResume && (
-          <div className="flex items-center justify-center gap-2 text-xs text-editorial-red pt-2 font-mono font-bold">
+          <div className="flex items-center justify-center gap-2 text-xs text-electric-coral pt-2 font-mono font-bold">
             <RefreshCw className="w-4 h-4 animate-spin" />
             <span>Parsing text layout and evaluating ATS compatibility heuristics...</span>
           </div>
@@ -266,10 +266,10 @@ export default function ResumeAnalyzerPage() {
                 ATS Compatibility Index
               </span>
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-5xl font-extrabold font-mono text-editorial-red">{displayScore}</span>
+                <span className="text-5xl font-extrabold font-mono text-royal-maroon">{displayScore}</span>
                 <span className="text-lg font-mono text-muted-foreground font-bold">/100</span>
               </div>
-              <Badge variant="red" size="sm" className="mt-1">
+              <Badge variant="maroon" size="sm" className="mt-1">
                 {displayScore >= 80
                   ? "Strong Machine Readability"
                   : displayScore >= 65
@@ -425,10 +425,10 @@ export default function ResumeAnalyzerPage() {
           <Card variant="editorial" className="p-5 space-y-3">
             <button
               onClick={() => setShowJobComparison(!showJobComparison)}
-              className="w-full flex items-center justify-between text-xs font-bold uppercase font-mono text-foreground hover:text-editorial-red transition-colors"
+              className="w-full flex items-center justify-between text-xs font-bold uppercase font-mono text-foreground hover:text-electric-coral transition-colors"
             >
               <div className="flex items-center gap-2">
-                <Briefcase className="w-4 h-4 text-editorial-red" />
+                <Briefcase className="w-4 h-4 text-royal-maroon" />
                 <span>Job-Specific ATS Target</span>
               </div>
               {showJobComparison ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -444,13 +444,13 @@ export default function ResumeAnalyzerPage() {
                   onChange={(e) => setCustomJobDesc(e.target.value)}
                   placeholder="Paste Job Description (requirements, responsibilities, tech stack)..."
                   rows={4}
-                  className="w-full p-2.5 rounded-md bg-white border-2 border-border text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-editorial-red"
+                  className="w-full p-2.5 rounded-md bg-white border-2 border-border text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-electric-coral"
                 />
                 <Button
                   onClick={handleRunJobSpecificComparison}
                   isLoading={isComparingJob}
                   disabled={!customJobDesc.trim()}
-                  variant="red"
+                  variant="coral"
                   size="sm"
                   className="w-full gap-2 text-xs font-bold shadow-editorial-sm"
                 >
@@ -468,7 +468,7 @@ export default function ResumeAnalyzerPage() {
           {activeAnalysis?.formatChecks && activeAnalysis.formatChecks.length > 0 && (
             <Card variant="editorial" className="p-6 space-y-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-foreground font-mono flex items-center gap-2 border-b-2 border-border pb-3">
-                <FileCheck className="w-4 h-4 text-editorial-red" />
+                <FileCheck className="w-4 h-4 text-royal-maroon" />
                 <span>Format & Parsing Diagnostics</span>
               </h3>
               <div className="space-y-2">
@@ -497,7 +497,7 @@ export default function ResumeAnalyzerPage() {
             {/* Matched Skills */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-xs text-foreground font-bold font-mono">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <CheckCircle2 className="w-4 h-4 text-electric-coral stroke-[2.5]" />
                 <span>
                   Matched Technical Competencies ({activeAnalysis?.matchedSkills.length ?? resumeAnalysis.skillsFound.length})
                 </span>
@@ -506,7 +506,7 @@ export default function ResumeAnalyzerPage() {
                 {(activeAnalysis?.matchedSkills ?? resumeAnalysis.skillsFound).map((skill, i) => (
                   <span
                     key={i}
-                    className="px-2.5 py-1 rounded-sm bg-emerald-50 border border-emerald-600 text-[11px] font-mono font-bold text-emerald-950"
+                    className="px-2.5 py-1 rounded-sm bg-white border-2 border-black text-[11px] font-mono font-bold text-black"
                   >
                     ✓ {skill}
                   </span>
@@ -516,7 +516,7 @@ export default function ResumeAnalyzerPage() {
 
             {/* Missing Skills with Direct Learning Deep-Link */}
             <div className="space-y-2 pt-3 border-t-2 border-border">
-              <div className="flex items-center gap-2 text-xs text-editorial-red font-bold font-mono">
+              <div className="flex items-center gap-2 text-xs text-royal-maroon font-bold font-mono">
                 <AlertTriangle className="w-4 h-4" />
                 <span>
                   Missing Competencies ({activeAnalysis?.missingSkills.length ?? resumeAnalysis.skillsMissing.length})
@@ -528,10 +528,10 @@ export default function ResumeAnalyzerPage() {
                     key={i}
                     className="p-2.5 rounded-md bg-surface border-2 border-border flex items-center justify-between text-xs"
                   >
-                    <span className="text-editorial-red font-mono font-bold">+ {skill}</span>
+                    <span className="text-royal-maroon font-mono font-bold">+ {skill}</span>
                     <Link
                       href={`/learning?skill=${encodeURIComponent(skill)}`}
-                      className="text-[11px] text-foreground hover:text-editorial-red flex items-center gap-1 font-bold font-mono underline"
+                      className="text-[11px] text-foreground hover:text-electric-coral flex items-center gap-1 font-bold font-mono underline"
                     >
                       <BookOpen className="w-3.5 h-3.5" />
                       <span>Learn this skill</span>
@@ -544,15 +544,15 @@ export default function ResumeAnalyzerPage() {
 
           {/* Genuine Issues & Recommendations */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-editorial-red">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-editorial-red flex items-center gap-2 font-mono">
+            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-royal-maroon">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-royal-maroon flex items-center gap-2 font-mono">
                 <AlertTriangle className="w-4 h-4" />
                 Issues Detected
               </h3>
               <ul className="space-y-2 text-xs text-foreground font-medium">
                 {(activeAnalysis?.issues ?? resumeAnalysis.criticalGaps).map((issue, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-editorial-red font-bold font-mono">▶</span>
+                    <span className="text-royal-maroon font-bold font-mono">▶</span>
                     <span>{issue}</span>
                   </li>
                 ))}
@@ -561,7 +561,7 @@ export default function ResumeAnalyzerPage() {
 
             <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-foreground">
               <h3 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2 font-mono">
-                <Zap className="w-4 h-4 text-editorial-red" />
+                <Zap className="w-4 h-4 text-royal-maroon" />
                 Prescribed Fixes
               </h3>
               <ul className="space-y-2 text-xs text-foreground font-medium">
@@ -580,7 +580,7 @@ export default function ResumeAnalyzerPage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-border pb-3">
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-foreground font-mono flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-editorial-red" />
+                  <Briefcase className="w-4 h-4 text-royal-maroon" />
                   <span>Real-Time Matching Vacancies</span>
                 </h3>
                 <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -611,8 +611,8 @@ export default function ResumeAnalyzerPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-bold text-muted-foreground font-mono uppercase text-[10px]">{match.job.company}</span>
-                          <Badge variant="navy" size="sm">{match.job.opportunityType}</Badge>
-                          <Badge variant="gold" size="sm">{match.job.remoteType}</Badge>
+                          <Badge variant="maroon" size="sm">{match.job.opportunityType}</Badge>
+                          <Badge variant="coral" size="sm">{match.job.remoteType}</Badge>
                         </div>
                         <h4 className="text-sm font-bold text-foreground mt-0.5">{match.job.title}</h4>
                       </div>
@@ -631,9 +631,9 @@ export default function ResumeAnalyzerPage() {
                       ))}
                       {match.missingSkills.length > 0 && (
                         <>
-                          <span className="text-[10px] uppercase font-mono font-bold text-editorial-red ml-2">Missing:</span>
+                          <span className="text-[10px] uppercase font-mono font-bold text-royal-maroon ml-2">Missing:</span>
                           {match.missingSkills.slice(0, 2).map((s, i) => (
-                            <span key={i} className="px-2 py-0.5 rounded-sm bg-editorial-red/10 border border-editorial-red text-[10px] font-mono text-editorial-red font-bold">
+                            <span key={i} className="px-2 py-0.5 rounded-sm bg-royal-maroon/10 border border-royal-maroon text-[10px] font-mono text-royal-maroon font-bold">
                               • {s}
                             </span>
                           ))}
@@ -646,7 +646,7 @@ export default function ResumeAnalyzerPage() {
                         {match.job.attribution || `Source: ${match.job.source}`}
                       </span>
                       <Button
-                        variant="red"
+                        variant="coral"
                         size="sm"
                         onClick={() => openExternalApplyModal(match.job)}
                         className="gap-1.5 text-xs font-bold shadow-editorial-sm"

@@ -34,16 +34,16 @@ export default function ProjectsDashboardPage() {
   return (
     <div className="space-y-8 animate-fade-in bg-white text-black min-h-screen">
       {/* Electric Coral Hero Section */}
-      <div className="rounded-2xl bg-electric-coral text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
+      <div className="rounded-2xl bg-electric-coral text-black border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-white border-2 border-black text-xs font-mono font-black uppercase tracking-widest">
               <span>Phase 06 // Production Evidence</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight text-black leading-tight">
               Production-Grade Real-World Projects
             </h1>
-            <p className="text-white/95 text-sm sm:text-base leading-relaxed font-medium">
+            <p className="text-black/90 text-sm sm:text-base leading-relaxed font-medium">
               Build, deploy, and defend production-grade full-stack applications. Completed projects undergo strict rubric grading and feed directly into verified ATS resumes.
             </p>
           </div>
@@ -59,10 +59,10 @@ export default function ProjectsDashboardPage() {
         </div>
 
         {/* Hero Embedded Stats Bar (Black and White Surfaces with Electric Coral Accents) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t-2 border-white/20">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t-2 border-black/20">
           <div className="p-4 rounded-xl bg-black border-2 border-black text-white flex items-center gap-4">
-            <div className="w-12 h-12 rounded-lg bg-electric-coral text-white flex items-center justify-center shrink-0 font-bold border border-black">
-              <CheckCircle2 className="w-6 h-6 text-white stroke-[2.5]" />
+            <div className="w-12 h-12 rounded-lg bg-electric-coral text-black flex items-center justify-center shrink-0 font-bold border border-black">
+              <CheckCircle2 className="w-6 h-6 text-black stroke-[2.5]" />
             </div>
             <div>
               <p className="text-[10px] text-white/70 uppercase font-mono font-bold tracking-wider">Verified Projects</p>
@@ -83,8 +83,8 @@ export default function ProjectsDashboardPage() {
           </div>
 
           <div className="p-4 rounded-xl bg-black border-2 border-black text-white flex items-center gap-4">
-            <div className="w-12 h-12 rounded-lg bg-electric-coral text-white flex items-center justify-center shrink-0 font-bold border border-black">
-              <Award className="w-6 h-6 text-white stroke-[2.5]" />
+            <div className="w-12 h-12 rounded-lg bg-electric-coral text-black flex items-center justify-center shrink-0 font-bold border border-black">
+              <Award className="w-6 h-6 text-black stroke-[2.5]" />
             </div>
             <div>
               <p className="text-[10px] text-white/70 uppercase font-mono font-bold tracking-wider">Readiness Weight</p>
@@ -141,7 +141,7 @@ export default function ProjectsDashboardPage() {
                           isCompleted
                             ? "coral"
                             : isInProgress
-                            ? "electric-yellow"
+                            ? "coral"
                             : "neutral"
                         }
                         size="sm"

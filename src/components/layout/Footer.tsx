@@ -115,7 +115,7 @@ function FooterComponent() {
 
   return (
     <footer
-      className="w-full border-t-4 border-black bg-black text-white selection:bg-fire-red selection:text-white"
+      className="w-full border-t-4 border-black bg-black text-white selection:bg-electric-coral selection:text-black"
       role="contentinfo"
       aria-label="Learn-2-Hire Site Footer"
     >
@@ -137,13 +137,13 @@ function FooterComponent() {
 
             {/* Platform Trust Badge */}
             <div className="pt-1 flex items-center gap-2 text-[11px] font-mono font-bold text-white bg-white/10 p-2.5 rounded-lg border border-white/20 max-w-sm">
-              <ShieldCheck className="w-4 h-4 text-electric-yellow shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-electric-coral shrink-0" />
               <span>Verifiable Competency & Rubric Standards</span>
             </div>
 
             {/* Social Icons */}
             <div className="pt-2">
-              <p className="text-[10px] font-mono uppercase tracking-widest text-acid-yellow font-extrabold mb-2.5">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-electric-coral font-extrabold mb-2.5">
                 Connect With Us
               </p>
               <div className="flex items-center gap-2.5">
@@ -156,7 +156,7 @@ function FooterComponent() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.label}
-                      className="w-9 h-9 rounded-lg bg-white/10 hover:bg-acid-yellow text-white hover:text-black border border-white/20 hover:border-black flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow"
+                      className="w-9 h-9 rounded-lg bg-white/10 hover:bg-electric-coral text-white hover:text-black border border-white/20 hover:border-black flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral"
                     >
                       <Icon className="w-4 h-4" />
                     </a>
@@ -173,7 +173,7 @@ function FooterComponent() {
           >
             {FOOTER_SECTIONS.map((col) => (
               <div key={col.title} className="space-y-4">
-                <h3 className="text-xs font-mono uppercase tracking-widest font-extrabold text-electric-yellow border-b border-white/20 pb-2">
+                <h3 className="text-xs font-mono uppercase tracking-widest font-extrabold text-electric-coral border-b border-white/20 pb-2">
                   {col.title}
                 </h3>
                 <ul className="space-y-2.5">
@@ -182,17 +182,17 @@ function FooterComponent() {
                       <Link
                         href={link.href}
                         prefetch={true}
-                        className="group flex items-center justify-between text-xs text-white/70 hover:text-white font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow rounded py-0.5"
+                        className="group flex items-center justify-between text-xs text-white/70 hover:text-white font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral rounded py-0.5"
                       >
                         <span className="group-hover:translate-x-0.5 transition-transform truncate">
                           {link.title}
                         </span>
                         {link.badge ? (
-                          <span className="text-[9px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-white/10 border border-white/20 text-acid-yellow group-hover:border-acid-yellow shrink-0 ml-1.5">
+                          <span className="text-[9px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-white/10 border border-white/20 text-electric-coral group-hover:border-electric-coral shrink-0 ml-1.5">
                             {link.badge}
                           </span>
                         ) : (
-                          <ChevronRight className="w-3 h-3 text-white/30 group-hover:text-acid-yellow opacity-0 group-hover:opacity-100 transition-all shrink-0 ml-1" />
+                          <ChevronRight className="w-3 h-3 text-white/30 group-hover:text-electric-coral opacity-0 group-hover:opacity-100 transition-all shrink-0 ml-1" />
                         )}
                       </Link>
                     </li>
@@ -220,19 +220,19 @@ function FooterComponent() {
           <div className="flex items-center gap-4 sm:gap-6 font-medium text-[11px]">
             <button
               onClick={() => setActiveLegalModal("privacy")}
-              className="hover:text-acid-yellow transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow rounded"
+              className="hover:text-electric-coral transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral rounded"
             >
               Privacy Policy
             </button>
             <button
               onClick={() => setActiveLegalModal("terms")}
-              className="hover:text-acid-yellow transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow rounded"
+              className="hover:text-electric-coral transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral rounded"
             >
               Terms & Conditions
             </button>
             <button
               onClick={() => setActiveLegalModal("cookies")}
-              className="hover:text-acid-yellow transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acid-yellow rounded"
+              className="hover:text-electric-coral transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral rounded"
             >
               Cookie Policy
             </button>
@@ -271,7 +271,7 @@ function FooterComponent() {
             <div className="pt-2 flex justify-end">
               <button
                 onClick={() => setActiveLegalModal(null)}
-                className="px-4 py-2 bg-foreground text-white rounded-lg text-xs font-bold hover:bg-fire-red transition-colors cursor-pointer"
+                className="px-4 py-2 bg-foreground text-white rounded-lg text-xs font-bold hover:bg-royal-maroon transition-colors cursor-pointer"
               >
                 Close Notice
               </button>

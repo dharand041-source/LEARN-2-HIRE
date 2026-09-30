@@ -219,7 +219,7 @@ function LoginForm() {
 
           {/* Mode Switcher Tabs */}
           {mode !== "forgot" && (
-            <div className="flex rounded-xl bg-surface-subtle p-1 border border-surface-border mb-6">
+            <div className="flex rounded-xl bg-surface p-1 border-2 border-border mb-6">
               <button
                 type="button"
                 onClick={() => {
@@ -227,10 +227,10 @@ function LoginForm() {
                   setErrorMessage(null);
                   setSuccessMessage(null);
                 }}
-                className={`flex-1 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
+                className={`flex-1 py-2 text-xs sm:text-sm font-extrabold rounded-lg transition-all ${
                   mode === "login"
-                    ? "bg-white text-night shadow-sm border border-surface-border/60"
-                    : "text-night-muted hover:text-night"
+                    ? "bg-royal-maroon text-white shadow-sm border border-black"
+                    : "text-muted hover:text-black"
                 }`}
               >
                 Sign In
@@ -242,10 +242,10 @@ function LoginForm() {
                   setErrorMessage(null);
                   setSuccessMessage(null);
                 }}
-                className={`flex-1 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
+                className={`flex-1 py-2 text-xs sm:text-sm font-extrabold rounded-lg transition-all ${
                   mode === "signup"
-                    ? "bg-white text-night shadow-sm border border-surface-border/60"
-                    : "text-night-muted hover:text-night"
+                    ? "bg-royal-maroon text-white shadow-sm border border-black"
+                    : "text-muted hover:text-black"
                 }`}
               >
                 Create Account
@@ -400,10 +400,10 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-11 mt-2 rounded-xl bg-night hover:bg-imperial text-white font-bold text-sm shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full h-11 mt-2 rounded-xl bg-electric-coral hover:bg-black hover:text-white text-black font-black text-sm shadow-editorial-xs border-2 border-black transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? (
-                <Loader2 className="w-4 h-4 animate-spin text-white" />
+                <Loader2 className="w-4 h-4 animate-spin text-black" />
               ) : (
                 <>
                   <span>
@@ -425,7 +425,7 @@ function LoginForm() {
                     setErrorMessage(null);
                     setSuccessMessage(null);
                   }}
-                  className="text-xs font-semibold text-night hover:text-imperial transition-colors"
+                  className="text-xs font-bold text-royal-maroon hover:underline transition-colors"
                 >
                   ← Back to Sign In
                 </button>
@@ -436,15 +436,15 @@ function LoginForm() {
           {/* Feature Perks */}
           <div className="pt-6 border-t border-surface-border mt-8 space-y-3">
             <div className="flex items-center gap-2.5 text-xs text-night-muted">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-royal-maroon shrink-0" />
               <span>Instant profile setup & role readiness scoring</span>
             </div>
             <div className="flex items-center gap-2.5 text-xs text-night-muted">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-royal-maroon shrink-0" />
               <span>AI Mock Interview simulations with real-time feedback</span>
             </div>
             <div className="flex items-center gap-2.5 text-xs text-night-muted">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-royal-maroon shrink-0" />
               <span>Curated job opportunities synced directly with your skill gaps</span>
             </div>
           </div>
@@ -512,29 +512,29 @@ function LoginForm() {
             </div>
 
             {/* Code Body */}
-            <div className="p-5 font-mono text-xs sm:text-sm bg-night-950 text-emerald-400 overflow-x-auto leading-relaxed">
+            <div className="p-5 font-mono text-xs sm:text-sm bg-black text-white overflow-x-auto leading-relaxed border-t-2 border-border">
               {activeTab === "typescript" ? (
                 <>
-                  <div className="text-night-muted">{"// 1. Initialize candidate skill assessment"}</div>
-                  <div><span className="text-purple-400">import</span> &#123; createClient &#125; <span className="text-purple-400">from</span> <span className="text-amber-300">&apos;@learn-2-hire/sdk&apos;</span>;</div>
-                  <div className="mt-2"><span className="text-blue-400">const</span> client = <span className="text-yellow-300">createClient</span>();</div>
-                  <div className="mt-2"><span className="text-blue-400">const</span> evaluation = <span className="text-purple-400">await</span> client.assessCandidate(&#123;</div>
-                  <div className="pl-4">role: <span className="text-amber-300">&quot;Full Stack & Cloud Engineer&quot;</span>,</div>
-                  <div className="pl-4">skills: [<span className="text-amber-300">&quot;Next.js&quot;</span>, <span className="text-amber-300">&quot;PostgreSQL&quot;</span>, <span className="text-amber-300">&quot;Supabase&quot;</span>, <span className="text-amber-300">&quot;Docker&quot;</span>],</div>
-                  <div className="pl-4">verifiedMatchScore: <span className="text-cyan-300">96.8</span></div>
+                  <div className="text-white/60">{"// 1. Initialize candidate skill assessment"}</div>
+                  <div><span className="text-electric-coral font-bold">import</span> &#123; createClient &#125; <span className="text-electric-coral font-bold">from</span> <span className="text-white/80">&apos;@learn-2-hire/sdk&apos;</span>;</div>
+                  <div className="mt-2"><span className="text-electric-coral font-bold">const</span> client = <span className="text-white font-bold">createClient</span>();</div>
+                  <div className="mt-2"><span className="text-electric-coral font-bold">const</span> evaluation = <span className="text-electric-coral font-bold">await</span> client.assessCandidate(&#123;</div>
+                  <div className="pl-4">role: <span className="text-white/90">&quot;Full Stack & Cloud Engineer&quot;</span>,</div>
+                  <div className="pl-4">skills: [<span className="text-white/90">&quot;Next.js&quot;</span>, <span className="text-white/90">&quot;PostgreSQL&quot;</span>, <span className="text-white/90">&quot;Supabase&quot;</span>, <span className="text-white/90">&quot;Docker&quot;</span>],</div>
+                  <div className="pl-4">verifiedMatchScore: <span className="text-electric-coral font-extrabold">96.8</span></div>
                   <div>&#125;);</div>
-                  <div className="mt-2 text-night-muted">{"// 2. Real-time hiring recommendation ready"}</div>
+                  <div className="mt-2 text-white/60">{"// 2. Real-time hiring recommendation ready"}</div>
                 </>
               ) : (
                 <>
-                  <div className="text-night-muted">{"# 1. Initialize candidate skill assessment"}</div>
-                  <div><span className="text-purple-400">from</span> learn2hire <span className="text-purple-400">import</span> SkillEngine</div>
+                  <div className="text-white/60">{"# 1. Initialize candidate skill assessment"}</div>
+                  <div><span className="text-electric-coral font-bold">from</span> learn2hire <span className="text-electric-coral font-bold">import</span> SkillEngine</div>
                   <div className="mt-2">engine = SkillEngine(api_key=SUPABASE_SECRET)</div>
-                  <div className="mt-2">result = <span className="text-purple-400">await</span> engine.evaluate_interview(</div>
-                  <div className="pl-4">role=<span className="text-amber-300">&quot;AI & Data Engineer&quot;</span>,</div>
-                  <div className="pl-4">live_code_check=<span className="text-cyan-300">True</span></div>
+                  <div className="mt-2">result = <span className="text-electric-coral font-bold">await</span> engine.evaluate_interview(</div>
+                  <div className="pl-4">role=<span className="text-white/90">&quot;AI & Data Engineer&quot;</span>,</div>
+                  <div className="pl-4">live_code_check=<span className="text-electric-coral font-extrabold">True</span></div>
                   <div>)</div>
-                  <div className="mt-2 text-night-muted">{"# 2. Output: Ready for direct hiring pipeline"}</div>
+                  <div className="mt-2 text-white/60">{"# 2. Output: Ready for direct hiring pipeline"}</div>
                 </>
               )}
             </div>
@@ -561,7 +561,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-imperial" /></div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-electric-coral" /></div>}>
       <LoginForm />
     </Suspense>
   );

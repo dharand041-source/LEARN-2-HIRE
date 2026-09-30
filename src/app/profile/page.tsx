@@ -26,7 +26,7 @@ export default function CandidateProfilePage() {
       <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-xl bg-acid-yellow text-black flex items-center justify-center font-black text-2xl font-mono shrink-0 border-2 border-black shadow-editorial-xs">
+            <div className="w-16 h-16 rounded-xl bg-electric-coral text-black flex items-center justify-center font-black text-2xl font-mono shrink-0 border-2 border-black shadow-editorial-xs">
               {userProfile.name.charAt(0)}
             </div>
             <div className="space-y-1">
@@ -34,26 +34,26 @@ export default function CandidateProfilePage() {
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                   {userProfile.name}
                 </h1>
-                <span className="px-2 py-0.5 rounded bg-fire-red text-white text-[11px] font-mono font-extrabold border border-black">
+                <span className="px-2 py-0.5 rounded bg-electric-coral text-black text-[11px] font-mono font-extrabold border border-black">
                   Verified Candidate
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-acid-yellow font-mono font-extrabold">
+              <p className="text-xs sm:text-sm text-electric-coral font-mono font-extrabold">
                 Target Role: {userProfile.targetRole}
               </p>
               <div className="flex flex-wrap items-center gap-3 text-xs text-white/70 pt-1 font-mono font-medium">
-                <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-acid-yellow" /> {userProfile.email}</span>
+                <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-electric-coral" /> {userProfile.email}</span>
                 <span>•</span>
                 <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-white" /> {resumeData.personalInfo.location || "India"}</span>
                 <span>•</span>
-                <span className="flex items-center gap-1 text-fire-red font-bold"><Flame className="w-3.5 h-3.5 text-fire-red fill-fire-red" /> {userProfile.streakDays}-Day Streak</span>
+                <span className="flex items-center gap-1 text-electric-coral font-bold"><Flame className="w-3.5 h-3.5 text-electric-coral fill-electric-coral" /> {userProfile.streakDays}-Day Streak</span>
               </div>
             </div>
           </div>
 
           <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-white/20">
             <div className="text-right">
-              <span className="text-4xl sm:text-5xl font-extrabold font-mono text-acid-yellow">{userProfile.readinessScore}%</span>
+              <span className="text-4xl sm:text-5xl font-extrabold font-mono text-electric-coral">{userProfile.readinessScore}%</span>
               <p className="text-[10px] text-white/70 uppercase font-mono font-extrabold tracking-wider">Readiness Score</p>
             </div>
             <Link href="/settings">
@@ -81,7 +81,7 @@ export default function CandidateProfilePage() {
                   <span className="text-muted-foreground">Technical Assessment</span>
                   <span className="text-foreground">{userProfile.readinessBreakdown.technicalSkills}%</span>
                 </div>
-                <ProgressBar value={userProfile.readinessBreakdown.technicalSkills} size="sm" variant="yellow" />
+                <ProgressBar value={userProfile.readinessBreakdown.technicalSkills} size="sm" variant="coral" />
               </div>
 
               <div className="space-y-1">
@@ -105,7 +105,7 @@ export default function CandidateProfilePage() {
                   <span className="text-muted-foreground">Voice Defense (STAR)</span>
                   <span className="text-foreground">{userProfile.readinessBreakdown.interview}%</span>
                 </div>
-                <ProgressBar value={userProfile.readinessBreakdown.interview} size="sm" variant="violet" />
+                <ProgressBar value={userProfile.readinessBreakdown.interview} size="sm" variant="maroon" />
               </div>
 
               <div className="space-y-1">
@@ -113,7 +113,7 @@ export default function CandidateProfilePage() {
                   <span className="text-muted-foreground">ATS Resume Quality</span>
                   <span className="text-foreground">{userProfile.readinessBreakdown.resume}%</span>
                 </div>
-                <ProgressBar value={userProfile.readinessBreakdown.resume} size="sm" variant="red" />
+                <ProgressBar value={userProfile.readinessBreakdown.resume} size="sm" variant="maroon" />
               </div>
 
               <div className="space-y-1">
@@ -121,7 +121,7 @@ export default function CandidateProfilePage() {
                   <span className="text-muted-foreground">Career & Skill Match Fit</span>
                   <span className="text-foreground">{userProfile.readinessBreakdown.careerFit}%</span>
                 </div>
-                <ProgressBar value={userProfile.readinessBreakdown.careerFit} size="sm" variant="yellow" />
+                <ProgressBar value={userProfile.readinessBreakdown.careerFit} size="sm" variant="coral" />
               </div>
             </div>
           </Card>
@@ -151,7 +151,7 @@ export default function CandidateProfilePage() {
                     </div>
                   </div>
                   {ach.unlockedAt ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 ml-2" />
+                    <CheckCircle2 className="w-4 h-4 text-electric-coral stroke-[2.5] shrink-0 ml-2" />
                   ) : (
                     <span className="text-[10px] font-mono font-bold text-muted-foreground">{ach.progress}/{ach.maxProgress}</span>
                   )}
@@ -230,7 +230,7 @@ export default function CandidateProfilePage() {
                     <span className="font-bold text-foreground">{skill.name}</span>
                     <span className="font-extrabold text-foreground">{skill.score}</span>
                   </div>
-                  <span className={`text-[10px] font-mono font-bold ${skill.status === "Verified" ? "text-foreground font-black" : "text-fire-red font-black"}`}>
+                  <span className={`text-[10px] font-mono font-bold ${skill.status === "Verified" ? "text-foreground font-black" : "text-royal-maroon font-black"}`}>
                     • {skill.status}
                   </span>
                 </div>

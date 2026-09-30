@@ -35,11 +35,11 @@ export default function AdvancedAssessmentPage() {
 
   return (
     <div className="space-y-8 animate-fade-in bg-white">
-      {/* Bold Fire Red Hero Section */}
-      <div className="rounded-2xl bg-fire-red text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
+      {/* Bold Royal Maroon Hero Section */}
+      <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-yellow border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-coral border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
               <span>Phase 05 // Verification</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
@@ -52,7 +52,7 @@ export default function AdvancedAssessmentPage() {
 
           <div className="flex items-center gap-3 shrink-0">
             <Link href="/projects">
-              <button className="px-5 py-3 rounded-lg bg-electric-yellow hover:bg-white text-black border-2 border-black font-extrabold text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
+              <button className="px-5 py-3 rounded-lg bg-electric-coral hover:bg-black hover:text-white text-black border-2 border-black font-extrabold text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
                 <span>View Production Projects</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -61,22 +61,22 @@ export default function AdvancedAssessmentPage() {
         </div>
 
         {/* Readiness Qualification Status Banner inside Hero */}
-        <div className="p-4 sm:p-5 rounded-xl bg-black border-2 border-electric-yellow text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="p-4 sm:p-5 rounded-xl bg-black border-2 border-electric-coral text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-lg bg-electric-yellow text-black flex items-center justify-center font-bold shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-electric-coral text-black flex items-center justify-center font-bold shrink-0">
               <ShieldAlert className="w-5 h-5 text-black" />
             </div>
             <div>
               <p className="text-xs font-extrabold text-white">
-                Candidate Readiness Threshold: <span className="text-electric-yellow font-mono text-sm">{userProfile.readinessScore}%</span> / 70% Required
+                Candidate Readiness Threshold: <span className="text-electric-coral font-mono text-sm">{userProfile.readinessScore}%</span> / 70% Required
               </p>
               <p className="text-[11px] text-white/70 mt-0.5 font-medium">
-                You have met the foundational benchmark for <strong className="text-electric-yellow">{selectedRole.title}</strong>. 2 of 4 advanced assessments are unlocked.
+                You have met the foundational benchmark for <strong className="text-electric-coral">{selectedRole.title}</strong>. 2 of 4 advanced assessments are unlocked.
               </p>
             </div>
           </div>
 
-          <div className="px-3 py-1 rounded-md bg-electric-yellow text-black text-xs font-mono font-extrabold border border-black shrink-0">
+          <div className="px-3 py-1 rounded-md bg-electric-coral text-black text-xs font-mono font-extrabold border border-black shrink-0">
             Senior Verification Track
           </div>
         </div>
@@ -89,13 +89,13 @@ export default function AdvancedAssessmentPage() {
             key={mod.id}
             className={`p-6 rounded-xl border flex flex-col justify-between transition-all duration-150 bg-white ${
               mod.unlocked
-                ? "border-border hover:border-foreground shadow-card-clean hover:shadow-editorial-sm border-l-4 border-l-electric-yellow"
+                ? "border-border hover:border-foreground shadow-card-clean hover:shadow-editorial-sm border-l-4 border-l-electric-coral"
                 : "border-border/60 opacity-60 bg-surface"
             }`}
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <Badge variant={mod.unlocked ? "electric-yellow" : "neutral"} size="sm">
+                <Badge variant={mod.unlocked ? "coral" : "neutral"} size="sm">
                   {mod.category}
                 </Badge>
                 <div className="flex items-center gap-2 text-xs font-mono text-muted font-bold">
@@ -146,7 +146,7 @@ export default function AdvancedAssessmentPage() {
                   size="sm"
                   className="w-full gap-2 text-xs font-extrabold"
                 >
-                  <Unlock className="w-3.5 h-3.5 text-electric-yellow" />
+                  <Unlock className="w-3.5 h-3.5 text-electric-coral" />
                   <span>Launch Advanced Assessment</span>
                 </Button>
               ) : (
@@ -181,15 +181,15 @@ export default function AdvancedAssessmentPage() {
               </p>
               <ul className="space-y-1.5 pl-1 font-medium">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-imperial" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-royal-maroon" />
                   <span>Real V8 CPU flamegraph and memory snapshot visualizer.</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-imperial" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-royal-maroon" />
                   <span>PostgreSQL sandbox with 1,000,000 synthetic rows for EXPLAIN ANALYZE tuning.</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-imperial" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-royal-maroon" />
                   <span>Isolated sandbox container with automated timeout enforcement.</span>
                 </li>
               </ul>
@@ -198,7 +198,7 @@ export default function AdvancedAssessmentPage() {
             {simulatedTestProgress && (
               <div className="p-4 rounded-lg bg-surface-subtle border border-night text-night text-xs space-y-1 animate-slide-up shadow-sm">
                 <p className="font-bold flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-imperial" />
+                  <CheckCircle2 className="w-4 h-4 text-royal-maroon" />
                   Assessment Simulation Passed (Score: 86%)!
                 </p>
                 <p className="text-[11px] text-muted font-medium">

@@ -41,14 +41,14 @@ export function ExternalApplyModal() {
     >
       <div className="space-y-4 text-xs font-sans">
         {/* Notice Alert */}
-        <div className="p-3.5 rounded-lg bg-editorial-gold/20 border-2 border-foreground text-foreground space-y-1.5">
-          <div className="flex items-center gap-2 text-foreground font-bold text-xs uppercase font-mono">
+        <div className="p-3.5 rounded-lg bg-electric-coral border-2 border-foreground text-black space-y-1.5">
+          <div className="flex items-center gap-2 text-black font-bold text-xs uppercase font-mono">
             <Info className="w-4 h-4 shrink-0" />
             <span>Official Application Notice</span>
           </div>
-          <p className="text-[11px] text-foreground leading-relaxed font-medium">
+          <p className="text-[11px] text-black leading-relaxed font-medium">
             You are about to leave Learn-2-Hire and continue on the external employer destination:{" "}
-            <strong className="text-foreground font-mono font-bold">{domain}</strong>.
+            <strong className="text-black font-mono font-bold">{domain}</strong>.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export function ExternalApplyModal() {
               </span>
               <h4 className="text-sm font-bold text-foreground">{job.title}</h4>
             </div>
-            <Badge variant="gold" size="sm">
+            <Badge variant="coral" size="sm">
               {job.opportunityType}
             </Badge>
           </div>
@@ -99,7 +99,7 @@ export function ExternalApplyModal() {
         {/* Transparent Policy */}
         <div className="p-3 rounded-lg bg-surface border-2 border-border text-[11px] text-muted-foreground leading-relaxed space-y-1">
           <div className="flex items-center gap-1.5 text-foreground font-bold text-xs">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <ShieldCheck className="w-4 h-4 text-electric-coral stroke-[2.5]" />
             <span>Zero Automated Form-Filling Guarantee</span>
           </div>
           <p>
@@ -114,7 +114,7 @@ export function ExternalApplyModal() {
             Cancel
           </Button>
           <Button
-            variant="gold"
+            variant="coral"
             size="sm"
             onClick={confirmExternalApplyRedirect}
             className="gap-2 font-bold shadow-editorial-sm"

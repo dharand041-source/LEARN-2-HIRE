@@ -207,7 +207,7 @@ export default function VoiceInterviewSessionPage() {
           </Link>
           <div className="h-5 w-[2px] bg-border hidden sm:block" />
           <div className="hidden sm:flex items-center gap-2">
-            <Radio className="w-3.5 h-3.5 text-editorial-violet animate-pulse" />
+            <Radio className="w-3.5 h-3.5 text-royal-maroon animate-pulse" />
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-foreground">
               Voice Technical Simulation
             </span>
@@ -238,14 +238,14 @@ export default function VoiceInterviewSessionPage() {
 
           {/* Session Timer */}
           <div className="flex items-center gap-1.5 px-3 py-1 rounded-sm bg-surface border-2 border-border text-foreground font-mono text-xs font-extrabold">
-            <Clock className="w-3.5 h-3.5 text-editorial-violet" />
+            <Clock className="w-3.5 h-3.5 text-royal-maroon" />
             <span>{formatTimer(elapsedSeconds)}</span>
           </div>
 
           {/* Next / Submit */}
           <Button
             onClick={handleNextOrSubmit}
-            variant="violet"
+            variant="coral"
             size="sm"
             className="text-xs font-bold shadow-editorial-sm"
           >
@@ -258,14 +258,14 @@ export default function VoiceInterviewSessionPage() {
       <div className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-8 flex flex-col justify-between space-y-6">
         {/* Error Notification Banners */}
         {micErrorMessage && (
-          <div className="p-3.5 rounded-lg bg-editorial-red/10 border-2 border-editorial-red text-xs text-foreground flex items-center justify-between gap-3 font-medium">
+          <div className="p-3.5 rounded-lg bg-royal-maroon/10 border-2 border-royal-maroon text-xs text-foreground flex items-center justify-between gap-3 font-medium">
             <div className="flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-editorial-red" />
+              <AlertCircle className="w-4 h-4 shrink-0 text-royal-maroon" />
               <span>{micErrorMessage}</span>
             </div>
             <button
               onClick={clearMicError}
-              className="text-editorial-red hover:underline font-bold text-xs uppercase font-mono"
+              className="text-royal-maroon hover:underline font-bold text-xs uppercase font-mono"
             >
               Dismiss
             </button>
@@ -273,7 +273,7 @@ export default function VoiceInterviewSessionPage() {
         )}
 
         {synthErrorMessage && (
-          <div className="p-3.5 rounded-lg bg-editorial-gold/15 border-2 border-editorial-gold text-xs text-foreground flex items-center gap-2 font-medium">
+          <div className="p-3.5 rounded-lg bg-electric-coral/15 border-2 border-electric-coral text-xs text-foreground flex items-center gap-2 font-medium">
             <AlertCircle className="w-4 h-4 shrink-0 text-foreground" />
             <span>{synthErrorMessage}</span>
           </div>
@@ -311,9 +311,9 @@ export default function VoiceInterviewSessionPage() {
                   key={i}
                   className={`w-1 rounded-none transition-all duration-200 ${
                     isRecording
-                      ? "bg-editorial-violet animate-pulse"
+                      ? "bg-electric-coral animate-pulse"
                       : isQuestionPlaying
-                      ? "bg-editorial-navy animate-pulse"
+                      ? "bg-royal-maroon animate-pulse"
                       : "bg-border"
                   }`}
                   style={{
@@ -330,7 +330,7 @@ export default function VoiceInterviewSessionPage() {
                 onClick={() => toggleQuestionSpeech(activeQuestion.question)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 text-xs font-bold transition-all shadow-editorial-sm ${
                   isQuestionPlaying
-                    ? "bg-editorial-violet text-white border-editorial-violet"
+                    ? "bg-royal-maroon text-white border-royal-maroon"
                     : "bg-white hover:bg-surface border-border text-foreground"
                 }`}
                 title="Listen to the question read aloud"
@@ -342,7 +342,7 @@ export default function VoiceInterviewSessionPage() {
                   </>
                 ) : (
                   <>
-                    <Volume2 className="w-3.5 h-3.5 text-editorial-violet" />
+                    <Volume2 className="w-3.5 h-3.5 text-royal-maroon" />
                     <span>Replay Question Audio</span>
                   </>
                 )}
@@ -361,7 +361,7 @@ export default function VoiceInterviewSessionPage() {
 
               {/* Status Indicator */}
               {isRecording ? (
-                <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-editorial-violet text-white text-xs font-bold animate-pulse">
+                <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-royal-maroon text-white text-xs font-bold animate-pulse">
                   <span className="w-2 h-2 rounded-full bg-white" /> Recording Live...
                 </span>
               ) : (
@@ -375,7 +375,7 @@ export default function VoiceInterviewSessionPage() {
               <button
                 type="button"
                 onClick={() => setShowKeyPoints(!showKeyPoints)}
-                className="text-xs text-editorial-violet hover:underline flex items-center gap-1 font-bold"
+                className="text-xs text-royal-maroon hover:underline flex items-center gap-1 font-bold"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span>{showKeyPoints ? "Hide Key Points" : "View Expected Key Points"}</span>
@@ -385,7 +385,7 @@ export default function VoiceInterviewSessionPage() {
                 <button
                   type="button"
                   onClick={handleClearAnswer}
-                  className="text-xs text-muted-foreground hover:text-editorial-red flex items-center gap-1 font-bold transition-colors font-mono"
+                  className="text-xs text-muted-foreground hover:text-royal-maroon flex items-center gap-1 font-bold transition-colors font-mono"
                   title="Clear typed and spoken answer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -402,7 +402,7 @@ export default function VoiceInterviewSessionPage() {
               <ul className="space-y-1 pl-1 text-[11px] text-foreground font-medium">
                 {activeQuestion.idealPoints.map((pt, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-editorial-violet font-bold font-mono">▶</span>
+                    <span className="text-royal-maroon font-bold font-mono">▶</span>
                     <span>{pt}</span>
                   </li>
                 ))}
@@ -417,15 +417,15 @@ export default function VoiceInterviewSessionPage() {
               onChange={(e) => setCandidateResponse(e.target.value)}
               rows={6}
               placeholder="Click 'Record Voice Answer' below to speak your response, or type your technical answer directly here..."
-              className="w-full p-4 rounded-lg bg-white border-2 border-border text-sm text-foreground focus:outline-none focus:border-editorial-violet resize-y leading-relaxed font-sans placeholder:text-muted-foreground shadow-inner"
+              className="w-full p-4 rounded-lg bg-white border-2 border-border text-sm text-foreground focus:outline-none focus:border-royal-maroon resize-y leading-relaxed font-sans placeholder:text-muted-foreground shadow-inner"
             />
 
             {/* Interim Speech Preview */}
             {interimTranscript && isRecording && (
-              <div className="mt-2 p-3 rounded-lg bg-surface border-2 border-editorial-violet text-xs text-foreground flex items-start gap-2.5">
-                <span className="w-2 h-2 rounded-full bg-editorial-violet animate-ping mt-1 shrink-0" />
+              <div className="mt-2 p-3 rounded-lg bg-surface border-2 border-royal-maroon text-xs text-foreground flex items-start gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-royal-maroon animate-ping mt-1 shrink-0" />
                 <div className="leading-relaxed">
-                  <span className="font-bold text-editorial-violet mr-1.5 uppercase font-mono">Live Stream:</span>
+                  <span className="font-bold text-royal-maroon mr-1.5 uppercase font-mono">Live Stream:</span>
                   <span className="italic font-medium">{interimTranscript}</span>
                 </div>
               </div>
@@ -441,8 +441,8 @@ export default function VoiceInterviewSessionPage() {
                 onClick={toggleListening}
                 className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-bold text-xs transition-all shadow-editorial-sm ${
                   isRecording
-                    ? "bg-editorial-violet text-white animate-pulse"
-                    : "bg-white text-foreground hover:bg-surface border-2 border-border hover:border-editorial-violet"
+                    ? "bg-royal-maroon text-white animate-pulse"
+                    : "bg-white text-foreground hover:bg-surface border-2 border-border hover:border-royal-maroon"
                 }`}
                 title={isRecording ? "Stop recording speech" : "Start speaking your answer"}
               >
@@ -453,7 +453,7 @@ export default function VoiceInterviewSessionPage() {
                   </>
                 ) : (
                   <>
-                    <Mic className="w-4 h-4 text-editorial-violet" />
+                    <Mic className="w-4 h-4 text-royal-maroon" />
                     <span>RECORD VOICE ANSWER</span>
                   </>
                 )}
@@ -485,7 +485,7 @@ export default function VoiceInterviewSessionPage() {
 
               <Button
                 type="button"
-                variant="violet"
+                variant="coral"
                 onClick={handleNextOrSubmit}
                 size="md"
                 className="gap-2 font-bold text-xs shadow-editorial-sm"

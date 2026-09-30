@@ -99,7 +99,7 @@ export default function ProjectEvaluationPage() {
 
             <div className="relative inline-flex items-center justify-center">
               <div className="w-36 h-36 rounded-lg border-3 border-foreground flex flex-col items-center justify-center bg-surface shadow-editorial-md">
-                <span className="text-5xl font-extrabold font-mono text-editorial-navy">
+                <span className="text-5xl font-extrabold font-mono text-royal-maroon">
                   {evaluation.overallScore}
                 </span>
                 <span className="text-[11px] text-muted-foreground uppercase font-mono font-bold">/ 100</span>
@@ -107,7 +107,7 @@ export default function ProjectEvaluationPage() {
             </div>
 
             <div className="p-3.5 rounded-lg bg-surface border-2 border-border text-xs text-foreground text-left space-y-1.5 leading-relaxed">
-              <p className="font-bold uppercase font-mono text-[11px] flex items-center gap-1.5 text-editorial-navy">
+              <p className="font-bold uppercase font-mono text-[11px] flex items-center gap-1.5 text-royal-maroon">
                 <Sparkles className="w-3.5 h-3.5" />
                 Employment Portfolio Verdict
               </p>
@@ -120,7 +120,7 @@ export default function ProjectEvaluationPage() {
 
             <div className="pt-2 border-t-2 border-border flex items-center justify-between text-xs font-mono font-bold">
               <span className="text-muted-foreground">Status: Verified</span>
-              <span className="text-editorial-navy">+350 XP Awarded</span>
+              <span className="text-electric-coral">+350 XP Awarded</span>
             </div>
 
             <Link href={`/projects/${project.id}`} className="block w-full">
@@ -148,9 +148,9 @@ export default function ProjectEvaluationPage() {
                 <div key={i} className="p-3.5 rounded-lg bg-surface border-2 border-border space-y-2">
                   <div className="flex items-center justify-between text-xs font-mono font-bold">
                     <span className="text-foreground">{item.criterion}</span>
-                    <span className="text-editorial-navy">{item.score} / {item.maxScore}</span>
+                    <span className="text-royal-maroon">{item.score} / {item.maxScore}</span>
                   </div>
-                  <ProgressBar value={(item.score / item.maxScore) * 100} size="sm" variant="navy" />
+                  <ProgressBar value={(item.score / item.maxScore) * 100} size="sm" variant="maroon" />
                   <p className="text-[11px] text-muted-foreground leading-relaxed">{item.feedback}</p>
                 </div>
               ))}
@@ -159,9 +159,9 @@ export default function ProjectEvaluationPage() {
 
           {/* Strengths & Improvement Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-emerald-600">
-              <div className="flex items-center gap-2 text-emerald-700">
-                <CheckCircle2 className="w-4 h-4" />
+            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-electric-coral">
+              <div className="flex items-center gap-2 text-electric-coral">
+                <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
                 <h3 className="text-xs font-bold uppercase font-mono tracking-wider">
                   Verified Strengths
                 </h3>
@@ -169,15 +169,15 @@ export default function ProjectEvaluationPage() {
               <ul className="space-y-2 text-xs text-foreground font-medium">
                 {evaluation.strengths.map((str, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold font-mono">✓</span>
+                    <span className="text-electric-coral font-bold font-mono">✓</span>
                     <span>{str}</span>
                   </li>
                 ))}
               </ul>
             </Card>
 
-            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-editorial-red">
-              <div className="flex items-center gap-2 text-editorial-red">
+            <Card variant="editorial" className="p-5 space-y-3 border-l-4 border-l-royal-maroon">
+              <div className="flex items-center gap-2 text-royal-maroon">
                 <AlertTriangle className="w-4 h-4" />
                 <h3 className="text-xs font-bold uppercase font-mono tracking-wider">
                   Areas For Improvement
@@ -186,7 +186,7 @@ export default function ProjectEvaluationPage() {
               <ul className="space-y-2 text-xs text-foreground font-medium">
                 {evaluation.areasToImprove.map((area, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-editorial-red font-bold font-mono">▶</span>
+                    <span className="text-royal-maroon font-bold font-mono">▶</span>
                     <span>{area}</span>
                   </li>
                 ))}
@@ -196,7 +196,7 @@ export default function ProjectEvaluationPage() {
 
           {/* Recommended Next Actions */}
           <Card variant="editorial" className="p-5 space-y-4">
-            <h3 className="text-xs font-bold uppercase font-mono tracking-wider text-editorial-navy flex items-center gap-2 border-b-2 border-border pb-3">
+            <h3 className="text-xs font-bold uppercase font-mono tracking-wider text-royal-maroon flex items-center gap-2 border-b-2 border-border pb-3">
               <Zap className="w-4 h-4" />
               Recommended Next Career Steps
             </h3>
@@ -206,10 +206,10 @@ export default function ProjectEvaluationPage() {
                   <p className="text-foreground font-medium leading-relaxed">{step}</p>
                   <Link
                     href={i === 0 ? "/resume" : "/learning"}
-                    className="mt-3 text-[11px] font-bold text-editorial-navy hover:underline flex items-center gap-1 font-mono"
+                    className="mt-3 text-[11px] font-bold text-royal-maroon hover:underline flex items-center gap-1 font-mono"
                   >
                     <span>{i === 0 ? "Open Resume Builder" : "Start Learning Path"}</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               ))}

@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 :root {
-  /* Approved Six-Color Visual System */
-  --color-ultra-violet: #7F00FF;
-  --color-acid-yellow: #EFFF00;
-  --color-fire-red: #E62727;
-  --color-electric-yellow: #FFDE00;
+  /* Strict Two-Color Brand System */
+  --electric-coral: #FF6332;
+  --royal-maroon: #5E0000;
+  --black: #000000;
+  --white: #FFFFFF;
+
   --color-electric-coral: #FF6332;
   --color-royal-maroon: #5E0000;
   --color-black: #000000;
@@ -20,25 +21,29 @@
   --color-muted: #666666;
   --color-border: #000000;
 
-  /* Semantic Section Accents */
-  --accent-dashboard: #7F00FF;
-  --accent-career: #7F00FF;
-  --accent-assessment: #E62727;
-  --accent-learning: #7F00FF;
-  --accent-advanced-assessment: #E62727;
+  /* Semantic Section Accents mapped strictly to Royal Maroon and Electric Coral */
+  --accent-dashboard: #5E0000;
+  --accent-career: #5E0000;
+  --accent-assessment: #5E0000;
+  --accent-learning: #5E0000;
+  --accent-advanced-assessment: #5E0000;
   --accent-projects: #FF6332;
-  --accent-problem-solving: #E62727;
+  --accent-problem-solving: #5E0000;
   --accent-interview: #5E0000;
   --accent-resume: #5E0000;
   --accent-opportunities: #5E0000;
-  --accent-applications: #E62727;
-  --accent-feedback: #E62727;
+  --accent-applications: #FF6332;
+  --accent-feedback: #5E0000;
 
-  /* Backward Compatibility Tokens */
-  --color-honey-gold: #FFDE00;
+  /* Fallback aliases mapping old tokens strictly to Coral or Maroon */
+  --color-ultra-violet: #5E0000;
+  --color-acid-yellow: #FF6332;
+  --color-fire-red: #5E0000;
+  --color-electric-yellow: #FF6332;
+  --color-honey-gold: #FF6332;
   --color-deep-navy: #5E0000;
   --color-night: #000000;
-  --color-imperial: #E62727;
+  --color-imperial: #5E0000;
   --color-soft-gray: #F7F7F5;
 }
 

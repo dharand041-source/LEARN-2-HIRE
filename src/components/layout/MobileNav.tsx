@@ -36,11 +36,11 @@ function MobileNavComponent() {
             className={cn(
               "flex flex-col items-center justify-center py-1 px-3 rounded-lg transition-colors text-[10px] font-bold gap-1",
               isActive
-                ? "text-acid-yellow font-black"
+                ? "text-electric-coral font-black"
                 : "text-white/70 hover:text-white"
             )}
           >
-            <Icon className={cn("w-4 h-4", isActive ? "text-acid-yellow stroke-[2.5]" : "text-white/70")} />
+            <Icon className={cn("w-4 h-4", isActive ? "text-electric-coral stroke-[2.5]" : "text-white/70")} />
             <span>{item.label}</span>
           </Link>
         );

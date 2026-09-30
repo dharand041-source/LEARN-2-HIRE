@@ -31,35 +31,32 @@ export function Badge({ className, variant = "neutral", size = "sm", children, .
   const baseStyles = "inline-flex items-center font-bold rounded-md transition-colors select-none";
 
   const variants = {
-    // Ultra Violet
-    "ultra-violet": "bg-ultra-violet text-white border border-black font-extrabold",
-    violet: "bg-ultra-violet text-white border border-black font-extrabold",
-    // Acid Yellow
-    "acid-yellow": "bg-acid-yellow text-black border border-black font-extrabold",
-    acid: "bg-acid-yellow text-black border border-black font-extrabold",
-    // Fire Red
-    "fire-red": "bg-fire-red text-white border border-black font-extrabold",
-    red: "bg-fire-red text-white border border-black font-extrabold",
-    imperial: "bg-fire-red text-white border border-black font-extrabold",
-    rose: "bg-fire-red text-white border border-black font-extrabold",
-    // Electric Yellow
-    "electric-yellow": "bg-electric-yellow text-black border border-black font-extrabold",
-    yellow: "bg-electric-yellow text-black border border-black font-extrabold",
-    "honey-gold": "bg-electric-yellow text-black border border-black font-extrabold",
-    gold: "bg-electric-yellow text-black border border-black font-extrabold",
-    champagne: "bg-electric-yellow text-black border border-black font-extrabold",
-    // Electric Coral
-    "electric-coral": "bg-electric-coral text-white border border-black font-extrabold",
-    coral: "bg-electric-coral text-white border border-black font-extrabold",
-    // Royal Maroon
+    // Electric Coral (Energetic / Primary Accent) - Black text
+    "electric-coral": "bg-electric-coral text-black border border-black font-black",
+    coral: "bg-electric-coral text-black border border-black font-black",
+    // Royal Maroon (Deep Primary Surface) - White text
     "royal-maroon": "bg-royal-maroon text-white border border-black font-extrabold",
     maroon: "bg-royal-maroon text-white border border-black font-extrabold",
     "deep-navy": "bg-royal-maroon text-white border border-black font-extrabold",
     navy: "bg-royal-maroon text-white border border-black font-extrabold",
-    // Neutrals
+    // Fallback mappings for old tokens mapped strictly to Coral or Maroon
+    "ultra-violet": "bg-royal-maroon text-white border border-black font-extrabold",
+    violet: "bg-royal-maroon text-white border border-black font-extrabold",
+    "acid-yellow": "bg-electric-coral text-black border border-black font-black",
+    acid: "bg-electric-coral text-black border border-black font-black",
+    "fire-red": "bg-royal-maroon text-white border border-black font-extrabold",
+    red: "bg-royal-maroon text-white border border-black font-extrabold",
+    imperial: "bg-royal-maroon text-white border border-black font-extrabold",
+    rose: "bg-royal-maroon text-white border border-black font-extrabold",
+    "electric-yellow": "bg-electric-coral text-black border border-black font-black",
+    yellow: "bg-electric-coral text-black border border-black font-black",
+    "honey-gold": "bg-electric-coral text-black border border-black font-black",
+    gold: "bg-electric-coral text-black border border-black font-black",
+    champagne: "bg-electric-coral text-black border border-black font-black",
+    // Neutrals: Black, White, Outline
     night: "bg-black text-white border border-black font-extrabold",
-    neutral: "bg-surface text-black border border-black font-bold",
-    success: "bg-white text-black border border-black font-extrabold",
+    neutral: "bg-white text-black border border-black font-bold",
+    success: "bg-electric-coral text-black border border-black font-black",
     outline: "bg-transparent text-foreground border border-black font-bold",
   };
 

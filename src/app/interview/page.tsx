@@ -28,7 +28,7 @@ export default function InterviewHubPage() {
       <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-yellow border-2 border-black text-xs font-mono font-black uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-coral border-2 border-black text-xs font-mono font-black uppercase tracking-widest">
               <span>Phase 09 // Voice Defense</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight text-white leading-tight">
@@ -41,7 +41,7 @@ export default function InterviewHubPage() {
 
           <div className="flex items-center gap-3 shrink-0">
             <Link href="/interview/session">
-              <button className="px-6 py-3.5 rounded-lg bg-electric-yellow hover:bg-white text-black border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
+              <button className="px-6 py-3.5 rounded-lg bg-electric-coral hover:bg-white text-black border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
                 <Radio className="w-4 h-4 text-black animate-pulse stroke-[2.5]" />
                 <span>Launch Voice Interview</span>
               </button>
@@ -52,12 +52,12 @@ export default function InterviewHubPage() {
         {/* Live Audio & Readiness Telemetry Bar (High Contrast Black Surfaces) */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t-2 border-white/20">
           <div className="p-4 rounded-xl bg-black border-2 border-black text-white flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-electric-yellow text-black flex items-center justify-center font-bold shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-electric-coral text-black flex items-center justify-center font-bold shrink-0">
               <Mic className="w-5 h-5 text-black stroke-[2.5]" />
             </div>
             <div>
               <p className="text-[10px] text-white/70 uppercase font-mono font-bold tracking-wider">Voice Analyzer</p>
-              <p className="text-sm font-black text-electric-yellow font-mono">STAR + Architecture Mode</p>
+              <p className="text-sm font-black text-electric-coral font-mono">STAR + Architecture Mode</p>
             </div>
           </div>
 
@@ -72,12 +72,12 @@ export default function InterviewHubPage() {
           </div>
 
           <div className="p-4 rounded-xl bg-black border-2 border-black text-white flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-electric-yellow text-black flex items-center justify-center font-bold shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-electric-coral text-black flex items-center justify-center font-bold shrink-0">
               <CheckCircle2 className="w-5 h-5 text-black stroke-[2.5]" />
             </div>
             <div>
               <p className="text-[10px] text-white/70 uppercase font-mono font-bold tracking-wider">Candidate Defense</p>
-              <p className="text-sm font-black text-electric-yellow font-mono">Verified Scorecards</p>
+              <p className="text-sm font-black text-electric-coral font-mono">Verified Scorecards</p>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function InterviewHubPage() {
               </div>
 
               <Link href="/interview/results">
-                <Button variant="secondary" size="sm" className="gap-1.5 text-xs font-black">
+                <Button variant="coral" size="sm" className="gap-1.5 text-xs font-black">
                   <span>Full Critique</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Button>
@@ -132,13 +132,13 @@ export default function InterviewHubPage() {
             <div className="p-3.5 rounded-lg bg-surface border-2 border-black space-y-2">
               <span className="text-[10px] uppercase font-mono font-bold text-black/70">Problem Solving</span>
               <p className="text-base font-black text-black font-mono">{latestSession.scores.problemSolving}%</p>
-              <ProgressBar value={latestSession.scores.problemSolving} size="sm" variant="fire-red" />
+              <ProgressBar value={latestSession.scores.problemSolving} size="sm" variant="coral" />
             </div>
 
             <div className="p-3.5 rounded-lg bg-surface border-2 border-black space-y-2">
               <span className="text-[10px] uppercase font-mono font-bold text-black/70">Communication</span>
               <p className="text-base font-black text-black font-mono">{latestSession.scores.communication}%</p>
-              <ProgressBar value={latestSession.scores.communication} size="sm" variant="yellow" />
+              <ProgressBar value={latestSession.scores.communication} size="sm" variant="maroon" />
             </div>
 
             <div className="p-3.5 rounded-lg bg-surface border-2 border-black space-y-2">
@@ -150,7 +150,7 @@ export default function InterviewHubPage() {
             <div className="p-3.5 rounded-lg bg-surface border-2 border-black space-y-2">
               <span className="text-[10px] uppercase font-mono font-bold text-black/70">Project Defense</span>
               <p className="text-base font-black text-black font-mono">{latestSession.scores.projectExplanation}%</p>
-              <ProgressBar value={latestSession.scores.projectExplanation} size="sm" variant="fire-red" />
+              <ProgressBar value={latestSession.scores.projectExplanation} size="sm" variant="coral" />
             </div>
           </div>
         </Card>

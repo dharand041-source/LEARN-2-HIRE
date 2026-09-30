@@ -41,15 +41,16 @@ export function Card({ className, variant = "default", glowing = false, children
     // Subtle surface card
     subtle: "bg-surface border border-border",
     // Highlighted card
-    highlighted: "bg-fire-red-50 border-2 border-fire-red shadow-sm",
-    // Approved 6-Color System Solid Surfaces
-    violet: "bg-ultra-violet text-white border-2 border-black shadow-editorial-sm",
-    acid: "bg-acid-yellow text-black border-2 border-black shadow-editorial-sm",
-    red: "bg-fire-red text-white border-2 border-black shadow-editorial-sm",
-    yellow: "bg-electric-yellow text-black border-2 border-black shadow-editorial-sm",
-    gold: "bg-electric-yellow text-black border-2 border-black shadow-editorial-sm",
-    coral: "bg-electric-coral text-white border-2 border-black shadow-editorial-sm",
+    highlighted: "bg-white border-2 border-electric-coral shadow-sm",
+    // Approved Solid Surfaces
+    coral: "bg-electric-coral text-black border-2 border-black shadow-editorial-sm",
     maroon: "bg-royal-maroon text-white border-2 border-black shadow-editorial-sm",
+    // Aliases mapped strictly to Coral or Maroon
+    violet: "bg-royal-maroon text-white border-2 border-black shadow-editorial-sm",
+    acid: "bg-electric-coral text-black border-2 border-black shadow-editorial-sm",
+    red: "bg-royal-maroon text-white border-2 border-black shadow-editorial-sm",
+    yellow: "bg-electric-coral text-black border-2 border-black shadow-editorial-sm",
+    gold: "bg-electric-coral text-black border-2 border-black shadow-editorial-sm",
   };
 
   return (
@@ -57,7 +58,7 @@ export function Card({ className, variant = "default", glowing = false, children
       className={cn(
         baseStyles,
         variants[variant],
-        glowing && "border-2 border-fire-red shadow-editorial-red",
+        glowing && "border-2 border-electric-coral shadow-editorial-sm",
         className
       )}
       {...props}

@@ -117,7 +117,7 @@ export default function ResumeBuilderPage() {
 
             <button
               onClick={handleSave}
-              className="px-5 py-2.5 rounded-lg bg-electric-coral hover:bg-white hover:text-black text-white border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs"
+              className="px-5 py-2.5 rounded-lg bg-electric-coral hover:bg-white text-black border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-editorial-xs"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>{isSaved ? "Saved to Profile!" : "Save Changes"}</span>

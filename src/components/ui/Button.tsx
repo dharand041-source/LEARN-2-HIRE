@@ -31,29 +31,29 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       "inline-flex items-center justify-center font-bold rounded-lg transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer active:scale-[0.98]";
 
     const variants = {
-      // Primary: Fire Red section accent with white text
-      primary: "bg-fire-red text-white hover:bg-black shadow-sm border-2 border-black font-extrabold",
-      // Secondary: Crisp white with bold black border
-      secondary: "bg-white text-black hover:bg-black hover:text-white border-2 border-black font-extrabold",
-      // Outline: Subtle border, clean editorial
-      outline: "bg-transparent text-foreground border border-black hover:border-black hover:bg-surface font-bold",
+      // Primary: Electric Coral with Black text
+      primary: "bg-electric-coral text-black hover:bg-black hover:text-white border-2 border-black font-black shadow-editorial-xs",
+      // Secondary: Royal Maroon with White text
+      secondary: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold shadow-editorial-xs",
+      // Outline: Electric Coral border and text
+      outline: "bg-transparent text-electric-coral border-2 border-electric-coral hover:bg-electric-coral hover:text-black font-extrabold",
       // Ghost: Text-only button
-      ghost: "bg-transparent text-muted hover:text-foreground hover:bg-surface font-bold",
+      ghost: "bg-transparent text-muted hover:text-black hover:bg-surface font-bold",
       // Dark: Solid black editorial block
-      dark: "bg-black text-white hover:bg-ultra-violet border-2 border-black font-extrabold",
-      // Danger / Alert
-      danger: "bg-fire-red-50 text-fire-red border-2 border-fire-red hover:bg-fire-red hover:text-white font-extrabold",
-      // Approved 6-Color System Variants
-      red: "bg-fire-red text-white hover:bg-black border-2 border-black font-extrabold shadow-sm",
-      yellow: "bg-electric-yellow text-black hover:bg-black hover:text-electric-yellow border-2 border-black font-extrabold shadow-sm",
-      gold: "bg-electric-yellow text-black hover:bg-black hover:text-electric-yellow border-2 border-black font-extrabold shadow-sm",
-      acid: "bg-acid-yellow text-black hover:bg-black hover:text-acid-yellow border-2 border-black font-extrabold shadow-sm",
-      violet: "bg-ultra-violet text-white hover:bg-acid-yellow hover:text-black border-2 border-black font-extrabold shadow-sm",
-      coral: "bg-electric-coral text-white hover:bg-black border-2 border-black font-extrabold shadow-sm",
-      maroon: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold shadow-sm",
-      navy: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold shadow-sm",
-      // Backward compat
-      rose: "bg-fire-red-50 text-fire-red border border-fire-red-200 hover:bg-fire-red hover:text-white font-bold",
+      dark: "bg-black text-white hover:bg-electric-coral hover:text-black border-2 border-black font-extrabold",
+      // Danger / Alert: Royal Maroon
+      danger: "bg-royal-maroon text-white border-2 border-black hover:bg-black font-extrabold",
+      // Explicit Coral & Maroon
+      coral: "bg-electric-coral text-black hover:bg-black hover:text-white border-2 border-black font-black shadow-editorial-xs",
+      maroon: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold shadow-editorial-xs",
+      navy: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold shadow-editorial-xs",
+      // Mappings for older aliases strictly using Coral or Maroon
+      red: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold",
+      yellow: "bg-electric-coral text-black hover:bg-black hover:text-white border-2 border-black font-black",
+      gold: "bg-electric-coral text-black hover:bg-black hover:text-white border-2 border-black font-black",
+      acid: "bg-electric-coral text-black hover:bg-black hover:text-white border-2 border-black font-black",
+      violet: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold",
+      rose: "bg-royal-maroon text-white hover:bg-black border-2 border-black font-extrabold",
     };
 
     const sizes = {

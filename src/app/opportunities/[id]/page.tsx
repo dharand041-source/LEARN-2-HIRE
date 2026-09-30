@@ -83,15 +83,15 @@ export default function OpportunityDetailsPage() {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="text-xs font-mono font-bold text-muted-foreground uppercase">{opp.company}</span>
-              <Badge variant="navy" size="sm">{opp.workMode}</Badge>
-              <Badge variant="gold" size="sm">{opp.type}</Badge>
+              <Badge variant="maroon" size="sm">{opp.workMode}</Badge>
+              <Badge variant="coral" size="sm">{opp.type}</Badge>
               {opp.eligibilityStatus && (
                 <Badge
                   variant={
                     opp.eligibilityStatus === "eligible"
-                      ? "gold"
+                      ? "coral"
                       : opp.eligibilityStatus === "not_eligible"
-                      ? "red"
+                      ? "maroon"
                       : "neutral"
                   }
                   size="sm"
@@ -133,7 +133,7 @@ export default function OpportunityDetailsPage() {
           {isApplied ? (
             <Link href="/applications">
               <Button variant="secondary" size="sm" className="gap-2 text-foreground font-bold">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-electric-coral stroke-[2.5]" />
                 <span>Application Submitted • View Tracker</span>
               </Button>
             </Link>
@@ -149,7 +149,7 @@ export default function OpportunityDetailsPage() {
                 <ExternalLink className="w-3.5 h-3.5" />
               </Button>
               <Button
-                variant="gold"
+                variant="coral"
                 size="sm"
                 onClick={() => confirmExternalApplied(opp.id)}
                 className="gap-1.5 font-bold text-xs shadow-editorial-sm"
@@ -160,7 +160,7 @@ export default function OpportunityDetailsPage() {
             </div>
           ) : (
             <Button
-              variant="gold"
+              variant="coral"
               onClick={handleApplyClick}
               size="md"
               className="gap-2 font-bold shadow-editorial-sm"
@@ -245,13 +245,13 @@ export default function OpportunityDetailsPage() {
                 </span>
                 <h3 className="text-2xl font-extrabold font-mono text-foreground">{opp.matchPercentage}% Matched</h3>
               </div>
-              <Badge variant="gold" size="sm">Verified Portal</Badge>
+              <Badge variant="coral" size="sm">Verified Portal</Badge>
             </div>
 
             {/* Matched Skills */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-xs text-foreground font-bold font-mono">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <CheckCircle2 className="w-4 h-4 text-electric-coral stroke-[2.5]" />
                 <span>Verified Matched Skills ({opp.matchedSkills.length})</span>
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -269,7 +269,7 @@ export default function OpportunityDetailsPage() {
             {/* Skill Gaps & Direct Learning Deep-Links */}
             {opp.skillGaps.length > 0 && (
               <div className="space-y-3 pt-3 border-t-2 border-border">
-                <div className="flex items-center gap-2 text-xs text-editorial-red font-bold font-mono">
+                <div className="flex items-center gap-2 text-xs text-royal-maroon font-bold font-mono">
                   <AlertTriangle className="w-4 h-4" />
                   <span>Missing Competencies ({opp.skillGaps.length})</span>
                 </div>
@@ -279,10 +279,10 @@ export default function OpportunityDetailsPage() {
                       key={i}
                       className="p-3 rounded-md bg-surface border-2 border-border flex items-center justify-between text-xs"
                     >
-                      <span className="text-editorial-red font-mono font-bold">+ {gap}</span>
+                      <span className="text-royal-maroon font-mono font-bold">+ {gap}</span>
                       <Link
                         href={`/learning?skill=${encodeURIComponent(gap)}`}
-                        className="text-[11px] text-foreground hover:text-editorial-red flex items-center gap-1 font-bold font-mono underline"
+                        className="text-[11px] text-foreground hover:text-electric-coral flex items-center gap-1 font-bold font-mono underline"
                       >
                         <BookOpen className="w-3.5 h-3.5" />
                         <span>Learn skill</span>
@@ -296,7 +296,7 @@ export default function OpportunityDetailsPage() {
             {/* Application Policy Notice */}
             <div className="p-4 rounded-md bg-surface border-2 border-border space-y-2 text-[11px] text-muted-foreground leading-relaxed font-mono">
               <p className="font-bold text-foreground uppercase tracking-wider text-[10px] flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <ShieldCheck className="w-3.5 h-3.5 text-electric-coral stroke-[2.5]" />
                 <span>Direct Application Protection</span>
               </p>
               <p>
@@ -308,7 +308,7 @@ export default function OpportunityDetailsPage() {
             {/* Application CTA */}
             <Button
               onClick={handleApplyClick}
-              variant="gold"
+              variant="coral"
               size="lg"
               className="w-full gap-2 text-xs font-bold shadow-editorial-sm"
             >
