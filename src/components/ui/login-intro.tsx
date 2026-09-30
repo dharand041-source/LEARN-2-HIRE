@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 import { LayeredText } from "./layered-text";
+import { BrandLogo } from "./BrandLogo";
 
 export interface LoginIntroProps {
   onComplete: () => void;
@@ -57,7 +58,7 @@ export function LoginIntro({ onComplete }: LoginIntroProps) {
     >
       {/* Subtle Top Brand Mark */}
       <div className="absolute top-6 left-6 sm:top-10 sm:left-10 flex items-center gap-2.5 z-10">
-        <span className="w-2.5 h-2.5 rounded-full bg-editorial-red" />
+        <BrandLogo size="xs" showText={false} />
         <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-foreground">
           LEARN-2-HIRE // CAREER READINESS
         </span>

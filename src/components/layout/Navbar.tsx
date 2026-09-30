@@ -19,6 +19,7 @@ import {
 import { PRODUCT_NAME, SUPPORTED_LANGUAGES } from "@/lib/constants";
 import { useCareer } from "@/context/CareerContext";
 import { Badge } from "@/components/ui/Badge";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 interface NavbarProps {
   sidebarOpen?: boolean;
@@ -47,29 +48,20 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-white">
-      <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="flex h-16 items-center justify-between px-3 sm:px-6 lg:px-8">
         {/* Left Section: Hamburger Menu & Logo & Active Track */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           {/* Hamburger menu button */}
           <button
             onClick={onToggleSidebar}
-            className="p-2 text-foreground hover:text-fire-red rounded-lg hover:bg-surface transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground cursor-pointer"
+            className="p-1.5 sm:p-2 text-foreground hover:text-fire-red rounded-lg hover:bg-surface transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground cursor-pointer"
             aria-label={sidebarOpen ? "Close navigation" : "Open navigation"}
             title={sidebarOpen ? "Collapse navigation" : "Expand navigation"}
           >
             <Menu className="w-5 h-5 text-foreground" />
           </button>
 
-          <Link href="/dashboard" prefetch={true} className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-foreground flex items-center justify-center text-white shadow-editorial-sm transition-all group-hover:scale-105">
-              <Sparkles className="w-4 h-4 text-fire-red fill-fire-red" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display font-extrabold text-lg tracking-tight text-foreground group-hover:text-fire-red transition-colors">
-                {PRODUCT_NAME}
-              </span>
-            </div>
-          </Link>
+          <BrandLogo size="md" href="/dashboard" />
 
           {/* Active Target Career Track Pill */}
           <div className="hidden md:flex items-center gap-2 ml-4 pl-4 border-l border-border">
@@ -160,7 +152,7 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
             </button>
 
             {isNotifOpen && (
-              <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-xl bg-white border-2 border-foreground shadow-editorial-md z-50 animate-slide-up overflow-hidden">
+              <div className="absolute right-0 mt-2 w-[calc(100vw-1.5rem)] sm:w-96 max-w-sm rounded-xl bg-white border-2 border-foreground shadow-editorial-md z-50 animate-slide-up overflow-hidden">
                 <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-surface">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-extrabold text-foreground uppercase tracking-wider">Notifications</span>

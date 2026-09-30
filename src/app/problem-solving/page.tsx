@@ -96,7 +96,7 @@ export default function ProblemSolvingPage() {
       </div>
 
       {/* Stats Bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card variant="editorial" className="p-4 space-y-1">
           <span className="text-[10px] text-muted-foreground uppercase font-mono font-bold">Problems Solved</span>
           <div className="flex items-baseline gap-2">

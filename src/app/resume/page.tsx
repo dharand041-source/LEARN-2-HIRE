@@ -436,7 +436,7 @@ export default function ResumeBuilderPage() {
 
         {/* Right Column: Live ATS-Standard Resume Document (7 cols) */}
         <div className="lg:col-span-7 sticky top-20">
-          <div className="p-8 sm:p-10 rounded-2xl bg-white text-night shadow-lg space-y-6 font-sans border border-surface-border min-h-[750px]">
+          <div className="p-4 sm:p-8 md:p-10 rounded-2xl bg-white text-night shadow-lg space-y-6 font-sans border border-surface-border min-h-[500px] lg:min-h-[750px] overflow-hidden">
             {/* Candidate Header */}
             <div className="text-center space-y-1.5 border-b border-surface-border pb-5">
               <h2 className="text-2xl font-bold font-serif tracking-tight text-night uppercase">

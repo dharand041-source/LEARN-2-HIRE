@@ -191,8 +191,8 @@ export default function VoiceInterviewSessionPage() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Session Top Bar */}
-      <header className="h-16 border-b-2 border-border bg-white px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-editorial-sm">
-        <div className="flex items-center gap-4">
+      <header className="min-h-16 py-2 border-b-2 border-border bg-white px-3 sm:px-8 flex flex-wrap items-center justify-between gap-2.5 sticky top-0 z-30 shadow-editorial-sm">
+        <div className="flex items-center gap-2.5 sm:gap-4">
           <Link
             href="/interview"
             onClick={() => {
@@ -202,10 +202,11 @@ export default function VoiceInterviewSessionPage() {
             className="text-xs text-muted-foreground hover:text-foreground font-bold flex items-center gap-1.5 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>EXIT SIMULATION</span>
+            <span className="hidden xs:inline">EXIT SIMULATION</span>
+            <span className="xs:hidden">EXIT</span>
           </Link>
-          <div className="h-5 w-[2px] bg-border" />
-          <div className="flex items-center gap-2">
+          <div className="h-5 w-[2px] bg-border hidden sm:block" />
+          <div className="hidden sm:flex items-center gap-2">
             <Radio className="w-3.5 h-3.5 text-editorial-violet animate-pulse" />
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-foreground">
               Voice Technical Simulation

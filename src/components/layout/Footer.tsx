@@ -1,77 +1,284 @@
-import React, { memo } from "react";
+"use client";
+
+import React, { memo, useState } from "react";
 import Link from "next/link";
+import {
+  Sparkles,
+  Github,
+  Linkedin,
+  Twitter,
+  Globe,
+  ArrowUpRight,
+  ShieldCheck,
+  ChevronRight,
+  X,
+} from "lucide-react";
 import { PRODUCT_NAME, PRODUCT_TAGLINE } from "@/lib/constants";
-import { Sparkles, Shield } from "lucide-react";
+import { BrandLogo } from "@/components/ui/BrandLogo";
+
+interface FooterLink {
+  title: string;
+  href: string;
+  badge?: string;
+  isExternal?: boolean;
+}
+
+interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+const FOOTER_SECTIONS: FooterColumn[] = [
+  {
+    title: "Platform",
+    links: [
+      { title: "Dashboard", href: "/dashboard" },
+      { title: "Career Discovery", href: "/onboarding", badge: "24 Tracks" },
+      { title: "Skill Assessment", href: "/assessment" },
+      { title: "Personalized Learning", href: "/learning" },
+      { title: "Advanced Assessment", href: "/advanced-assessment" },
+      { title: "Real-World Projects", href: "/projects" },
+    ],
+  },
+  {
+    title: "Career",
+    links: [
+      { title: "Problem Solving", href: "/problem-solving" },
+      { title: "Interview Simulation", href: "/interview", badge: "Voice AI" },
+      { title: "Resume & ATS", href: "/resume" },
+      { title: "Job Opportunities", href: "/opportunities" },
+      { title: "Application Tracker", href: "/applications" },
+      { title: "Skill Development", href: "/learning" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { title: "Learning Curriculum", href: "/learning" },
+      { title: "Career Guidance", href: "/onboarding" },
+      { title: "Project Marketplace", href: "/projects" },
+      { title: "Interview Defense", href: "/interview" },
+      { title: "Rejection Retraining", href: "/feedback", badge: "Recovery" },
+      { title: "System Preferences", href: "/settings" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { title: "About Learn-2-Hire", href: "/dashboard" },
+      { title: "Our Mission", href: "/dashboard" },
+      { title: "Candidate Profile", href: "/profile" },
+      { title: "Feedback Engine", href: "/feedback" },
+      { title: "Contact Support", href: "/settings" },
+    ],
+  },
+];
+
+const SOCIAL_LINKS = [
+  {
+    name: "GitHub",
+    href: "https://github.com",
+    icon: Github,
+    label: "Learn-2-Hire on GitHub",
+  },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com",
+    icon: Linkedin,
+    label: "Learn-2-Hire on LinkedIn",
+  },
+  {
+    name: "Twitter / X",
+    href: "https://x.com",
+    icon: Twitter,
+    label: "Learn-2-Hire on X (Twitter)",
+  },
+];
 
 function FooterComponent() {
+  const [activeLegalModal, setActiveLegalModal] = useState<string | null>(null);
+
+  const legalContent: Record<string, { title: string; body: string }> = {
+    privacy: {
+      title: "Privacy Policy",
+      body: "Learn-2-Hire is committed to safeguarding learner privacy and assessment data. All evaluation metrics, audio recordings from mock interviews, and code test runs are stored securely in isolated tenant partitions and used solely for candidate skill gap diagnostics. We never sell candidate telemetry to third parties.",
+    },
+    terms: {
+      title: "Terms & Conditions",
+      body: "By utilizing the Learn-2-Hire career readiness platform, you agree to engage in authentic skill evaluation. Rubric scoring, automated ATS reviews, and verified production project credentials reflect honest candidate capability. Unauthorized automation or abuse of assessment endpoints is strictly prohibited.",
+    },
+    cookies: {
+      title: "Cookie Policy",
+      body: "We use essential session tokens and functional cookies to preserve authentication status, language choices, and assessment timer progress. No invasive cross-site advertising cookies are deployed on the platform.",
+    },
+  };
+
   return (
-    <footer className="w-full border-t border-border bg-white py-12 px-4 sm:px-6 lg:px-8 text-muted text-xs">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-        {/* Brand Col */}
-        <div className="md:col-span-1 space-y-3">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-night flex items-center justify-center text-imperial">
-              <Sparkles className="w-3.5 h-3.5 text-imperial" />
+    <footer
+      className="w-full border-t-2 border-border bg-white text-foreground selection:bg-fire-red selection:text-white"
+      role="contentinfo"
+      aria-label="Learn-2-Hire Site Footer"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        {/* Main Grid: Left Brand Column + Right Navigation Columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 sm:pb-16 border-b border-border">
+          {/* Brand & Editorial Value Statement (Left Side - 4 Columns on Desktop) */}
+          <div className="lg:col-span-4 space-y-5">
+            {/* Logo and Tagline */}
+            <BrandLogo size="lg" href="/dashboard" />
+
+            <p className="text-sm font-extrabold text-foreground tracking-tight">
+              Build skills. Prove your readiness. Launch your career.
+            </p>
+
+            <p className="text-xs text-muted leading-relaxed font-normal max-w-sm">
+              Learn-2-Hire is an evidence-based career-readiness platform that helps learners assess their technical skills, identify blind spots, build production experience, rehearse live voice interviews, and discover verified employment opportunities.
+            </p>
+
+            {/* Platform Trust Badge */}
+            <div className="pt-1 flex items-center gap-2 text-[11px] font-mono font-bold text-foreground bg-surface p-2.5 rounded-lg border border-border max-w-sm">
+              <ShieldCheck className="w-4 h-4 text-fire-red shrink-0" />
+              <span>Verifiable Competency & Rubric Standards</span>
             </div>
-            <span className="font-display font-bold text-base text-night tracking-tight">{PRODUCT_NAME}</span>
+
+            {/* Social Icons */}
+            <div className="pt-2">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-muted font-extrabold mb-2.5">
+                Connect With Us
+              </p>
+              <div className="flex items-center gap-2.5">
+                {SOCIAL_LINKS.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={item.label}
+                      className="w-9 h-9 rounded-lg bg-surface hover:bg-foreground text-foreground hover:text-white border border-border hover:border-foreground flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-          <p className="text-muted text-xs leading-relaxed max-w-xs">
-            {PRODUCT_TAGLINE}
-          </p>
-          <div className="pt-2 flex items-center gap-2 text-[11px] text-muted">
-            <Shield className="w-3.5 h-3.5 text-imperial" />
-            <span>Honest career progression platform</span>
+
+          {/* Navigation Columns (Right Side - 8 Columns on Desktop) */}
+          <nav
+            aria-label="Footer Navigation"
+            className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-6"
+          >
+            {FOOTER_SECTIONS.map((col) => (
+              <div key={col.title} className="space-y-4">
+                <h3 className="text-xs font-mono uppercase tracking-widest font-extrabold text-foreground border-b border-border pb-2">
+                  {col.title}
+                </h3>
+                <ul className="space-y-2.5">
+                  {col.links.map((link) => (
+                    <li key={link.title}>
+                      <Link
+                        href={link.href}
+                        prefetch={true}
+                        className="group flex items-center justify-between text-xs text-muted hover:text-foreground font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground rounded py-0.5"
+                      >
+                        <span className="group-hover:translate-x-0.5 transition-transform truncate">
+                          {link.title}
+                        </span>
+                        {link.badge ? (
+                          <span className="text-[9px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-surface border border-border text-foreground group-hover:border-foreground shrink-0 ml-1.5">
+                            {link.badge}
+                          </span>
+                        ) : (
+                          <ChevronRight className="w-3 h-3 text-border group-hover:text-foreground opacity-0 group-hover:opacity-100 transition-all shrink-0 ml-1" />
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        </div>
+
+        {/* Bottom Legal & Copyright Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+          {/* Copyright notice */}
+          <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-center sm:text-left">
+            <span className="font-medium text-foreground">
+              © 2026 {PRODUCT_NAME}. All rights reserved.
+            </span>
+            <span className="hidden sm:inline text-border">•</span>
+            <span className="text-muted text-[11px]">
+              Precision engineering for candidate employment readiness.
+            </span>
           </div>
-        </div>
 
-        {/* Skill Tracks */}
-        <div>
-          <h4 className="font-bold text-night text-xs uppercase tracking-wider mb-3">
-            Career Pathways
-          </h4>
-          <ul className="space-y-2">
-            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Software Development</Link></li>
-            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Data & AI Engineering</Link></li>
-            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Cloud & DevOps</Link></li>
-            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Cybersecurity</Link></li>
-            <li><Link href="/onboarding" prefetch={true} className="hover:text-imperial transition-colors">Systems & Embedded</Link></li>
-          </ul>
-        </div>
-
-        {/* Core Product */}
-        <div>
-          <h4 className="font-bold text-night text-xs uppercase tracking-wider mb-3">
-            Product Journey
-          </h4>
-          <ul className="space-y-2">
-            <li><Link href="/assessment" prefetch={true} className="hover:text-imperial transition-colors">Technical Assessment</Link></li>
-            <li><Link href="/learning" prefetch={true} className="hover:text-imperial transition-colors">Personalized Training</Link></li>
-            <li><Link href="/projects" prefetch={true} className="hover:text-imperial transition-colors">Production Projects</Link></li>
-            <li><Link href="/interview" prefetch={true} className="hover:text-imperial transition-colors">Voice Interview Simulation</Link></li>
-            <li><Link href="/resume" prefetch={true} className="hover:text-imperial transition-colors">ATS Resume Engine</Link></li>
-            <li><Link href="/feedback" prefetch={true} className="hover:text-imperial transition-colors">Rejection Analysis & Retraining</Link></li>
-          </ul>
-        </div>
-
-        {/* Standards & Trust */}
-        <div>
-          <h4 className="font-bold text-night text-xs uppercase tracking-wider mb-3">
-            Philosophy
-          </h4>
-          <p className="text-[11px] leading-relaxed text-muted">
-            Designed for students, freshers, and career-changers seeking real technical mastery. No hollow promises, no generic AI templates—only verified skill evidence and targeted retraining.
-          </p>
-          <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-[10px] text-muted">
-            <span>Prototype Version 1.0</span>
-            <span className="text-imperial font-mono font-semibold">Status: Active</span>
+          {/* Legal Links */}
+          <div className="flex items-center gap-4 sm:gap-6 font-medium text-[11px]">
+            <button
+              onClick={() => setActiveLegalModal("privacy")}
+              className="hover:text-foreground transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground rounded"
+            >
+              Privacy Policy
+            </button>
+            <button
+              onClick={() => setActiveLegalModal("terms")}
+              className="hover:text-foreground transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground rounded"
+            >
+              Terms & Conditions
+            </button>
+            <button
+              onClick={() => setActiveLegalModal("cookies")}
+              className="hover:text-foreground transition-colors cursor-pointer underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground rounded"
+            >
+              Cookie Policy
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
-        <p>© {new Date().getFullYear()} {PRODUCT_NAME}. All rights reserved.</p>
-        <p className="text-muted">Precision engineering for employment readiness.</p>
-      </div>
+      {/* Accessible In-App Legal Information Modal */}
+      {activeLegalModal && legalContent[activeLegalModal] && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="legal-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-night/50 backdrop-blur-xs animate-fade-in"
+          onClick={() => setActiveLegalModal(null)}
+        >
+          <div
+            className="w-full max-w-lg rounded-xl bg-white border-2 border-foreground p-6 shadow-editorial-md space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h2 id="legal-modal-title" className="text-base font-extrabold uppercase tracking-tight text-foreground font-display">
+                {legalContent[activeLegalModal].title}
+              </h2>
+              <button
+                onClick={() => setActiveLegalModal(null)}
+                aria-label="Close legal modal"
+                className="p-1 rounded text-muted hover:text-foreground hover:bg-surface transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <p className="text-xs text-muted leading-relaxed">
+              {legalContent[activeLegalModal].body}
+            </p>
+            <div className="pt-2 flex justify-end">
+              <button
+                onClick={() => setActiveLegalModal(null)}
+                className="px-4 py-2 bg-foreground text-white rounded-lg text-xs font-bold hover:bg-fire-red transition-colors cursor-pointer"
+              >
+                Close Notice
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   );
 }

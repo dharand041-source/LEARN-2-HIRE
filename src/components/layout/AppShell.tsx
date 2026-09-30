@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNav } from "@/components/layout/MobileNav";
-import { Footer } from "@/components/layout/Footer";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -51,7 +50,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           >
             {children}
           </div>
-          <Footer />
         </main>
       </div>
       <MobileNav />

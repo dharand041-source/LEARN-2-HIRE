@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST='{"services\\\\resumeParser.ts -> mammoth":{"id":5904,"files":["static/chunks/904.b27e11a3dd1c917d.js"]},"services\\\\resumeParser.ts -> pdf-parse":{"id":4635,"files":["static/chunks/0092f5ab.b735968be398ca2a.js"]}}';
+self.__REACT_LOADABLE_MANIFEST='{"services\\\\resumeParser.ts -> mammoth":{"id":25904,"files":["static/chunks/904.caf6c5d5ae8ace0d.js"]},"services\\\\resumeParser.ts -> pdf-parse":{"id":44635,"files":["static/chunks/0092f5ab.d503a639a79c1024.js"]}}';

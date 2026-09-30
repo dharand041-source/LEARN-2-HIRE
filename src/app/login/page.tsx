@@ -16,6 +16,7 @@ import {
   User as UserIcon,
   ArrowRight
 } from "lucide-react";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 function LoginForm() {
   const [mode, setMode] = useState<"login" | "signup" | "forgot">("login");
@@ -198,14 +199,7 @@ function LoginForm() {
       <div className="w-full lg:w-[48%] min-h-screen flex flex-col justify-between p-6 sm:p-12 lg:p-16 border-r border-surface-border">
         {/* Top Logo */}
         <div>
-          <Link href="/login" className="inline-flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-night text-white flex items-center justify-center font-display font-bold text-xl shadow-md group-hover:bg-imperial transition-colors duration-200">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-display font-bold text-2xl tracking-tight text-night">
-              Skill<span className="text-imperial">Forge</span>
-            </span>
-          </Link>
+          <BrandLogo size="lg" href="/login" />
         </div>
 
         {/* Center Content */}

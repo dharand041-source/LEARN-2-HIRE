@@ -1,14 +1,14 @@
 {
   "services\\resumeParser.ts -> mammoth": {
-    "id": 5904,
+    "id": 25904,
     "files": [
-      "static/chunks/904.b27e11a3dd1c917d.js"
+      "static/chunks/904.caf6c5d5ae8ace0d.js"
     ]
   },
   "services\\resumeParser.ts -> pdf-parse": {
-    "id": 4635,
+    "id": 44635,
     "files": [
-      "static/chunks/0092f5ab.b735968be398ca2a.js"
+      "static/chunks/0092f5ab.d503a639a79c1024.js"
     ]
   }
 }

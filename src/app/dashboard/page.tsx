@@ -28,6 +28,7 @@ import { ProgressBar } from "@/components/ui/ProgressBar";
 import { MetricCard } from "@/components/ui/MetricCard";
 import { CAREER_ROLES } from "@/data/careers";
 import { LoginIntro } from "@/components/ui/login-intro";
+import { Footer } from "@/components/layout/Footer";
 
 export default function DashboardPage() {
   const {
@@ -229,29 +230,29 @@ export default function DashboardPage() {
         <div className="text-center max-w-4xl mx-auto space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-surface border border-border text-xs text-foreground animate-fade-in shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-fire-red" />
-            <span className="font-extrabold tracking-wider uppercase text-[11px]">The Career-Readiness Standard</span>
+            <span className="font-extrabold tracking-wider uppercase text-[10px] sm:text-[11px]">The Career-Readiness Standard</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-foreground leading-[1.06] uppercase">
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold tracking-tight text-foreground leading-[1.08] uppercase break-words">
             BUILD SKILLS. <br />
             <span className="text-fire-red">PROVE YOUR ABILITY.</span> <br />
             GET READY.
           </h1>
 
-          <p className="text-base sm:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="text-sm sm:text-base lg:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
             One cohesive career platform from verified skill assessment to real-world production projects, voice interview simulations, and targeted employment matching with automated rejection retraining.
           </p>
 
           {/* Action CTAs */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/assessment">
-              <Button size="lg" variant="primary" className="w-full sm:w-auto px-8 gap-2.5 text-base font-extrabold shadow-sm">
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto w-full">
+            <Link href="/assessment" className="w-full sm:w-auto">
+              <Button size="lg" variant="primary" className="w-full sm:w-auto px-6 sm:px-8 gap-2.5 text-sm sm:text-base font-extrabold shadow-sm">
                 <span>Start Initial Assessment</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
-            <Link href="/onboarding">
-              <Button variant="secondary" size="lg" className="w-full sm:w-auto px-7 text-base font-extrabold">
+            <Link href="/onboarding" className="w-full sm:w-auto">
+              <Button variant="secondary" size="lg" className="w-full sm:w-auto px-6 sm:px-7 text-sm sm:text-base font-extrabold">
                 <span>Explore 24+ Career Tracks</span>
               </Button>
             </Link>
@@ -545,14 +546,14 @@ export default function DashboardPage() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 relative">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4 relative">
           {pipelineNodes.map((node, i) => {
             const Icon = node.icon;
             return (
               <Link
                 key={i}
                 href={node.route}
-                className={`group relative p-4 rounded-xl bg-white border border-border hover:border-foreground transition-all duration-150 flex flex-col justify-between shadow-card-clean hover:shadow-editorial-sm ${node.accent}`}
+                className={`group relative p-3 sm:p-4 rounded-xl bg-white border border-border hover:border-foreground transition-all duration-150 flex flex-col justify-between shadow-card-clean hover:shadow-editorial-sm ${node.accent}`}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold ${node.iconBg}`}>
@@ -649,7 +650,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Role Quick Selector */}
-              <div className="grid grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {CAREER_ROLES.slice(0, 4).map((role) => (
                   <button
                     key={role.id}
@@ -657,7 +658,7 @@ export default function DashboardPage() {
                       setPreviewRole(role);
                       selectRole(role.id);
                     }}
-                    className={`p-3.5 rounded-lg text-left transition-all text-xs border ${
+                    className={`p-3 sm:p-3.5 rounded-lg text-left transition-all text-xs border ${
                       previewRole.id === role.id
                         ? "bg-foreground border-foreground text-white shadow-sm"
                         : "bg-surface border-border text-foreground hover:border-foreground"
@@ -669,15 +670,15 @@ export default function DashboardPage() {
                 ))}
               </div>
 
-              <div className="pt-2 flex items-center gap-4">
-                <Link href="/assessment">
-                  <Button size="md" variant="primary" className="gap-2 font-extrabold shadow-sm">
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                <Link href="/assessment" className="w-full sm:w-auto">
+                  <Button size="md" variant="primary" className="w-full sm:w-auto gap-2 font-extrabold shadow-sm">
                     <span>Assess for {previewRole.title}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
-                <Link href="/onboarding">
-                  <Button variant="secondary" size="md" className="font-extrabold">
+                <Link href="/onboarding" className="w-full sm:w-auto">
+                  <Button variant="secondary" size="md" className="w-full sm:w-auto font-extrabold">
                     <span>All 24 Tracks</span>
                   </Button>
                 </Link>
@@ -878,6 +879,8 @@ export default function DashboardPage() {
           </div>
         </div>
       </section>
+      {/* Learn-2-Hire Dashboard Dedicated Footer */}
+      <Footer />
     </div>
     </>
   );

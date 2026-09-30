@@ -85,7 +85,7 @@ export function MetricCard({
       </div>
 
       {subValue && (
-        <p className="text-xs text-muted font-medium truncate leading-relaxed">
+        <p className="text-xs text-muted font-medium leading-relaxed break-words line-clamp-2">
           {subValue}
         </p>
       )}

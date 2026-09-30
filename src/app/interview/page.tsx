@@ -60,10 +60,10 @@ export default function InterviewHubPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-5">
-              <div className="text-right">
-                <div className="flex items-baseline justify-end gap-1">
-                  <span className="text-4xl font-extrabold font-mono text-editorial-violet">
+            <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 sm:gap-5">
+              <div className="text-left sm:text-right">
+                <div className="flex items-baseline sm:justify-end gap-1">
+                  <span className="text-3xl sm:text-4xl font-extrabold font-mono text-editorial-violet">
                     {latestSession.overallScore}
                   </span>
                   <span className="text-xs text-muted-foreground font-mono font-bold">/ 100</span>
@@ -83,7 +83,7 @@ export default function InterviewHubPage() {
           </div>
 
           {/* 5-Metric Breakdown Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
             <div className="p-3.5 rounded-lg bg-surface border-2 border-border space-y-2">
               <span className="text-[10px] uppercase font-mono font-bold text-muted-foreground">Technical Depth</span>
               <p className="text-base font-extrabold text-foreground font-mono">{latestSession.scores.technicalKnowledge}%</p>
