@@ -110,13 +110,13 @@ export default function ProblemSolvingPage() {
             <span className="text-2xl font-extrabold font-mono text-foreground">{solvedCount}</span>
             <span className="text-xs text-muted-foreground font-mono font-bold">/ {problems.length}</span>
           </div>
-          <ProgressBar value={(solvedCount / problems.length) * 100} size="sm" variant="red" />
+          <ProgressBar value={(solvedCount / problems.length) * 100} size="sm" variant="navy" />
         </Card>
 
         <Card variant="editorial" className="p-4 space-y-1">
           <span className="text-[10px] text-muted-foreground uppercase font-mono font-bold">Problem Solving XP</span>
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-fire-red" />
+            <Sparkles className="w-4 h-4 text-editorial-navy" />
             <span className="text-2xl font-extrabold font-mono text-foreground">{userProfile.xp}</span>
           </div>
           <p className="text-[10px] text-muted-foreground font-mono font-bold">+50 XP per verified solve</p>
@@ -125,11 +125,11 @@ export default function ProblemSolvingPage() {
         <Card variant="editorial" className="p-4 space-y-1">
           <span className="text-[10px] text-muted-foreground uppercase font-mono font-bold">Active Streak</span>
           <div className="flex items-center gap-2">
-            <Flame className="w-4 h-4 text-fire-red fill-fire-red" />
+            <Flame className="w-4 h-4 text-editorial-red fill-editorial-red" />
             <span className="text-2xl font-extrabold font-mono text-foreground">{userProfile.streakDays}</span>
             <span className="text-xs text-muted-foreground font-mono font-bold">Days</span>
           </div>
-          <p className="text-[10px] text-fire-red font-bold font-mono">Daily cadence active</p>
+          <p className="text-[10px] text-editorial-red font-bold font-mono">Daily cadence active</p>
         </Card>
 
         <Card variant="editorial" className="p-4 space-y-1">
@@ -146,7 +146,7 @@ export default function ProblemSolvingPage() {
         tabs={categories}
         activeTab={activeCategory}
         onChange={setActiveCategory}
-        accent="fire-red"
+        accent="navy"
       />
 
       {/* Main 2-Column Grid */}
@@ -167,8 +167,8 @@ export default function ProblemSolvingPage() {
                   onClick={() => handleSelectProblem(prob)}
                   className={`p-3 rounded-md border-2 transition-all cursor-pointer flex flex-col justify-between ${
                     isSelected
-                      ? "bg-surface border-fire-red text-foreground shadow-editorial-sm"
-                      : "bg-white border-border text-foreground hover:border-fire-red"
+                      ? "bg-surface border-editorial-navy text-foreground shadow-editorial-sm"
+                      : "bg-white border-border text-foreground hover:border-editorial-navy"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-1">
@@ -199,7 +199,7 @@ export default function ProblemSolvingPage() {
                   </div>
 
                   <div className="mt-2.5 pt-2 border-t border-border flex items-center justify-between text-[10px] text-muted-foreground font-mono">
-                    <span className="text-fire-red font-bold">+{prob.xp} XP</span>
+                    <span className="text-editorial-navy font-bold">+{prob.xp} XP</span>
                     <span>{prob.tags[0]}</span>
                   </div>
                 </div>
@@ -214,7 +214,7 @@ export default function ProblemSolvingPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-border pb-4">
             <div>
               <div className="flex items-center gap-2 mb-1.5">
-                <Badge variant="fire-red" size="sm">{selectedProblem.category}</Badge>
+                <Badge variant="navy" size="sm">{selectedProblem.category}</Badge>
                 <Badge
                   variant={
                     selectedProblem.difficulty === "Easy"
@@ -227,7 +227,7 @@ export default function ProblemSolvingPage() {
                 >
                   {selectedProblem.difficulty}
                 </Badge>
-                <span className="text-xs text-fire-red font-mono font-extrabold">+{selectedProblem.xp} XP</span>
+                <span className="text-xs text-editorial-navy font-mono font-extrabold">+{selectedProblem.xp} XP</span>
               </div>
               <h2 className="text-xl font-extrabold text-foreground tracking-tight">
                 {selectedProblem.title}
@@ -235,7 +235,7 @@ export default function ProblemSolvingPage() {
             </div>
 
             {selectedProblem.solved && (
-              <Badge variant="fire-red" size="md">
+              <Badge variant="navy" size="md">
                 ✓ Solved & Verified
               </Badge>
             )}
@@ -251,7 +251,7 @@ export default function ProblemSolvingPage() {
               {selectedProblem.examples.map((ex, i) => (
                 <div key={i} className="p-3.5 rounded-lg bg-surface border-2 border-border font-mono text-[11px] space-y-1">
                   <div><strong className="text-muted-foreground">Input:</strong> <span className="text-foreground font-bold">{ex.input}</span></div>
-                  <div><strong className="text-muted-foreground">Output:</strong> <span className="text-fire-red font-bold">{ex.output}</span></div>
+                  <div><strong className="text-muted-foreground">Output:</strong> <span className="text-editorial-navy font-bold">{ex.output}</span></div>
                   {ex.explanation && (
                     <div className="text-muted-foreground text-[10px] font-sans pt-1">Explanation: {ex.explanation}</div>
                   )}
@@ -262,13 +262,13 @@ export default function ProblemSolvingPage() {
 
           {/* Code Editor Box */}
           <div className="space-y-2 pt-2">
-            <div className="flex items-center justify-between px-3 py-2 rounded-t-lg bg-black text-white text-xs font-mono border-2 border-black">
+            <div className="flex items-center justify-between px-3 py-2 rounded-t-lg bg-editorial-navy text-white text-xs font-mono">
               <span className="flex items-center gap-1.5 font-bold">
-                <Terminal className="w-3.5 h-3.5 text-electric-yellow" /> solution.ts / query.sql
+                <Terminal className="w-3.5 h-3.5 text-white" /> solution.ts / query.sql
               </span>
               <button
                 onClick={() => setCodeDraft(selectedProblem.starterCode || "")}
-                className="text-[11px] text-electric-yellow hover:text-white underline transition-colors font-bold"
+                className="text-[11px] text-white/80 hover:text-white underline transition-colors font-bold"
               >
                 Reset Starter Code
               </button>
@@ -277,7 +277,7 @@ export default function ProblemSolvingPage() {
               value={codeDraft}
               onChange={(e) => setCodeDraft(e.target.value)}
               rows={9}
-              className="w-full p-4 rounded-b-lg bg-black text-electric-yellow border-2 border-black font-mono text-xs focus:outline-none resize-y leading-relaxed selection:bg-electric-yellow selection:text-black"
+              className="w-full p-4 rounded-b-lg bg-[#04123F] text-white border-2 border-editorial-navy font-mono text-xs focus:outline-none resize-y leading-relaxed"
               spellCheck={false}
             />
           </div>
@@ -285,7 +285,7 @@ export default function ProblemSolvingPage() {
           {/* Action Buttons & Hints */}
           <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
             <div className="flex items-center gap-2">
-              <Button onClick={handleRunCode} variant="red" size="sm" className="gap-2 font-bold shadow-editorial-sm">
+              <Button onClick={handleRunCode} variant="navy" size="sm" className="gap-2 font-bold shadow-editorial-sm">
                 <Terminal className="w-3.5 h-3.5" />
                 <span>Run Assertions</span>
               </Button>
@@ -305,7 +305,7 @@ export default function ProblemSolvingPage() {
                 <button
                   key={i}
                   onClick={() => setShowHintIndex(showHintIndex === i ? null : i)}
-                  className="px-2.5 py-1 rounded-md bg-white border-2 border-border text-[11px] font-mono font-bold text-foreground hover:border-fire-red transition-colors"
+                  className="px-2.5 py-1 rounded-md bg-white border-2 border-border text-[11px] font-mono font-bold text-foreground hover:border-editorial-navy transition-colors"
                 >
                   Hint {i + 1}
                 </button>
@@ -316,7 +316,7 @@ export default function ProblemSolvingPage() {
           {/* Hint Accordion */}
           {showHintIndex !== null && (
             <div className="p-3.5 rounded-lg bg-surface border-2 border-border text-xs text-foreground leading-relaxed animate-fade-in font-mono">
-              <strong className="text-fire-red">Hint {showHintIndex + 1}:</strong> {selectedProblem.hints[showHintIndex]}
+              <strong className="text-editorial-navy">Hint {showHintIndex + 1}:</strong> {selectedProblem.hints[showHintIndex]}
             </div>
           )}
 
@@ -325,8 +325,8 @@ export default function ProblemSolvingPage() {
             <div
               className={`p-4 rounded-lg border-2 text-xs font-mono leading-relaxed animate-slide-up whitespace-pre-wrap ${
                 testOutput.success
-                  ? "bg-black border-2 border-electric-yellow text-electric-yellow font-bold"
-                  : "bg-black border-2 border-fire-red text-fire-red font-bold"
+                  ? "bg-emerald-50 border-emerald-600 text-emerald-950 font-bold"
+                  : "bg-red-50 border-editorial-red text-editorial-red font-bold"
               }`}
             >
               {testOutput.text}
@@ -336,7 +336,7 @@ export default function ProblemSolvingPage() {
           {/* Ideal Solution Box */}
           {showSolution && selectedProblem.solution && (
             <div className="p-4 rounded-lg bg-surface border-2 border-border space-y-2 animate-slide-up">
-              <div className="flex items-center justify-between text-xs font-mono font-bold text-fire-red">
+              <div className="flex items-center justify-between text-xs font-mono font-bold text-editorial-navy">
                 <span>Optimal Solution & Time Complexity:</span>
                 <button
                   onClick={() => setCodeDraft(selectedProblem.solution || "")}

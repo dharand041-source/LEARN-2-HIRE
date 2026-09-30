@@ -33,18 +33,13 @@ interface SidebarProps {
 
 const PRIMARY_NAV_SECTIONS = [
   {
-    group: "Career Readiness",
+    group: "Core Progression",
     items: [
       {
-        label: "Dashboard / Home",
+        label: "Dashboard",
         href: "/dashboard",
         icon: LayoutDashboard,
       },
-    ],
-  },
-  {
-    group: "Core",
-    items: [
       {
         label: "Real-World Projects",
         href: "/projects",
@@ -64,6 +59,16 @@ const PRIMARY_NAV_SECTIONS = [
         label: "Personalized Learning",
         href: "/learning",
         icon: BookOpen,
+      },
+      {
+        label: "Career Discovery",
+        href: "/onboarding",
+        icon: Compass,
+      },
+      {
+        label: "Advanced Assessment",
+        href: "/advanced-assessment",
+        icon: ShieldAlert,
       },
     ],
   },
@@ -117,18 +122,6 @@ const PRIMARY_NAV_SECTIONS = [
 function SidebarComponent({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { userProfile, selectedRole, isAuthenticated, signOut } = useCareer();
-
-  // Close on Escape key press
-  React.useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
 
   React.useEffect(() => {
     if (!isOpen) return;
@@ -289,7 +282,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
         {/* Mobile Drawer Aside */}
         <aside
           className={cn(
-            "fixed top-0 bottom-0 left-0 z-50 w-[268px] max-w-[85vw] bg-royal-maroon border-r-2 border-black flex flex-col transition-transform duration-[250ms] ease-out shadow-2xl overflow-hidden",
+            "fixed top-0 bottom-0 left-0 z-50 w-[268px] max-w-[85vw] bg-royal-maroon border-r-2 border-black flex flex-col transition-transform duration-[260ms] ease-out shadow-2xl overflow-hidden",
             isOpen ? "translate-x-0" : "-translate-x-full pointer-events-none"
           )}
           aria-label="Mobile Navigation"
@@ -301,7 +294,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
       {/* DESKTOP COLLAPSIBLE SIDEBAR (lg breakpoint and above) */}
       <aside
         className={cn(
-          "hidden lg:block overflow-hidden transition-[width,transform,opacity] duration-[250ms] ease-out shrink-0 bg-royal-maroon z-30",
+          "hidden lg:block overflow-hidden transition-[width,transform,opacity] duration-[260ms] ease-out shrink-0 bg-royal-maroon z-30",
           isOpen
             ? "w-[268px] opacity-100 translate-x-0 border-r-2 border-black"
             : "w-0 opacity-0 -translate-x-full pointer-events-none border-r-0"

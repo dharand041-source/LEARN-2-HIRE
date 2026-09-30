@@ -41,7 +41,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       />
       <div className="flex flex-1 relative overflow-x-hidden min-h-0 bg-white">
         <Sidebar isOpen={sidebarOpen} onClose={handleCloseSidebar} />
-        <main className="flex-1 min-w-0 flex flex-col transition-all duration-[250ms] ease-out bg-white w-full">
+        <main className="flex-1 min-w-0 flex flex-col transition-all duration-[260ms] ease-out bg-white w-full">
           <div
             className={
               isDashboard
