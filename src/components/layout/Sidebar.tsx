@@ -123,8 +123,19 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { userProfile, selectedRole, isAuthenticated, signOut } = useCareer();
 
+  // Root Page Scroll Control: Lock document/body scroll when open, restore on close
   React.useEffect(() => {
     if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+
+    // Measure scrollbar width to prevent horizontal layout shift when scrollbar disappears
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+    document.body.style.overflow = "hidden";
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -132,178 +143,161 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
       }
     };
 
-    // Block body scroll on mobile/tablet when drawer is open
-    const isMobile = window.innerWidth < 1024;
-    if (isMobile) {
-      document.body.style.overflow = "hidden";
-    }
-
     window.addEventListener("keydown", handleKeyDown);
+
     return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
       window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
     };
   }, [isOpen, onClose]);
 
-  const renderNavContent = (isMobileDrawer = false) => (
-    <div className="w-[268px] flex flex-col h-full overflow-hidden shrink-0 select-none bg-royal-maroon text-white border-r-2 border-black">
-      {/* Brand Header with Exact Transparent L2H Logo */}
-      <div className="px-4 py-3.5 border-b-2 border-black/40 flex items-center justify-between shrink-0 bg-royal-maroon">
-        <BrandLogo size="md" href="/dashboard" theme="dark" />
-        {isMobileDrawer && (
+  return (
+    <>
+      {/* Dark Overlay Backdrop: Closes drawer on click; absorbs touch/wheel outside sidebar */}
+      <div
+        className={cn(
+          "fixed inset-0 z-40 bg-black/60 transition-opacity duration-[250ms] ease-out",
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+        onClick={onClose}
+        onTouchMove={(e) => e.preventDefault()}
+        onWheel={(e) => e.preventDefault()}
+        aria-hidden="true"
+      />
+
+      {/* Unified Overlay Sidebar: Constrained viewport height, smooth 250ms transform */}
+      <aside
+        id="app-sidebar"
+        aria-label="Main Navigation"
+        aria-hidden={!isOpen}
+        className={cn(
+          "fixed top-16 bottom-0 left-0 z-50 w-[280px] max-w-[85vw] bg-royal-maroon border-r-2 border-black flex flex-col shadow-2xl transition-transform duration-[250ms] ease-out select-none",
+          isOpen ? "translate-x-0 pointer-events-auto" : "-translate-x-full pointer-events-none"
+        )}
+        style={{
+          height: "calc(100vh - 4rem)",
+          maxHeight: "calc(100dvh - 4rem)",
+        }}
+      >
+        {/* Pinned Sidebar Header: Transparent Brand Logo & Close X Button */}
+        <div className="px-4 py-3.5 border-b-2 border-black/40 flex items-center justify-between shrink-0 bg-royal-maroon text-white">
+          <BrandLogo size="md" href="/dashboard" theme="dark" />
           <button
             onClick={onClose}
             className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral"
             aria-label="Close navigation"
+            title="Close navigation"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-white" />
           </button>
-        )}
-      </div>
-
-      {/* Target Readiness Snapshot Card - Compact */}
-      <div className="p-2.5 mx-3 mt-2.5 rounded-lg bg-black border-2 border-electric-coral/50 text-white shrink-0">
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-[10px] font-extrabold text-white/70 uppercase tracking-wider font-mono">
-            Target Readiness
-          </span>
-          <span className="text-xs font-mono font-black text-electric-coral">
-            {userProfile.readinessScore}%
-          </span>
         </div>
-        <ProgressBar value={userProfile.readinessScore} size="sm" variant="electric-coral" />
-        <div className="mt-1.5 flex items-center justify-between text-[11px]">
-          <span className="truncate max-w-[125px] text-white font-bold text-[11px]">
-            {selectedRole.title}
-          </span>
-          <span className="text-electric-coral text-[10px] font-extrabold uppercase tracking-wider truncate max-w-[95px] font-mono">
-            {userProfile.focusArea ? `Gap: ${userProfile.focusArea.split("&")[0].trim()}` : "Active"}
-          </span>
-        </div>
-      </div>
 
-      {/* Navigation Groups - Compact Spacing with Subtle Scrollbar */}
-      <nav
-        aria-label="Sidebar Navigation"
-        className="flex-1 overflow-y-auto px-2.5 py-2.5 space-y-3.5 bg-royal-maroon sidebar-scrollbar"
-      >
-        {PRIMARY_NAV_SECTIONS.map((section, idx) => (
-          <div key={idx} className="space-y-0.5">
-            <p className="px-2.5 py-0.5 text-[9px] font-mono font-extrabold uppercase tracking-widest text-white/60">
-              {section.group}
-            </p>
-            <div className="space-y-0.5">
-              {section.items.map((item) => {
-                const Icon = item.icon;
-                const isActive =
-                  pathname === item.href ||
-                  (item.href !== "/dashboard" && pathname.startsWith(item.href)) ||
-                  (item.href === "/dashboard" && (pathname === "/" || pathname === "/dashboard"));
-
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    prefetch={true}
-                    onClick={() => {
-                      if (isMobileDrawer) onClose();
-                    }}
-                    aria-current={isActive ? "page" : undefined}
-                    className={cn(
-                      "flex items-center gap-2.5 px-3 py-2 text-xs rounded-md transition-colors duration-150 group min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral",
-                      isActive
-                        ? "bg-electric-coral text-black font-black shadow-editorial-xs border-2 border-black"
-                        : "text-white font-medium hover:bg-electric-coral hover:text-black"
-                    )}
-                  >
-                    <Icon
-                      className={cn(
-                        "w-4 h-4 transition-transform group-hover:scale-110 shrink-0",
-                        isActive ? "text-black stroke-[2.5]" : "text-white/80"
-                      )}
-                    />
-                    <span className="truncate">{item.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </nav>
-
-      {/* Compact User / Authentication Footer */}
-      <div className="p-2.5 px-3 border-t-2 border-black/40 shrink-0 bg-royal-maroon text-white">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="w-6 h-6 rounded-full bg-electric-coral text-black flex items-center justify-center text-[10px] font-mono font-black shrink-0 border border-black">
-              {userProfile.name ? userProfile.name.charAt(0).toUpperCase() : "U"}
-            </div>
-            <div className="min-w-0 flex flex-col">
-              <span className="text-xs font-bold text-white truncate leading-tight">
-                {userProfile.name}
-              </span>
-              <span className="text-[9px] text-white/60 truncate font-mono">
-                {userProfile.email}
-              </span>
-            </div>
-          </div>
-
-          {isAuthenticated && (
-            <button
-              onClick={async () => {
-                if (isMobileDrawer) onClose();
-                await signOut();
-              }}
-              title="Sign Out"
-              aria-label="Sign Out"
-              className="p-1.5 rounded-md text-white/80 hover:text-black hover:bg-electric-coral transition-colors cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <>
-      {/* MOBILE DRAWER (Below lg breakpoint) */}
-      <div className="lg:hidden">
-        {/* Mobile Backdrop */}
-        {isOpen && (
-          <div
-            className="fixed inset-0 z-40 bg-black/70 transition-opacity duration-[260ms] ease-out animate-fade-in"
-            onClick={onClose}
-            aria-hidden="true"
-          />
-        )}
-
-        {/* Mobile Drawer Aside */}
-        <aside
-          className={cn(
-            "fixed top-0 bottom-0 left-0 z-50 w-[268px] max-w-[85vw] bg-royal-maroon border-r-2 border-black flex flex-col transition-transform duration-[260ms] ease-out shadow-2xl overflow-hidden",
-            isOpen ? "translate-x-0" : "-translate-x-full pointer-events-none"
-          )}
-          aria-label="Mobile Navigation"
+        {/* EXACTLY ONE Independent Scroll Container for Navigation & User Profile */}
+        <div
+          className="flex-1 overflow-y-auto overflow-x-hidden px-2.5 py-3 space-y-4 bg-royal-maroon text-white sidebar-scrollbar"
+          style={{
+            overscrollBehavior: "contain",
+            WebkitOverflowScrolling: "touch",
+          }}
         >
-          {renderNavContent(true)}
-        </aside>
-      </div>
+          {/* Target Readiness Snapshot Card */}
+          <div className="p-2.5 rounded-lg bg-black border-2 border-electric-coral/50 text-white shrink-0">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] font-extrabold text-white/70 uppercase tracking-wider font-mono">
+                Target Readiness
+              </span>
+              <span className="text-xs font-mono font-black text-electric-coral">
+                {userProfile.readinessScore}%
+              </span>
+            </div>
+            <ProgressBar value={userProfile.readinessScore} size="sm" variant="electric-coral" />
+            <div className="mt-1.5 flex items-center justify-between text-[11px]">
+              <span className="truncate max-w-[130px] text-white font-bold text-[11px]">
+                {selectedRole.title}
+              </span>
+              <span className="text-electric-coral text-[10px] font-extrabold uppercase tracking-wider truncate max-w-[100px] font-mono">
+                {userProfile.focusArea ? `Gap: ${userProfile.focusArea.split("&")[0].trim()}` : "Active"}
+              </span>
+            </div>
+          </div>
 
-      {/* DESKTOP COLLAPSIBLE SIDEBAR (lg breakpoint and above) */}
-      <aside
-        className={cn(
-          "hidden lg:block overflow-hidden transition-[width,transform,opacity] duration-[260ms] ease-out shrink-0 bg-royal-maroon z-30",
-          isOpen
-            ? "w-[268px] opacity-100 translate-x-0 border-r-2 border-black"
-            : "w-0 opacity-0 -translate-x-full pointer-events-none border-r-0"
-        )}
-        aria-label="Main Navigation"
-        aria-hidden={!isOpen}
-      >
-        <div className="w-[268px] h-[calc(100vh-4rem)] sticky top-16 flex flex-col overflow-hidden bg-royal-maroon">
-          {renderNavContent(false)}
+          {/* Navigation Sections */}
+          <nav aria-label="Sidebar Navigation Links" className="space-y-3.5">
+            {PRIMARY_NAV_SECTIONS.map((section, idx) => (
+              <div key={idx} className="space-y-0.5">
+                <p className="px-2.5 py-0.5 text-[9px] font-mono font-extrabold uppercase tracking-widest text-white/60">
+                  {section.group}
+                </p>
+                <div className="space-y-0.5">
+                  {section.items.map((item) => {
+                    const Icon = item.icon;
+                    const isActive =
+                      pathname === item.href ||
+                      (item.href !== "/dashboard" && pathname.startsWith(item.href)) ||
+                      (item.href === "/dashboard" && (pathname === "/" || pathname === "/dashboard"));
+
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        prefetch={true}
+                        onClick={onClose}
+                        aria-current={isActive ? "page" : undefined}
+                        className={cn(
+                          "flex items-center gap-2.5 px-3 py-2 text-xs rounded-md transition-colors duration-150 group min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral",
+                          isActive
+                            ? "bg-electric-coral text-black font-black shadow-editorial-xs border-2 border-black"
+                            : "text-white font-medium hover:bg-electric-coral hover:text-black"
+                        )}
+                      >
+                        <Icon
+                          className={cn(
+                            "w-4 h-4 transition-transform group-hover:scale-110 shrink-0",
+                            isActive ? "text-black stroke-[2.5]" : "text-white/80"
+                          )}
+                        />
+                        <span className="truncate">{item.label}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </nav>
+
+          {/* Candidate Profile / Auth Footer (integrated in single scroll container) */}
+          <div className="pt-3 border-t-2 border-black/40 text-white">
+            <div className="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-black/60">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-7 h-7 rounded-full bg-electric-coral text-black flex items-center justify-center text-[10px] font-mono font-black shrink-0 border border-black">
+                  {userProfile.name ? userProfile.name.charAt(0).toUpperCase() : "U"}
+                </div>
+                <div className="min-w-0 flex flex-col">
+                  <span className="text-xs font-bold text-white truncate leading-tight">
+                    {userProfile.name}
+                  </span>
+                  <span className="text-[9px] text-white/60 truncate font-mono">
+                    {userProfile.email}
+                  </span>
+                </div>
+              </div>
+
+              {isAuthenticated && (
+                <button
+                  onClick={async () => {
+                    onClose();
+                    await signOut();
+                  }}
+                  title="Sign Out"
+                  aria-label="Sign Out"
+                  className="p-1.5 rounded-md text-white/80 hover:text-black hover:bg-electric-coral transition-colors cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </aside>
     </>

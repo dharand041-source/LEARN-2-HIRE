@@ -121,6 +121,11 @@
     transition: all 0.18s ease-out;
   }
 
+  .sidebar-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  }
+
   .sidebar-scrollbar::-webkit-scrollbar {
     width: 4px;
   }

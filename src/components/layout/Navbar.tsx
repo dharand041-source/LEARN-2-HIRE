@@ -55,6 +55,7 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
           <button
             onClick={onToggleSidebar}
             className="p-1.5 sm:p-2 text-white hover:text-electric-coral rounded-lg hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral cursor-pointer"
+            aria-expanded={sidebarOpen}
             aria-label={sidebarOpen ? "Close navigation" : "Open navigation"}
             title={sidebarOpen ? "Collapse navigation" : "Expand navigation"}
           >

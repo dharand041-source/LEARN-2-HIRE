@@ -19,6 +19,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     setSidebarOpen(false);
   }, []);
 
+  // Close sidebar immediately upon any route change
+  React.useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
+
   // Full-focus pages (e.g. active assessment or interview session or auth views)
   const isFocusMode = pathname.startsWith("/assessment") && pathname !== "/assessment/results";
   const isInterviewSession = pathname === "/interview/session";
@@ -39,9 +44,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         sidebarOpen={sidebarOpen}
         onToggleSidebar={handleToggleSidebar}
       />
-      <div className="flex flex-1 relative overflow-x-hidden min-h-0 bg-white">
+      <div className="flex flex-1 relative min-h-0 bg-white">
         <Sidebar isOpen={sidebarOpen} onClose={handleCloseSidebar} />
-        <main className="flex-1 min-w-0 flex flex-col transition-all duration-[260ms] ease-out bg-white w-full">
+        <main className="flex-1 min-w-0 flex flex-col bg-white w-full">
           <div
             className={
               isDashboard
