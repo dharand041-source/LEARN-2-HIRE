@@ -6,15 +6,22 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Compass,
+  Target,
+  BarChart2,
   CheckSquare,
   BookOpen,
-  FolderGit2,
   Code2,
+  FolderGit2,
+  Award,
   Mic,
   FileText,
   Briefcase,
+  GraduationCap,
+  Rocket,
   Kanban,
   TrendingUp,
+  Activity,
+  Bell,
   User,
   Settings,
   ShieldAlert,
@@ -25,6 +32,7 @@ import { cn } from "@/lib/constants";
 import { useCareer } from "@/context/CareerContext";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { ROUTES } from "@/lib/routes";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -33,86 +41,141 @@ interface SidebarProps {
 
 const PRIMARY_NAV_SECTIONS = [
   {
-    group: "Core Progression",
+    group: "Home",
     items: [
       {
         label: "Dashboard",
-        href: "/dashboard",
+        href: ROUTES.app.dashboard,
         icon: LayoutDashboard,
       },
-      {
-        label: "Real-World Projects",
-        href: "/projects",
-        icon: FolderGit2,
-      },
-      {
-        label: "Problem Solving",
-        href: "/problem-solving",
-        icon: Code2,
-      },
-      {
-        label: "Technical Assessment",
-        href: "/assessment",
-        icon: CheckSquare,
-      },
-      {
-        label: "Personalized Learning",
-        href: "/learning",
-        icon: BookOpen,
-      },
+    ],
+  },
+  {
+    group: "Career",
+    items: [
       {
         label: "Career Discovery",
-        href: "/onboarding",
+        href: ROUTES.app.career.discover,
         icon: Compass,
       },
       {
-        label: "Advanced Assessment",
-        href: "/advanced-assessment",
-        icon: ShieldAlert,
+        label: "Career Goals",
+        href: ROUTES.app.career.goals,
+        icon: Target,
+      },
+      {
+        label: "Skill Analysis",
+        href: ROUTES.app.skillAnalysis,
+        icon: BarChart2,
       },
     ],
   },
   {
-    group: "Career & Employment",
+    group: "Develop",
     items: [
       {
-        label: "Interview Simulation",
-        href: "/interview",
+        label: "Assessments",
+        href: ROUTES.app.assessments.root,
+        icon: CheckSquare,
+      },
+      {
+        label: "Learning",
+        href: ROUTES.app.learning.root,
+        icon: BookOpen,
+      },
+      {
+        label: "Practice",
+        href: ROUTES.app.practice.root,
+        icon: Code2,
+      },
+    ],
+  },
+  {
+    group: "Prove",
+    items: [
+      {
+        label: "Projects",
+        href: ROUTES.app.projects.root,
+        icon: FolderGit2,
+      },
+      {
+        label: "Skill Proof",
+        href: ROUTES.app.skillProof.root,
+        icon: Award,
+      },
+    ],
+  },
+  {
+    group: "Prepare",
+    items: [
+      {
+        label: "Interview",
+        href: ROUTES.app.interview.root,
         icon: Mic,
       },
       {
-        label: "Resume & ATS Engine",
-        href: "/resume",
+        label: "Resume",
+        href: ROUTES.app.resume.root,
         icon: FileText,
-      },
-      {
-        label: "Matching Opportunities",
-        href: "/opportunities",
-        icon: Briefcase,
-      },
-      {
-        label: "Application Tracker",
-        href: "/applications",
-        icon: Kanban,
-      },
-      {
-        label: "Rejection & Retraining",
-        href: "/feedback",
-        icon: TrendingUp,
       },
     ],
   },
   {
-    group: "Candidate",
+    group: "Opportunities",
     items: [
       {
-        label: "Profile & Portfolio",
-        href: "/profile",
+        label: "Jobs",
+        href: ROUTES.app.opportunities.jobs,
+        icon: Briefcase,
+      },
+      {
+        label: "Internships",
+        href: ROUTES.app.opportunities.internships,
+        icon: GraduationCap,
+      },
+      {
+        label: "Startups",
+        href: ROUTES.app.opportunities.startups,
+        icon: Rocket,
+      },
+      {
+        label: "Applications",
+        href: ROUTES.app.applications.root,
+        icon: Kanban,
+      },
+    ],
+  },
+  {
+    group: "Grow",
+    items: [
+      {
+        label: "Improve",
+        href: ROUTES.app.improve.root,
+        icon: TrendingUp,
+      },
+      {
+        label: "Analytics",
+        href: ROUTES.app.analytics,
+        icon: Activity,
+      },
+    ],
+  },
+  {
+    group: "System",
+    items: [
+      {
+        label: "Notifications",
+        href: ROUTES.app.notifications,
+        icon: Bell,
+      },
+      {
+        label: "Profile",
+        href: ROUTES.app.profile,
         icon: User,
       },
       {
-        label: "System Settings",
-        href: "/settings",
+        label: "Settings",
+        href: ROUTES.app.settings,
         icon: Settings,
       },
     ],
@@ -234,8 +297,8 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
                     const Icon = item.icon;
                     const isActive =
                       pathname === item.href ||
-                      (item.href !== "/dashboard" && pathname.startsWith(item.href)) ||
-                      (item.href === "/dashboard" && (pathname === "/" || pathname === "/dashboard"));
+                      (item.href !== ROUTES.app.dashboard && pathname.startsWith(item.href)) ||
+                      (item.href === ROUTES.app.dashboard && (pathname === "/" || pathname === "/dashboard" || pathname === ROUTES.app.dashboard));
 
                     return (
                       <Link

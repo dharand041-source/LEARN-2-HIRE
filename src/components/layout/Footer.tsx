@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { PRODUCT_NAME, PRODUCT_TAGLINE } from "@/lib/constants";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { ROUTES } from "@/lib/routes";
 
 interface FooterLink {
   title: string;
@@ -32,44 +33,44 @@ const FOOTER_SECTIONS: FooterColumn[] = [
   {
     title: "Platform",
     links: [
-      { title: "Dashboard", href: "/dashboard" },
-      { title: "Career Discovery", href: "/onboarding", badge: "24 Tracks" },
-      { title: "Skill Assessment", href: "/assessment" },
-      { title: "Personalized Learning", href: "/learning" },
-      { title: "Advanced Assessment", href: "/advanced-assessment" },
-      { title: "Real-World Projects", href: "/projects" },
+      { title: "Dashboard", href: ROUTES.app.dashboard },
+      { title: "Career Discovery", href: ROUTES.app.career.discover, badge: "22 Tracks" },
+      { title: "Skill Assessment", href: ROUTES.app.assessments.root },
+      { title: "Personalized Learning", href: ROUTES.app.learning.root },
+      { title: "Skill Analysis", href: ROUTES.app.skillAnalysis },
+      { title: "Real-World Projects", href: ROUTES.app.projects.root },
     ],
   },
   {
     title: "Career",
     links: [
-      { title: "Problem Solving", href: "/problem-solving" },
-      { title: "Interview Simulation", href: "/interview", badge: "Voice AI" },
-      { title: "Resume & ATS", href: "/resume" },
-      { title: "Job Opportunities", href: "/opportunities" },
-      { title: "Application Tracker", href: "/applications" },
-      { title: "Skill Development", href: "/learning" },
+      { title: "Problem Solving", href: ROUTES.app.practice.root },
+      { title: "Interview Simulation", href: ROUTES.app.interview.root, badge: "Voice AI" },
+      { title: "Resume & ATS", href: ROUTES.app.resume.root },
+      { title: "Job Opportunities", href: ROUTES.app.opportunities.jobs },
+      { title: "Application Tracker", href: ROUTES.app.applications.root },
+      { title: "Skill Evidence", href: ROUTES.app.skillProof.root },
     ],
   },
   {
     title: "Resources",
     links: [
-      { title: "Learning Curriculum", href: "/learning" },
-      { title: "Career Guidance", href: "/onboarding" },
-      { title: "Project Marketplace", href: "/projects" },
-      { title: "Interview Defense", href: "/interview" },
-      { title: "Rejection Retraining", href: "/feedback", badge: "Recovery" },
-      { title: "System Preferences", href: "/settings" },
+      { title: "Learning Curriculum", href: ROUTES.app.learning.courses },
+      { title: "Learning Roadmap", href: ROUTES.app.learning.roadmap },
+      { title: "Free Resources", href: ROUTES.resources },
+      { title: "How It Works", href: ROUTES.howItWorks },
+      { title: "Rejection Retraining", href: ROUTES.app.improve.root, badge: "Recovery" },
+      { title: "System Preferences", href: ROUTES.app.settings },
     ],
   },
   {
     title: "Company",
     links: [
-      { title: "About Learn-2-Hire", href: "/dashboard" },
-      { title: "Our Mission", href: "/dashboard" },
-      { title: "Candidate Profile", href: "/profile" },
-      { title: "Feedback Engine", href: "/feedback" },
-      { title: "Contact Support", href: "/settings" },
+      { title: "About Learn-2-Hire", href: ROUTES.about },
+      { title: "All Careers", href: ROUTES.careers },
+      { title: "Candidate Profile", href: ROUTES.app.profile },
+      { title: "Analytics", href: ROUTES.app.analytics },
+      { title: "Contact & Settings", href: ROUTES.app.settings },
     ],
   },
 ];
@@ -125,7 +126,7 @@ function FooterComponent() {
           {/* Brand & Editorial Value Statement (Left Side - 4 Columns on Desktop) */}
           <div className="lg:col-span-4 space-y-5">
             {/* Logo and Tagline */}
-            <BrandLogo size="lg" theme="dark" href="/dashboard" />
+            <BrandLogo size="lg" theme="dark" href={ROUTES.app.dashboard} />
 
             <p className="text-sm font-extrabold text-white tracking-tight">
               Build skills. Prove your readiness. Launch your career.

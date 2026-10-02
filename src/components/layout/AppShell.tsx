@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { ROUTES } from "@/lib/routes";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  // Post-login default state: sidebar is CLOSED so the homepage is the primary full-width experience
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
 
@@ -24,19 +24,37 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     setSidebarOpen(false);
   }, [pathname]);
 
-  // Full-focus pages (e.g. active assessment or interview session or auth views)
-  const isFocusMode = pathname.startsWith("/assessment") && pathname !== "/assessment/results";
-  const isInterviewSession = pathname === "/interview/session";
-  const isAuthPage = pathname === "/login" || pathname === "/signup" || pathname.startsWith("/auth");
-  const isDashboard = pathname === "/" || pathname === "/dashboard";
+  // Full-focus pages (active test runner or interview session or auth views)
+  const isFocusMode =
+    (pathname.startsWith("/app/assessments/") && !pathname.includes("/results")) ||
+    (pathname.startsWith("/assessment") && pathname !== "/assessment/results");
+  const isInterviewSession =
+    pathname === "/app/interview/mock" ||
+    pathname === "/interview/session";
+  const isAuthPage =
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname.startsWith("/auth");
 
-  if (isFocusMode || isInterviewSession || isAuthPage) {
+  // Public Marketing & informational pages that have their own navigation
+  const isPublicMarketingPage =
+    pathname === "/" ||
+    pathname === "/how-it-works" ||
+    pathname === "/careers" ||
+    pathname === "/resources" ||
+    pathname === "/about";
+
+  if (isFocusMode || isInterviewSession || isAuthPage || isPublicMarketingPage) {
     return (
       <div className="min-h-screen bg-white text-black flex flex-col">
         <main className="flex-1 min-w-0">{children}</main>
       </div>
     );
   }
+
+  const isDashboard =
+    pathname === ROUTES.app.dashboard ||
+    pathname === "/dashboard";
 
   return (
     <div className="min-h-screen bg-white text-black flex flex-col">

@@ -20,6 +20,7 @@ import { PRODUCT_NAME, SUPPORTED_LANGUAGES } from "@/lib/constants";
 import { useCareer } from "@/context/CareerContext";
 import { Badge } from "@/components/ui/Badge";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { ROUTES } from "@/lib/routes";
 
 interface NavbarProps {
   sidebarOpen?: boolean;
@@ -62,12 +63,12 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
             <Menu className="w-5 h-5 text-white" />
           </button>
 
-          <BrandLogo size="md" theme="dark" href="/dashboard" />
+          <BrandLogo size="md" theme="dark" href={ROUTES.app.dashboard} />
 
           {/* Active Target Career Track Pill */}
           <div className="hidden md:flex items-center gap-2 ml-4 pl-4 border-l border-white/20">
             <Link
-              href="/onboarding"
+              href={ROUTES.app.career.discover}
               prefetch={true}
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/20 border border-white/20 hover:border-electric-coral transition-colors text-xs text-white/90 hover:text-white"
             >
@@ -240,7 +241,7 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
 
                 <div className="py-1">
                   <Link
-                    href="/profile"
+                    href={ROUTES.app.profile}
                     prefetch={true}
                     onClick={() => setIsProfileOpen(false)}
                     className="flex items-center gap-2.5 px-4 py-2 text-xs text-foreground font-medium hover:bg-surface transition-colors"
@@ -249,13 +250,22 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
                     <span>Candidate Profile</span>
                   </Link>
                   <Link
-                    href="/settings"
+                    href={ROUTES.app.settings}
                     prefetch={true}
                     onClick={() => setIsProfileOpen(false)}
                     className="flex items-center gap-2.5 px-4 py-2 text-xs text-foreground font-medium hover:bg-surface transition-colors"
                   >
                     <Settings className="w-4 h-4 text-muted" />
                     <span>Preferences & Settings</span>
+                  </Link>
+                  <Link
+                    href={ROUTES.app.notifications}
+                    prefetch={true}
+                    onClick={() => setIsProfileOpen(false)}
+                    className="flex items-center gap-2.5 px-4 py-2 text-xs text-foreground font-medium hover:bg-surface transition-colors"
+                  >
+                    <Bell className="w-4 h-4 text-muted" />
+                    <span>All Notifications</span>
                   </Link>
                   {isAuthenticated ? (
                     <button
@@ -270,7 +280,7 @@ function NavbarComponent({ sidebarOpen = true, onToggleSidebar }: NavbarProps) {
                     </button>
                   ) : (
                     <Link
-                      href="/login"
+                      href={ROUTES.auth.login}
                       prefetch={true}
                       onClick={() => setIsProfileOpen(false)}
                       className="flex items-center gap-2.5 px-4 py-2 text-xs text-royal-maroon font-extrabold hover:bg-surface transition-colors border-t border-border mt-1"

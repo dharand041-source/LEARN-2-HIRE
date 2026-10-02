@@ -1,0 +1,12 @@
+# Learn-2-Hire | Career-Readiness & Employment Platform
+
+[Learn-2-Hire](http://localhost:3000/login)
+
+# Welcome to Learn-2-Hire
+Sign in to access technical assessments, AI mock interviews, and verified job matches.
+[Terms of Service](http://localhost:3000/terms)
+[Privacy Policy](http://localhost:3000/privacy)
+
+## AI-Powered Career Intelligence
+The infrastructure behind proven skills, benchmarked evaluations, and seamless hiring.
+Trusted by candidates & hiring teams at top engineering hubs

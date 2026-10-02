@@ -6,30 +6,46 @@ import {
   Compass,
   CheckCircle2,
   Clock,
-  Calendar,
   DollarSign,
   TrendingUp,
   ArrowRight,
   ChevronDown,
   ChevronUp,
+  User,
+  GraduationCap,
+  Briefcase,
+  Target,
+  Sparkles,
+  Layers,
 } from "lucide-react";
 import { useCareer } from "@/context/CareerContext";
 import { CAREER_ROLES } from "@/data/careers";
 import { CAREER_CATEGORIES } from "@/lib/constants";
-import { CareerRole, CareerCategory } from "@/types";
-import { Button } from "@/components/ui/Button";
+import { CareerRole } from "@/types";
 import { Badge } from "@/components/ui/Badge";
-import { Card } from "@/components/ui/Card";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import { onboardingService, userRepo } from "@/services/domainServices";
+import { ROUTES } from "@/lib/routes";
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { selectedRole, selectRole } = useCareer();
+  const { selectedRole, selectRole, updateUserProfile } = useCareer();
 
-  const [currentRole, setCurrentRole] = useState<CareerRole>(selectedRole);
+  // Onboarding Form State
+  const [name, setName] = useState("Alex Morgan");
+  const [education, setEducation] = useState("B.Tech / B.E. in Computer Science");
+  const [experienceLevel, setExperienceLevel] = useState("Entry Level / Fresher");
+  const [currentSkillsInput, setCurrentSkillsInput] = useState("JavaScript, HTML, CSS, Git, Basic React");
+  const [careerInterests, setCareerInterests] = useState("Full-Stack Web Development, Scalable APIs");
+  const [careerGoal, setCareerGoal] = useState("Land a high-growth Software Engineer role at a top tech company or funded startup");
+  const [preferredWorkType, setPreferredWorkType] = useState("Hybrid / Remote");
+
+  const [currentRole, setCurrentRole] = useState<CareerRole>(
+    CAREER_ROLES.find((r) => r.id === "full-stack-developer" || r.id === "full-stack-dev") || selectedRole
+  );
+
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({
-    [selectedRole.category]: true,
+    "Software Development & Engineering": true,
   });
 
   const toggleCategory = (cat: string) => {
@@ -44,36 +60,151 @@ export default function OnboardingPage() {
     selectRole(role.id);
   };
 
-  const handleStartAssessment = () => {
+  const handleStartAssessment = async () => {
     selectRole(currentRole.id);
-    router.push("/assessment");
+
+    const skillsArray = currentSkillsInput
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    await onboardingService.submitOnboarding({
+      fullName: name,
+      education,
+      experienceLevel,
+      currentSkills: skillsArray,
+      careerGoal,
+      targetRole: currentRole.title,
+      preferredWorkType,
+    });
+
+    updateUserProfile({
+      name,
+      targetRole: currentRole.title,
+      targetCategory: currentRole.category,
+    });
+
+    router.push(ROUTES.app.assessments.baseline);
   };
 
   return (
-    <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen">
+    <div className="space-y-8 animate-fade-in bg-background text-foreground min-h-screen pb-16">
       {/* Royal Maroon Career Discovery Hero Section */}
       <div className="rounded-2xl bg-royal-maroon text-white border-4 border-black p-8 sm:p-10 shadow-editorial-md space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-electric-coral border-2 border-black text-xs font-mono font-extrabold uppercase tracking-widest">
-              <span>Phase 01 // Career Discovery</span>
+              <span>Candidate Setup // Step 1 of 8</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
-              Discover Your Engineering Pathway
+              Initialize Your Career Pathway
             </h1>
             <p className="text-white/80 text-sm sm:text-base leading-relaxed">
-              Select an engineering track to generate your personalized diagnostic assessment, structured curriculum path, and production project portfolio.
+              Define your background, specify your target role, and instantly generate your baseline diagnostic assessment and personalized curriculum.
             </p>
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={handleStartAssessment}
-              className="px-6 py-3 rounded-lg bg-electric-coral hover:bg-white text-black border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-xs"
+              className="px-6 py-3.5 rounded-lg bg-electric-coral hover:bg-white text-black border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-xs"
             >
               <span>Begin {currentRole.title} Assessment</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Candidate Background & Goals Intake Card */}
+      <div className="p-6 sm:p-8 rounded-2xl bg-white border-3 border-black shadow-editorial-md space-y-6">
+        <div className="flex items-center gap-2 border-b-2 border-black pb-3">
+          <User className="w-5 h-5 text-royal-maroon" />
+          <h2 className="text-lg font-display font-black uppercase text-black">
+            Candidate Profile & Career Objectives
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-xs">
+          <div>
+            <label className="block font-bold font-mono text-black uppercase mb-1">
+              Full Name
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-electric-coral font-medium"
+            />
+          </div>
+
+          <div>
+            <label className="block font-bold font-mono text-black uppercase mb-1">
+              Highest Education
+            </label>
+            <input
+              type="text"
+              value={education}
+              onChange={(e) => setEducation(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-electric-coral font-medium"
+            />
+          </div>
+
+          <div>
+            <label className="block font-bold font-mono text-black uppercase mb-1">
+              Experience Level
+            </label>
+            <select
+              value={experienceLevel}
+              onChange={(e) => setExperienceLevel(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-electric-coral font-medium bg-white"
+            >
+              <option>Student / Final Year</option>
+              <option>Entry Level / Fresher</option>
+              <option>1-3 Years Experience (Junior/Mid)</option>
+              <option>3+ Years Experience (Senior)</option>
+              <option>Career Transitioner</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block font-bold font-mono text-black uppercase mb-1">
+              Preferred Work Type
+            </label>
+            <select
+              value={preferredWorkType}
+              onChange={(e) => setPreferredWorkType(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-electric-coral font-medium bg-white"
+            >
+              <option>Hybrid / Remote</option>
+              <option>100% Remote</option>
+              <option>Onsite / Office</option>
+              <option>Flexible / Any</option>
+            </select>
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="block font-bold font-mono text-black uppercase mb-1">
+              Current Technical Skills (Comma separated)
+            </label>
+            <input
+              type="text"
+              value={currentSkillsInput}
+              onChange={(e) => setCurrentSkillsInput(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-electric-coral font-medium"
+            />
+          </div>
+
+          <div className="md:col-span-3">
+            <label className="block font-bold font-mono text-black uppercase mb-1">
+              Career Goal & Dream Technical Role
+            </label>
+            <input
+              type="text"
+              value={careerGoal}
+              onChange={(e) => setCareerGoal(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-electric-coral font-medium"
+            />
           </div>
         </div>
       </div>
@@ -84,7 +215,7 @@ export default function OnboardingPage() {
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between border-b-2 border-border pb-2">
             <span className="text-xs uppercase font-mono tracking-wider font-bold text-foreground">
-              Select Discipline & Role
+              Select Your Target Career Discipline
             </span>
             <span className="text-[11px] text-muted-foreground font-mono font-bold">
               {CAREER_ROLES.length} Specializations Available
@@ -100,83 +231,76 @@ export default function OnboardingPage() {
               return (
                 <div
                   key={category}
-                  className={`rounded-lg border-2 transition-all duration-150 overflow-hidden ${
+                  className={`rounded-xl border-2 transition-all ${
                     hasSelectedRole
-                      ? "border-foreground bg-white shadow-editorial-sm"
-                      : "border-border bg-white hover:border-foreground"
+                      ? "border-black bg-white shadow-editorial-xs"
+                      : "border-border bg-white"
                   }`}
                 >
-                  {/* Category Accordion Header */}
+                  {/* Category Header Accordion Button */}
                   <button
                     onClick={() => toggleCategory(category)}
-                    className="w-full flex items-center justify-between p-4 text-left select-none cursor-pointer hover:bg-surface transition-colors"
+                    className="w-full p-4 flex items-center justify-between text-left hover:bg-surface/50 rounded-xl transition-colors cursor-pointer"
                   >
-                    <div className="flex items-center gap-3.5">
-                      <div className={`w-9 h-9 rounded-md flex items-center justify-center text-xs font-bold border-2 ${
-                        hasSelectedRole
-                          ? "bg-electric-coral text-black border-foreground shadow-editorial-sm font-black"
-                          : "bg-surface text-foreground border-border"
-                      }`}>
-                        <Compass className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <h3 className={`text-sm font-bold tracking-tight ${
-                          hasSelectedRole ? "text-foreground" : "text-foreground"
-                        }`}>
-                          {category}
-                        </h3>
-                        <p className="text-[11px] text-muted-foreground font-mono mt-0.5">
-                          {rolesInCategory.length} roles • {rolesInCategory.reduce((acc, r) => acc + r.openRolesCount, 0).toLocaleString()} open market vacancies
-                        </p>
-                      </div>
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-3 h-3 rounded-full border border-black ${
+                          hasSelectedRole ? "bg-electric-coral" : "bg-black/20"
+                        }`}
+                      />
+                      <span className="font-extrabold text-sm text-foreground">
+                        {category}
+                      </span>
+                      <span className="text-[11px] font-mono font-bold text-muted bg-surface px-2 py-0.5 rounded border border-border">
+                        {rolesInCategory.length} roles
+                      </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      {hasSelectedRole && (
-                        <Badge variant="coral" size="sm">Active Track</Badge>
-                      )}
-                      {isExpanded ? (
-                        <ChevronUp className="w-4 h-4 text-foreground" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 text-foreground" />
-                      )}
+                    <div className="text-muted">
+                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </div>
                   </button>
 
-                  {/* Expanded Roles List */}
+                  {/* Role Cards inside Category */}
                   {isExpanded && (
-                    <div className="p-3 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-2 border-t-2 border-border bg-surface">
+                    <div className="p-3 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-2 border-t border-border mt-1">
                       {rolesInCategory.map((role) => {
                         const isSelected = currentRole.id === role.id;
                         return (
-                          <div
+                          <button
                             key={role.id}
                             onClick={() => handleSelectRole(role)}
-                            className={`p-3.5 rounded-md border-2 transition-all cursor-pointer flex flex-col justify-between ${
+                            className={`p-3 rounded-lg text-left transition-all border-2 flex flex-col justify-between cursor-pointer ${
                               isSelected
-                                ? "bg-white border-foreground text-foreground shadow-editorial-sm"
-                                : "bg-white border-border text-foreground hover:border-foreground"
+                                ? "bg-royal-maroon border-black text-white shadow-editorial-xs"
+                                : "bg-surface border-border hover:border-black text-foreground"
                             }`}
                           >
-                            <div>
-                              <div className="flex items-start justify-between gap-1">
-                                <h4 className="text-xs font-bold leading-tight text-foreground">
-                                  {role.title}
-                                </h4>
+                            <div className="space-y-1">
+                              <div className="flex items-center justify-between">
+                                <span className="font-extrabold text-xs">{role.title}</span>
                                 {isSelected && (
-                                  <span className="w-2.5 h-2.5 rounded-full bg-electric-coral border border-foreground shrink-0" />
+                                  <CheckCircle2 className="w-4 h-4 text-electric-coral shrink-0" />
                                 )}
                               </div>
-                              <p className="text-[11px] mt-1.5 line-clamp-2 leading-relaxed text-muted-foreground">
+                              <p
+                                className={`text-[11px] leading-tight line-clamp-2 ${
+                                  isSelected ? "text-white/80" : "text-muted"
+                                }`}
+                              >
                                 {role.shortDesc}
                               </p>
                             </div>
 
-                            <div className="mt-3 pt-2 border-t border-border flex items-center justify-between text-[10px] font-mono">
-                              <span className="font-bold text-foreground">{role.averageSalary}</span>
-                              <span className="font-bold text-muted-foreground">{role.growthRate}</span>
+                            <div
+                              className={`mt-2 pt-2 border-t flex items-center justify-between text-[10px] font-mono font-bold ${
+                                isSelected ? "border-white/20 text-electric-coral" : "border-border text-foreground"
+                              }`}
+                            >
+                              <span>{role.averageSalary}</span>
+                              <span className="opacity-80">{role.learningPathLength}</span>
                             </div>
-                          </div>
+                          </button>
                         );
                       })}
                     </div>
@@ -187,102 +311,98 @@ export default function OnboardingPage() {
           </div>
         </div>
 
-        {/* Right Side: Selected Role Deep Dive (5 cols) */}
-        <div className="lg:col-span-5 sticky top-20 space-y-4">
-          <Card variant="editorial" className="p-6 md:p-7 space-y-6">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <Badge variant="coral" size="sm">{currentRole.category}</Badge>
-                <span className="text-[11px] text-foreground font-bold font-mono">{currentRole.growthRate} Growth</span>
-              </div>
-              <h2 className="text-2xl font-extrabold text-foreground tracking-tight">
-                {currentRole.title}
-              </h2>
-              <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
-                {currentRole.description}
-              </p>
+        {/* Right Side: Selected Role Deep Detail Card (5 cols) */}
+        <div className="lg:col-span-5 sticky top-20 rounded-2xl bg-white border-3 border-black p-6 shadow-editorial-md space-y-6">
+          <div className="space-y-2 border-b-2 border-border pb-4">
+            <div className="flex items-center justify-between">
+              <Badge variant="coral" size="sm">
+                Target Specialization
+              </Badge>
+              <span className="text-xs font-mono font-extrabold text-royal-maroon">
+                {currentRole.growthRate}
+              </span>
+            </div>
+            <h2 className="text-2xl font-display font-extrabold text-foreground tracking-tight">
+              {currentRole.title}
+            </h2>
+            <p className="text-xs text-muted leading-relaxed">
+              {currentRole.description}
+            </p>
+          </div>
+
+          {/* Quick Metrics */}
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="p-3 rounded-lg bg-surface border border-border">
+              <span className="text-[10px] font-mono text-muted uppercase font-bold block">
+                Avg Benchmark
+              </span>
+              <span className="text-sm font-mono font-extrabold text-foreground">
+                {currentRole.averageSalary}
+              </span>
             </div>
 
-            {/* Role Metadata Metric Badges */}
-            <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-surface border-2 border-border text-xs">
-              <div>
-                <span className="text-[10px] text-muted-foreground flex items-center gap-1 font-mono font-bold uppercase">
-                  <DollarSign className="w-3 h-3 text-foreground" /> Avg Compensation
-                </span>
-                <p className="font-extrabold text-foreground font-mono mt-1 text-sm">{currentRole.averageSalary}</p>
-              </div>
-              <div>
-                <span className="text-[10px] text-muted-foreground flex items-center gap-1 font-mono font-bold uppercase">
-                  <Clock className="w-3 h-3 text-foreground" /> Assessment Time
-                </span>
-                <p className="font-bold text-foreground font-mono mt-1">{currentRole.assessmentDuration}</p>
-              </div>
-              <div>
-                <span className="text-[10px] text-muted-foreground flex items-center gap-1 font-mono font-bold uppercase">
-                  <Calendar className="w-3 h-3 text-foreground" /> Learning Curve
-                </span>
-                <p className="font-bold text-foreground font-mono mt-1">{currentRole.learningPathLength}</p>
-              </div>
-              <div>
-                <span className="text-[10px] text-muted-foreground flex items-center gap-1 font-mono font-bold uppercase">
-                  <TrendingUp className="w-3 h-3 text-foreground" /> Open Positions
-                </span>
-                <p className="font-bold text-foreground font-mono mt-1">{currentRole.openRolesCount.toLocaleString()} Active</p>
-              </div>
+            <div className="p-3 rounded-lg bg-surface border border-border">
+              <span className="text-[10px] font-mono text-muted uppercase font-bold block">
+                Open Positions
+              </span>
+              <span className="text-sm font-mono font-extrabold text-foreground">
+                {currentRole.openRolesCount}+ Active
+              </span>
             </div>
 
-            {/* Expected Skill Areas & Weights */}
-            <div className="space-y-3">
-              <h3 className="text-xs font-bold uppercase font-mono tracking-wider text-foreground">
-                Target Competency Blueprint
-              </h3>
-              <div className="space-y-3">
-                {currentRole.expectedSkillAreas.map((skill, i) => (
-                  <div key={i} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-foreground font-semibold">{skill.name}</span>
-                      <span className="font-mono font-bold text-foreground">{skill.weight}%</span>
-                    </div>
-                    <ProgressBar value={skill.weight} size="sm" variant="coral" />
-                    <p className="text-[10px] text-muted-foreground">{skill.description}</p>
+            <div className="p-3 rounded-lg bg-surface border border-border">
+              <span className="text-[10px] font-mono text-muted uppercase font-bold block">
+                Initial Diagnostic
+              </span>
+              <span className="text-sm font-mono font-extrabold text-foreground">
+                {currentRole.assessmentDuration} (10 Qs)
+              </span>
+            </div>
+
+            <div className="p-3 rounded-lg bg-surface border border-border">
+              <span className="text-[10px] font-mono text-muted uppercase font-bold block">
+                Estimated Roadmap
+              </span>
+              <span className="text-sm font-mono font-extrabold text-foreground">
+                {currentRole.learningPathLength}
+              </span>
+            </div>
+          </div>
+
+          {/* Expected Skill Areas & Weights */}
+          <div className="space-y-3">
+            <span className="text-xs uppercase font-mono tracking-wider font-extrabold text-foreground block">
+              Skill Evaluation Weights
+            </span>
+            <div className="space-y-2.5">
+              {currentRole.expectedSkillAreas.map((area) => (
+                <div key={area.name} className="space-y-1">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-foreground truncate max-w-[200px]">
+                      {area.name}
+                    </span>
+                    <span className="font-mono font-extrabold text-royal-maroon">{area.weight}%</span>
                   </div>
-                ))}
-              </div>
+                  <ProgressBar value={area.weight} size="sm" variant="electric-coral" />
+                  <p className="text-[10px] text-muted leading-tight">{area.description}</p>
+                </div>
+              ))}
             </div>
+          </div>
 
-            {/* Primary Required Tools & Tech */}
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase font-mono tracking-wider text-foreground">
-                Core Technologies & Tools
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {currentRole.primarySkills.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="px-2.5 py-1 rounded-sm bg-surface border-2 border-border text-[11px] font-mono font-bold text-foreground"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Action CTA */}
-            <div className="pt-4 border-t-2 border-border space-y-2">
-              <Button
-                onClick={handleStartAssessment}
-                variant="coral"
-                size="lg"
-                className="w-full gap-2 text-xs font-bold shadow-editorial-sm"
-              >
-                <span>Begin Assessment for {currentRole.title}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-              <p className="text-[10px] text-muted-foreground text-center font-mono font-medium">
-                10-question technical diagnostic • Anti-distraction mode • Immediate gap breakdown
-              </p>
-            </div>
-          </Card>
+          {/* Action Button */}
+          <div className="pt-2">
+            <button
+              onClick={handleStartAssessment}
+              className="w-full py-3.5 px-4 rounded-xl bg-electric-coral hover:bg-black hover:text-white text-black font-black text-xs sm:text-sm border-2 border-black transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-editorial-xs"
+            >
+              <span>Confirm Track & Start Baseline Diagnostic</span>
+              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+            </button>
+            <p className="text-[10px] text-center text-muted font-mono mt-2">
+              Saves target role & routes directly to /app/assessments/baseline
+            </p>
+          </div>
         </div>
       </div>
     </div>

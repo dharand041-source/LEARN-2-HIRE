@@ -1,10 +1,10 @@
 import { CareerRole } from "@/types";
 
 export const CAREER_ROLES: CareerRole[] = [
-  // Software Development
+  // 1. Full-Stack Developer
   {
-    id: "full-stack-dev",
-    title: "Full Stack Developer",
+    id: "full-stack-developer",
+    title: "Full-Stack Developer",
     category: "Software Development & Engineering",
     description: "Design, build, test, and deploy end-to-end web applications combining modern frontend frameworks, scalable backend APIs, database architecture, and cloud deployment pipelines.",
     shortDesc: "End-to-end web engineering with React, Node.js, databases & modern cloud tools.",
@@ -23,8 +23,10 @@ export const CAREER_ROLES: CareerRole[] = [
     ],
     prerequisites: ["Foundations of Computing", "Basic Programming Logic", "Web Basics (HTML/CSS)"],
   },
+
+  // 2. Frontend Developer
   {
-    id: "frontend-dev",
+    id: "frontend-developer",
     title: "Frontend Developer",
     category: "Software Development & Engineering",
     description: "Create pixel-perfect, accessible, and high-performance user interfaces using React, Next.js, TypeScript, and modern CSS architectures.",
@@ -43,8 +45,10 @@ export const CAREER_ROLES: CareerRole[] = [
     ],
     prerequisites: ["Basic HTML & CSS", "JavaScript fundamentals"],
   },
+
+  // 3. Backend Developer
   {
-    id: "backend-dev",
+    id: "backend-developer",
     title: "Backend Developer",
     category: "Software Development & Engineering",
     description: "Engineer resilient server-side microservices, distributed transaction processing systems, high-throughput message brokers, and robust relational & NoSQL databases.",
@@ -63,8 +67,10 @@ export const CAREER_ROLES: CareerRole[] = [
     ],
     prerequisites: ["Data Structures & Algorithms", "Networking & HTTP Basics", "SQL Basics"],
   },
+
+  // 4. Mobile App Developer
   {
-    id: "mobile-dev",
+    id: "mobile-app-developer",
     title: "Mobile App Developer",
     category: "Software Development & Engineering",
     description: "Develop fluid, cross-platform and native mobile experiences using React Native, Flutter, Kotlin, and Swift with offline-first persistence.",
@@ -83,9 +89,11 @@ export const CAREER_ROLES: CareerRole[] = [
     ],
     prerequisites: ["JavaScript/TypeScript or OOP Fundamentals", "UI Layout Fundamentals"],
   },
+
+  // 5. QA / Test Automation Engineer
   {
-    id: "sdet-engineer",
-    title: "Software Development Engineer in Test (SDET)",
+    id: "qa-test-automation-engineer",
+    title: "QA / Test Automation Engineer",
     category: "Software Development & Engineering",
     description: "Architect end-to-end test automation frameworks, load testing harnesses, contract testing suites, and integrated CI/CD regression gates.",
     shortDesc: "Automate test suites, performance benchmarks, and CI/CD quality gates.",
@@ -104,9 +112,31 @@ export const CAREER_ROLES: CareerRole[] = [
     prerequisites: ["Basic Programming Logic", "Web / API Fundamentals"],
   },
 
-  // Data, AI & ML
+  // 6. AI / Agentic AI Engineer
   {
-    id: "ai-ml-engineer",
+    id: "ai-agentic-ai-engineer",
+    title: "AI / Agentic AI Engineer",
+    category: "Data, AI & Machine Learning",
+    description: "Build autonomous multi-agent workflows, tool-calling systems, orchestration architectures, vector memory retrieval pipelines, and stateful agentic networks.",
+    shortDesc: "Architect multi-agent autonomous systems, tool-use LLM agents, and semantic graphs.",
+    averageSalary: "₹16,50,000 / yr",
+    growthRate: "+45% YoY",
+    openRolesCount: 2850,
+    assessmentDuration: "35 mins",
+    learningPathLength: "14 weeks",
+    primarySkills: ["Python", "LangChain / LangGraph", "AutoGPT / CrewAI", "LlamaIndex", "Vector DBs", "Prompt Architecture", "Function Calling", "Async Python"],
+    expectedSkillAreas: [
+      { name: "Agent Architectures & Tool Use", weight: 35, description: "ReAct patterns, planning loops, structured output extraction, dynamic tool execution." },
+      { name: "State Graphs & Multi-Agent Coordination", weight: 25, description: "LangGraph, state checkpoints, supervisor patterns, inter-agent messaging." },
+      { name: "Advanced RAG & Knowledge Retrieval", weight: 20, description: "Hybrid search, reranking, contextual chunking, GraphRAG, vector indexes." },
+      { name: "Evaluation & Guardrails", weight: 20, description: "Hallucination metrics, agent trajectory benchmarking, safety filters." },
+    ],
+    prerequisites: ["Python proficiency", "REST APIs", "Foundations of AI/LLMs"],
+  },
+
+  // 7. Machine Learning Engineer
+  {
+    id: "machine-learning-engineer",
     title: "Machine Learning Engineer",
     category: "Data, AI & Machine Learning",
     description: "Train, evaluate, fine-tune, and deploy predictive ML models and deep learning architectures into low-latency production inference environments.",
@@ -125,6 +155,30 @@ export const CAREER_ROLES: CareerRole[] = [
     ],
     prerequisites: ["Python Programming", "College Mathematics (Linear Algebra & Calculus)", "Data Structures"],
   },
+
+  // 8. LLMOps / AI Safety Specialist
+  {
+    id: "llmops-ai-safety-specialist",
+    title: "LLMOps / AI Safety Specialist",
+    category: "Data, AI & Machine Learning",
+    description: "Implement continuous LLM evaluation pipelines, fine-tuning infrastructure, prompt regression testing, red-teaming, alignment safeguards, and inference optimization.",
+    shortDesc: "Continuous model evaluation, alignment guardrails, prompt security, and low-latency LLM serving.",
+    averageSalary: "₹15,80,000 / yr",
+    growthRate: "+42% YoY",
+    openRolesCount: 1620,
+    assessmentDuration: "30 mins",
+    learningPathLength: "12 weeks",
+    primarySkills: ["vLLM / TensorRT-LLM", "Prompt Injection Defense", "Llama Guard / NeMo", "DeepEval / Ragas", "LoRA / QLoRA", "Docker / K8s", "Python"],
+    expectedSkillAreas: [
+      { name: "Inference Engine Optimization", weight: 30, description: "PagedAttention, continuous batching, quantization (AWQ/GPTQ), latency budgets." },
+      { name: "Red Teaming & Security Guardrails", weight: 30, description: "Jailbreak defense, indirect prompt injection mitigation, PII masking, toxic content classifiers." },
+      { name: "Evaluation Pipelines & Tracing", weight: 25, description: "Ragas, DeepEval, OpenTelemetry LLM spans, cost tracking, drift detection." },
+      { name: "Fine-Tuning Infrastructure", weight: 15, description: "PEFT, LoRA adapters, dataset curation, synthetic data generation." },
+    ],
+    prerequisites: ["Python Programming", "Basic ML/LLM concepts", "Linux Command Line"],
+  },
+
+  // 9. Data Engineer
   {
     id: "data-engineer",
     title: "Data Engineer",
@@ -145,9 +199,33 @@ export const CAREER_ROLES: CareerRole[] = [
     ],
     prerequisites: ["Python fundamentals", "Relational Database concepts", "Linux Command Line"],
   },
+
+  // 10. Data Scientist
   {
-    id: "data-analyst",
-    title: "Data Analyst / BI Specialist",
+    id: "data-scientist",
+    title: "Data Scientist",
+    category: "Data, AI & Machine Learning",
+    description: "Apply advanced statistical modeling, exploratory analytics, hypothesis testing, and algorithmic feature engineering to discover enterprise patterns and predictive signals.",
+    shortDesc: "Statistical modeling, predictive algorithms, causal inference, and experimental design.",
+    averageSalary: "₹13,50,000 / yr",
+    growthRate: "+26% YoY",
+    openRolesCount: 3100,
+    assessmentDuration: "35 mins",
+    learningPathLength: "14 weeks",
+    primarySkills: ["Python / R", "Statistical Inference", "Scikit-Learn", "A/B Testing", "Time Series Analysis", "SQL", "Pandas", "Feature Engineering"],
+    expectedSkillAreas: [
+      { name: "Statistical Inference & Probability", weight: 35, description: "Bayesian methods, regression analysis, significance testing, experimental design." },
+      { name: "Predictive Modeling & Feature Engineering", weight: 30, description: "Ensemble trees (XGBoost/LightGBM), clustering, dimensionality reduction (PCA)." },
+      { name: "SQL Analytics & Data Wrangling", weight: 20, description: "Cohort analysis, customer lifetime value, churn modeling, complex aggregations." },
+      { name: "Communication & Experimentation", weight: 15, description: "A/B test metric definition, sample size calculation, executive presentation." },
+    ],
+    prerequisites: ["College Mathematics / Statistics", "Python programming"],
+  },
+
+  // 11. Data / Business Analyst
+  {
+    id: "data-business-analyst",
+    title: "Data / Business Analyst",
     category: "Data, AI & Machine Learning",
     description: "Transform complex operational datasets into executive dashboards, cohort insights, and predictive business intelligence reports.",
     shortDesc: "Extract insights, construct SQL aggregations, and build Tableau/PowerBI visual storytelling.",
@@ -166,93 +244,9 @@ export const CAREER_ROLES: CareerRole[] = [
     prerequisites: ["Basic Math & Logic", "Spreadsheet experience"],
   },
 
-  // Cloud & DevOps
+  // 12. Cloud Solutions Architect
   {
-    id: "devops-engineer",
-    title: "Cloud & DevOps Engineer",
-    category: "Cloud, Infrastructure & DevOps",
-    description: "Automate continuous delivery pipelines, orchestrate Kubernetes clusters, provision Infrastructure as Code via Terraform, and maintain high-availability cloud infrastructure.",
-    shortDesc: "Orchestrate Kubernetes, write Terraform IaC, manage AWS/GCP, and automate CI/CD.",
-    averageSalary: "₹12,00,000 / yr",
-    growthRate: "+30% YoY",
-    openRolesCount: 3600,
-    assessmentDuration: "30 mins",
-    learningPathLength: "14 weeks",
-    primarySkills: ["Linux / Bash", "Docker", "Kubernetes", "Terraform", "AWS / Azure", "GitHub Actions / GitLab CI", "Prometheus & Grafana", "Ansible"],
-    expectedSkillAreas: [
-      { name: "Containerization & Orchestration", weight: 35, description: "K8s Pods, Deployments, StatefulSets, Ingress, Helm charts, resource limits." },
-      { name: "Infrastructure as Code (Terraform)", weight: 25, description: "State locking, reusable modules, provider configuration, drift remediation." },
-      { name: "Cloud Architecture (AWS/Azure)", weight: 20, description: "VPC, Subnets, IAM least-privilege, ECS/EKS, S3, RDS multi-AZ." },
-      { name: "CI/CD & Observability", weight: 20, description: "Pipeline optimization, OpenTelemetry, Grafana dashboards, alerting thresholds." },
-    ],
-    prerequisites: ["Linux fundamentals", "Basic networking concepts", "Scripting (Python or Bash)"],
-  },
-  {
-    id: "site-reliability-engineer",
-    title: "Site Reliability Engineer (SRE)",
-    category: "Cloud, Infrastructure & DevOps",
-    description: "Guard platform uptime, define SLIs/SLOs/Error Budgets, automate incident remediation, and engineer fault-tolerant self-healing systems.",
-    shortDesc: "SLOs, fault tolerance, incident postmortems, chaos engineering, and automated recovery.",
-    averageSalary: "₹13,50,000 / yr",
-    growthRate: "+26% YoY",
-    openRolesCount: 1980,
-    assessmentDuration: "30 mins",
-    learningPathLength: "14 weeks",
-    primarySkills: ["Linux Internals", "Go / Python", "Kubernetes", "Prometheus / Jaeger", "Incident Response", "Chaos Engineering", "Networking Protocols"],
-    expectedSkillAreas: [
-      { name: "Reliability Engineering & SLOs", weight: 30, description: "Error budget burn rates, alerting policies, high availability topologies." },
-      { name: "Observability & Distributed Tracing", weight: 25, description: "Span propagation, metrics aggregations, log parsing, Jaeger." },
-      { name: "Systems & Network Internals", weight: 25, description: "TCP/IP, DNS, kernel tuning, eBPF basics, load balancer topologies." },
-      { name: "Automation & Chaos Testing", weight: 20, description: "Litmus Chaos, automated rollbacks, self-healing scripts." },
-    ],
-    prerequisites: ["Strong Linux proficiency", "DevOps basics", "Coding in Go or Python"],
-  },
-
-  // Cybersecurity
-  {
-    id: "security-analyst",
-    title: "Cybersecurity Analyst / SOC Analyst",
-    category: "Cybersecurity",
-    description: "Monitor SIEM telemetries, analyze packet captures, conduct vulnerability assessments, mitigate active intrusions, and enforce security compliance policies.",
-    shortDesc: "SIEM log analysis, threat hunting, incident triage, and vulnerability remediation.",
-    averageSalary: "₹8,60,000 / yr",
-    growthRate: "+27% YoY",
-    openRolesCount: 2400,
-    assessmentDuration: "25 mins",
-    learningPathLength: "12 weeks",
-    primarySkills: ["Network Security", "Wireshark", "Splunk / ELK SIEM", "Vulnerability Scanning (Nessus)", "OWASP Top 10", "Linux Security", "Incident Response"],
-    expectedSkillAreas: [
-      { name: "Threat Detection & SIEM Triage", weight: 35, description: "Correlation rules, log analysis, alert validation, MITRE ATT&CK framework." },
-      { name: "Network Forensics & Packet Analysis", weight: 25, description: "TCP handshake analysis, DNS tunneling detection, Wireshark filters." },
-      { name: "Vulnerability Management", weight: 20, description: "CVSS scoring, patch prioritization, configuration compliance." },
-      { name: "Identity & Access Control", weight: 20, description: "MFA enforcement, Zero Trust architecture, privilege escalation prevention." },
-    ],
-    prerequisites: ["Computer Networks (TCP/IP)", "Operating System fundamentals"],
-  },
-  {
-    id: "app-security-engineer",
-    title: "Application Security Engineer (AppSec)",
-    category: "Cybersecurity",
-    description: "Conduct threat modeling, run SAST/DAST pipeline scanners, perform code security audits, and harden web applications against advanced exploit chains.",
-    shortDesc: "Threat modeling, SAST/DAST, secure code review, and penetration testing.",
-    averageSalary: "₹12,40,000 / yr",
-    growthRate: "+29% YoY",
-    openRolesCount: 1650,
-    assessmentDuration: "30 mins",
-    learningPathLength: "13 weeks",
-    primarySkills: ["OWASP Top 10", "Burp Suite", "SAST / DAST (SonarQube/Semgrep)", "Cryptography", "Secure Code Review", "Authentication Protocols"],
-    expectedSkillAreas: [
-      { name: "Web Exploit Vectors & Remediation", weight: 35, description: "SQLi, XSS, CSRF, SSRF, IDOR, race conditions, prototype pollution." },
-      { name: "Threat Modeling & Security Architecture", weight: 25, description: "STRIDE framework, data flow diagrams, security design reviews." },
-      { name: "DevSecOps Integration", weight: 20, description: "Automated security gates, dependency scanning (Snyk/Trivy), secret scanners." },
-      { name: "Applied Cryptography & Tokens", weight: 20, description: "PKI, TLS configuration, JWT security flaws, salting and hashing." },
-    ],
-    prerequisites: ["Full Stack or Backend experience", "Web security basics"],
-  },
-
-  // Architecture & Leadership
-  {
-    id: "solutions-architect",
+    id: "cloud-solutions-architect",
     title: "Cloud Solutions Architect",
     category: "Architecture & Leadership",
     description: "Architect secure, cost-optimized, and highly resilient cloud infrastructures bridging business vision with modern microservices topologies.",
@@ -272,25 +266,279 @@ export const CAREER_ROLES: CareerRole[] = [
     prerequisites: ["5+ years of software/systems engineering foundation", "Cloud practitioner knowledge"],
   },
 
-  // Hardware & Systems Engineering
+  // 13. DevOps / Platform Engineer
   {
-    id: "embedded-engineer",
-    title: "Embedded Systems & IoT Engineer",
-    category: "Hardware & Systems Engineering",
-    description: "Program bare-metal microcontrollers, build real-time OS (RTOS) firmware, interface with SPI/I2C sensors, and build connected IoT devices.",
-    shortDesc: "Firmware development with Embedded C/C++, FreeRTOS, hardware protocols & IoT.",
-    averageSalary: "₹9,20,000 / yr",
-    growthRate: "+17% YoY",
-    openRolesCount: 1550,
+    id: "devops-platform-engineer",
+    title: "DevOps / Platform Engineer",
+    category: "Cloud, Infrastructure & DevOps",
+    description: "Automate continuous delivery pipelines, orchestrate Kubernetes clusters, provision Infrastructure as Code via Terraform, and maintain internal developer platforms.",
+    shortDesc: "Orchestrate Kubernetes, write Terraform IaC, manage AWS/GCP, and automate CI/CD.",
+    averageSalary: "₹12,00,000 / yr",
+    growthRate: "+30% YoY",
+    openRolesCount: 3600,
+    assessmentDuration: "30 mins",
+    learningPathLength: "14 weeks",
+    primarySkills: ["Linux / Bash", "Docker", "Kubernetes", "Terraform", "AWS / Azure", "GitHub Actions / GitLab CI", "Prometheus & Grafana", "Ansible"],
+    expectedSkillAreas: [
+      { name: "Containerization & Orchestration", weight: 35, description: "K8s Pods, Deployments, StatefulSets, Ingress, Helm charts, resource limits." },
+      { name: "Infrastructure as Code (Terraform)", weight: 25, description: "State locking, reusable modules, provider configuration, drift remediation." },
+      { name: "Cloud Architecture (AWS/Azure)", weight: 20, description: "VPC, Subnets, IAM least-privilege, ECS/EKS, S3, RDS multi-AZ." },
+      { name: "CI/CD & Observability", weight: 20, description: "Pipeline optimization, OpenTelemetry, Grafana dashboards, alerting thresholds." },
+    ],
+    prerequisites: ["Linux fundamentals", "Basic networking concepts", "Scripting (Python or Bash)"],
+  },
+
+  // 14. Site Reliability Engineer
+  {
+    id: "site-reliability-engineer",
+    title: "Site Reliability Engineer",
+    category: "Cloud, Infrastructure & DevOps",
+    description: "Guard platform uptime, define SLIs/SLOs/Error Budgets, automate incident remediation, and engineer fault-tolerant self-healing systems.",
+    shortDesc: "SLOs, fault tolerance, incident postmortems, chaos engineering, and automated recovery.",
+    averageSalary: "₹13,50,000 / yr",
+    growthRate: "+26% YoY",
+    openRolesCount: 1980,
+    assessmentDuration: "30 mins",
+    learningPathLength: "14 weeks",
+    primarySkills: ["Linux Internals", "Go / Python", "Kubernetes", "Prometheus / Jaeger", "Incident Response", "Chaos Engineering", "Networking Protocols"],
+    expectedSkillAreas: [
+      { name: "Reliability Engineering & SLOs", weight: 30, description: "Error budget burn rates, alerting policies, high availability topologies." },
+      { name: "Observability & Distributed Tracing", weight: 25, description: "Span propagation, metrics aggregations, log parsing, Jaeger." },
+      { name: "Systems & Network Internals", weight: 25, description: "TCP/IP, DNS, kernel tuning, eBPF basics, load balancer topologies." },
+      { name: "Automation & Chaos Testing", weight: 20, description: "Litmus Chaos, automated rollbacks, self-healing scripts." },
+    ],
+    prerequisites: ["Strong Linux proficiency", "DevOps basics", "Coding in Go or Python"],
+  },
+
+  // 15. Systems / Network Engineer
+  {
+    id: "systems-network-engineer",
+    title: "Systems / Network Engineer",
+    category: "Cloud, Infrastructure & DevOps",
+    description: "Manage enterprise core switching, BGP routing, VPN topologies, Linux/Windows bare-metal clusters, firewall configurations, and datacenter infrastructure.",
+    shortDesc: "Enterprise networking, routing protocols, Linux administration, and infrastructure security.",
+    averageSalary: "₹8,50,000 / yr",
+    growthRate: "+14% YoY",
+    openRolesCount: 2200,
+    assessmentDuration: "25 mins",
+    learningPathLength: "11 weeks",
+    primarySkills: ["TCP/IP & Subnetting", "BGP / OSPF Routing", "Linux Kernel / Sysadmin", "Cisco / Juniper CLI", "Wireshark", "Firewalls / IPsec VPN", "DNS / DHCP"],
+    expectedSkillAreas: [
+      { name: "Network Routing & Switching", weight: 35, description: "VLANs, trunking, dynamic routing protocols, packet capture dissection." },
+      { name: "Systems Administration", weight: 25, description: "Systemd services, storage LVM, RAID arrays, automated patching, SSH hardening." },
+      { name: "Perimeter Security & Firewalls", weight: 20, description: "Stateful inspection, NAT rules, ACLs, IPsec tunnels, Zero Trust network access." },
+      { name: "Core Network Services", weight: 20, description: "BIND DNS, DHCP failover, NTP sync, directory services (LDAP/Active Directory)." },
+    ],
+    prerequisites: ["CompTIA Network+ fundamentals", "Linux command line basics"],
+  },
+
+  // 16. Cybersecurity Architect
+  {
+    id: "cybersecurity-architect",
+    title: "Cybersecurity Architect",
+    category: "Cybersecurity",
+    description: "Formulate enterprise-wide security blueprints, Zero Trust frameworks, cryptographic governance, cloud security posture management, and compliance architecture.",
+    shortDesc: "Zero Trust architecture, defense-in-depth design, cryptographic controls, and SOC2/ISO compliance.",
+    averageSalary: "₹24,00,000 / yr",
+    growthRate: "+28% YoY",
+    openRolesCount: 1100,
+    assessmentDuration: "35 mins",
+    learningPathLength: "16 weeks",
+    primarySkills: ["Zero Trust Architecture", "Cloud Security (CSPM)", "Applied Cryptography", "Threat Modeling", "SABSA / TOGAF", "Identity Governance", "Compliance (SOC2/PCI)"],
+    expectedSkillAreas: [
+      { name: "Security Architecture & Modeling", weight: 35, description: "Attack surface reduction, STRIDE threat models, defense-in-depth layers." },
+      { name: "Zero Trust & Identity Systems", weight: 25, description: "Continuous verification, micro-segmentation, PKI and certificate lifecycles." },
+      { name: "Cloud Security & Posture", weight: 20, description: "IAM boundaries, KMS key policies, guardrails, container runtime security." },
+      { name: "Regulatory Compliance & Risk", weight: 20, description: "Audit readiness, ISO 27001 controls, third-party vendor risk assessment." },
+    ],
+    prerequisites: ["Extensive systems and security background", "Network engineering proficiency"],
+  },
+
+  // 17. Penetration Tester
+  {
+    id: "penetration-tester",
+    title: "Penetration Tester",
+    category: "Cybersecurity",
+    description: "Execute authorized offensive simulations, discover zero-day vulnerabilities in web applications, network perimeters, Active Directory domains, and cloud environments.",
+    shortDesc: "Ethical hacking, exploitation chains, web vulnerability research, and executive remediation reports.",
+    averageSalary: "₹11,50,000 / yr",
+    growthRate: "+25% YoY",
+    openRolesCount: 1750,
+    assessmentDuration: "30 mins",
+    learningPathLength: "12 weeks",
+    primarySkills: ["Burp Suite Pro", "Metasploit", "Active Directory Attacks", "Web Application Pentesting", "Python / Bash Scripting", "Privilege Escalation", "Reverse Engineering"],
+    expectedSkillAreas: [
+      { name: "Web Application Exploitation", weight: 35, description: "SQL injection, SSRF, authentication bypass, prototype pollution, business logic flaws." },
+      { name: "Network & Infrastructure Hacking", weight: 25, description: "Port scanning, service enumeration, pivoting, lateral movement, Kerberoasting." },
+      { name: "Privilege Escalation & Evasion", weight: 20, description: "Linux SUID binaries, Windows token impersonation, bypass techniques." },
+      { name: "Reporting & Remediation", weight: 20, description: "CVSS v3 calculation, proof-of-concept drafting, developer remediation guidance." },
+    ],
+    prerequisites: ["Networking fundamentals", "Web development basics", "Linux expertise"],
+  },
+
+  // 18. Security Analyst / SOC Analyst
+  {
+    id: "security-analyst-soc-analyst",
+    title: "Security Analyst / SOC Analyst",
+    category: "Cybersecurity",
+    description: "Monitor SIEM telemetries, analyze packet captures, conduct vulnerability assessments, mitigate active intrusions, and enforce security compliance policies.",
+    shortDesc: "SIEM log analysis, threat hunting, incident triage, and vulnerability remediation.",
+    averageSalary: "₹8,60,000 / yr",
+    growthRate: "+27% YoY",
+    openRolesCount: 2400,
     assessmentDuration: "25 mins",
     learningPathLength: "12 weeks",
-    primarySkills: ["Embedded C / C++", "FreeRTOS", "ARM Cortex-M", "I2C / SPI / UART", "MQTT / BLE", "Oscilloscopes & Logic Analyzers", "Memory Constraints"],
+    primarySkills: ["Network Security", "Wireshark", "Splunk / ELK SIEM", "Vulnerability Scanning (Nessus)", "OWASP Top 10", "Linux Security", "Incident Response"],
     expectedSkillAreas: [
-      { name: "Firmware Development in C", weight: 35, description: "Bitwise manipulation, pointer safety, interrupt service routines (ISR), timers." },
-      { name: "Real-Time Operating Systems (RTOS)", weight: 25, description: "Task scheduling, mutexes, semaphores, queue communication, stack profiling." },
-      { name: "Hardware Interfacing & Protocols", weight: 20, description: "I2C clock stretching, SPI baud rates, UART framing, sensor drivers." },
-      { name: "Low-Power & IoT Connectivity", weight: 20, description: "Sleep modes, BLE GATT services, MQTT over TLS, OTA firmware update." },
+      { name: "Threat Detection & SIEM Triage", weight: 35, description: "Correlation rules, log analysis, alert validation, MITRE ATT&CK framework." },
+      { name: "Network Forensics & Packet Analysis", weight: 25, description: "TCP handshake analysis, DNS tunneling detection, Wireshark filters." },
+      { name: "Vulnerability Management", weight: 20, description: "CVSS scoring, patch prioritization, configuration compliance." },
+      { name: "Identity & Access Control", weight: 20, description: "MFA enforcement, Zero Trust architecture, privilege escalation prevention." },
     ],
-    prerequisites: ["C Programming", "Digital Electronics fundamentals"],
+    prerequisites: ["Computer Networks (TCP/IP)", "Operating System fundamentals"],
+  },
+
+  // 19. Technical Product Manager
+  {
+    id: "technical-product-manager",
+    title: "Technical Product Manager",
+    category: "Architecture & Leadership",
+    description: "Drive technical strategy, translate business vision into PRDs, prioritize architectural roadmaps, collaborate with senior engineering teams, and track product analytics.",
+    shortDesc: "Bridge software engineering with business strategy, system specifications, and sprint execution.",
+    averageSalary: "₹18,50,000 / yr",
+    growthRate: "+23% YoY",
+    openRolesCount: 1950,
+    assessmentDuration: "30 mins",
+    learningPathLength: "12 weeks",
+    primarySkills: ["Product Roadmapping", "System Architecture Concepts", "API Design Specs", "SQL & Metrics Analytics", "Agile / Scrum", "User Story Mapping", "Jira / Linear"],
+    expectedSkillAreas: [
+      { name: "Technical Strategy & PRDs", weight: 35, description: "System design comprehension, non-functional requirements, data schema alignment." },
+      { name: "Product Analytics & Metrics", weight: 25, description: "Funnel conversion, retention cohorts, SQL querying, telemetry instrumentation." },
+      { name: "Prioritization & Roadmapping", weight: 20, description: "RICE scoring, sprint planning, trade-off analysis between tech debt and features." },
+      { name: "User Research & Stakeholder Alignment", weight: 20, description: "Customer discovery interviews, engineering alignment, go-to-market sync." },
+    ],
+    prerequisites: ["Technical understanding of software architecture", "Communication & leadership"],
+  },
+
+  // 20. ICT Business Analyst
+  {
+    id: "ict-business-analyst",
+    title: "ICT Business Analyst",
+    category: "Architecture & Leadership",
+    description: "Analyze enterprise business processes, document functional system requirements, design data flow diagrams, evaluate software solutions, and oversee user acceptance testing.",
+    shortDesc: "Business process modeling, functional specifications, stakeholder consensus, and UAT validation.",
+    averageSalary: "₹9,80,000 / yr",
+    growthRate: "+17% YoY",
+    openRolesCount: 1650,
+    assessmentDuration: "25 mins",
+    learningPathLength: "10 weeks",
+    primarySkills: ["BPMN 2.0 Process Modeling", "Requirement Elicitation (BRD/FRD)", "UML Diagrams", "SQL Queries", "Gap Analysis", "UAT Test Planning", "Jira"],
+    expectedSkillAreas: [
+      { name: "Requirements Engineering", weight: 35, description: "As-Is vs To-Be workflows, user acceptance criteria, traceability matrices." },
+      { name: "Process Modeling & Diagrams", weight: 25, description: "BPMN notation, data flow diagrams, state transition models." },
+      { name: "Data & Systems Analysis", weight: 20, description: "Entity relationship mapping, SQL validation, integration mapping." },
+      { name: "Stakeholder Management & UAT", weight: 20, description: "Workshop facilitation, test case execution, sign-off management." },
+    ],
+    prerequisites: ["Business and analytical thinking", "Basic understanding of information systems"],
+  },
+
+  // 21. Scrum Master / Agile PM
+  {
+    id: "scrum-master-agile-pm",
+    title: "Scrum Master / Agile PM",
+    category: "Architecture & Leadership",
+    description: "Facilitate high-velocity agile engineering teams, run sprint ceremonies, remove systemic impediments, track burndown metrics, and foster continuous delivery excellence.",
+    shortDesc: "Agile rituals, sprint velocity, impediment removal, team coaching, and delivery tracking.",
+    averageSalary: "₹12,00,000 / yr",
+    growthRate: "+18% YoY",
+    openRolesCount: 1550,
+    assessmentDuration: "25 mins",
+    learningPathLength: "10 weeks",
+    primarySkills: ["Scrum Framework", "Kanban Methodology", "Sprint Planning & Retrospectives", "Burndown / Velocity Metrics", "Jira / Confluence", "Servant Leadership", "Conflict Resolution"],
+    expectedSkillAreas: [
+      { name: "Agile Ceremonies & Facilitation", weight: 35, description: "Daily standups, backlog refinement, sprint review, blameless retrospectives." },
+      { name: "Delivery Metrics & Forecasting", weight: 25, description: "Cycle time, lead time, CFD diagrams, sprint predictability." },
+      { name: "Impediment Removal & Coaching", weight: 20, description: "Cross-functional dependency management, psychological safety, team autonomy." },
+      { name: "Agile Tooling & Workflow Config", weight: 20, description: "Jira board automation, workflow states, WIP limits enforcement." },
+    ],
+    prerequisites: ["Software development lifecycle familiarity", "Team facilitation basics"],
+  },
+
+  // 22. UI/UX Designer
+  {
+    id: "ui-ux-designer",
+    title: "UI/UX Designer",
+    category: "Software Development & Engineering",
+    description: "Create user-centered digital experiences, intuitive design systems, high-fidelity prototypes in Figma, and conduct usability testing for web and mobile products.",
+    shortDesc: "Design intuitive interfaces, interactive Figma prototypes, accessible design tokens, and user journeys.",
+    averageSalary: "₹8,50,000 / yr",
+    growthRate: "+20% YoY",
+    openRolesCount: 2300,
+    assessmentDuration: "25 mins",
+    learningPathLength: "10 weeks",
+    primarySkills: ["Figma / FigJam", "Design Systems & Tokens", "Wireframing & Prototyping", "User Research & Usability Testing", "WCAG Accessibility", "Information Architecture", "HTML/CSS Basics"],
+    expectedSkillAreas: [
+      { name: "Interface Design & Design Systems", weight: 35, description: "Auto-layout, typography hierarchies, component variants, color token contrast." },
+      { name: "User Experience & Prototyping", weight: 25, description: "Interactive micro-animations, screen flows, mental models, state transitions." },
+      { name: "User Research & Testing", weight: 20, description: "Heuristic evaluation, user testing protocols, card sorting, persona synthesis." },
+      { name: "Accessibility & Design-to-Code Handoff", weight: 20, description: "WCAG AAA compliance, redlines for frontend engineers, responsive grids." },
+    ],
+    prerequisites: ["Visual design sensibility", "Basic knowledge of web/mobile apps"],
   },
 ];
+
+/**
+ * Standardizes any role title or slug into a normalized kebab-case identifier
+ */
+export function slugifyCareer(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Robust role lookup that supports:
+ * - exact ID (e.g. "full-stack-developer")
+ * - legacy short ID (e.g. "full-stack-dev")
+ * - slugified title (e.g. "full-stack-developer" for "Full-Stack Developer")
+ */
+export function getCareerRoleBySlug(slug: string): CareerRole | undefined {
+  if (!slug) return undefined;
+  const normalized = slugifyCareer(slug);
+
+  // Direct ID check
+  const byId = CAREER_ROLES.find((r) => r.id === slug || r.id === normalized);
+  if (byId) return byId;
+
+  // Title slug check
+  const byTitle = CAREER_ROLES.find((r) => slugifyCareer(r.title) === normalized);
+  if (byTitle) return byTitle;
+
+  // Legacy fallback aliases
+  const legacyAliases: Record<string, string> = {
+    "full-stack-dev": "full-stack-developer",
+    "frontend-dev": "frontend-developer",
+    "backend-dev": "backend-developer",
+    "mobile-dev": "mobile-app-developer",
+    "sdet-engineer": "qa-test-automation-engineer",
+    "ai-ml-engineer": "machine-learning-engineer",
+    "devops-engineer": "devops-platform-engineer",
+    "security-analyst": "security-analyst-soc-analyst",
+    "solutions-architect": "cloud-solutions-architect",
+    "app-security-engineer": "penetration-tester",
+    "data-analyst": "data-business-analyst",
+  };
+
+  const targetId = legacyAliases[slug] || legacyAliases[normalized];
+  if (targetId) {
+    return CAREER_ROLES.find((r) => r.id === targetId);
+  }
+
+  return undefined;
+}
+
+export function getCareerRoleById(id: string): CareerRole | undefined {
+  return getCareerRoleBySlug(id);
+}
