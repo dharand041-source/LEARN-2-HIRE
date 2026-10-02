@@ -1,9 +1,1 @@
-{
-  "/app/learning/practice/page": "app/app/learning/practice/page.js",
-  "/app/learning/progress/page": "app/app/learning/progress/page.js",
-  "/app/opportunities/internships/page": "app/app/opportunities/internships/page.js",
-  "/app/applications/page": "app/app/applications/page.js",
-  "/app/opportunities/page": "app/app/opportunities/page.js",
-  "/app/opportunities/[id]/page": "app/app/opportunities/[id]/page.js",
-  "/app/analytics/page": "app/app/analytics/page.js"
-}
+{}

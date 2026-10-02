@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -87,6 +87,16 @@ export default function AssessmentDetailPage() {
     setCurrentIndex(0);
   }, [assessmentId, selectedRole]);
 
+  const handleConfirmSubmit = useCallback(async () => {
+    setIsSubmitting(true);
+    try {
+      submitAssessment(assessmentAnswers, questions);
+      router.push(ROUTES.app.assessments.results(assessmentId));
+    } catch {
+      router.push(ROUTES.app.assessments.results(assessmentId));
+    }
+  }, [assessmentAnswers, assessmentId, questions, router, submitAssessment]);
+
   useEffect(() => {
     if (secondsRemaining <= 0) {
       handleConfirmSubmit();
@@ -96,7 +106,7 @@ export default function AssessmentDetailPage() {
       setSecondsRemaining((prev) => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
-  }, [secondsRemaining]);
+  }, [secondsRemaining, handleConfirmSubmit]);
 
   const currentQ = questions[currentIndex];
 
@@ -112,16 +122,6 @@ export default function AssessmentDetailPage() {
       else updated.add(index);
       return updated;
     });
-  };
-
-  const handleConfirmSubmit = async () => {
-    setIsSubmitting(true);
-    try {
-      submitAssessment(assessmentAnswers, questions);
-      router.push(ROUTES.app.assessments.results(assessmentId));
-    } catch {
-      router.push(ROUTES.app.assessments.results(assessmentId));
-    }
   };
 
   const formatTimer = (totalSeconds: number) => {

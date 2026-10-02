@@ -41,7 +41,7 @@ export default function InterviewBehavioralPage() {
             Behavioral Challenge Prompt
           </span>
           <h2 className="text-base font-black uppercase text-black mt-1">
-            "Tell me about a time you encountered a severe production bug or critical blocker right before a product deadline. How did you resolve it?"
+            &quot;Tell me about a time you encountered a severe production bug or critical blocker right before a product deadline. How did you resolve it?&quot;
           </h2>
         </div>
 

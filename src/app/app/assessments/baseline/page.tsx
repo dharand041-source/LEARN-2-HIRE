@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -49,6 +49,16 @@ export default function BaselineAssessmentPage() {
     setCurrentIndex(0);
   }, [selectedRole]);
 
+  const handleConfirmSubmit = useCallback(async () => {
+    setIsSubmitting(true);
+    try {
+      submitAssessment(assessmentAnswers, questions);
+      router.push(ROUTES.app.assessments.results("baseline"));
+    } catch {
+      router.push(ROUTES.app.assessments.results("baseline"));
+    }
+  }, [assessmentAnswers, questions, router, submitAssessment]);
+
   // Timer countdown
   useEffect(() => {
     if (secondsRemaining <= 0) {
@@ -59,7 +69,7 @@ export default function BaselineAssessmentPage() {
       setSecondsRemaining((prev) => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
-  }, [secondsRemaining]);
+  }, [secondsRemaining, handleConfirmSubmit]);
 
   const currentQ = questions[currentIndex];
 
@@ -75,16 +85,6 @@ export default function BaselineAssessmentPage() {
       else updated.add(index);
       return updated;
     });
-  };
-
-  const handleConfirmSubmit = async () => {
-    setIsSubmitting(true);
-    try {
-      submitAssessment(assessmentAnswers, questions);
-      router.push(ROUTES.app.assessments.results("baseline"));
-    } catch {
-      router.push(ROUTES.app.assessments.results("baseline"));
-    }
   };
 
   const formatTimer = (totalSeconds: number) => {
