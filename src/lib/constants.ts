@@ -48,13 +48,13 @@ export function formatCurrency(amount: string | number): string {
 }
 
 export function getScoreColor(score: number): string {
-  if (score >= 80) return "text-imperial";
-  if (score >= 60) return "text-night";
-  return "text-night-muted";
+  if (score >= 80) return "text-primary-orange";
+  if (score >= 60) return "text-golden-yellow";
+  return "text-ink-black";
 }
 
 export function getScoreBgColor(score: number): string {
-  if (score >= 80) return "bg-imperial-50 border-imperial-200 text-imperial";
-  if (score >= 60) return "bg-surface-subtle border-surface-border text-night";
-  return "bg-surface-subtle border-surface-border text-night-muted";
+  if (score >= 80) return "bg-primary-orange text-paper-white border-ink-black";
+  if (score >= 60) return "bg-golden-yellow text-ink-black border-ink-black";
+  return "bg-paper-white text-ink-black border-ink-black";
 }

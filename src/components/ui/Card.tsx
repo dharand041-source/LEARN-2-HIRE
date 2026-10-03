@@ -17,7 +17,11 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     | "acid"
     | "violet"
     | "coral"
-    | "maroon";
+    | "maroon"
+    | "orange"
+    | "rose"
+    | "pink"
+    | "soft";
   glowing?: boolean;
 }
 
@@ -25,32 +29,37 @@ export function Card({ className, variant = "default", glowing = false, children
   const baseStyles = "rounded-xl transition-all duration-150";
 
   const variants = {
-    // Standard card: 1px clean border, white background
-    default: "bg-white border border-border shadow-card-clean",
+    // Standard card: Paper White + Ink Black
+    default: "bg-paper-white text-ink-black border border-ink-black/15 shadow-card-clean",
     // Editorial card: 2px bold border, subtle lift
-    editorial: "bg-white text-black border-2 border-black shadow-editorial-sm",
+    editorial: "bg-paper-white text-ink-black border-2 border-ink-black shadow-editorial-sm",
     // Hero card: 3px bold border
-    hero: "bg-white text-black border-3 border-black shadow-editorial-md",
-    // Deep Navy / Maroon solid block
-    navy: "bg-royal-maroon text-white border-2 border-black shadow-editorial-sm",
-    // Dark editorial block
-    dark: "bg-black text-white border-2 border-black shadow-editorial-sm",
+    hero: "bg-paper-white text-ink-black border-3 border-ink-black shadow-editorial-md",
+    // Dark card: Ink Black + Paper White
+    navy: "bg-ink-black text-paper-white border-2 border-ink-black shadow-editorial-sm",
+    dark: "bg-ink-black text-paper-white border-2 border-ink-black shadow-editorial-sm",
     // Interactive card
     interactive:
-      "bg-white text-black border-2 border-black hover:shadow-editorial-sm cursor-pointer transition-all duration-150",
+      "bg-paper-white text-ink-black border-2 border-ink-black hover:shadow-editorial-sm cursor-pointer transition-all duration-150",
     // Subtle surface card
-    subtle: "bg-surface border border-border",
-    // Highlighted card
-    highlighted: "bg-white border-2 border-electric-coral shadow-sm",
-    // Approved Solid Surfaces
-    coral: "bg-electric-coral text-black border-2 border-black shadow-editorial-sm",
-    maroon: "bg-royal-maroon text-white border-2 border-black shadow-editorial-sm",
-    // Aliases mapped strictly to Coral or Maroon
-    violet: "bg-royal-maroon text-white border-2 border-black shadow-editorial-sm",
-    acid: "bg-electric-coral text-black border-2 border-black shadow-editorial-sm",
-    red: "bg-royal-maroon text-white border-2 border-black shadow-editorial-sm",
-    yellow: "bg-electric-coral text-black border-2 border-black shadow-editorial-sm",
-    gold: "bg-electric-coral text-black border-2 border-black shadow-editorial-sm",
+    subtle: "bg-warm-cream text-ink-black border border-ink-black/15",
+    // Highlighted card: Paper White with Primary Orange border
+    highlighted: "bg-paper-white text-ink-black border-2 border-primary-orange shadow-sm",
+    // Featured / Primary: Primary Orange + Paper White
+    coral: "bg-primary-orange text-paper-white border-2 border-ink-black shadow-editorial-sm",
+    orange: "bg-primary-orange text-paper-white border-2 border-ink-black shadow-editorial-sm",
+    // Secondary: Rose + Paper White
+    maroon: "bg-rose text-paper-white border-2 border-ink-black shadow-editorial-sm",
+    rose: "bg-rose text-paper-white border-2 border-ink-black shadow-editorial-sm",
+    violet: "bg-rose text-paper-white border-2 border-ink-black shadow-editorial-sm",
+    red: "bg-primary-orange text-paper-white border-2 border-ink-black shadow-editorial-sm",
+    // Highlight: Golden Yellow + Ink Black
+    yellow: "bg-golden-yellow text-ink-black border-2 border-ink-black shadow-editorial-sm",
+    gold: "bg-golden-yellow text-ink-black border-2 border-ink-black shadow-editorial-sm",
+    acid: "bg-golden-yellow text-ink-black border-2 border-ink-black shadow-editorial-sm",
+    // Soft: Soft Pink + Ink Black
+    pink: "bg-soft-pink text-ink-black border-2 border-ink-black shadow-editorial-sm",
+    soft: "bg-soft-pink text-ink-black border-2 border-ink-black shadow-editorial-sm",
   };
 
   return (
@@ -58,7 +67,7 @@ export function Card({ className, variant = "default", glowing = false, children
       className={cn(
         baseStyles,
         variants[variant],
-        glowing && "border-2 border-electric-coral shadow-editorial-sm",
+        glowing && "border-2 border-primary-orange shadow-editorial-sm",
         className
       )}
       {...props}

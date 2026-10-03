@@ -3,48 +3,65 @@
 @tailwind utilities;
 
 :root {
-  /* Strict Two-Color Brand System */
-  --electric-coral: #FF6332;
-  --royal-maroon: #5E0000;
-  --black: #000000;
-  --white: #FFFFFF;
+  /* Official Approved 7-Color Palette */
+  --warm-cream: #EBE9E1;
+  --primary-orange: #E43D12;
+  --rose: #D6536D;
+  --soft-pink: #FFA2B6;
+  --golden-yellow: #EFB11D;
+  --ink-black: #171714;
+  --paper-white: #F7F5EF;
 
-  --color-electric-coral: #FF6332;
-  --color-royal-maroon: #5E0000;
-  --color-black: #000000;
-  --color-white: #FFFFFF;
+  --color-warm-cream: #EBE9E1;
+  --color-primary-orange: #E43D12;
+  --color-rose: #D6536D;
+  --color-soft-pink: #FFA2B6;
+  --color-golden-yellow: #EFB11D;
+  --color-ink-black: #171714;
+  --color-paper-white: #F7F5EF;
 
-  /* Neutrals */
-  --color-background: #FFFFFF;
-  --color-surface: #F7F7F5;
-  --color-text: #000000;
-  --color-muted: #666666;
-  --color-border: #000000;
+  /* Global Foundations */
+  --color-background: #EBE9E1;
+  --color-surface: #F7F5EF;
+  --color-text: #171714;
+  --color-muted: rgba(23, 23, 20, 0.7);
+  --color-border: #171714;
 
-  /* Semantic Section Accents mapped strictly to Royal Maroon and Electric Coral */
-  --accent-dashboard: #5E0000;
-  --accent-career: #5E0000;
-  --accent-assessment: #5E0000;
-  --accent-learning: #5E0000;
-  --accent-advanced-assessment: #5E0000;
-  --accent-projects: #FF6332;
-  --accent-problem-solving: #5E0000;
-  --accent-interview: #5E0000;
-  --accent-resume: #5E0000;
-  --accent-opportunities: #5E0000;
-  --accent-applications: #FF6332;
-  --accent-feedback: #5E0000;
+  /* Strict Two-Color & Legacy Fallbacks Mapped to Approved System */
+  --electric-coral: #E43D12;
+  --royal-maroon: #171714;
+  --black: #171714;
+  --white: #F7F5EF;
 
-  /* Fallback aliases mapping old tokens strictly to Coral or Maroon */
-  --color-ultra-violet: #5E0000;
-  --color-acid-yellow: #FF6332;
-  --color-fire-red: #5E0000;
-  --color-electric-yellow: #FF6332;
-  --color-honey-gold: #FF6332;
-  --color-deep-navy: #5E0000;
-  --color-night: #000000;
-  --color-imperial: #5E0000;
-  --color-soft-gray: #F7F7F5;
+  --color-electric-coral: #E43D12;
+  --color-royal-maroon: #171714;
+  --color-black: #171714;
+  --color-white: #F7F5EF;
+
+  /* Semantic Section Accents mapped strictly to approved roles */
+  --accent-dashboard: #E43D12;
+  --accent-career: #E43D12;
+  --accent-assessment: #E43D12;
+  --accent-learning: #D6536D;
+  --accent-advanced-assessment: #E43D12;
+  --accent-projects: #E43D12;
+  --accent-problem-solving: #E43D12;
+  --accent-interview: #D6536D;
+  --accent-resume: #D6536D;
+  --accent-opportunities: #E43D12;
+  --accent-applications: #E43D12;
+  --accent-feedback: #D6536D;
+
+  /* Fallback aliases mapping old tokens strictly into approved palette */
+  --color-ultra-violet: #D6536D;
+  --color-acid-yellow: #EFB11D;
+  --color-fire-red: #E43D12;
+  --color-electric-yellow: #EFB11D;
+  --color-honey-gold: #EFB11D;
+  --color-deep-navy: #171714;
+  --color-night: #171714;
+  --color-imperial: #E43D12;
+  --color-soft-gray: #EBE9E1;
 }
 
 @layer base {
@@ -56,12 +73,12 @@
   }
 
   * {
-    border-color: #E5E5E5;
+    border-color: rgba(23, 23, 20, 0.15);
   }
 
   body {
-    background-color: #FFFFFF;
-    color: #050505;
+    background-color: #EBE9E1;
+    color: #171714;
     font-feature-settings: "rlig" 1, "calt" 1, "cv02" 1;
     overflow-x: hidden;
     min-height: 100vh;
@@ -70,7 +87,7 @@
 
   /* Accessible focus indicators */
   :focus-visible {
-    outline: 2px solid #050505;
+    outline: 2px solid #E43D12;
     outline-offset: 2px;
   }
 
@@ -80,41 +97,45 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #F7F7F5;
+    background: #EBE9E1;
   }
   ::-webkit-scrollbar-thumb {
-    background: #CCCCCC;
+    background: #171714;
     border-radius: 4px;
     transition: background-color 0.15s ease-in-out;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #050505;
+    background: #E43D12;
   }
 }
 
 @layer utilities {
   .border-subtle {
-    border: 1px solid #E5E5E5;
+    border: 1px solid rgba(23, 23, 20, 0.15);
   }
 
   .border-editorial {
-    border: 2px solid #050505;
+    border: 2px solid #171714;
   }
 
   .border-hero {
-    border: 3px solid #050505;
+    border: 3px solid #171714;
   }
 
   .shadow-card-clean {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(23, 23, 20, 0.04);
+  }
+
+  .shadow-editorial-xs {
+    box-shadow: 1.5px 1.5px 0px #171714;
   }
 
   .shadow-editorial-sm {
-    box-shadow: 2px 2px 0px #050505;
+    box-shadow: 2px 2px 0px #171714;
   }
 
   .shadow-editorial-md {
-    box-shadow: 3px 3px 0px #050505;
+    box-shadow: 3px 3px 0px #171714;
   }
 
   .smooth-transition {
@@ -123,21 +144,21 @@
 
   .sidebar-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+    scrollbar-color: rgba(247, 245, 239, 0.3) transparent;
   }
 
   .sidebar-scrollbar::-webkit-scrollbar {
     width: 4px;
   }
   .sidebar-scrollbar::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(23, 23, 20, 0.5);
   }
   .sidebar-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(247, 245, 239, 0.3);
     border-radius: 4px;
   }
   .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: #E43D12;
   }
 }
 

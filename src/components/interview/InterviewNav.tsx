@@ -32,7 +32,7 @@ export function InterviewNav() {
   const pathname = usePathname();
 
   return (
-    <div className="border-b-2 border-black bg-white overflow-x-auto">
+    <div className="border-b-2 border-ink-black bg-warm-cream overflow-x-auto">
       <div className="max-w-6xl mx-auto flex items-center gap-1 px-4 py-2">
         {INTERVIEW_TABS.map((tab) => {
           const isActive = pathname === tab.href;
@@ -43,8 +43,8 @@ export function InterviewNav() {
               href={tab.href}
               className={`px-3 py-1.5 text-xs font-black uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 transition-all cursor-pointer border ${
                 isActive
-                  ? "bg-royal-maroon text-white border-black shadow-editorial-xs"
-                  : "bg-surface-subtle text-muted hover:text-black hover:bg-stone-100 border-transparent"
+                  ? "bg-rose text-paper-white border-2 border-ink-black shadow-editorial-xs"
+                  : "bg-paper-white text-ink-black hover:text-ink-black hover:bg-soft-pink border border-ink-black/20"
               }`}
             >
               <Icon className="w-3.5 h-3.5" />

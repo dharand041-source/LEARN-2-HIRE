@@ -235,7 +235,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
         aria-label="Main Navigation"
         aria-hidden={!isOpen}
         className={cn(
-          "fixed top-16 bottom-0 left-0 z-50 w-[280px] max-w-[85vw] bg-royal-maroon border-r-2 border-black flex flex-col shadow-2xl transition-transform duration-[250ms] ease-out select-none",
+          "fixed top-16 bottom-0 left-0 z-50 w-[280px] max-w-[85vw] bg-ink-black border-r-2 border-ink-black flex flex-col shadow-2xl transition-transform duration-[250ms] ease-out select-none",
           isOpen ? "translate-x-0 pointer-events-auto" : "-translate-x-full pointer-events-none"
         )}
         style={{
@@ -244,42 +244,42 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
         }}
       >
         {/* Pinned Sidebar Header: Transparent Brand Logo & Close X Button */}
-        <div className="px-4 py-3.5 border-b-2 border-black/40 flex items-center justify-between shrink-0 bg-royal-maroon text-white">
+        <div className="px-4 py-3.5 border-b-2 border-paper-white/20 flex items-center justify-between shrink-0 bg-ink-black text-paper-white">
           <BrandLogo size="md" href="/dashboard" theme="dark" />
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral"
+            className="p-1.5 rounded-lg text-paper-white/80 hover:text-paper-white hover:bg-paper-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange"
             aria-label="Close navigation"
             title="Close navigation"
           >
-            <X className="w-5 h-5 text-white" />
+            <X className="w-5 h-5 text-paper-white" />
           </button>
         </div>
 
         {/* EXACTLY ONE Independent Scroll Container for Navigation & User Profile */}
         <div
-          className="flex-1 overflow-y-auto overflow-x-hidden px-2.5 py-3 space-y-4 bg-royal-maroon text-white sidebar-scrollbar"
+          className="flex-1 overflow-y-auto overflow-x-hidden px-2.5 py-3 space-y-4 bg-ink-black text-paper-white sidebar-scrollbar"
           style={{
             overscrollBehavior: "contain",
             WebkitOverflowScrolling: "touch",
           }}
         >
           {/* Target Readiness Snapshot Card */}
-          <div className="p-2.5 rounded-lg bg-black border-2 border-electric-coral/50 text-white shrink-0">
+          <div className="p-2.5 rounded-lg bg-paper-white/5 border-2 border-golden-yellow/70 text-paper-white shrink-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] font-extrabold text-white/70 uppercase tracking-wider font-mono">
+              <span className="text-[10px] font-extrabold text-paper-white/70 uppercase tracking-wider font-mono">
                 Target Readiness
               </span>
-              <span className="text-xs font-mono font-black text-electric-coral">
+              <span className="text-xs font-mono font-black text-golden-yellow">
                 {userProfile.readinessScore}%
               </span>
             </div>
-            <ProgressBar value={userProfile.readinessScore} size="sm" variant="electric-coral" />
+            <ProgressBar value={userProfile.readinessScore} size="sm" variant="electric-yellow" />
             <div className="mt-1.5 flex items-center justify-between text-[11px]">
-              <span className="truncate max-w-[130px] text-white font-bold text-[11px]">
+              <span className="truncate max-w-[130px] text-paper-white font-bold text-[11px]">
                 {selectedRole.title}
               </span>
-              <span className="text-electric-coral text-[10px] font-extrabold uppercase tracking-wider truncate max-w-[100px] font-mono">
+              <span className="text-golden-yellow text-[10px] font-extrabold uppercase tracking-wider truncate max-w-[100px] font-mono">
                 {userProfile.focusArea ? `Gap: ${userProfile.focusArea.split("&")[0].trim()}` : "Active"}
               </span>
             </div>
@@ -289,7 +289,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
           <nav aria-label="Sidebar Navigation Links" className="space-y-3.5">
             {PRIMARY_NAV_SECTIONS.map((section, idx) => (
               <div key={idx} className="space-y-0.5">
-                <p className="px-2.5 py-0.5 text-[9px] font-mono font-extrabold uppercase tracking-widest text-white/60">
+                <p className="px-2.5 py-0.5 text-[9px] font-mono font-extrabold uppercase tracking-widest text-paper-white/60">
                   {section.group}
                 </p>
                 <div className="space-y-0.5">
@@ -308,16 +308,16 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
                         onClick={onClose}
                         aria-current={isActive ? "page" : undefined}
                         className={cn(
-                          "flex items-center gap-2.5 px-3 py-2 text-xs rounded-md transition-colors duration-150 group min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral",
+                          "flex items-center gap-2.5 px-3 py-2 text-xs rounded-md transition-colors duration-150 group min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange",
                           isActive
-                            ? "bg-electric-coral text-black font-black shadow-editorial-xs border-2 border-black"
-                            : "text-white font-medium hover:bg-electric-coral hover:text-black"
+                            ? "bg-primary-orange text-paper-white font-black shadow-editorial-xs border-2 border-ink-black"
+                            : "text-paper-white font-medium hover:bg-rose hover:text-paper-white"
                         )}
                       >
                         <Icon
                           className={cn(
                             "w-4 h-4 transition-transform group-hover:scale-110 shrink-0",
-                            isActive ? "text-black stroke-[2.5]" : "text-white/80"
+                            isActive ? "text-paper-white stroke-[2.5]" : "text-paper-white/80 group-hover:text-paper-white"
                           )}
                         />
                         <span className="truncate">{item.label}</span>
@@ -330,17 +330,17 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
           </nav>
 
           {/* Candidate Profile / Auth Footer (integrated in single scroll container) */}
-          <div className="pt-3 border-t-2 border-black/40 text-white">
-            <div className="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-black/60">
+          <div className="pt-3 border-t-2 border-paper-white/20 text-paper-white">
+            <div className="flex items-center justify-between p-2 rounded-lg bg-paper-white/10 border border-paper-white/20">
               <div className="flex items-center gap-2 min-w-0">
-                <div className="w-7 h-7 rounded-full bg-electric-coral text-black flex items-center justify-center text-[10px] font-mono font-black shrink-0 border border-black">
+                <div className="w-7 h-7 rounded-full bg-primary-orange text-paper-white flex items-center justify-center text-[10px] font-mono font-black shrink-0 border border-paper-white/30">
                   {userProfile.name ? userProfile.name.charAt(0).toUpperCase() : "U"}
                 </div>
                 <div className="min-w-0 flex flex-col">
-                  <span className="text-xs font-bold text-white truncate leading-tight">
+                  <span className="text-xs font-bold text-paper-white truncate leading-tight">
                     {userProfile.name}
                   </span>
-                  <span className="text-[9px] text-white/60 truncate font-mono">
+                  <span className="text-[9px] text-paper-white/60 truncate font-mono">
                     {userProfile.email}
                   </span>
                 </div>
@@ -354,7 +354,7 @@ function SidebarComponent({ isOpen, onClose }: SidebarProps) {
                   }}
                   title="Sign Out"
                   aria-label="Sign Out"
-                  className="p-1.5 rounded-md text-white/80 hover:text-black hover:bg-electric-coral transition-colors cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-coral"
+                  className="p-1.5 rounded-md text-paper-white/80 hover:text-paper-white hover:bg-rose transition-colors cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>

@@ -83,22 +83,22 @@ function AuthLoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
+    <div className="min-h-screen bg-warm-cream text-ink-black flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center space-y-4">
         <BrandLogo size="lg" theme="light" href={ROUTES.home} />
-        <h1 className="text-2xl sm:text-3xl font-display font-extrabold uppercase tracking-tight text-royal-maroon">
+        <h1 className="text-2xl sm:text-3xl font-display font-extrabold uppercase tracking-tight text-ink-black">
           Sign In to Learn-2-Hire
         </h1>
-        <p className="text-xs text-muted max-w-sm mx-auto font-medium">
+        <p className="text-xs text-ink-black/75 max-w-sm mx-auto font-medium">
           Access your verified career telemetry, personalized curriculum, and rubric evaluations.
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-6 sm:px-10 border-4 border-black rounded-2xl shadow-editorial-md space-y-6">
+        <div className="bg-paper-white py-8 px-6 sm:px-10 border-4 border-ink-black rounded-2xl shadow-editorial-md space-y-6">
           {errorMessage && (
-            <div className="p-3 bg-red-50 border-2 border-red-500 rounded-lg text-xs text-red-700 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
+            <div className="p-3 bg-soft-pink/30 border-2 border-rose rounded-lg text-xs text-rose font-bold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose" />
               <span>{errorMessage}</span>
             </div>
           )}
@@ -108,7 +108,7 @@ function AuthLoginForm() {
             <button
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full py-3 px-4 rounded-xl border-3 border-black bg-white hover:bg-surface font-extrabold text-xs sm:text-sm text-foreground flex items-center justify-center gap-3 transition-colors shadow-editorial-sm cursor-pointer disabled:opacity-50"
+              className="w-full py-3 px-4 rounded-xl border-3 border-ink-black bg-paper-white hover:bg-warm-cream font-extrabold text-xs sm:text-sm text-ink-black flex items-center justify-center gap-3 transition-colors shadow-editorial-sm cursor-pointer disabled:opacity-50"
             >
               <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
                 <path
@@ -133,43 +133,43 @@ function AuthLoginForm() {
           </div>
 
           <div className="relative flex py-1 items-center">
-            <div className="flex-grow border-t border-black/20"></div>
-            <span className="flex-shrink mx-4 text-[10px] font-mono uppercase tracking-wider text-muted font-bold">
+            <div className="flex-grow border-t border-ink-black/20"></div>
+            <span className="flex-shrink mx-4 text-[10px] font-mono uppercase tracking-wider text-ink-black/70 font-bold">
               Or with email
             </span>
-            <div className="flex-grow border-t border-black/20"></div>
+            <div className="flex-grow border-t border-ink-black/20"></div>
           </div>
 
           {/* Email form */}
           <form onSubmit={handleEmailSignIn} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-foreground mb-1 uppercase tracking-wider font-mono">
+              <label className="block text-xs font-bold text-ink-black mb-1 uppercase tracking-wider font-mono">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-ink-black/60 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="candidate@example.com"
-                  className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-electric-coral"
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border-2 border-ink-black bg-paper-white text-ink-black focus:outline-none focus:ring-2 focus:ring-primary-orange"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-foreground mb-1 uppercase tracking-wider font-mono">
+              <label className="block text-xs font-bold text-ink-black mb-1 uppercase tracking-wider font-mono">
                 Password (Optional for Demo)
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-ink-black/60 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-electric-coral"
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border-2 border-ink-black bg-paper-white text-ink-black focus:outline-none focus:ring-2 focus:ring-primary-orange"
                 />
               </div>
             </div>
@@ -177,7 +177,7 @@ function AuthLoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 rounded-xl bg-royal-maroon hover:bg-electric-coral hover:text-black text-white font-black text-xs sm:text-sm border-2 border-black transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-editorial-xs disabled:opacity-50"
+              className="w-full py-3 px-4 rounded-xl bg-primary-orange hover:bg-rose text-paper-white font-black text-xs sm:text-sm border-2 border-ink-black transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-editorial-xs disabled:opacity-50"
             >
               {loading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -191,19 +191,19 @@ function AuthLoginForm() {
           </form>
 
           {/* Fast Development Demo Bypass */}
-          <div className="pt-2 border-t border-black/15 text-center">
+          <div className="pt-2 border-t border-ink-black/15 text-center">
             <button
               onClick={handleInstantDemoLogin}
-              className="w-full py-2 rounded-lg bg-surface border border-black/30 hover:border-black text-[11px] font-bold text-foreground transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full py-2 rounded-lg bg-warm-cream border-2 border-ink-black hover:bg-soft-pink text-[11px] font-bold text-ink-black transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5 text-electric-coral" />
+              <Sparkles className="w-3.5 h-3.5 text-primary-orange" />
               <span>Instant Candidate Login (Fast Dev Mode)</span>
             </button>
           </div>
 
-          <div className="text-center text-xs text-muted">
+          <div className="text-center text-xs text-ink-black/70">
             Don&apos;t have an account yet?{" "}
-            <Link href={ROUTES.auth.signup} className="text-royal-maroon font-bold hover:underline">
+            <Link href={ROUTES.auth.signup} className="text-primary-orange font-bold hover:underline">
               Create an account
             </Link>
           </div>
@@ -217,8 +217,8 @@ export default function AuthLoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-white">
-          <Loader2 className="w-8 h-8 animate-spin text-royal-maroon" />
+        <div className="min-h-screen flex items-center justify-center bg-warm-cream">
+          <Loader2 className="w-8 h-8 animate-spin text-primary-orange" />
         </div>
       }
     >

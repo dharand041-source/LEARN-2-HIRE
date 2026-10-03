@@ -51,15 +51,15 @@ export function LoginIntro({ onComplete }: LoginIntroProps) {
       ref={overlayRef}
       role="status"
       aria-label="Welcome to Learn-2-Hire"
-      className="fixed inset-0 z-[99999] w-screen h-screen bg-white text-black overflow-hidden flex flex-col items-center justify-center pointer-events-auto select-none font-sans"
+      className="fixed inset-0 z-[99999] w-screen h-screen bg-warm-cream text-ink-black overflow-hidden flex flex-col items-center justify-center pointer-events-auto select-none font-sans"
       style={{
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#EBE9E1",
       }}
     >
       {/* Subtle Top Brand Mark */}
       <div className="absolute top-6 left-6 sm:top-10 sm:left-10 flex items-center gap-2.5 z-10">
         <BrandLogo size="xs" showText={false} />
-        <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-foreground">
+        <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-ink-black">
           LEARN-2-HIRE // CAREER READINESS
         </span>
       </div>
@@ -74,9 +74,9 @@ export function LoginIntro({ onComplete }: LoginIntroProps) {
       </div>
 
       {/* Subtle Bottom Status Indicator */}
-      <div className="absolute bottom-6 sm:bottom-10 flex items-center gap-2 text-[10px] font-mono font-bold tracking-widest text-muted-foreground uppercase z-10">
+      <div className="absolute bottom-6 sm:bottom-10 flex items-center gap-2 text-[10px] font-mono font-bold tracking-widest text-ink-black/70 uppercase z-10">
         <span>AUTHENTICATION VERIFIED</span>
-        <span className="w-1.5 h-1.5 rounded-full bg-foreground animate-ping" />
+        <span className="w-1.5 h-1.5 rounded-full bg-primary-orange animate-ping" />
       </div>
     </div>
   );

@@ -20,13 +20,13 @@ export function PublicHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b-2 border-black bg-black text-white">
+    <header className="sticky top-0 z-50 w-full border-b-2 border-ink-black bg-paper-white text-ink-black">
       <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-6">
-          <BrandLogo size="md" theme="dark" href={ROUTES.home} />
+          <BrandLogo size="md" theme="light" href={ROUTES.home} />
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-1 pl-4 border-l border-white/20">
+          <nav className="hidden md:flex items-center gap-1 pl-4 border-l border-ink-black/20">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -36,8 +36,8 @@ export function PublicHeader() {
                   className={cn(
                     "px-3 py-1.5 rounded-md text-xs font-bold transition-colors",
                     isActive
-                      ? "bg-white/15 text-electric-coral"
-                      : "text-white/80 hover:text-white hover:bg-white/10"
+                      ? "bg-warm-cream text-primary-orange"
+                      : "text-ink-black/80 hover:text-ink-black hover:bg-warm-cream"
                   )}
                 >
                   {link.label}
@@ -51,14 +51,14 @@ export function PublicHeader() {
         <div className="hidden sm:flex items-center gap-3">
           <Link
             href={ROUTES.auth.login}
-            className="px-4 py-2 text-xs font-bold text-white hover:text-electric-coral transition-colors"
+            className="px-4 py-2 text-xs font-bold text-ink-black hover:text-primary-orange transition-colors"
           >
             Sign In
           </Link>
 
           <Link
             href={ROUTES.onboarding}
-            className="px-4 py-2 rounded-lg bg-electric-coral hover:bg-white text-black border-2 border-black font-black text-xs transition-colors flex items-center gap-1.5 shadow-editorial-xs cursor-pointer"
+            className="px-4 py-2 rounded-lg bg-primary-orange hover:bg-rose text-paper-white border-2 border-ink-black font-black text-xs transition-colors flex items-center gap-1.5 shadow-editorial-xs cursor-pointer"
           >
             <span>Start Journey</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -68,7 +68,7 @@ export function PublicHeader() {
         {/* Mobile Hamburger Toggle */}
         <button
           onClick={() => setMobileMenuOpen((prev) => !prev)}
-          className="sm:hidden p-2 text-white hover:text-electric-coral"
+          className="sm:hidden p-2 text-ink-black hover:text-primary-orange"
           aria-label="Toggle navigation menu"
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -77,32 +77,32 @@ export function PublicHeader() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-t border-white/20 bg-black px-4 py-4 space-y-3">
+        <div className="sm:hidden border-t border-ink-black/20 bg-paper-white px-4 py-4 space-y-3">
           <nav className="flex flex-col space-y-2">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-md text-xs font-bold text-white/90 hover:bg-white/10"
+                className="px-3 py-2 rounded-md text-xs font-bold text-ink-black/90 hover:bg-warm-cream"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          <div className="pt-3 border-t border-white/20 flex flex-col gap-2">
+          <div className="pt-3 border-t border-ink-black/20 flex flex-col gap-2">
             <Link
               href={ROUTES.auth.login}
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-2.5 rounded-lg border-2 border-white/30 text-center text-xs font-bold text-white"
+              className="w-full py-2.5 rounded-lg border-2 border-ink-black/30 text-center text-xs font-bold text-ink-black hover:bg-warm-cream"
             >
               Sign In
             </Link>
             <Link
               href={ROUTES.onboarding}
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-2.5 rounded-lg bg-electric-coral text-black font-black text-center text-xs border-2 border-black flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-lg bg-primary-orange text-paper-white font-black text-center text-xs border-2 border-ink-black flex items-center justify-center gap-2 hover:bg-rose"
             >
               <span>Start Career Journey</span>
               <ArrowRight className="w-3.5 h-3.5" />

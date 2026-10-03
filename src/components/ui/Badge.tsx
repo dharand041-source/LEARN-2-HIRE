@@ -3,6 +3,14 @@ import { cn } from "@/lib/constants";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?:
+    | "primary"
+    | "secondary"
+    | "soft"
+    | "dark"
+    | "golden-yellow"
+    | "rose"
+    | "soft-pink"
+    | "orange"
     | "imperial"
     | "fire-red"
     | "red"
@@ -23,6 +31,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
     | "night"
     | "neutral"
     | "success"
+    | "progress"
     | "outline";
   size?: "sm" | "md";
 }
@@ -30,34 +39,46 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 export function Badge({ className, variant = "neutral", size = "sm", children, ...props }: BadgeProps) {
   const baseStyles = "inline-flex items-center font-bold rounded-md transition-colors select-none";
 
-  const variants = {
-    // Electric Coral (Energetic / Primary Accent) - Black text
-    "electric-coral": "bg-electric-coral text-black border border-black font-black",
-    coral: "bg-electric-coral text-black border border-black font-black",
-    // Royal Maroon (Deep Primary Surface) - White text
-    "royal-maroon": "bg-royal-maroon text-white border border-black font-extrabold",
-    maroon: "bg-royal-maroon text-white border border-black font-extrabold",
-    "deep-navy": "bg-royal-maroon text-white border border-black font-extrabold",
-    navy: "bg-royal-maroon text-white border border-black font-extrabold",
-    // Fallback mappings for old tokens mapped strictly to Coral or Maroon
-    "ultra-violet": "bg-royal-maroon text-white border border-black font-extrabold",
-    violet: "bg-royal-maroon text-white border border-black font-extrabold",
-    "acid-yellow": "bg-electric-coral text-black border border-black font-black",
-    acid: "bg-electric-coral text-black border border-black font-black",
-    "fire-red": "bg-royal-maroon text-white border border-black font-extrabold",
-    red: "bg-royal-maroon text-white border border-black font-extrabold",
-    imperial: "bg-royal-maroon text-white border border-black font-extrabold",
-    rose: "bg-royal-maroon text-white border border-black font-extrabold",
-    "electric-yellow": "bg-electric-coral text-black border border-black font-black",
-    yellow: "bg-electric-coral text-black border border-black font-black",
-    "honey-gold": "bg-electric-coral text-black border border-black font-black",
-    gold: "bg-electric-coral text-black border border-black font-black",
-    champagne: "bg-electric-coral text-black border border-black font-black",
-    // Neutrals: Black, White, Outline
-    night: "bg-black text-white border border-black font-extrabold",
-    neutral: "bg-white text-black border border-black font-bold",
-    success: "bg-electric-coral text-black border border-black font-black",
-    outline: "bg-transparent text-foreground border border-black font-bold",
+  const variants: Record<string, string> = {
+    // Primary: Primary Orange + Paper White
+    primary: "bg-primary-orange text-paper-white border border-ink-black font-black",
+    "electric-coral": "bg-primary-orange text-paper-white border border-ink-black font-black",
+    coral: "bg-primary-orange text-paper-white border border-ink-black font-black",
+    orange: "bg-primary-orange text-paper-white border border-ink-black font-black",
+    // Secondary: Rose + Paper White
+    secondary: "bg-rose text-paper-white border border-ink-black font-extrabold",
+    rose: "bg-rose text-paper-white border border-ink-black font-extrabold",
+    "royal-maroon": "bg-rose text-paper-white border border-ink-black font-extrabold",
+    maroon: "bg-rose text-paper-white border border-ink-black font-extrabold",
+    "ultra-violet": "bg-rose text-paper-white border border-ink-black font-extrabold",
+    violet: "bg-rose text-paper-white border border-ink-black font-extrabold",
+    imperial: "bg-rose text-paper-white border border-ink-black font-extrabold",
+    "fire-red": "bg-primary-orange text-paper-white border border-ink-black font-extrabold",
+    red: "bg-primary-orange text-paper-white border border-ink-black font-extrabold",
+    // Success / Progress / Achievement: Golden Yellow + Ink Black
+    success: "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    progress: "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    "golden-yellow": "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    "acid-yellow": "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    acid: "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    "electric-yellow": "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    yellow: "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    "honey-gold": "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    gold: "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    champagne: "bg-golden-yellow text-ink-black border border-ink-black font-black",
+    // Soft: Soft Pink + Ink Black
+    soft: "bg-soft-pink text-ink-black border border-ink-black font-bold",
+    pink: "bg-soft-pink text-ink-black border border-ink-black font-bold",
+    "soft-pink": "bg-soft-pink text-ink-black border border-ink-black font-bold",
+    // Dark: Ink Black + Paper White
+    dark: "bg-ink-black text-paper-white border border-ink-black font-extrabold",
+    night: "bg-ink-black text-paper-white border border-ink-black font-extrabold",
+    "deep-navy": "bg-ink-black text-paper-white border border-ink-black font-extrabold",
+    navy: "bg-ink-black text-paper-white border border-ink-black font-extrabold",
+    // Standard Neutrals: Paper White / Warm Cream
+    neutral: "bg-paper-white text-ink-black border border-ink-black font-bold",
+    cream: "bg-warm-cream text-ink-black border border-ink-black font-bold",
+    outline: "bg-transparent text-ink-black border border-ink-black font-bold",
   };
 
   const sizes = {

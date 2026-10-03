@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST='{"services\\\\resumeParser.ts -> mammoth":{"id":25904,"files":["static/chunks/5904.13914d4bfdcc3e99.js"]},"services\\\\resumeParser.ts -> pdf-parse":{"id":44635,"files":["static/chunks/0092f5ab.dc11c9cd75bf031f.js"]}}';

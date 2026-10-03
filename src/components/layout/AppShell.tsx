@@ -46,7 +46,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   if (isFocusMode || isInterviewSession || isAuthPage || isPublicMarketingPage) {
     return (
-      <div className="min-h-screen bg-white text-black flex flex-col">
+      <div className="min-h-screen bg-warm-cream text-ink-black flex flex-col">
         <main className="flex-1 min-w-0">{children}</main>
       </div>
     );
@@ -57,18 +57,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     pathname === "/dashboard";
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col">
+    <div className="min-h-screen bg-warm-cream text-ink-black flex flex-col">
       <Navbar
         sidebarOpen={sidebarOpen}
         onToggleSidebar={handleToggleSidebar}
       />
-      <div className="flex flex-1 relative min-h-0 bg-white">
+      <div className="flex flex-1 relative min-h-0 bg-warm-cream">
         <Sidebar isOpen={sidebarOpen} onClose={handleCloseSidebar} />
-        <main className="flex-1 min-w-0 flex flex-col bg-white w-full">
+        <main className="flex-1 min-w-0 flex flex-col bg-warm-cream w-full">
           <div
             className={
               isDashboard
-                ? "flex-1 min-w-0 flex flex-col pb-16 lg:pb-0 bg-white w-full"
+                ? "flex-1 min-w-0 flex flex-col pb-16 lg:pb-0 bg-warm-cream w-full"
                 : "flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto pb-20 lg:pb-8"
             }
           >

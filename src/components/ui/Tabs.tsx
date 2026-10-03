@@ -15,6 +15,12 @@ export interface TabsProps {
   activeTab: string;
   onChange: (tabId: string) => void;
   accent?:
+    | "primary-orange"
+    | "golden-yellow"
+    | "rose"
+    | "soft-pink"
+    | "ink-black"
+    | "paper-white"
     | "fire-red"
     | "red"
     | "electric-yellow"
@@ -37,41 +43,40 @@ export interface TabsProps {
 
 export function Tabs({ tabs, activeTab, onChange, accent = "coral", className }: TabsProps) {
   const activeStyles: Record<string, string> = {
-    "electric-coral": "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
-    coral: "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
-    "royal-maroon": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    maroon: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    "deep-navy": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    navy: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    // Fallback aliases strictly using Coral or Maroon
-    "fire-red": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    red: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    "ultra-violet": "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    violet: "bg-royal-maroon text-white border-2 border-black font-extrabold shadow-editorial-xs",
-    "acid-yellow": "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
-    acid: "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
-    "electric-yellow": "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
-    yellow: "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
-    "honey-gold": "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
-    gold: "bg-electric-coral text-black border-2 border-black font-black shadow-editorial-xs",
-    dark: "bg-black text-white border-2 border-black font-extrabold shadow-editorial-xs",
+    "primary-orange": "bg-primary-orange text-paper-white border-2 border-ink-black font-black shadow-editorial-xs",
+    "electric-coral": "bg-primary-orange text-paper-white border-2 border-ink-black font-black shadow-editorial-xs",
+    coral: "bg-primary-orange text-paper-white border-2 border-ink-black font-black shadow-editorial-xs",
+    orange: "bg-primary-orange text-paper-white border-2 border-ink-black font-black shadow-editorial-xs",
+    rose: "bg-rose text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    "royal-maroon": "bg-rose text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    maroon: "bg-rose text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    "deep-navy": "bg-ink-black text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    navy: "bg-ink-black text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    "fire-red": "bg-primary-orange text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    red: "bg-primary-orange text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    "ultra-violet": "bg-rose text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    violet: "bg-rose text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
+    "golden-yellow": "bg-golden-yellow text-ink-black border-2 border-ink-black font-black shadow-editorial-xs",
+    "acid-yellow": "bg-golden-yellow text-ink-black border-2 border-ink-black font-black shadow-editorial-xs",
+    acid: "bg-golden-yellow text-ink-black border-2 border-ink-black font-black shadow-editorial-xs",
+    "electric-yellow": "bg-golden-yellow text-ink-black border-2 border-ink-black font-black shadow-editorial-xs",
+    yellow: "bg-golden-yellow text-ink-black border-2 border-ink-black font-black shadow-editorial-xs",
+    "honey-gold": "bg-golden-yellow text-ink-black border-2 border-ink-black font-black shadow-editorial-xs",
+    gold: "bg-golden-yellow text-ink-black border-2 border-ink-black font-black shadow-editorial-xs",
+    dark: "bg-ink-black text-paper-white border-2 border-ink-black font-extrabold shadow-editorial-xs",
   };
 
-  const isDarkAccent =
-    accent === "fire-red" ||
-    accent === "red" ||
-    accent === "royal-maroon" ||
-    accent === "maroon" ||
-    accent === "deep-navy" ||
-    accent === "navy" ||
-    accent === "ultra-violet" ||
-    accent === "violet" ||
-    accent === "electric-coral" ||
-    accent === "coral" ||
-    accent === "dark";
+  const isLightText =
+    accent !== "golden-yellow" &&
+    accent !== "acid-yellow" &&
+    accent !== "acid" &&
+    accent !== "electric-yellow" &&
+    accent !== "yellow" &&
+    accent !== "honey-gold" &&
+    accent !== "gold";
 
   return (
-    <div className={cn("flex items-center gap-1.5 p-1 bg-surface border-2 border-border rounded-lg overflow-x-auto", className)}>
+    <div className={cn("flex items-center gap-1.5 p-1 bg-warm-cream border-2 border-ink-black rounded-lg overflow-x-auto", className)}>
       {tabs.map((tab) => {
         const isActive = activeTab === tab.id;
         return (
@@ -79,10 +84,10 @@ export function Tabs({ tabs, activeTab, onChange, accent = "coral", className }:
             key={tab.id}
             onClick={() => onChange(tab.id)}
             className={cn(
-              "flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap select-none cursor-pointer",
+              "flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap select-none cursor-pointer border border-transparent",
               isActive
-                ? activeStyles[accent]
-                : "text-muted-foreground hover:text-foreground hover:bg-white"
+                ? (activeStyles[accent] || activeStyles["primary-orange"])
+                : "bg-paper-white text-ink-black border-ink-black/20 hover:bg-soft-pink hover:text-ink-black"
             )}
           >
             {tab.icon}
@@ -92,10 +97,10 @@ export function Tabs({ tabs, activeTab, onChange, accent = "coral", className }:
                 className={cn(
                   "px-1.5 py-0.2 rounded-sm text-[10px] font-mono",
                   isActive
-                    ? isDarkAccent
-                      ? "bg-white/25 text-white font-bold"
-                      : "bg-black/15 text-foreground font-bold"
-                    : "bg-border text-muted-foreground font-bold"
+                    ? isLightText
+                      ? "bg-paper-white/25 text-paper-white font-bold"
+                      : "bg-ink-black/15 text-ink-black font-bold"
+                    : "bg-ink-black/10 text-ink-black font-bold"
                 )}
               >
                 {tab.count}

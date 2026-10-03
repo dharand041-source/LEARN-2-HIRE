@@ -37,10 +37,10 @@ export default function RootHomePage() {
       icon: CheckSquare,
       score: "Ready",
       route: ROUTES.app.assessments.baseline,
-      cardBg: "bg-royal-maroon text-white border-2 border-black",
-      iconBg: "bg-electric-coral text-black",
-      numColor: "text-electric-coral",
-      scoreColor: "text-electric-coral",
+      cardBg: "bg-paper-white text-ink-black border-2 border-ink-black",
+      iconBg: "bg-primary-orange text-paper-white",
+      numColor: "text-primary-orange",
+      scoreColor: "text-primary-orange",
     },
     {
       title: "2. Gap Analysis",
@@ -48,10 +48,10 @@ export default function RootHomePage() {
       icon: TrendingUp,
       score: "Automated",
       route: ROUTES.app.skillAnalysis,
-      cardBg: "bg-electric-coral text-black border-2 border-black",
-      iconBg: "bg-black text-electric-coral",
-      numColor: "text-black",
-      scoreColor: "text-black",
+      cardBg: "bg-paper-white text-ink-black border-2 border-ink-black",
+      iconBg: "bg-golden-yellow text-ink-black",
+      numColor: "text-ink-black",
+      scoreColor: "text-ink-black",
     },
     {
       title: "3. Learning Track",
@@ -59,10 +59,10 @@ export default function RootHomePage() {
       icon: BookOpen,
       score: "12 Weeks",
       route: ROUTES.app.learning.root,
-      cardBg: "bg-black text-white border-2 border-black",
-      iconBg: "bg-electric-coral text-black",
-      numColor: "text-electric-coral",
-      scoreColor: "text-electric-coral",
+      cardBg: "bg-paper-white text-ink-black border-2 border-ink-black",
+      iconBg: "bg-rose text-paper-white",
+      numColor: "text-rose",
+      scoreColor: "text-rose",
     },
     {
       title: "4. Capstone Build",
@@ -70,10 +70,10 @@ export default function RootHomePage() {
       icon: FolderGit2,
       score: "Rubric Graded",
       route: ROUTES.app.projects.root,
-      cardBg: "bg-white text-black border-2 border-black",
-      iconBg: "bg-royal-maroon text-white",
-      numColor: "text-black",
-      scoreColor: "text-black",
+      cardBg: "bg-paper-white text-ink-black border-2 border-ink-black",
+      iconBg: "bg-primary-orange text-paper-white",
+      numColor: "text-primary-orange",
+      scoreColor: "text-primary-orange",
     },
     {
       title: "5. Voice Defense",
@@ -81,10 +81,10 @@ export default function RootHomePage() {
       icon: Mic,
       score: "AI Critique",
       route: ROUTES.app.interview.root,
-      cardBg: "bg-royal-maroon text-white border-2 border-black",
-      iconBg: "bg-electric-coral text-black",
-      numColor: "text-electric-coral",
-      scoreColor: "text-electric-coral",
+      cardBg: "bg-paper-white text-ink-black border-2 border-ink-black",
+      iconBg: "bg-rose text-paper-white",
+      numColor: "text-rose",
+      scoreColor: "text-rose",
     },
     {
       title: "6. Match Engine",
@@ -92,10 +92,10 @@ export default function RootHomePage() {
       icon: Briefcase,
       score: "Verified Jobs",
       route: ROUTES.app.opportunities.jobs,
-      cardBg: "bg-electric-coral text-black border-2 border-black",
-      iconBg: "bg-black text-electric-coral",
-      numColor: "text-black",
-      scoreColor: "text-black",
+      cardBg: "bg-paper-white text-ink-black border-2 border-ink-black",
+      iconBg: "bg-golden-yellow text-ink-black",
+      numColor: "text-ink-black",
+      scoreColor: "text-ink-black",
     },
   ];
 
@@ -106,8 +106,8 @@ export default function RootHomePage() {
       desc: "Explore 22+ high-demand engineering pathways across Software Engineering, AI/ML, DevOps, and Cybersecurity with transparent skill requirements.",
       route: ROUTES.app.career.discover,
       badge: "Career Discovery",
-      cardClass: "bg-white text-black border-2 border-black hover:bg-royal-maroon hover:text-white group",
-      badgeVariant: "maroon" as const,
+      cardClass: "bg-paper-white text-ink-black border-2 border-ink-black hover:border-primary-orange hover:bg-soft-pink/20 group",
+      badgeVariant: "rose" as const,
     },
     {
       num: "02",
@@ -115,8 +115,8 @@ export default function RootHomePage() {
       desc: "Take focused technical diagnostics with real code snippets, logic traps, and architectural questions—not simplistic multiple-choice tests.",
       route: ROUTES.app.assessments.baseline,
       badge: "Diagnostics",
-      cardClass: "bg-white text-black border-2 border-black hover:bg-electric-coral hover:text-black group",
-      badgeVariant: "coral" as const,
+      cardClass: "bg-paper-white text-ink-black border-2 border-ink-black hover:border-primary-orange hover:bg-soft-pink/20 group",
+      badgeVariant: "primary" as const,
     },
     {
       num: "03",
@@ -124,8 +124,8 @@ export default function RootHomePage() {
       desc: "Get an uncompromising diagnostic breakdown of your strengths and specific blind spots with actionable next steps mapped directly to your target role.",
       route: ROUTES.app.skillAnalysis,
       badge: "Gap Analysis",
-      cardClass: "bg-white text-black border-2 border-black hover:bg-black hover:text-white group",
-      badgeVariant: "night" as const,
+      cardClass: "bg-paper-white text-ink-black border-2 border-ink-black hover:border-primary-orange hover:bg-soft-pink/20 group",
+      badgeVariant: "dark" as const,
     },
     {
       num: "04",
@@ -133,8 +133,8 @@ export default function RootHomePage() {
       desc: "Personalized curated modules from MDN, freeCodeCamp, CS50, and NPTEL with interactive code challenges and multi-language support.",
       route: ROUTES.app.learning.root,
       badge: "Curated Training",
-      cardClass: "bg-white text-black border-2 border-black hover:bg-royal-maroon hover:text-white group",
-      badgeVariant: "maroon" as const,
+      cardClass: "bg-paper-white text-ink-black border-2 border-ink-black hover:border-primary-orange hover:bg-soft-pink/20 group",
+      badgeVariant: "rose" as const,
     },
     {
       num: "05",
@@ -142,8 +142,8 @@ export default function RootHomePage() {
       desc: "Implement production-grade applications—from authentication platforms to job boards—with milestone checkpoints and automated rubric evaluation.",
       route: ROUTES.app.projects.root,
       badge: "Verified Proof",
-      cardClass: "bg-white text-black border-2 border-black hover:bg-electric-coral hover:text-black group",
-      badgeVariant: "coral" as const,
+      cardClass: "bg-paper-white text-ink-black border-2 border-ink-black hover:border-primary-orange hover:bg-soft-pink/20 group",
+      badgeVariant: "primary" as const,
     },
     {
       num: "06",
@@ -151,8 +151,8 @@ export default function RootHomePage() {
       desc: "Rehearse technical architecture and behavioral questions in a realistic voice simulation with audio waveforms and STAR critique.",
       route: ROUTES.app.interview.root,
       badge: "Mock Simulation",
-      cardClass: "bg-white text-black border-2 border-black hover:bg-black hover:text-white group",
-      badgeVariant: "night" as const,
+      cardClass: "bg-paper-white text-ink-black border-2 border-ink-black hover:border-primary-orange hover:bg-soft-pink/20 group",
+      badgeVariant: "dark" as const,
     },
     {
       num: "07",
@@ -160,8 +160,8 @@ export default function RootHomePage() {
       desc: "Access verified jobs, internships, and YC startups matched strictly against your demonstrated skill proficiencies and verified project portfolio.",
       route: ROUTES.app.opportunities.jobs,
       badge: "Targeted Placement",
-      cardClass: "bg-white text-black border-2 border-black hover:bg-royal-maroon hover:text-white group",
-      badgeVariant: "maroon" as const,
+      cardClass: "bg-paper-white text-ink-black border-2 border-ink-black hover:border-primary-orange hover:bg-soft-pink/20 group",
+      badgeVariant: "primary" as const,
     },
     {
       num: "08",
@@ -169,50 +169,50 @@ export default function RootHomePage() {
       desc: "If an application is rejected, our engine conducts rejection analysis, highlights root-cause skill deficiencies, and generates an actionable retraining plan.",
       route: ROUTES.app.improve.root,
       badge: "Continuous Retraining",
-      cardClass: "bg-white text-black border-2 border-black hover:bg-electric-coral hover:text-black group",
-      badgeVariant: "coral" as const,
+      cardClass: "bg-paper-white text-ink-black border-2 border-ink-black hover:border-primary-orange hover:bg-soft-pink/20 group",
+      badgeVariant: "rose" as const,
     },
   ];
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col">
+    <div className="min-h-screen bg-warm-cream text-ink-black flex flex-col">
       <PublicHeader />
 
-      <main className="flex-1 space-y-14 sm:space-y-18 bg-white w-full">
+      <main className="flex-1 space-y-14 sm:space-y-18 bg-warm-cream w-full">
         {/* ====================================================
-            1. HERO SECTION (SOLID ROYAL MAROON #5E0000 HERO)
+            1. HERO SECTION (SOLID INK BLACK HERO)
            ==================================================== */}
-        <section className="relative w-full bg-royal-maroon text-white border-b-4 border-black py-12 sm:py-18 px-4 sm:px-6 lg:px-8">
+        <section className="relative w-full bg-ink-black text-paper-white border-b-4 border-ink-black py-12 sm:py-18 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-black text-electric-coral border-2 border-black text-xs font-mono font-black uppercase tracking-widest shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-electric-coral" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-paper-white/10 text-primary-orange border-2 border-primary-orange text-xs font-mono font-black uppercase tracking-widest shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-primary-orange" />
                 <span>The Career-Readiness Standard</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-black tracking-tight text-white leading-[1.08] uppercase break-words">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-black tracking-tight text-paper-white leading-[1.08] uppercase break-words">
                 BUILD SKILLS. <br />
-                <span className="text-electric-coral underline decoration-black decoration-4 underline-offset-8">
+                <span className="text-primary-orange underline decoration-golden-yellow decoration-4 underline-offset-8">
                   PROVE YOUR ABILITY.
                 </span>{" "}
                 <br />
                 GET HIRED.
               </h1>
 
-              <p className="text-sm sm:text-base lg:text-lg text-white/90 font-medium max-w-2xl leading-relaxed">
+              <p className="text-sm sm:text-base lg:text-lg text-paper-white/90 font-medium max-w-2xl leading-relaxed">
                 One cohesive career platform from verified skill assessment to real-world production projects, voice interview simulations, and targeted employment matching with automated rejection retraining.
               </p>
 
               {/* Action CTAs */}
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-md sm:max-w-none w-full">
                 <Link href={ROUTES.onboarding} className="w-full sm:w-auto">
-                  <button className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-lg bg-electric-coral hover:bg-white text-black border-2 border-black font-black text-sm sm:text-base transition-colors flex items-center justify-center gap-2.5 cursor-pointer shadow-editorial-sm">
+                  <button className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-lg bg-primary-orange hover:bg-rose text-paper-white border-2 border-ink-black font-black text-sm sm:text-base transition-colors flex items-center justify-center gap-2.5 cursor-pointer shadow-editorial-sm">
                     <span>Start Career Journey</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                   </button>
                 </Link>
                 <Link href={ROUTES.careers} className="w-full sm:w-auto">
-                  <button className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-lg bg-black hover:bg-electric-coral hover:text-black text-white border-2 border-black font-black text-sm sm:text-base transition-colors flex items-center justify-center cursor-pointer shadow-editorial-sm">
+                  <button className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-lg bg-paper-white hover:bg-soft-pink text-ink-black border-2 border-ink-black font-black text-sm sm:text-base transition-colors flex items-center justify-center cursor-pointer shadow-editorial-sm">
                     <span>Explore 22+ Career Tracks</span>
                   </button>
                 </Link>
@@ -220,21 +220,21 @@ export default function RootHomePage() {
             </div>
 
             {/* Right Hero Readiness Card */}
-            <div className="lg:col-span-5 rounded-2xl bg-black border-3 border-electric-coral p-6 sm:p-7 text-white shadow-editorial-md space-y-4">
-              <div className="flex items-center justify-between border-b-2 border-white/20 pb-3">
+            <div className="lg:col-span-5 rounded-2xl bg-paper-white border-3 border-primary-orange p-6 sm:p-7 text-ink-black shadow-editorial-md space-y-4">
+              <div className="flex items-center justify-between border-b-2 border-ink-black/20 pb-3">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-electric-coral font-black">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-primary-orange font-black">
                     Featured Career Pathway
                   </span>
-                  <h3 className="text-base font-extrabold text-white truncate max-w-[200px]">
+                  <h3 className="text-base font-extrabold text-ink-black truncate max-w-[200px]">
                     {selectedTrack.title}
                   </h3>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/70 font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-ink-black/70 font-bold">
                     Avg Benchmark
                   </span>
-                  <p className="text-xs font-mono font-black text-electric-coral">
+                  <p className="text-xs font-mono font-black text-primary-orange">
                     {selectedTrack.averageSalary}
                   </p>
                 </div>
@@ -242,30 +242,30 @@ export default function RootHomePage() {
 
               <div className="space-y-2">
                 <div className="flex items-baseline justify-between">
-                  <span className="text-xs text-white/90 font-bold uppercase tracking-wider">
+                  <span className="text-xs text-ink-black/80 font-bold uppercase tracking-wider">
                     Target Readiness Target
                   </span>
-                  <span className="text-4xl font-mono font-black text-electric-coral">
+                  <span className="text-4xl font-mono font-black text-golden-yellow">
                     100%
                   </span>
                 </div>
-                <ProgressBar value={85} size="md" variant="electric-coral" />
+                <ProgressBar value={85} size="md" variant="golden-yellow" />
               </div>
 
               <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
-                <div className="p-3 rounded-lg bg-white/10 border border-white/20">
-                  <span className="text-[10px] text-white/70 font-mono uppercase font-bold block">
+                <div className="p-3 rounded-lg bg-warm-cream border border-ink-black/20 text-ink-black">
+                  <span className="text-[10px] text-ink-black/70 font-mono uppercase font-bold block">
                     Active Openings
                   </span>
-                  <span className="text-base font-mono font-black text-electric-coral">
+                  <span className="text-base font-mono font-black text-primary-orange">
                     {selectedTrack.openRolesCount}+ Roles
                   </span>
                 </div>
-                <div className="p-3 rounded-lg bg-white/10 border border-white/20">
-                  <span className="text-[10px] text-white/70 font-mono uppercase font-bold block">
+                <div className="p-3 rounded-lg bg-warm-cream border border-ink-black/20 text-ink-black">
+                  <span className="text-[10px] text-ink-black/70 font-mono uppercase font-bold block">
                     Curriculum Path
                   </span>
-                  <span className="text-base font-mono font-black text-white">
+                  <span className="text-base font-mono font-black text-ink-black">
                     {selectedTrack.learningPathLength}
                   </span>
                 </div>
@@ -278,30 +278,30 @@ export default function RootHomePage() {
             2. COLOR-BLOCKED METRIC SYSTEM (RHYTHMIC 6-CARD GRID)
            ==================================================== */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="p-6 sm:p-8 rounded-2xl bg-electric-coral text-black border-3 border-black shadow-editorial-md mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="p-6 sm:p-8 rounded-2xl bg-primary-orange text-paper-white border-3 border-ink-black shadow-editorial-md mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-black text-white text-[10px] font-mono font-black uppercase tracking-wider mb-2">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-ink-black text-paper-white text-[10px] font-mono font-black uppercase tracking-wider mb-2">
                 <span>Telemetry Engine // 6 Core Pillars</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-display font-black text-black tracking-tight uppercase leading-none">
+              <h2 className="text-2xl sm:text-3xl font-display font-black text-paper-white tracking-tight uppercase leading-none">
                 EVIDENCE-BASED COMPETENCY MATRIX
               </h2>
             </div>
-            <p className="text-xs font-black text-black max-w-md leading-relaxed">
+            <p className="text-xs font-bold text-paper-white/95 max-w-md leading-relaxed">
               High-contrast visual stages representing each tier of your verified readiness profile across diagnostics, capstones, and interviews.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* Card 1 */}
-            <div className="p-6 rounded-xl bg-royal-maroon text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+            <div className="p-6 rounded-xl bg-paper-white text-ink-black border-2 border-ink-black shadow-editorial-sm flex flex-col justify-between">
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-white">1. Diagnostic Baseline</span>
-                <p className="text-2xl font-mono font-black text-electric-coral mt-2">10 Questions</p>
-                <p className="text-xs text-white/80 mt-1">Role-specific technical questions testing code, SQL, APIs, and debugging.</p>
+                <span className="text-xs font-black uppercase tracking-wider text-ink-black/70">1. Diagnostic Baseline</span>
+                <p className="text-2xl font-mono font-black text-primary-orange mt-2">10 Questions</p>
+                <p className="text-xs text-ink-black/75 mt-1">Role-specific technical questions testing code, SQL, APIs, and debugging.</p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/20">
-                <Link href={ROUTES.app.assessments.baseline} className="text-xs font-black text-electric-coral hover:underline flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-ink-black/15">
+                <Link href={ROUTES.app.assessments.baseline} className="text-xs font-black text-primary-orange hover:underline flex items-center justify-between">
                   <span>Take Diagnostic</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
@@ -309,14 +309,14 @@ export default function RootHomePage() {
             </div>
 
             {/* Card 2 */}
-            <div className="p-6 rounded-xl bg-electric-coral text-black border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+            <div className="p-6 rounded-xl bg-paper-white text-ink-black border-2 border-ink-black shadow-editorial-sm flex flex-col justify-between">
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-black">2. Skill Gap Analysis</span>
-                <p className="text-2xl font-mono font-black text-black mt-2">Competency Map</p>
-                <p className="text-xs text-black/80 font-bold mt-1">Identifies required vs current proficiency with clear prioritization.</p>
+                <span className="text-xs font-black uppercase tracking-wider text-ink-black/70">2. Skill Gap Analysis</span>
+                <p className="text-2xl font-mono font-black text-rose mt-2">Competency Map</p>
+                <p className="text-xs text-ink-black/75 mt-1">Identifies required vs current proficiency with clear prioritization.</p>
               </div>
-              <div className="mt-4 pt-3 border-t-2 border-black/20">
-                <Link href={ROUTES.app.skillAnalysis} className="text-xs font-black text-black hover:underline flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-ink-black/15">
+                <Link href={ROUTES.app.skillAnalysis} className="text-xs font-black text-rose hover:underline flex items-center justify-between">
                   <span>View Gap Analyzer</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
@@ -324,14 +324,14 @@ export default function RootHomePage() {
             </div>
 
             {/* Card 3 */}
-            <div className="p-6 rounded-xl bg-black text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+            <div className="p-6 rounded-xl bg-paper-white text-ink-black border-2 border-ink-black shadow-editorial-sm flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold text-white/70 uppercase tracking-wider">3. Free Curated Learning</span>
-                <p className="text-2xl font-mono font-black text-electric-coral mt-2">Verified Sources</p>
-                <p className="text-xs text-white/80 mt-1">Harvard CS50, MDN, freeCodeCamp, and NPTEL organized by skill gaps.</p>
+                <span className="text-xs font-black uppercase tracking-wider text-ink-black/70">3. Free Curated Learning</span>
+                <p className="text-2xl font-mono font-black text-golden-yellow mt-2">Verified Sources</p>
+                <p className="text-xs text-ink-black/75 mt-1">Harvard CS50, MDN, freeCodeCamp, and NPTEL organized by skill gaps.</p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/20">
-                <Link href={ROUTES.resources} className="text-xs font-black text-electric-coral hover:underline flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-ink-black/15">
+                <Link href={ROUTES.resources} className="text-xs font-black text-ink-black hover:text-primary-orange flex items-center justify-between">
                   <span>Explore Resources</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
@@ -339,14 +339,14 @@ export default function RootHomePage() {
             </div>
 
             {/* Card 4 */}
-            <div className="p-6 rounded-xl bg-white text-black border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+            <div className="p-6 rounded-xl bg-paper-white text-ink-black border-2 border-ink-black shadow-editorial-sm flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold text-black/70 uppercase tracking-wider">4. Production Projects</span>
-                <p className="text-2xl font-mono font-black text-royal-maroon mt-2">Rubric Graded</p>
-                <p className="text-xs text-black/70 font-medium mt-1">Full-stack applications with GitHub repos, live deployments, and automated evaluation.</p>
+                <span className="text-xs font-black uppercase tracking-wider text-ink-black/70">4. Production Projects</span>
+                <p className="text-2xl font-mono font-black text-primary-orange mt-2">Rubric Graded</p>
+                <p className="text-xs text-ink-black/75 mt-1">Full-stack applications with GitHub repos, live deployments, and automated evaluation.</p>
               </div>
-              <div className="mt-4 pt-3 border-t-2 border-black">
-                <Link href={ROUTES.app.projects.root} className="text-xs font-black text-royal-maroon hover:underline flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-ink-black/15">
+                <Link href={ROUTES.app.projects.root} className="text-xs font-black text-primary-orange hover:underline flex items-center justify-between">
                   <span>View Project Specs</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
@@ -354,14 +354,14 @@ export default function RootHomePage() {
             </div>
 
             {/* Card 5 */}
-            <div className="p-6 rounded-xl bg-royal-maroon text-white border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+            <div className="p-6 rounded-xl bg-paper-white text-ink-black border-2 border-ink-black shadow-editorial-sm flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold text-white/80 uppercase tracking-wider">5. Voice Interview Defense</span>
-                <p className="text-2xl font-mono font-black text-electric-coral mt-2">STAR Evaluation</p>
-                <p className="text-xs text-white/80 mt-1">Interactive speech evaluation for system design, behavioral, and architecture questions.</p>
+                <span className="text-xs font-black uppercase tracking-wider text-ink-black/70">5. Voice Interview Defense</span>
+                <p className="text-2xl font-mono font-black text-rose mt-2">STAR Evaluation</p>
+                <p className="text-xs text-ink-black/75 mt-1">Interactive speech evaluation for system design, behavioral, and architecture questions.</p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/20">
-                <Link href={ROUTES.app.interview.root} className="text-xs font-black text-electric-coral hover:underline flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-ink-black/15">
+                <Link href={ROUTES.app.interview.root} className="text-xs font-black text-rose hover:underline flex items-center justify-between">
                   <span>Try Interview Prep</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
@@ -369,14 +369,14 @@ export default function RootHomePage() {
             </div>
 
             {/* Card 6 */}
-            <div className="p-6 rounded-xl bg-electric-coral text-black border-2 border-black shadow-editorial-sm flex flex-col justify-between">
+            <div className="p-6 rounded-xl bg-paper-white text-ink-black border-2 border-ink-black shadow-editorial-sm flex flex-col justify-between">
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-black">6. Matching Opportunities</span>
-                <p className="text-2xl font-mono font-black text-black mt-2">Direct Apply</p>
-                <p className="text-xs text-black/80 font-bold mt-1">Verified jobs with resume compatibility and direct links to employer portals.</p>
+                <span className="text-xs font-black uppercase tracking-wider text-ink-black/70">6. Matching Opportunities</span>
+                <p className="text-2xl font-mono font-black text-golden-yellow mt-2">Direct Apply</p>
+                <p className="text-xs text-ink-black/75 mt-1">Verified jobs with resume compatibility and direct links to employer portals.</p>
               </div>
-              <div className="mt-4 pt-3 border-t-2 border-black/20">
-                <Link href={ROUTES.app.opportunities.jobs} className="text-xs font-black text-black hover:underline flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-ink-black/15">
+                <Link href={ROUTES.app.opportunities.jobs} className="text-xs font-black text-ink-black hover:text-primary-orange flex items-center justify-between">
                   <span>Search Opportunities</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
@@ -389,11 +389,11 @@ export default function RootHomePage() {
             3. 6-NODE PIPELINE
            ==================================================== */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="text-center mb-8 border-b-2 border-black pb-4">
-            <p className="text-xs uppercase tracking-widest text-black font-black font-mono">
+          <div className="text-center mb-8 border-b-2 border-ink-black pb-4">
+            <p className="text-xs uppercase tracking-widest text-ink-black font-black font-mono">
               The 6-Node Verified Career Pipeline
             </p>
-            <h2 className="text-2xl sm:text-3xl font-display font-black text-black uppercase tracking-tight mt-1">
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-ink-black uppercase tracking-tight mt-1">
               PROGRESSIVE SKILL VERIFICATION
             </h2>
           </div>
@@ -431,20 +431,20 @@ export default function RootHomePage() {
             4. 8-STEP STRUCTURED JOURNEY
            ==================================================== */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b-2 border-black pb-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b-2 border-ink-black pb-6">
             <div>
-              <span className="px-2.5 py-1 rounded bg-black text-electric-coral text-[10px] font-mono font-black uppercase tracking-wider mb-2 inline-block">
+              <span className="px-2.5 py-1 rounded bg-ink-black text-golden-yellow text-[10px] font-mono font-black uppercase tracking-wider mb-2 inline-block">
                 Progression Framework
               </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-black text-black tracking-tight uppercase">
+              <h2 className="text-2xl sm:text-3xl font-display font-black text-ink-black tracking-tight uppercase">
                 HOW LEARN-2-HIRE WORKS
               </h2>
-              <p className="text-xs sm:text-sm text-black/70 mt-1 max-w-xl font-medium">
+              <p className="text-xs sm:text-sm text-ink-black/75 mt-1 max-w-xl font-medium">
                 An evidence-based pipeline that continuously converts effort into verifiable technical readiness and job offers.
               </p>
             </div>
             <Link href={ROUTES.careers}>
-              <button className="px-5 py-2.5 rounded-lg bg-white text-black hover:bg-black hover:text-white border-2 border-black font-black text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-xs">
+              <button className="px-5 py-2.5 rounded-lg bg-paper-white text-ink-black hover:bg-soft-pink border-2 border-ink-black font-black text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-xs">
                 <span>View All 22 Tracks</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
@@ -479,15 +479,15 @@ export default function RootHomePage() {
             5. CAREER ATLAS DEMO
            ==================================================== */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="rounded-2xl bg-white border-3 border-black p-6 sm:p-10 relative overflow-hidden shadow-editorial-md">
+          <div className="rounded-2xl bg-paper-white border-3 border-ink-black p-6 sm:p-10 relative overflow-hidden shadow-editorial-md">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-6 space-y-6">
                 <div>
-                  <Badge variant="coral" size="sm" className="mb-2">Career Atlas</Badge>
-                  <h2 className="text-2xl sm:text-3xl font-display font-black text-black tracking-tight uppercase">
+                  <Badge variant="primary" size="sm" className="mb-2">Career Atlas</Badge>
+                  <h2 className="text-2xl sm:text-3xl font-display font-black text-ink-black tracking-tight uppercase">
                     EXPLORE SPECIALIZATIONS
                   </h2>
-                  <p className="text-xs sm:text-sm text-black/70 mt-1 leading-relaxed font-medium">
+                  <p className="text-xs sm:text-sm text-ink-black/75 mt-1 leading-relaxed font-medium">
                     Select a target role below to see how Learn-2-Hire benchmarks skills, assessment requirements, and salary expectations.
                   </p>
                 </div>
@@ -499,14 +499,14 @@ export default function RootHomePage() {
                       onClick={() => setSelectedTrack(role)}
                       className={`p-3 sm:p-3.5 rounded-lg text-left transition-all text-xs border-2 ${
                         selectedTrack.id === role.id
-                          ? "bg-black border-black text-white shadow-editorial-xs"
-                          : "bg-surface border-black/30 text-black hover:border-black"
+                          ? "bg-ink-black border-ink-black text-paper-white shadow-editorial-xs"
+                          : "bg-warm-cream border-ink-black/30 text-ink-black hover:border-ink-black"
                       }`}
                     >
-                      <p className={`font-black ${selectedTrack.id === role.id ? "text-white" : "text-black"}`}>
+                      <p className={`font-black ${selectedTrack.id === role.id ? "text-paper-white" : "text-ink-black"}`}>
                         {role.title}
                       </p>
-                      <p className={`text-[11px] font-bold font-mono mt-0.5 ${selectedTrack.id === role.id ? "text-electric-coral" : "text-black/60"}`}>
+                      <p className={`text-[11px] font-bold font-mono mt-0.5 ${selectedTrack.id === role.id ? "text-golden-yellow" : "text-ink-black/70"}`}>
                         {role.averageSalary}
                       </p>
                     </button>
@@ -515,13 +515,13 @@ export default function RootHomePage() {
 
                 <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                   <Link href={`/app/career/${selectedTrack.id}`} className="w-full sm:w-auto">
-                    <button className="w-full sm:w-auto px-6 py-3 rounded-lg bg-royal-maroon hover:bg-electric-coral hover:text-black text-white border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-editorial-xs">
+                    <button className="w-full sm:w-auto px-6 py-3 rounded-lg bg-primary-orange hover:bg-rose text-paper-white border-2 border-ink-black font-black text-xs sm:text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-editorial-xs">
                       <span>View {selectedTrack.title} Detail</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </Link>
                   <Link href={ROUTES.careers} className="w-full sm:w-auto">
-                    <button className="w-full sm:w-auto px-6 py-3 rounded-lg bg-white text-black hover:bg-black hover:text-white border-2 border-black font-black text-xs sm:text-sm transition-colors flex items-center justify-center cursor-pointer shadow-editorial-xs">
+                    <button className="w-full sm:w-auto px-6 py-3 rounded-lg bg-paper-white text-ink-black hover:bg-soft-pink border-2 border-ink-black font-black text-xs sm:text-sm transition-colors flex items-center justify-center cursor-pointer shadow-editorial-xs">
                       <span>All 22 Career Tracks</span>
                     </button>
                   </Link>
@@ -529,30 +529,30 @@ export default function RootHomePage() {
               </div>
 
               {/* Right Col: Track Preview */}
-              <div className="lg:col-span-6 rounded-xl bg-black p-6 border-2 border-black text-white space-y-4 shadow-editorial-sm">
-                <div className="flex items-center justify-between border-b border-white/20 pb-3">
+              <div className="lg:col-span-6 rounded-xl bg-ink-black p-6 border-2 border-ink-black text-paper-white space-y-4 shadow-editorial-sm">
+                <div className="flex items-center justify-between border-b border-paper-white/20 pb-3">
                   <div>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/70 font-bold">
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-paper-white/70 font-bold">
                       Track Overview
                     </span>
-                    <h3 className="text-lg font-black text-white">{selectedTrack.title}</h3>
+                    <h3 className="text-lg font-black text-paper-white">{selectedTrack.title}</h3>
                   </div>
-                  <span className="text-sm font-black font-mono text-electric-coral">
+                  <span className="text-sm font-black font-mono text-golden-yellow">
                     {selectedTrack.averageSalary}
                   </span>
                 </div>
 
-                <p className="text-xs text-white/80 leading-relaxed font-medium">
+                <p className="text-xs text-paper-white/80 leading-relaxed font-medium">
                   {selectedTrack.description}
                 </p>
 
                 <div className="pt-2">
-                  <span className="text-[11px] font-mono font-bold text-electric-coral uppercase tracking-wider block mb-2">
+                  <span className="text-[11px] font-mono font-bold text-primary-orange uppercase tracking-wider block mb-2">
                     Primary Required Skills:
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedTrack.primarySkills.map((skill) => (
-                      <span key={skill} className="px-2.5 py-1 rounded bg-white/10 text-white border border-white/20 text-xs font-mono">
+                      <span key={skill} className="px-2.5 py-1 rounded bg-paper-white/10 text-paper-white border border-paper-white/20 text-xs font-mono">
                         {skill}
                       </span>
                     ))}
@@ -567,26 +567,26 @@ export default function RootHomePage() {
             6. DARK CTA SECTION
            ==================================================== */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="rounded-2xl bg-royal-maroon p-8 sm:p-14 text-white shadow-editorial-md relative overflow-hidden border-3 border-black">
+          <div className="rounded-2xl bg-rose p-8 sm:p-14 text-paper-white shadow-editorial-md relative overflow-hidden border-3 border-ink-black">
             <div className="max-w-3xl space-y-4">
-              <span className="text-xs uppercase font-mono tracking-widest text-black font-black bg-electric-coral px-3 py-1 rounded inline-block border-2 border-black">
+              <span className="text-xs uppercase font-mono tracking-widest text-ink-black font-black bg-golden-yellow px-3 py-1 rounded inline-block border-2 border-ink-black">
                 VERIFIABLE PROOF OVER CLAIMS
               </span>
-              <h2 className="text-3xl sm:text-5xl font-display font-black text-white leading-tight uppercase">
+              <h2 className="text-3xl sm:text-5xl font-display font-black text-paper-white leading-tight uppercase">
                 YOUR NEXT LEVEL STARTS HERE.
               </h2>
-              <p className="text-sm sm:text-base text-white/95 font-medium leading-relaxed">
+              <p className="text-sm sm:text-base text-paper-white/95 font-medium leading-relaxed">
                 No generic certificates. Build verifiable repositories, practice live voice architecture rounds, and apply directly to matching employers with transparent scorecards.
               </p>
               <div className="pt-4 flex flex-wrap gap-4">
                 <Link href={ROUTES.onboarding}>
-                  <button className="px-8 py-3.5 rounded-lg bg-electric-coral hover:bg-white text-black font-black border-2 border-black text-sm sm:text-base transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
+                  <button className="px-8 py-3.5 rounded-lg bg-primary-orange hover:bg-paper-white hover:text-ink-black text-paper-white font-black border-2 border-ink-black text-sm sm:text-base transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
                     <span>Get Started Free</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                   </button>
                 </Link>
                 <Link href={ROUTES.auth.login}>
-                  <button className="px-8 py-3.5 rounded-lg bg-black hover:bg-white hover:text-black text-white font-black border-2 border-black text-sm sm:text-base transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
+                  <button className="px-8 py-3.5 rounded-lg bg-ink-black hover:bg-paper-white hover:text-ink-black text-paper-white font-black border-2 border-ink-black text-sm sm:text-base transition-colors flex items-center gap-2 cursor-pointer shadow-editorial-sm">
                     <span>Sign In</span>
                   </button>
                 </Link>

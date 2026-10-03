@@ -46,7 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable} ${outfit.variable}`}>
-      <body className="bg-white text-night font-sans antialiased selection:bg-imperial selection:text-white">
+      <body className="bg-warm-cream text-ink-black font-sans antialiased selection:bg-primary-orange selection:text-paper-white">
         <CareerProvider>
           <AppShell>{children}</AppShell>
         </CareerProvider>

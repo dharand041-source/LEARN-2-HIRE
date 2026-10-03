@@ -41,43 +41,43 @@ export function ExternalApplyModal() {
     >
       <div className="space-y-4 text-xs font-sans">
         {/* Notice Alert */}
-        <div className="p-3.5 rounded-lg bg-electric-coral border-2 border-foreground text-black space-y-1.5">
-          <div className="flex items-center gap-2 text-black font-bold text-xs uppercase font-mono">
+        <div className="p-3.5 rounded-lg bg-primary-orange border-2 border-ink-black text-paper-white space-y-1.5">
+          <div className="flex items-center gap-2 text-paper-white font-bold text-xs uppercase font-mono">
             <Info className="w-4 h-4 shrink-0" />
             <span>Official Application Notice</span>
           </div>
-          <p className="text-[11px] text-black leading-relaxed font-medium">
+          <p className="text-[11px] text-paper-white/95 leading-relaxed font-medium">
             You are about to leave Learn-2-Hire and continue on the external employer destination:{" "}
-            <strong className="text-black font-mono font-bold">{domain}</strong>.
+            <strong className="text-paper-white font-mono font-bold underline">{domain}</strong>.
           </p>
         </div>
 
         {/* Opportunity Summary Card */}
-        <div className="p-4 rounded-lg bg-surface border-2 border-border space-y-2.5">
+        <div className="p-4 rounded-lg bg-paper-white border-2 border-ink-black space-y-2.5">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <span className="text-[10px] text-muted-foreground font-mono font-bold uppercase tracking-wider">
+              <span className="text-[10px] text-ink-black/70 font-mono font-bold uppercase tracking-wider">
                 {job.company}
               </span>
-              <h4 className="text-sm font-bold text-foreground">{job.title}</h4>
+              <h4 className="text-sm font-bold text-ink-black">{job.title}</h4>
             </div>
-            <Badge variant="coral" size="sm">
+            <Badge variant="primary" size="sm">
               {job.opportunityType}
             </Badge>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5 text-[11px] text-muted-foreground font-mono">
-            <span className="flex items-center gap-1 text-foreground">
-              <MapPin className="w-3.5 h-3.5 text-foreground" /> {job.location}
+          <div className="flex flex-wrap items-center gap-2.5 text-[11px] text-ink-black/70 font-mono">
+            <span className="flex items-center gap-1 text-ink-black">
+              <MapPin className="w-3.5 h-3.5 text-ink-black" /> {job.location}
             </span>
             <span>•</span>
-            <span className="text-foreground font-bold">
+            <span className="text-ink-black font-bold">
               {job.remoteType}
             </span>
             {job.salaryMin && (
               <>
                 <span>•</span>
-                <span className="font-mono text-foreground font-bold">
+                <span className="font-mono text-ink-black font-bold">
                   {job.salaryCurrency || "₹"} {job.salaryMin.toLocaleString()}
                   {job.salaryMax ? ` - ${job.salaryMax.toLocaleString()}` : "+"}
                 </span>
@@ -86,7 +86,7 @@ export function ExternalApplyModal() {
           </div>
 
           {/* Source Attribution & Freshness */}
-          <div className="pt-2 border-t-2 border-border flex items-center justify-between text-[10px] text-muted-foreground font-mono">
+          <div className="pt-2 border-t-2 border-ink-black/15 flex items-center justify-between text-[10px] text-ink-black/70 font-mono">
             <span>{job.attribution || `Source: ${job.source}`}</span>
             <span>
               {job.lastVerifiedAt
@@ -97,9 +97,9 @@ export function ExternalApplyModal() {
         </div>
 
         {/* Transparent Policy */}
-        <div className="p-3 rounded-lg bg-surface border-2 border-border text-[11px] text-muted-foreground leading-relaxed space-y-1">
-          <div className="flex items-center gap-1.5 text-foreground font-bold text-xs">
-            <ShieldCheck className="w-4 h-4 text-electric-coral stroke-[2.5]" />
+        <div className="p-3 rounded-lg bg-warm-cream border-2 border-ink-black text-[11px] text-ink-black/80 leading-relaxed space-y-1">
+          <div className="flex items-center gap-1.5 text-ink-black font-bold text-xs">
+            <ShieldCheck className="w-4 h-4 text-primary-orange stroke-[2.5]" />
             <span>Zero Automated Form-Filling Guarantee</span>
           </div>
           <p>
@@ -114,7 +114,7 @@ export function ExternalApplyModal() {
             Cancel
           </Button>
           <Button
-            variant="coral"
+            variant="primary"
             size="sm"
             onClick={confirmExternalApplyRedirect}
             className="gap-2 font-bold shadow-editorial-sm"

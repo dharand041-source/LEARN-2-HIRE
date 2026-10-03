@@ -26,11 +26,13 @@ export function SectionHeader({
   className,
 }: SectionHeaderProps) {
   const accentDotColor =
-    accent === "coral" || accent === "yellow" || accent === "acid" || accent === "gold" || accent === "electric-coral"
-      ? "bg-electric-coral"
-      : accent === "maroon" || accent === "red" || accent === "violet" || accent === "navy" || accent === "royal-maroon"
-      ? "bg-royal-maroon"
-      : "bg-foreground";
+    accent === "primary-orange" || accent === "coral" || accent === "electric-coral"
+      ? "bg-primary-orange"
+      : accent === "golden-yellow" || accent === "yellow" || accent === "acid" || accent === "gold" || accent === "electric-yellow"
+      ? "bg-golden-yellow"
+      : accent === "rose" || accent === "maroon" || accent === "red" || accent === "violet" || accent === "royal-maroon"
+      ? "bg-rose"
+      : "bg-ink-black";
 
   return (
     <div
@@ -43,24 +45,24 @@ export function SectionHeader({
         <div className="flex items-center gap-2 mb-1.5">
           {phase && <Badge variant={badgeVariant} size="sm">{phase}</Badge>}
           {badge && (
-            <span className="text-xs text-muted-foreground font-mono uppercase tracking-wider font-bold">
+            <span className="text-xs text-ink-black/70 font-mono uppercase tracking-wider font-bold">
               {badge}
             </span>
           )}
           {eyebrow && (
             <div className="flex items-center gap-2">
               <span className={cn("w-2 h-2 rounded-full", accentDotColor)} />
-              <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground font-bold">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-ink-black/70 font-bold">
                 {eyebrow}
               </span>
             </div>
           )}
         </div>
-        <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-foreground tracking-tight uppercase leading-snug">
+        <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-ink-black tracking-tight uppercase leading-snug">
           {title}
         </h1>
         {description && (
-          <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-ink-black/75 mt-1 max-w-2xl leading-relaxed font-medium">
             {description}
           </p>
         )}
